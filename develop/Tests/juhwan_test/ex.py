@@ -47,6 +47,7 @@ def main():
         for dev in devices:
             print()
             print('Devices %s(%s) ,RSSI = %d db' % (dev.addr,dev.addrType,dev.rssi))
+            print()
             for (adtype,desc,value) in dev.getScanData():
                 print(' %s   %s' %(desc,value))
 if __name__ == '__main__':
