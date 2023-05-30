@@ -43,7 +43,7 @@ def main():
     while(True):
         devices=scanner.scan(5.0)
         str_data=''
-
+        print('test print')
         for dev in devices:
             print()
             print('Devices %s(%s) ,RSSI = %d db' % (dev.addr,dev.addrType,dev.rssi))
