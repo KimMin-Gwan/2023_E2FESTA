@@ -10,7 +10,8 @@
 * Author    		Date		    Version		History                                                                                 code to fix
 * JH SUN			2023.06.30      v1.00	    First Write
 * JH KIM            2023.06.30      v1.01       scan func write
-* JH SUN            2023.07.02      V1.02       우선순위 큐 사용하여 다수의 eddystone이 들어왔을때 RSSI 가 가장 높은 비콘만 받아온다.             우선순위 큐의 사이즈 개선/시작할때 오류 발생(1회)     
+* JH SUN            2023.07.02      V1.02       우선순위 큐 사용하여 다수의 eddystone이 들어왔을때 RSSI 가 가장 높은 비콘만 받아온다.             우선순위 큐의 사이즈 개선/시작할때 오류 발생(1회) 
+* JH SUN            2023.07.02      V1.02       우선순위큐에서 데이터 추출후 원소 초기화 작업                                                    시작할때 오류 발생(1회) 
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -57,6 +58,8 @@ def scanData(scanner, duration,que):
         else:
             rssi_be,data=que.get()  #get data near becon
             print("Nearest becon is ","beacon_rssi: ",rssi_be,"beacon data: ",data)    #get()[0]=rssi ,[1]= data
+            while que.not_empty:
+                que.get()     #그외의 eddystone의 정보는 다 지운다.
 
 def main():
     que=PriorityQueue()
