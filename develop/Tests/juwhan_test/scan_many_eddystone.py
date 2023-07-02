@@ -7,10 +7,10 @@
 * ==========================================================================
 * Program history
 * ==========================================================================
-* Author    		Date		    Version		History
+* Author    		Date		    Version		History                                                                                 code to fix
 * JH SUN			2023.06.30      v1.00	    First Write
 * JH KIM            2023.06.30      v1.01       scan func write
-* JH SUN            2023.07.02      V1.02       우선순위 큐 사용하여 다수의 eddystone이 들어왔을때 RSSI 가 가장 높은 비콘만 받아온다. 
+* JH SUN            2023.07.02      V1.02       우선순위 큐 사용하여 다수의 eddystone이 들어왔을때 RSSI 가 가장 높은 비콘만 받아온다.             우선순위 큐의 사이즈 개선/시작할때 오류 발생(1회)     
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -50,7 +50,6 @@ def scanData(scanner, duration,que):
                     #beaconDesc = desc
                     beaconData = value[8:]  #erase flag
                     print(rssi_power,beaconData)
-                    print("i am put data now ")
                     que.put((rssi_power,beaconData))
         if que.empty():
             print("que is empty()")
