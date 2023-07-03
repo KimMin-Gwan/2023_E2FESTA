@@ -40,7 +40,7 @@ class ScanDelegate(DefaultDelegate):
         return self.__scan_data__
 
 class ReceiveSignal:
-    def __init__(self,scanner,duration,que,lock):
+    def __init__(self,scanner,duration):
         self.scanner=scanner
         self.duration=duration
         self.lock=threading.Lock()
