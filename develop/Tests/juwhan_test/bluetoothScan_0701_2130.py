@@ -40,6 +40,10 @@ class ScanDelegate(DefaultDelegate):
     def getScanData(self):
         return self.__scan_data__
 
+
+
+
+
 class ReceiveSignal:
     def __init__(self,scanner,duration):
         self.scanner=scanner  #scanner
@@ -47,6 +51,9 @@ class ReceiveSignal:
         self.lock=threading.Lock()
         self.que=PriorityQueue()
         self.data=''
+
+
+
 
     def scanData(self):   #scan thread func
         while True:
@@ -67,32 +74,54 @@ class ReceiveSignal:
 
 
 
+    def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
+        while not self.que.empty():
+            self.que.get()
+
+
     def print_scan_data(self):    #print thread func
         while True:
+
             self.lock.acquire()
             if self.que.empty():
                 self.lock.release()
                 time.sleep(2)
             else:
+
                 rssi_beacon,data=self.que.get()
                 self.data=data
-                self.check_flag()
-                while not self.que.empty():  #priortyqueue use not que.empty()  erase all value 
-                    self.que.get()
-                self.lock.release()
+                flag=self.check_flag()
+
+                if flag=="traffic":
+                    self.traffic_sign()
+                else:
+                    pass
+                
+                self.erase_que()  #erase que 
+                self.lock.release() #mutex unlock
                 time.sleep(1)
 
+
+
     def check_flag(self):
-        if self.data in "74726166666963": 
-            color,Ten,One=self.data[14:16],self.data[16:18],self.data[18:20]
-            if color=="42":
-                color="green"
-            elif color=="52":
-                color="red"
-            print("This is Traffic sign, color : ",color,"left time is ",int(Ten)-30,int(One)-30)
+        if self.data in "74726166666963":   #traffic sign
+            return "traffic"
+        else:
+            pass
         
-    def receive_traffic_sign():
-        pass
+
+
+
+
+    
+    def traffic_sign(self):
+        color,Ten,One=self.data[14:16],self.data[16:18],self.data[18:20]  #tuple형태로 data 꺼내오기
+        if color=="42": 
+            color="green"
+        elif color=="52":
+            color="red"
+        print("This is Traffic sign, color : ",color,"left time is ",int(Ten)-30,int(One)-30)
+
 
 
 
