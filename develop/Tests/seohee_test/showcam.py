@@ -36,7 +36,7 @@ def gen():
 
 @app.route('/video_feed')
 def video_feed():
-   return Response(gen()),
+   return Response(gen(),
    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
