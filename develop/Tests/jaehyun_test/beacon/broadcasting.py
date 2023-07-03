@@ -11,17 +11,15 @@
 * JH KIM            2023.07.03      v1.01       First Write
 * JH KIM            2023.07.03      v1.01       add init code
 * JH KIM            2023.07.03      v1.02       creat class
-* JH KIM            2023.07.03      v1.03       add identifyCode
 """
 import os
 import time
 
-identifyCode = "30 30 31 "
 
 class trafficSignal:
     def __init__(self):
         os.system("sudo hciconfig hci0 up")
-        os.system("sudo hciconfig hcio leadv 3")
+        os.system("sudo hciconfig hci0 leadv 3")
         self.signal = "R"
         self.leftTime = 60
 
@@ -32,7 +30,8 @@ class trafficSignal:
         return self.signal
 
     def trafficBroadcasting(self):
-        defaultStr = "sudo hcitool -i hci0 cmd 0x08 0x0008 15 02 01 06 03 03 aa fe 0d 16 aa fe 10 00 "
+        defaultStr = "sudo hcitool -i hci0 cmd 0x08 0x0008 17 02 01 06 03 03 aa fe 0f 16 aa fe 10 00 "
+        traffic = "74 72 61 66 66 69 63 "
         trf = "74 72 66 "
         if self.getSignal() == "G":
             signalStr = "42 "
@@ -41,7 +40,7 @@ class trafficSignal:
 
         Ten = str(self.leftTime // 10 + 30)
         One = str(self.leftTime % 10 + 30)
-        sendStr = defaultStr + trf + identifyCode + signalStr + Ten + " " + One
+        sendStr = defaultStr + trf + "31 31 31 "+ signalStr + Ten + " " + One
         os.system(sendStr)
 
     def changeTurn(self):
