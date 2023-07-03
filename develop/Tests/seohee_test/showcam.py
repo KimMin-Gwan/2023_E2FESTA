@@ -34,7 +34,7 @@ def gen():
     out.release()
     cv2.destroyAllWindows()
 
-@app.route('/video_feed')
+@app.route('/video')
 def video_feed():
    return Response(gen(),
    mimetype='multipart/x-mixed-replace; boundary=frame')
