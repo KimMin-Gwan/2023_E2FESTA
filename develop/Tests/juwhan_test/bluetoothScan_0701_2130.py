@@ -42,46 +42,49 @@ class ScanDelegate(DefaultDelegate):
         return self.__scan_data__
 
 
-
-def scanData(scanner, duration):   #scan thread func
-    while True:
-        devices = scanner.scan(duration)
-        print("scan end",end="\n ")
-        print("=============================")
-        for dev in devices:
-            for (adtype, desc, value) in dev.getScanData():
-                if  "aafe" in value:
-                    rssi_power=abs(dev.rssi)   #if big rssi then less recive power
-                    beaconData = value[8:]  #erase flag
-                    print(rssi_power,beaconData)
-                    lock.acquire()
-                    que.put((rssi_power,beaconData))
-                    lock.release()
-        time.sleep(1)
-
-def print_scan_data(scanner,duration):    #print thread func
-    while True:
-        lock.acquire()
-        if que.empty():
-            lock.release()
-            time.sleep(2)
-        else:
-            rssi_beacon,data=que.get()
-            print("Nearest beacon_rssi : ",rssi_beacon,"beacon_data: ",data)
-            while not que.empty():  #priortyqueue use not que.empty()  erase all value 
-                que.get()
-            lock.release()
+class ReceiveSignal:
+    def __init__(self,scanner,duration):
+        self.scanner=scanner
+        self.duration=duration
+    def scanData(scanner, duration):   #scan thread func
+        while True:
+            devices = scanner.scan(duration)
+            print("scan end",end="\n ")
+            print("=============================")
+            for dev in devices:
+                for (adtype, desc, value) in dev.getScanData():
+                    if  "aafe" in value:
+                        rssi_power=abs(dev.rssi)   #if big rssi then less recive power
+                        beaconData = value[8:]  #erase flag
+                        print(rssi_power,beaconData)
+                        lock.acquire()
+                        que.put((rssi_power,beaconData))
+                        lock.release()
             time.sleep(1)
+
+    def print_scan_data(scanner,duration):    #print thread func
+        while True:
+            lock.acquire()
+            if que.empty():
+                lock.release()
+                time.sleep(2)
+            else:
+                rssi_beacon,data=que.get()
+                print("Nearest beacon_rssi : ",rssi_beacon,"beacon_data: ",data)
+                while not que.empty():  #priortyqueue use not que.empty()  erase all value 
+                    que.get()
+                lock.release()
+                time.sleep(1)
 def main():
     duration =3 
     scan_delegate = ScanDelegate()
     scanner = Scanner().withDelegate(scan_delegate)
-    scan_thread=threading.Thread(target=scanData,args=(scanner,duration))
-    print_thread=threading.Thread(target=print_scan_data,args=(scanner,duration))
+    receive_signal=ReceiveSignal(scanner,duration)
+    scan_thread=threading.Thread(target=receive_signal.scanData,args=(scanner,duration))
+    print_thread=threading.Thread(target=receive_signal.print_scan_data,args=(scanner,duration))
 
     scan_thread.start()
     print_thread.start()
-
 
     scan_thread.join()
     print_thread.join()
