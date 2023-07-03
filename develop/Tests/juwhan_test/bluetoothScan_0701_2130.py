@@ -85,6 +85,7 @@ class ReceiveSignal:
 
     def check_flag(self):
         if self.data in "74726166666963":
+            print("dfasfdasf")
             print("df")
             color,Ten,One=self.data[7:8],self.data[8:9],self.data[9:10]
             print("This is Traffic sign, color : ",color,"left time is ",Ten-30,One-30)
