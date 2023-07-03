@@ -26,9 +26,8 @@ def gen_frames():
         out.write(gray)
         cv2.imshow('frame',gray)
 
-        if cv2.waitKey(1)&0xFF==ord('1'): 
-            break
-            
+        if cv2.waitKey(1)&0xFF==ord('1'): break
+
     else:
         print("Fail to read frame!")
         break
