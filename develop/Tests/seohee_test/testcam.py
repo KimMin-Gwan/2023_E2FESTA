@@ -2,7 +2,7 @@ from flask import Flask, request, Response, stream_with_context, render_template
 import imutils
 import queue as Queue
 import cv2
-import streamer as st
+import streamer1 as st
 
 streamer = st.Streamer()
 
