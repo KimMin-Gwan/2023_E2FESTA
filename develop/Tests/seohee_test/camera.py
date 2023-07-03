@@ -20,6 +20,7 @@ while(True):
     else:
         print("Fail to read frame!")
         break
+    print(frame)
         
 cap.release()
 out.release()
