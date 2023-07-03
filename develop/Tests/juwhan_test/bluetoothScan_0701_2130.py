@@ -84,7 +84,8 @@ class ReceiveSignal:
                 time.sleep(1)
 
     def check_flag(self):
-        if self.data in "74 72 61 66 66 69 63 ":
+        if self.data in "74726166666963":
+            print("df")
             color,Ten,One=self.data[7:8],self.data[8:9],self.data[9:10]
             print("This is Traffic sign, color : ",color,"left time is ",Ten-30,One-30)
         
