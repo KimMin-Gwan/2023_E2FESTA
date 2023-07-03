@@ -71,9 +71,6 @@ class ReceiveSignal:
                         self.lock.release()
             time.sleep(1)
 
-
-
-
     def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
         while not self.que.empty():
             self.que.get()
@@ -104,7 +101,7 @@ class ReceiveSignal:
 
 
     def check_flag(self):
-        if self.data in "74726166666963":   #traffic sign
+        if self.data in "747266":   #traffic sign
             return "traffic"
         else:
             pass
@@ -115,12 +112,12 @@ class ReceiveSignal:
 
     
     def traffic_sign(self):
-        color,Ten,One=self.data[14:16],self.data[16:18],self.data[18:20]  #tuple형태로 data 꺼내오기
+        trafiic_number,color,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]  #tuple형태로 data 꺼내오기
         if color=="42": 
             color="green"
         elif color=="52":
             color="red"
-        print("This is Traffic sign, color : ",color,"left time is ",int(Ten)-30,int(One)-30)
+        print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
 
 
 
