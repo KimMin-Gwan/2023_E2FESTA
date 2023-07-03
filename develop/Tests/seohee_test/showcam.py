@@ -28,12 +28,12 @@ def gen_frames():
 
         if cv2.waitKey(1)&0xFF==ord('1'): 
             break
+            
     else:
         print("Fail to read frame!")
         break
 
-     yield(b'--frame\r\n'
-        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    yield(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video')
 def video():
