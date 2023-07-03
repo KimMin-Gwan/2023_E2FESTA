@@ -76,7 +76,6 @@ class ReceiveSignal:
             else:
                 rssi_beacon,data=self.que.get()
                 self.data=data
-                #print("Nearest beacon_rssi : ",rssi_beacon,"beacon_data: ",data)
                 self.check_flag()
                 while not self.que.empty():  #priortyqueue use not que.empty()  erase all value 
                     self.que.get()
@@ -84,11 +83,13 @@ class ReceiveSignal:
                 time.sleep(1)
 
     def check_flag(self):
-        if self.data in "74726166666963":
-            print("dfasfdasf")
-            print("df")
-            color,Ten,One=self.data[7:8],self.data[8:9],self.data[9:10]
-            print("This is Traffic sign, color : ",color,"left time is ",Ten-30,One-30)
+        if self.data in "74726166666963": 
+            color,Ten,One=self.data[14:16],self.data[16:18],self.data[18:20]
+            if color=="42":
+                color="green"
+            elif color=="52":
+                color="red"
+            print("This is Traffic sign, color : ",color,"left time is ",int(Ten)-30,int(One)-30)
         
     def receive_traffic_sign():
         pass
