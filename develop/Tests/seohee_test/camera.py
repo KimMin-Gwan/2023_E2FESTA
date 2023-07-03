@@ -12,7 +12,7 @@ print(out.isOpened())
 while(True):
     ret,frame=cap.read()
     if ret:
-        gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        gray=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
         out.write(gray)
         cv2.imshow('frame',gray)
 
