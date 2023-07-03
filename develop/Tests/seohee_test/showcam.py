@@ -19,20 +19,23 @@ def video_show():
     return render_template('video_show.html')
 
 def gen_frames():
-    while True:
-       ret,frame=cap.read()
-    if ret:
-        gray=cv2.cvtColor(frame,cv2.COLOR_BGR2BGR)
-        out.write(gray)
-        cv2.imshow('frame',gray)
+   while(True):
+        ret,frame=cap.read()
+        if ret:
+            gray=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+            out.write(gray)
+            cv2.imshow('frame',gray)
 
-        if cv2.waitKey(1)&0xFF==ord('1'): break
+            if cv2.waitKey(1)&0xFF==ord('1'): break
+        else:
+            print("Fail to read frame!")
+            break
 
-    else:
-        print("Fail to read frame!")
-        break
-
-    yield(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        yield(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
 
 @app.route('/video')
 def video():
