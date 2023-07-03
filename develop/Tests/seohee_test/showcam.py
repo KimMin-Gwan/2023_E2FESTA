@@ -20,16 +20,16 @@ def index():
 
 def gen(camera):
     while(True):
-    ret,frame=cap.read()
-    if ret:
-        gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-        out.write(gray)
-        cv2.imshow('frame',gray)
+        ret,frame=cap.read()
+        if ret:
+            gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+            out.write(gray)
+            cv2.imshow('frame',gray)
 
-        if cv2.waitKey(1)&0xFF==ord('1'): break
-    else:
-        print("Fail to read frame!")
-        break
+            if cv2.waitKey(1)&0xFF==ord('1'): break
+        else:
+            print("Fail to read frame!")
+            break
     cap.release()
     out.release()
     cv2.destroyAllWindows()
