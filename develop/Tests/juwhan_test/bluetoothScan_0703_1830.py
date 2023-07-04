@@ -85,9 +85,8 @@ class ReceiveSignal:
                 rssi_beacon,data=self.que.get()
                 self.data=data
                 flag=self.Check_flag()   #chk flag
-                print("출력 부분 data",self.data)
+    
                 if flag=="Traffic":
-                    print("dfdf")
                     self.Traffic_sign()
                 elif flag=="Subway":
                     self.Subway_sign()
@@ -98,10 +97,10 @@ class ReceiveSignal:
                 time.sleep(1)
 
     def Check_flag(self):
-        if self.data in "545246 ":   #traffic sign
+        if "545246" in self.data:
             print("지하철")
             return "Traffic"
-        elif self.data in "535542 ":  #SUB subway
+        elif "535542" in self.data:  #SUB subway
             return "Subway"
 
     def Traffic_sign(self):
