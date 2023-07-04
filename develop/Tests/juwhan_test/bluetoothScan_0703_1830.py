@@ -85,7 +85,7 @@ class ReceiveSignal:
                 rssi_beacon,data=self.que.get()
                 self.data=data
                 flag=self.Check_flag()   #chk flag
-
+                print("thread")
                 if flag=="Traffic":
                     print("dfdf")
                     self.Traffic_sign()
