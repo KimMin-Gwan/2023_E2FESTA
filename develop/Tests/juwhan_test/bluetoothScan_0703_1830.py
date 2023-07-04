@@ -15,7 +15,8 @@
 * JH SUN            2023.07.02      V1.02       우선순위큐에서 데이터 추출후 원소 초기화 작업                                                    시작할때 오류 발생(1회) 
 * JH SUN            2023 07.02      V1.10       멀티 스레드를 통해 scan과 출력을 각각의 스레드로 관리한다.                                       시작할때 오류 발생(1회)
 * JH SUN            2023 07.02      V1.11       dead_lock 발생 해결 priorty_queue에서는 que.notempty()가아닌 not que.empty()사용   멀티스레드 정상 작동                                                      시작할때 오류 발생(1회)
-* JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성                                                                      
+* JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성       
+* JH SUN            2023 07.4       V1.21       flag 에 따른 각각 함수 생성                                                                  
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -71,10 +72,6 @@ class ReceiveSignal:
                         self.lock.release()
             time.sleep(1)
 
-    def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
-        while not self.que.empty():
-            self.que.get()
-
 
     def print_scan_data(self):    #print thread func
         while True:
@@ -98,19 +95,12 @@ class ReceiveSignal:
                 self.lock.release() #mutex unlock
                 time.sleep(1)
 
-
-
     def check_flag(self):
         if self.data in "747266":   #traffic sign
             return "traffic"
         else:
             pass
-        
 
-
-
-
-    
     def traffic_sign(self):
         trafiic_number,color,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]  #tuple형태로 data 꺼내오기
         if color=="42": 
@@ -120,6 +110,9 @@ class ReceiveSignal:
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
 
 
+    def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
+        while not self.que.empty():
+            self.que.get()
 
 
 
