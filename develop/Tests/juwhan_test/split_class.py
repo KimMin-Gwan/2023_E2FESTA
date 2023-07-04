@@ -49,7 +49,7 @@ class ScanDelegate(DefaultDelegate):
         return self.__scan_data__
     
 
-class ReceiveSignal:
+class ReceiveSignal:  #receive class
     def __init__(self,scanner,duration):
         self.scanner=scanner  #scanner
         self.duration=duration  #scan duration
@@ -71,9 +71,10 @@ class ReceiveSignal:
             time.sleep(1)
 
 
-class ProcessingData:
+
+class ProcessingData:  #data처리 클래스
     def __init__(self):
-        self.data=""
+        self.data=""  #비콘 data 초기화
 
     def process_beacon_data(self):    #print thread func
         while True:
@@ -97,6 +98,12 @@ class ProcessingData:
                 self.Erase_que()  #erase que 
                 lock.release() #mutex unlock
                 time.sleep(1)
+
+
+
+    def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
+        while not que.empty():
+            que.get()
 
 
     def Check_flag(self):
@@ -133,13 +140,8 @@ class ProcessingData:
 
 
 
-    def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
-        while not que.empty():
-            que.get()
-
-
-
-            
+    
+  
 
 
 def main():
