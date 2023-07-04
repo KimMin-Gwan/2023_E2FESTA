@@ -8,9 +8,10 @@
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History
-* JH KIM            2023.07.03      v1.01       First Write
+* JH KIM            2023.07.02      v1.00       First Write
 * JH KIM            2023.07.03      v1.01       add init code
 * JH KIM            2023.07.03      v1.02       creat class
+* JH KIM            2023.07.04      v1.03       TRF code modified
 """
 import os
 import time
@@ -31,16 +32,15 @@ class trafficSignal:
 
     def trafficBroadcasting(self):
         defaultStr = "sudo hcitool -i hci0 cmd 0x08 0x0008 17 02 01 06 03 03 aa fe 0f 16 aa fe 10 00 "
-        traffic = "74 72 61 66 66 69 63 "
-        trf = "74 72 66 "
+        TRF = "54 52 46 "
         if self.getSignal() == "G":
-            signalStr = "42 "
+            signalStr = "47 "
         else:
             signalStr = "52 "
 
         Ten = str(self.leftTime // 10 + 30)
         One = str(self.leftTime % 10 + 30)
-        sendStr = defaultStr + trf + "31 31 31 "+ signalStr + Ten + " " + One
+        sendStr = defaultStr + TRF + "30 30 31 "+ signalStr + Ten + " " + One
         os.system(sendStr)
 
     def changeTurn(self):
