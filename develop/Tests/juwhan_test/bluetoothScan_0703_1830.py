@@ -87,6 +87,7 @@ class ReceiveSignal:
                 flag=self.Check_flag()   #chk flag
 
                 if flag=="Traffic":
+                    print("dfdf")
                     self.Traffic_sign()
                 elif flag=="Subway":
                     self.Subway_sign()
