@@ -98,7 +98,6 @@ class ReceiveSignal:
 
     def Check_flag(self):
         if "545246" in self.data:
-            print("지하철")
             return "Traffic"
         elif "535542" in self.data:  #SUB subway
             return "Subway"
@@ -109,6 +108,8 @@ class ReceiveSignal:
             color="green"
         elif color=="52":
             color="red"
+        trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
+        trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
 
 
