@@ -98,10 +98,10 @@ class ReceiveSignal:
                 time.sleep(1)
 
     def Check_flag(self):
-        if self.data in "545246":   #traffic sign
+        if self.data in "545246 ":   #traffic sign
             print("지하철")
             return "Traffic"
-        elif self.data in "535542":  #SUB subway
+        elif self.data in "535542 ":  #SUB subway
             return "Subway"
 
     def Traffic_sign(self):
