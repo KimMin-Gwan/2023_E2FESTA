@@ -8,10 +8,10 @@
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History
-* JH KIM            2023.07.02      v1.00       First Write
+* JH KIM            2023.07.03      v1.00       First Write
 * JH KIM            2023.07.03      v1.01       add init code
 * JH KIM            2023.07.03      v1.02       creat class
-* JH KIM            2023.07.04      v1.03       TRF code modified
+* JH KIM            2023.07.04      v1.03       TRF code modified/start time change 60->30
 """
 import os
 import time
@@ -22,7 +22,7 @@ class trafficSignal:
         os.system("sudo hciconfig hci0 up")
         os.system("sudo hciconfig hci0 leadv 3")
         self.signal = "R"
-        self.leftTime = 60
+        self.leftTime = 30
 
     def setSignal(self, newSig):
         self.signal = newSig
