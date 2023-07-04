@@ -17,7 +17,8 @@
 * JH SUN            2023 07.02      V1.11       dead_lock 발생 해결 priorty_queue에서는 que.notempty()가아닌 not que.empty()사용   멀티스레드 정상 작동                                                      시작할때 오류 발생(1회)
 * JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성       
 * JH SUN            2023 07.04      V1.21       flag 에 따른 각각 함수 생성          
-* JH SUN            2023 07 04      V1.22       SUBWAY 추가 각각의 eddystone 번호 string화 완료                                                  
+* JH SUN            2023 07 04      V1.22       SUBWAY 추가 각각의 eddystone 번호 string화 완료   
+* JH SUN            2023 07 04      V1.23       Receive 와 Processign 클래스 분리                                               
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
