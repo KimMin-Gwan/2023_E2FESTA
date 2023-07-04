@@ -84,33 +84,44 @@ class ReceiveSignal:
 
                 rssi_beacon,data=self.que.get()
                 self.data=data
-                flag=self.check_flag()
+                flag=self.Check_flag()   #chk flag
 
-                if flag=="traffic":
-                    self.traffic_sign()
-                else:
-                    pass
+                if flag=="Traffic":
+                    self.Traffic_sign()
+                elif flag=="Subway":
+                    self.Subway_sign()
+                    
                 
-                self.erase_que()  #erase que 
+                self.Erase_que()  #erase que 
                 self.lock.release() #mutex unlock
                 time.sleep(1)
 
-    def check_flag(self):
-        if self.data in "747266":   #traffic sign
-            return "traffic"
-        else:
-            pass
+    def Check_flag(self):
+        if self.data in "545246":   #traffic sign
+            return "Traffic"
+        elif self.data in "535542":  #SUB subway
+            return "Subway"
 
-    def traffic_sign(self):
+    def Traffic_sign(self):
         trafiic_number,color,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]  #tuple형태로 data 꺼내오기
-        if color=="42": 
+        if color=="47": 
             color="green"
         elif color=="52":
             color="red"
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
 
 
-    def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
+    def Subway_sign(self):
+        subway_number,way,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]
+        if way=="55":
+            way="상행선"
+        elif way=="44":
+            way="하행선"
+        print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
+
+
+
+    def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
         while not self.que.empty():
             self.que.get()
 
