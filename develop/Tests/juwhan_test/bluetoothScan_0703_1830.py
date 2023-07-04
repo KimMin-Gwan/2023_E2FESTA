@@ -15,7 +15,9 @@
 * JH SUN            2023.07.02      V1.02       우선순위큐에서 데이터 추출후 원소 초기화 작업                                                    시작할때 오류 발생(1회) 
 * JH SUN            2023 07.02      V1.10       멀티 스레드를 통해 scan과 출력을 각각의 스레드로 관리한다.                                       시작할때 오류 발생(1회)
 * JH SUN            2023 07.02      V1.11       dead_lock 발생 해결 priorty_queue에서는 que.notempty()가아닌 not que.empty()사용   멀티스레드 정상 작동                                                      시작할때 오류 발생(1회)
-* JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성                                                                      
+* JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성       
+* JH SUN            2023 07.04      V1.21       flag 에 따른 각각 함수 생성          
+* JH SUN            2023 07 04      V1.22       SUBWAY 추가 각각의 eddystone 번호 string화 완료                                                  
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -71,10 +73,6 @@ class ReceiveSignal:
                         self.lock.release()
             time.sleep(1)
 
-    def erase_que(self):    #priortyqueue use not que.empty()  erase all value 
-        while not self.que.empty():
-            self.que.get()
-
 
     def print_scan_data(self):    #print thread func
         while True:
@@ -87,39 +85,51 @@ class ReceiveSignal:
 
                 rssi_beacon,data=self.que.get()
                 self.data=data
-                flag=self.check_flag()
-
-                if flag=="traffic":
-                    self.traffic_sign()
-                else:
-                    pass
+                flag=self.Check_flag()   #chk flag
+    
+                if flag=="Traffic":
+                    self.Traffic_sign()
+                elif flag=="Subway":
+                    self.Subway_sign()
+                    
                 
-                self.erase_que()  #erase que 
+                self.Erase_que()  #erase que 
                 self.lock.release() #mutex unlock
                 time.sleep(1)
 
+    def Check_flag(self):
+        if "545246" in self.data:
+            return "Traffic"
+        elif "535542" in self.data:  #SUB subway
+            return "Subway"
 
-
-    def check_flag(self):
-        if self.data in "747266":   #traffic sign
-            return "traffic"
-        else:
-            pass
-        
-
-
-
-
-    
-    def traffic_sign(self):
+    def Traffic_sign(self):
         trafiic_number,color,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]  #tuple형태로 data 꺼내오기
-        if color=="42": 
+        if color=="47": 
             color="green"
         elif color=="52":
             color="red"
-        print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
+        trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
+        trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
+
+        print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
 
 
+    def Subway_sign(self):
+        subway_number,way,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]
+        if way=="55":
+            way="상행선"
+        elif way=="44":
+            way="하행선"
+        subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
+        subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
+        print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
+
+
+
+    def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
+        while not self.que.empty():
+            self.que.get()
 
 
 
