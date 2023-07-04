@@ -16,7 +16,8 @@
 * JH SUN            2023 07.02      V1.10       멀티 스레드를 통해 scan과 출력을 각각의 스레드로 관리한다.                                       시작할때 오류 발생(1회)
 * JH SUN            2023 07.02      V1.11       dead_lock 발생 해결 priorty_queue에서는 que.notempty()가아닌 not que.empty()사용   멀티스레드 정상 작동                                                      시작할때 오류 발생(1회)
 * JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성       
-* JH SUN            2023 07.4       V1.21       flag 에 따른 각각 함수 생성                                                                  
+* JH SUN            2023 07.04      V1.21       flag 에 따른 각각 함수 생성          
+* JH SUN            2023 07 04      V1.22       SUBWAY 추가 각각의 eddystone 번호 string화 완료                                                  
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -110,7 +111,8 @@ class ReceiveSignal:
             color="red"
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
         trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
-        print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30)
+
+        print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
 
 
     def Subway_sign(self):
@@ -119,6 +121,8 @@ class ReceiveSignal:
             way="상행선"
         elif way=="44":
             way="하행선"
+        subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
+        subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
 
 
