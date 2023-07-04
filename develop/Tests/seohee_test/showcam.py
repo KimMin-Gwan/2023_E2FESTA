@@ -1,43 +1,36 @@
-#showcam
+#show camera
+#---------------------------
 from flask import Flask, render_template, Response
 import cv2
 
-cap = cv2.VideoCapture(0)
+app=Flask(__name__)
 
-width=int(cap.get(3))
-height=int(cap.get(4))
-fps=20
+camera=cv2.VideoCapture(0)
 
-app = Flask(__name__)
+def gen_frames():  # generate frame by frame from camera
+    while (True):
+        # Capture frame-by-frame
+        success, frame = camera.read()  # read the camera frame
+        
+        if (not success):
+            break
+            
+        else:
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+                    # concat frame one by one and show result
 
-fcc=cv2.VideoWriter_fourcc('M','J','P','G')
-out=cv2.VideoWriter('webcam.avi',fcc,fps,(width,height),isColor=False)
-print(out.isOpened())
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen_frames(), 
+        mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/')
-def index():
-   return render_template('video_show.html')
+def hello():
+    return render_template('video_show.html')
 
-def gen():
-    while(True):
-        ret,frame=cap.read()
-        if ret:
-            gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-            out.write(gray)
-            cv2.imshow('frame',gray)
-
-            if cv2.waitKey(1)&0xFF==ord('1'): break
-        else:
-            print("Fail to read frame!")
-            break
-    cap.release()
-    out.release()
-    cv2.destroyAllWindows()
-
-@app.route('/video')
-def video_feed():
-   return Response(gen(),
-   mimetype='multipart/x-mixed-replace; boundary=frame')
-
-if __name__ == '__main__':
-   app.run(host='165.229.125.172',port=7777)
+if (__name__ == '__main__'):
+    app.run(host='0.0.0.0', port=5000)
