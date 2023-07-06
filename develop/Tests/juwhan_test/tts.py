@@ -1,4 +1,4 @@
-from gtts import gTTS
+from gtts import *
 from playsound import playsound
 
 comment="안녕 하세요 저는 선주환입니다."
