@@ -1,9 +1,11 @@
-from gtts import *
-from playsound import playsound
+from gtts import gTTS
+import os
 
-comment="안녕 하세요 저는 선주환입니다."
-comment_to_voice=gTTS(text=comment,lang="ko")
-comment_to_voice.save("test_ko_mp3")
+def text_to_speech(text, filename):
+    tts = gTTS(text=text, lang='en')  # 텍스트와 언어 설정
+    tts.save(filename)
+    os.system('mpg321 ' + filename)  # 음성 파일 재생
 
-comment_to_voice=gTTS(text=comment,lang="en")
-comment_to_voice.save("test_en_mp3")
+text = input("음성으로 변환할 텍스트를 입력하세요: ")
+filename = 'output.mp3'
+text_to_speech(text, filename)
