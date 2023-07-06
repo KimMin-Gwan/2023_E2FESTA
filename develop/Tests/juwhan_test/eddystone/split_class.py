@@ -25,7 +25,8 @@ from queue import PriorityQueue
 
 import threading
 import time
-
+from gtts import gTTS
+import pygame
 lock=threading.Lock()
 que=PriorityQueue()
 
@@ -76,7 +77,6 @@ class ReceiveSignal:  #receive class
 class ProcessingData:  #data처리 클래스
     def __init__(self):
         self.data=""  #비콘 data 초기화
-
     def process_beacon_data(self):    #print thread func
         while True:
 
@@ -99,9 +99,7 @@ class ProcessingData:  #data처리 클래스
                 self.Erase_que()  #erase que 
                 lock.release() #mutex unlock
                 time.sleep(1)
-
-
-
+                
     def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
         while not que.empty():
             que.get()
@@ -124,9 +122,9 @@ class ProcessingData:  #data처리 클래스
 
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
         trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
-
+        my_str="이 비콘은 신호등 입니다. 비콘 넘버는"+trafiic_number+"이고"+"현재 색깔은"+color+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(Ten)-30)+"초 입니다."
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
-
+        self.tts_read(my_str)
 
     def Subway_sign(self):
         subway_number,way,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]
@@ -138,14 +136,23 @@ class ProcessingData:  #data처리 클래스
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
         subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
+    def tts_read(self,mytext):
+        self.tts=gTTS(text=mytext)
+
+        self.tts.save(self.file_name)
+        pygame.init()
+        pygame.mixer.music.load(self.file_name)
+        pygame.mixer.music.play()
+
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
 
 
-
-    
-  
 
 
 def main():
+
+
     duration =3 
     scan_delegate = ScanDelegate()
     scanner = Scanner().withDelegate(scan_delegate)
