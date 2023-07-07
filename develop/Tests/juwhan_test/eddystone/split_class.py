@@ -139,9 +139,9 @@ class ProcessingData:  #data처리 클래스
     def tts_read(self,mytext):
         self.tts=gTTS(text=mytext)
 
-        self.tts.save(self.file_name)
+        self.tts.save('test.mp3')
         pygame.init()
-        pygame.mixer.music.load(self.file_name)
+        pygame.mixer.music.load('test.mp3')
         pygame.mixer.music.play()
 
         while pygame.mixer.music.get_busy():
