@@ -141,7 +141,7 @@ class ProcessingData:  #data처리 클래스
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
 
     def tts_read(self,mytext):
-        self.tts=gTTS(text=mytext)
+        self.tts=gTTS(text=mytext,lang='ko')
 
         self.tts.save('test2.mp3')
         pygame.init()
