@@ -122,6 +122,8 @@ class ProcessingData:  #data처리 클래스
 
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
         trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
+
+
         my_str="신호등 입니다. ","현재 색깔은"+color+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(Ten)-30)+"초 입니다."
 
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
@@ -141,9 +143,9 @@ class ProcessingData:  #data처리 클래스
     def tts_read(self,mytext):
         self.tts=gTTS(text=mytext)
 
-        self.tts.save('test.mp3')
+        self.tts.save('test2.mp3')
         pygame.init()
-        pygame.mixer.music.load('test.mp3')
+        pygame.mixer.music.load('test2.mp3')
         pygame.mixer.music.play()
 
         while pygame.mixer.music.get_busy():
