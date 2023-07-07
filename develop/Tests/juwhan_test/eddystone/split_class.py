@@ -92,6 +92,7 @@ class ProcessingData:  #data처리 클래스
     
                 if flag=="Traffic":
                     self.Traffic_sign()
+
                 elif flag=="Subway":
                     self.Subway_sign()
                     
@@ -138,6 +139,7 @@ class ProcessingData:  #data처리 클래스
         
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
         subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
+        
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
 
     def tts_read(self,mytext):
@@ -152,6 +154,16 @@ class ProcessingData:  #data처리 클래스
             pygame.time.Clock().tick(10)
 
 
+
+
+class gTTS_master:
+    def __init__(self):
+        pass
+    
+
+class gTTS:
+    def __init__(self):
+        pass
 
 
 def main():
