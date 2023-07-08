@@ -156,16 +156,6 @@ class ProcessingData:  #data처리 클래스
 
 
 
-class gTTS_master:
-    def __init__(self):
-        pass
-    
-
-class gTTS:
-    def __init__(self):
-        pass
-
-
 def main():
 
 
