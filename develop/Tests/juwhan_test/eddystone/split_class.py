@@ -139,9 +139,9 @@ class ProcessingData:  #data처리 클래스
         
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
         subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
-        
+        my_str="지하철 입니다. "+"현재"+way+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(Ten)-30)+"분 입니다."
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
-
+        self.tts_read(my_str)
     def tts_read(self,mytext):
         self.tts=gTTS(text=mytext,lang='ko')
 
