@@ -123,9 +123,10 @@ class ProcessingData:  #data처리 클래스
 
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
         trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
-
-
-        my_str="신호등 입니다. "+"현재 색깔은"+color+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(One)-30)+"초 입니다."
+        if int(Ten)-30==0:
+            my_str="신호등 입니다. "+"현재 색깔은"+color+"이고 남은 시간은"+str(int(One)-30)+"초 입니다."
+        else:
+            my_str="신호등 입니다. "+"현재 색깔은"+color+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(One)-30)+"초 입니다."
 
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
         self.tts_read(my_str)
@@ -139,8 +140,13 @@ class ProcessingData:  #data처리 클래스
         
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
         subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
-        my_str="지하철 입니다. "+"현재"+way+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(One)-30)+"분 입니다."
+        if int(Ten)-30==0:
+            my_str=my_str="지하철 입니다. "+"현재"+way+"이고 남은 시간은"+str(int(One)-30)+"분 입니다."
+        else:
+            my_str=my_str="지하철 입니다. "+"현재"+way+"이고 남은 시간은"+str(int(Ten)-30)+"십"+str(int(One)-30)+"분 입니다."
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
+        
+        
         self.tts_read(my_str)
     def tts_read(self,mytext):
         self.tts=gTTS(text=mytext,lang='ko')
