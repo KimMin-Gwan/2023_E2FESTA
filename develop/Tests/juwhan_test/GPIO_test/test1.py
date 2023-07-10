@@ -20,7 +20,7 @@ import RPi.GPIO as GPIO
 import time
 
 # GPIO 핀 번호 설정
-button_pin = 15
+button_pin = 18
 
 # GPIO 모드 설정
 GPIO.setmode(GPIO.BCM)
