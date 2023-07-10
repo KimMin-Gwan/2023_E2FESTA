@@ -1,7 +1,7 @@
 from pymongo import MongoClient# pymongo 임포트
 #import datetime
 
-client=MongoClient('mongodb+srv://seohee:Qlqjs486@cluster.mb1ux71.mongodb.net/')
+client=MongoClient('')
 
 db = client.hobby# 데이터베이스 이름 : hobby
 
