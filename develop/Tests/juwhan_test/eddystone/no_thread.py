@@ -2,23 +2,14 @@
 """
 * Project : 2023CDP Eddystone Receiver
 * Program Purpose and Features :
-* - receive broadcasting message and processing
+* - receive broadcasting no thread
 * Author : JH KIM, JH SUN
 * First Write Date : 2023.06.30
 * ==========================================================================
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
-* JH SUN			2023.06.30      v1.00	    First Write
-* JH KIM            2023.06.30      v1.01       scan func write
-* JH SUN            2023.07.02      V1.02       우선순위 큐 사용하여 다수의 eddystone이 들어왔을때 RSSI 가 가장 높은 비콘만 받아온다.             우선순위 큐의 사이즈 개선/시작할때 오류 발생(1회) 
-* JH SUN            2023.07.02      V1.02       우선순위큐에서 데이터 추출후 원소 초기화 작업                                                    시작할때 오류 발생(1회) 
-* JH SUN            2023 07.02      V1.10       멀티 스레드를 통해 scan과 출력을 각각의 스레드로 관리한다.                                       시작할때 오류 발생(1회)
-* JH SUN            2023 07.02      V1.11       dead_lock 발생 해결 priorty_queue에서는 que.notempty()가아닌 not que.empty()사용   멀티스레드 정상 작동                                                      시작할때 오류 발생(1회)
-* JH SUN            2023 07.03      V1.20       ReceiveSignal 클래스 생성       
-* JH SUN            2023 07.04      V1.21       flag 에 따른 각각 함수 생성          
-* JH SUN            2023 07 04      V1.22       SUBWAY 추가 각각의 eddystone 번호 string화 완료   
-* JH SUN            2023 07 04      V1.23       Receive 와 Processign 클래스 분리                                               
+* JH SUN			2023.06.30      v1.00	    thread 안쓰는 버전                                            
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
@@ -27,8 +18,6 @@ import threading
 import time
 from gtts import gTTS
 import pygame
-lock=threading.Lock()
-que=PriorityQueue()
 
 
 class ScanDelegate(DefaultDelegate):
@@ -51,60 +40,43 @@ class ScanDelegate(DefaultDelegate):
         return self.__scan_data__
     
 
+
+class beacon_master:
+    def __init__(self) -> None:
+        self.receive=ReceiveSignal()
+        self.information={}
+
+    def scan_beacon(self):
+        self.receive.scanData()
+
+    def get_scan_beacon(self):
+        self.information=self.receive.get_scan_data()
+        process=ProcessingData(self.information)   #ProcessingData클래스에 인자전달과 생성을 해준다
+        process.process_beacon_data()
+
+
+
 class ReceiveSignal:  #receive class
     def __init__(self,scanner,duration):
         self.scanner=scanner  #scanner
         self.duration=duration  #scan duration
-        self.dit={}
+        self.information_dict={}
     def scanData(self):   #scan thread func
-        while True:
-            devices = self.scanner.scan(self.duration)
-            print("scan end",end="\n ")
-            print("=============================")
-            for dev in devices:
-                for (adtype, desc, value) in dev.getScanData():
-                    if  "aafe" in value:
-                        rssi_power=abs(dev.rssi)   #if big rssi then less recive power
-                        beaconData = value[8:]  #erase flag
-                        print(rssi_power,beaconData)
-                        lock.acquire()
-                        que.put((rssi_power,beaconData))
-                        lock.release()
-            time.sleep(1)
+        devices = self.scanner.scan(self.duration)
+        print("scan end",end="\n ")
+        print("=============================")
+        for dev in devices:
+            for (adtype, desc, value) in dev.getScanData():
+                if  "aafe" in value:
+                    rssi_power=abs(dev.rssi)   #if big rssi then less recive power
+                    beaconData = value[8:]  #erase flag
+                    print(rssi_power,beaconData)
+                    key=self.Check_flag(beaconData)
+                    self.information_dict[key]=beaconData
 
-
-
-class ProcessingData:  #data처리 클래스
-    def __init__(self):
-        self.data=""  #비콘 data 초기화
-    def process_beacon_data(self):    #print thread func
-        while True:
-
-            lock.acquire()
-            if que.empty():
-                lock.release()
-                time.sleep(2)
-            else:
-
-                rssi_beacon,data=que.get()
-                self.data=data
-                flag=self.Check_flag()   #chk flag
-    
-                if flag=="Traffic":
-                    
-                    self.Traffic_sign()
-
-                elif flag=="Subway":
-                    self.Subway_sign()
-                    
-                
-                self.Erase_que()  #erase que 
-                lock.release() #mutex unlock
-                time.sleep(1)
-                
-    def Erase_que(self):    #priortyqueue use not que.empty()  erase all value 
-        while not que.empty():
-            que.get()
+        
+    def get_scan_data(self):
+        return self.information_dict
 
 
     def Check_flag(self):
@@ -115,8 +87,25 @@ class ProcessingData:  #data처리 클래스
         else:
             pass #추가 
 
-    def Traffic_sign(self):
-        trafiic_number,color,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]  #tuple형태로 data 꺼내오기
+
+
+
+class ProcessingData:  #data처리 클래스
+    def __init__(self,info_dict):
+        self.information_dict=info_dict
+
+    def process_beacon_data(self):    #print thread func
+            if self.information_dict.empty():
+                print("주변에 비콘이 없습니다.")
+            else:
+                flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
+                if flag=="Traffic":
+                    self.Traffic_sign(key)
+                elif flag=="Subway":
+                    self.Subway_sign()
+
+    def Traffic_sign(self,key):
+        trafiic_number,color,Ten,One=self.information_dict[key][6:12],self.information_dict[key][12:14],self.information_dict[key][14:16],self.information_dict[key][16:18]  #tuple형태로 data 꺼내오기
         if color=="47": 
             color="초록색"
         elif color=="52":
@@ -132,8 +121,8 @@ class ProcessingData:  #data처리 클래스
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")
         self.tts_read(my_str)
 
-    def Subway_sign(self):
-        subway_number,way,Ten,One=self.data[6:12],self.data[12:14],self.data[14:16],self.data[16:18]
+    def Subway_sign(self,key):
+        subway_number,way,Ten,One=self.information_dict[key][6:12],self.information_dict[key][12:14],self.information_dict[key][14:16],self.information_dict[key][16:18]
         if way=="55":
             way="상행선"
         elif way=="44":
@@ -168,15 +157,13 @@ def main():
     scanner = Scanner().withDelegate(scan_delegate)
     receive_signal=ReceiveSignal(scanner,duration)
     processing_signal=ProcessingData()
+    a=input("스캔을 원하시면 1을 입력하세요")
+    if a==1:
+        receive_signal.scanData()
 
-    scan_thread=threading.Thread(target=receive_signal.scanData)  #scan스레드
-    print_thread=threading.Thread(target=processing_signal.process_beacon_data)  #scan후 처리할 스레드 시작
+    else:
 
-    scan_thread.start()
-    print_thread.start()
 
-    scan_thread.join()
-    print_thread.join()
 
 if __name__ == "__main__":
     main()
