@@ -79,10 +79,10 @@ class ReceiveSignal:  #receive class
         return self.information_dict
 
 
-    def Check_flag(self):
-        if "545246" in self.data:
+    def Check_flag(self,data):
+        if "545246" in data:
             return "Traffic"
-        elif "535542" in self.data:  #SUB subway
+        elif "535542" in data:  #SUB subway
             return "Subway"
         else:
             pass #추가 
