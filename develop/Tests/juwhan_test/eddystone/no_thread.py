@@ -95,7 +95,7 @@ class ProcessingData:  #data처리 클래스
         self.information_dict=info_dict
 
     def process_beacon_data(self):    #print thread func
-            if self.information_dict.empty():
+            if not self.information_dict:
                 print("주변에 비콘이 없습니다.")
             else:
                 flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
