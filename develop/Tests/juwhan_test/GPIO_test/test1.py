@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
-BUTTON_PIN = 36 #14
-LED_PIN = 15#23
+BUTTON_PIN = 14
+LED_PIN = 23
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
