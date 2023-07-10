@@ -42,8 +42,8 @@ class ScanDelegate(DefaultDelegate):
 
 
 class beacon_master:
-    def __init__(self) -> None:
-        self.receive=ReceiveSignal()
+    def __init__(self,scanner,duration) -> None:
+        self.receive=ReceiveSignal(scanner,duration)
         self.information={}
 
     def scan_beacon(self):
@@ -100,9 +100,9 @@ class ProcessingData:  #data처리 클래스
             else:
                 flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
                 if flag=="Traffic":
-                    self.Traffic_sign(key)
+                    self.Traffic_sign(flag)
                 elif flag=="Subway":
-                    self.Subway_sign()
+                    self.Subway_sign(flag)
 
     def Traffic_sign(self,key):
         trafiic_number,color,Ten,One=self.information_dict[key][6:12],self.information_dict[key][12:14],self.information_dict[key][14:16],self.information_dict[key][16:18]  #tuple형태로 data 꺼내오기
@@ -155,16 +155,14 @@ def main():
     duration =3 
     scan_delegate = ScanDelegate()
     scanner = Scanner().withDelegate(scan_delegate)
-    receive_signal=ReceiveSignal(scanner,duration)
-    processing_signal=ProcessingData()
+    master=beacon_master(scanner,duration)
     a=input("스캔을 원하시면 1을 입력하세요")
     if a==1:
-        receive_signal.scanData()
+        master.scan_beacon()
+        master.get_scan_beacon()
 
     else:
-
-
-
+        return 0
 if __name__ == "__main__":
     main()
 
