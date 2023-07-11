@@ -29,6 +29,7 @@ class Button:
         self.__flag = 0
         self.__sTime = 0
         self.__eTime = 0
+        self.state = ""
 
     def flagUp(self):
         self.__flag = 1
@@ -37,18 +38,24 @@ class Button:
         self.__flag = 0
 
     def buttonInput(self):
+        time.sleep(0.1)
         if GPIO.input(beaconScanButton) == GPIO.HIGH:
             print("1 Button Pushed")
+            self.state = "One"
             return None
         elif GPIO.input(handCamButton) == GPIO.HIGH:
-            print("3")
+            print("3 Button Pushed")
+            self.state = "Two"
+            return None
         elif self.__flag == 1 and GPIO.input(yesNoButton) == GPIO.LOW:
             self.eTime = time.time()
             elapsedTime = self.eTime - self.sTime
-            if elapsedTime <= 1:
+            if elapsedTime <= 0.5:
                 print("Yes Button Pushed")
+                self.state = "Yes"
             else:
                 print("No Button Pushed")
+                self.state = "No"
             self.__flag = 0
             return None
         elif self.__flag == 0 and GPIO.input(yesNoButton) == GPIO.HIGH:
