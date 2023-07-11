@@ -9,8 +9,6 @@ def print_a():
     while True:
         print("a")
         time.sleep(0.1)
-def main():
-    infrasearch()
     
 def infrasearch():
     duration =3 
@@ -28,7 +26,6 @@ def infrasearch():
         time.sleep(0.1)
 
 if __name__=="__main__":
-    main()
     
 
     print_thread=threading.Thread(target=print_a)  #scan후 처리할 스레드 시작
