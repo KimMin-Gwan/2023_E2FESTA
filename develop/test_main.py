@@ -1,5 +1,5 @@
 
-from develop.modules.InfraSearch import *
+from modules.InfraSearch import *
 
 
 def main():
