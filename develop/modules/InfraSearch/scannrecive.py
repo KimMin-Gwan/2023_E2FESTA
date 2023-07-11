@@ -12,7 +12,7 @@
 * MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py 
 """
 from bluepy.btle import DefaultDelegate
-from constant import *
+from modules.InfraSearch.constant import *
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
         self.__scan_data__ = {}

@@ -14,7 +14,7 @@
 """
 
 from modules.InfraSearch.processing import ProcessingData
-from scannrecive import ScanDelegate, ReceiveSignal
+from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
 from bluepy.btle import Scanner
 import threading
 
