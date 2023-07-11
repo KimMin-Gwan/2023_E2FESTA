@@ -139,19 +139,28 @@ model.fit(train_ds, validation_data = val_ds, epochs = 5 )
 """
 #model.evaluate(val_ds)
 model = tf.keras.models.load_model('./model1/')
-model.save('./model1')
+#model.save('./model1')
 
 
 #sample_predictions = model.predict(test_data[10])
 import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 
-test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/1.jpg')
-pred = model.predict(test)
-print(pred)
+test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/128.jpg')
+#print(pred)
+resized_img_1 = cv2.resize(test, dsize=(64, 64))
+print(resized_img_1.shape)
 
-#print(test_data)
+# 차원 변경
+modified_array = np.expand_dims(resized_img_1, axis=0)
+
+# 결과 출력
+print(modified_array.shape)
+
 #print(sample_predictions[10])
+pred = model.predict(modified_array)
+print(pred)
 #print(test)
 plt.imshow(test)
 plt.show()
