@@ -14,7 +14,7 @@
 
 
 import time
-from InfraSearch.constant import *
+from constant import *
 from gtts import gTTS
 import pygame
 
