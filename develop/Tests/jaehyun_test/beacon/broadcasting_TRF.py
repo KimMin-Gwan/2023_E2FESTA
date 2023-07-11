@@ -2,7 +2,7 @@
 * Project : 2023CDP Eddystone Broadcasting
 * Program Purpose and Features :
 * - send broadcasting message
-* Author : JH KIM, JH SUN
+* Author : JH KIM
 * First Write Date : 2023.07.03
 * ==========================================================================
 * Program history
