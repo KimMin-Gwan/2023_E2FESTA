@@ -30,6 +30,7 @@ def infrasearch():
 if __name__=="__main__":
     main()
     
+
     scan_thread=threading.Thread(target=infrasearch)  #scan스레드
     print_thread=threading.Thread(target=print_a)  #scan후 처리할 스레드 시작
 
