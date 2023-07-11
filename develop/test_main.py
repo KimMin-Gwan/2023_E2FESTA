@@ -20,7 +20,7 @@ def infrasearch():
     
     while(True):
         a=input("스캔을 원하시면 1을 입력하세요")
-        if a==1:
+        if a=="1":
             master.scan_beacon()
             master.process_beacon()
         else:
