@@ -13,7 +13,7 @@
 * MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py 
 """
 
-from processing import ProcessingData
+from modules.InfraSearch.processing import ProcessingData
 from scannrecive import ScanDelegate, ReceiveSignal
 from bluepy.btle import Scanner
 import threading
