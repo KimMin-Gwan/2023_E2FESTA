@@ -23,7 +23,7 @@ class SpeakMaster:
     def set_txt(self,txt):
         self.text=txt
     def tts_read(self):  #speaker class로 들어갈 내용
-        self.tts=gTTS(text=self.mytext,lang='ko')
+        self.tts=gTTS(text=self.text,lang='ko')
         self.tts.save('test3.mp3')
         
         pygame.init()
