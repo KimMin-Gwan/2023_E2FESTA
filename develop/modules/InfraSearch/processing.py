@@ -83,13 +83,13 @@ class ProcessingData:  #data처리 클래스
     def return_gtts_mssage(self):
         return self.text
         
-    def tts_read(self,mytext):  #speaker class로 들어갈 내용
-        self.tts=gTTS(text=mytext,lang='ko')
+    # def tts_read(self,mytext):  #speaker class로 들어갈 내용
+    #     self.tts=gTTS(text=mytext,lang='ko')
 
-        self.tts.save('test2.mp3')
-        pygame.init()
-        pygame.mixer.music.load('test2.mp3')
-        pygame.mixer.music.play()
+    #     self.tts.save('test2.mp3')
+    #     pygame.init()
+    #     pygame.mixer.music.load('test2.mp3')
+    #     pygame.mixer.music.play()
 
-        while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
+    #     while pygame.mixer.music.get_busy():
+    #         pygame.time.Clock().tick(10)
