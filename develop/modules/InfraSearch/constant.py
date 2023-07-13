@@ -12,7 +12,7 @@
 * MG KIM			2023.07.11      v0.10	    make file
 """
 
-<<<<<<< Updated upstream
+
 KEY="aafe"
 
 
@@ -39,5 +39,3 @@ Left_time="이고 남은 시간은"
 
 Second="초 입니다"
 Minutes="분 입니다"
-=======
->>>>>>> Stashed changes
