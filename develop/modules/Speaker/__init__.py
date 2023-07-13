@@ -1,8 +1,7 @@
-from Speaker.constant import *
-from Speaker.speaker_master import *
-from Speaker.utils import *
-from Speaker.speaker_input import *
-from Speaker.speaker_output import *
-
+from modules.Speaker.constant import *
+from modules.Speaker.speaker_master import *
+from modules.Speaker.utils import *
+from modules.Speaker.speaker_input import *
+from modules.Speaker.speaker_output import *
 
 
