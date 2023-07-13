@@ -13,6 +13,7 @@
 * JH KIM            2023.07.03      v1.02       creat class
 * JH KIM            2023.07.04      v1.03       TRF code modified/start time change 60->30
 * JH KIM            2023.07.07      v1.04       performance improvement
+* JH KIM            2023.07.13      v1.05       Update afterOneSec Func
 """
 import os
 import time
