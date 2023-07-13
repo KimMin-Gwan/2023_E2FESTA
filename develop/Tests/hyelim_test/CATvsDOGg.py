@@ -12,7 +12,7 @@ for i in os.listdir('./../../../../dogs-vs-cats-redux-kernels-edition/train/'):
         shutil.copyfile('./../../../../dogs-vs-cats-redux-kernels-edition/train/' + i , './../../../../dogs-vs-cats-redux-kernels-edition/dataset/dog/' + i)
 """
 
-
+"""
 # Image Aumentation
 # -> overfitting 줄이기 위해 이미지 변화주기 
 
@@ -38,6 +38,8 @@ generator_tarin = generator.flow_from_directory(
     batch_size = 64,
     target_size = (64, 64)
 )
+
+"""
 """
 #-----------------------------------------------------------------------------------------
 
@@ -46,6 +48,7 @@ generator_tarin = generator.flow_from_directory(
 # seed -> random한 정도
 
 # validation_split = 0.2 -> 80% 만큼 쪼개서 사용함
+"""
 """
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     './../../../../dogs-vs-cats-redux-kernels-edition/dataset/', 
@@ -66,7 +69,7 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     validation_split = 0.2,  # 20%만큼 validation으로 사용
     seed = 1234
 )
-
+"""
 """
 print()
 
@@ -138,7 +141,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/27.jpg')
+test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/8.jpg')
 #print(pred)
 
 
@@ -149,7 +152,8 @@ print(resized_img_1.shape)
 modified_array = np.expand_dims(resized_img_1, axis=0)
 pred = model.predict(modified_array)
 
-plt.imshow( resized_img_1)
+plt.imshow( test)
+print(pred)
 if pred < 0.5:
     print('고양이')
 else:
