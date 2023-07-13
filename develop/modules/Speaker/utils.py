@@ -11,3 +11,5 @@
 * Author    		Date		    Version		History                                                                                 code to fix
 * MG KIM			2023.07.11      v0.10	    make file
 """
+from gtts import gTTS
+import pygame

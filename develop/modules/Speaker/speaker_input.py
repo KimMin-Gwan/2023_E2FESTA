@@ -11,7 +11,3 @@
 * Author    		Date		    Version		History                                                                                 code to fix
 * JH SUN			2023.07.11      v0.10	    make file
 """
-class speaker_input:
-    def __init__(self):
-        pass
-    
