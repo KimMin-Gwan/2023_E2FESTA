@@ -89,14 +89,13 @@ class ProcessingData:  #data처리 클래스
                 rssi_beacon,data=que.get()
                 self.data=data
                 flag=self.Check_flag()   #chk flag
-    
+                
                 if flag=="Traffic":
                     self.Traffic_sign()
 
                 elif flag=="Subway":
                     self.Subway_sign()
                     
-                
                 self.Erase_que()  #erase que 
                 lock.release() #mutex unlock
                 time.sleep(1)
