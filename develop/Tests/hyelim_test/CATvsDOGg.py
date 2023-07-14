@@ -1,19 +1,18 @@
 import os
 import tensorflow as tf
 import shutil
-
 """
 os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 print( len( os.listdir('./../../../../dogs-vs-cats-redux-kernels-edition/train/')))
 
 for i in os.listdir('./../../../../dogs-vs-cats-redux-kernels-edition/train/'):
     if 'cat' in i:
-        shutil.copyfile('./../../../../dogs-vs-cats-redux-kernels-edition/train/' + i , './../../../../dogs-vs-cats-redux-kernels-edition/train/' + i)
+        shutil.copyfile('./../../../../dogs-vs-cats-redux-kernels-edition/train/' + i , './../../../../dogs-vs-cats-redux-kernels-edition/dataset/cat/' + i)
     if 'dog' in i:
-        shutil.copyfile('./../../../../dogs-vs-cats-redux-kernels-edition/train/' + i , './../../../../dogs-vs-cats-redux-kernels-edition/train/' + i)
+        shutil.copyfile('./../../../../dogs-vs-cats-redux-kernels-edition/train/' + i , './../../../../dogs-vs-cats-redux-kernels-edition/dataset/dog/' + i)
 """
 
-
+"""
 # Image Aumentation
 # -> overfitting 줄이기 위해 이미지 변화주기 
 
@@ -40,16 +39,8 @@ generator_tarin = generator.flow_from_directory(
     target_size = (64, 64)
 )
 
-test_data = generator.flow_from_directory(
-    './../../../../dogs-vs-cats-redux-kernels-edition/test/',
-    class_mode = 'binary', # 두 개면 binary, 그 이상이면 categorical
-    shuffle = True,
-    seed = 123,  # random seed
-    color_mode = 'rgb', #  'gray'
-    batch_size = 64,
-    target_size = (64, 64)
-)
-
+"""
+"""
 #-----------------------------------------------------------------------------------------
 
 # batch size -> epoch에 한번에 모든 데이터를 넣는 게 아니고, batch size 만큼만 넣어줌
@@ -57,7 +48,8 @@ test_data = generator.flow_from_directory(
 # seed -> random한 정도
 
 # validation_split = 0.2 -> 80% 만큼 쪼개서 사용함
-
+"""
+"""
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     './../../../../dogs-vs-cats-redux-kernels-edition/dataset/', 
     image_size = (64, 64),
@@ -77,10 +69,8 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     validation_split = 0.2,  # 20%만큼 validation으로 사용
     seed = 1234
 )
-
-
 """
-
+"""
 print()
 
 print(train_ds)
@@ -92,8 +82,8 @@ def 전처리함수(i, 정답):
     i = tf.cast( i / 255.0, tf.float32 )
     return i, 정답
 
-train_ds = train_ds.map(전처리함수)
-val_ds = val_ds.map(전처리함수)
+#train_ds = train_ds.map(전처리함수)
+#val_ds = val_ds.map(전처리함수)
 
 for i, 정답 in train_ds.take(1):
     print(i)
@@ -104,10 +94,12 @@ for i, 정답 in train_ds.take(1):
 import matplotlib.pyplot as plt
 
 for i, 정답 in train_ds.take(1):
-    print(i)
+    print(i[0].numpy())
     print(정답)
+    plt.imshow( i[0].numpy())
     plt.imshow( i[0].numpy().astype('uint8') )
     plt.show()
+
 
 #input_shape -> RGB라서 64 64 3
 #마지막 dense는 sigmoid -> binary_crossentropy는 sigmoid를 필요로 함
@@ -136,31 +128,47 @@ model = tf.keras.Sequential([
 
 model.compile( loss = "binary_crossentropy", optimizer = "adam", metrics = ['accuracy'] )
 model.fit(train_ds, validation_data = val_ds, epochs = 5 )
+
+
 """
 #model.evaluate(val_ds)
-model = tf.keras.models.load_model('./model1/')
-#model.save('./model1')
-
+model = tf.keras.models.load_model('./model2/')
+#model.save('./model2')
 
 #sample_predictions = model.predict(test_data[10])
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/128.jpg')
+
+test = cv2.imread('./../../../../dogs-vs-cats-redux-kernels-edition/test/8.jpg')
 #print(pred)
+
+
 resized_img_1 = cv2.resize(test, dsize=(64, 64))
 print(resized_img_1.shape)
 
 # 차원 변경
 modified_array = np.expand_dims(resized_img_1, axis=0)
+pred = model.predict(modified_array)
 
+plt.imshow( test)
+print(pred)
+if pred < 0.5:
+    print('고양이')
+else:
+    print('강아지')
+plt.show()
+
+
+print(pred)
+"""
 # 결과 출력
 print(modified_array.shape)
 
 #print(sample_predictions[10])
-pred = model.predict(modified_array)
-print(pred)
 #print(test)
 plt.imshow(test)
 plt.show()
+
+"""

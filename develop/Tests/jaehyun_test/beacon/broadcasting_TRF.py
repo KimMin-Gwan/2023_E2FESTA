@@ -12,6 +12,7 @@
 * JH KIM            2023.07.03      v1.01       add init code
 * JH KIM            2023.07.03      v1.02       creat class
 * JH KIM            2023.07.04      v1.03       TRF code modified/start time change 60->30
+* JH KIM            2023.07.13      v1.04       Update afterOneSec Func
 """
 import os
 import time
@@ -53,6 +54,7 @@ class trafficSignal:
         self.leftTime = 60
 
     def afterOneSec(self):
+        time.sleep(1)
         if self.leftTime > 0:
             self.leftTime -= 1
         else:
@@ -64,7 +66,6 @@ def main():
     while True:
         # os.system("sudo hcitool -i hci0 cmd 0x08 0x0008 13 02 01 06 03 03 aa fe 0b 16 aa fe 10 00 74 72 66 52 36 30 00 00 00 00 00 00 00 00 00 00 00 00")
         trafficObj.trafficBroadcasting()
-        time.sleep(1)
         trafficObj.afterOneSec()
 
 
