@@ -37,7 +37,7 @@ class Button:
 
     def buttonInput(self):
         time.sleep(0.1)
-        if GPIO.input(beaconScanButton) == GPIO.HIGH:
+        if GPIO.input(beaconScanButton) == GPIO.HIGH: 
             print("1 Button Pushed")
             self.state = "SCAN"
             return None
@@ -47,7 +47,7 @@ class Button:
             self.state = "CAM"
             return None
 
-        elif self.__flag == 1 and GPIO.input(yesNoButton) == GPIO.LOW:
+        elif self.__flag == 1 and GPIO.input(yesNoButton) == GPIO.LOW:    #senter
             self.eTime = time.time()
             elapsedTime = self.eTime - self.sTime
             if elapsedTime <= 0.5:
