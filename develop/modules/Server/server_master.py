@@ -14,36 +14,77 @@
 from flask import Flask, request
 from pymongo import MongoClient# pymongo 임포트
 
+# 서버 관리 클래스
 class Server_Master:
     # 생성자
     def __init__(self):
         self.app = Flask(__name__)
-        self.client=MongoClient("mongodb+srv://sbag00385:<password>@cluster0.xpb7mqw.mongodb.net/")# 데이터베이스 연결
-        self.db = self.client['flag']# 데이터베이스 이름 : flag
-
-        self.transmit('kate')# for send/recv 함수
+        # 데이터베이스 연결
+        self.client=MongoClient("mongodb+srv://sbag00385:<password>@cluster0.xpb7mqw.mongodb.net/")
+        # 데이터베이스 이름 : flag
+        self.db = self.client['flag']
+        # ''라는 컬렉션 관리 함수 실행
+        self.transmit('kate')
         
     # class 실행 위한 함수
     def __call__(self):
         pass
-
-
     
     def transmit(self,collection):
-        @self.app.route("/rcv",methods=["POST"])
-        def post():
-            data=request.json
-            resp = self.send_db(collection,data)
+        # # 데이터  추가(clnt->serv)
+        # @self.app.route("/send",methods=["POST"])
+        # def post():
+        #     data=request.json
+        #     sendp = self.send_db(collection,data)
+        #     return {'id':'sendp'}
+       
+        # 데이터 반환(serv->clnt)
+        @self.app.route("/rcv")
+        def get():
+            id = '20'
+            resp = self.rcv_db(collection,id)
             return {'id':'resp'}
-            
+       
+        # # 데이터 삭제(clnt->serv)
+        # @self.app.route("/del",methods=["DELETE"])
+        # def delete():
+        #     data=request.json
+        #     delp = self.del_db(collection,data)
+        #     return {'id':'resp'}
+       
+        # # 데이터 수정(clnt->serv)
+        # @self.app.route("/change",methods=["PATCH"])
+        # def change():
+        #     data=request.json
+        #     changp = self.change_db(collection,data)
+        #     return {'id':'resp'}
 
-    def send_db(self, collection, jsn):
-        mycol=self.db[collection]# 컬렉션
-        jsn_id = mycol.insert_one(jsn).inserted_id# 삽입
-        print('_id:', jsn_id)
-        return jsn_id
-        
+
+    # # 데이터 전송 함수
+    # def send_db(self, collection, jsn):
+    #     mycol=self.db[collection]# 컬렉션
+    #     jsn_id = mycol.insert_one(jsn).inserted_id# 삽입
+    #     print('_id:', jsn_id)
+    #     return jsn_id
     
+    # 데이터 반환 함수
+    def rcv_db(self, collection,id):
+        try:
+            mycol = self.db[collection]
+            data=mycol.find_one({'id':id})
+            return data
+        except Exception as e:
+            print("Error :", str(e))
+            return -1
+
+    # # 데이터 삭제 함수
+    # def del_db(self, collection, data):
+    #     pass
+
+    # # 데이터 수정 함수
+    # def change_db(self, collection, data):
+    #     pass
+
     # 서버 url
     def run_server(self):
         self.app.run(host='0.0.0.0',port=7777)
