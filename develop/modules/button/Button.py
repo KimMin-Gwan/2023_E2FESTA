@@ -21,7 +21,7 @@ handCamButton = 12
 
 
 class Button:
-    def __init__(self):
+    def __init__(self, info):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(beaconScanButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -31,6 +31,7 @@ class Button:
         self.__sTime = 0
         self.__eTime = 0
         self.__state = ""
+        self.info = info
 
     def getState(self):
         return self.__state

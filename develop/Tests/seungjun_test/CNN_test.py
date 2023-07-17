@@ -24,6 +24,7 @@ trainX = trainX.reshape((trainX.shape[0],28,28,1))
 testX=testX.reshape((testX.shape[0],28,28,1))
 print(trainX.shape)
 
+#dropout : 이 layer지나갈 때 앞의 a% 버림
 #padding : 공백추가
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D( 32, (3, 3), padding="same", activation= "relu", input_shape=(28, 28, 1) ),
@@ -37,7 +38,9 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(10, activation = "softmax") #sigmoid의 여러개 버전
 ])
 
+#adam 경사하강법 가짜 최소값 넘어가는 방법, metrics 추가?
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam",metrics=['accuracy'])
+#epochs 학습 횟수
 model.fit(trainX, trainY, epochs = 10)
 score=model.evaluate(testX, testY)
 print(score)
