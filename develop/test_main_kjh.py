@@ -38,8 +38,6 @@ def main():
     while True:
         time.sleep(0.1)
         print(info.getButtonState())
-        if info.getButtonState() == -2:
-            break
     button_thread.join()
 
 if __name__ == "__main__":

@@ -12,6 +12,8 @@
 * JH KIM            2023.07.11		v1.01		add button
 * JH KIM            2023.07.13      v1.01       add accessor
 """
+
+from modules.button.constant import *
 import RPi.GPIO as GPIO
 import time
 
@@ -40,7 +42,7 @@ class Button:
         time.sleep(0.1)
         if GPIO.input(beaconScanButton) == GPIO.HIGH: 
             #print("1 Button Pushed")
-            self.info.setButtonState(1)
+            self.info.setButtonState(SCAN)
             return None
 
         elif GPIO.input(handCamButton) == GPIO.HIGH:
