@@ -29,8 +29,8 @@ def runInfrasearch(speaker):
     master = beacon_master(speaker)
     master.scan_beacon()
     master.process_beacon()
-    speaker.set_txt(master.get_gtts_data())
-    speaker.tts_read()
+    master.connect_data_base()
+
 
 
 def main():

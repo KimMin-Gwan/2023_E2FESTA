@@ -40,6 +40,7 @@ class beacon_master:
         self.process=ProcessingData(self.information)   #ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
 
+    
     def get_gtts_data(self):
         self.data,self.flag,self.key =self.process.return_gtts_mssage()  #gtts 데이터를 return해준다.     
         
@@ -55,7 +56,10 @@ class beacon_master:
         self.speaker.set_txt(self.data)
         self.speaker.tts_read()
         
-
+    def connect_data_base(self):
+        self.get_gtts_data()
+        self.send_server()
+        self.start_gtts()
 
 
 
