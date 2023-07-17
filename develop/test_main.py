@@ -40,6 +40,7 @@ def runInfrasearch():
 def main():
     info = information()
     button = Button(info)
+    speaker = SpeakMaster()
     button_thread = threading.Thread(target=runButton, args=(button,))
     button_thread.start()
     while True:
@@ -50,7 +51,7 @@ def main():
         print(info.getButtonState())
         if buttonState == SCAN:
             info.setButtonState(-1)
-            runInfrasearch()
+            runInfrasearch(speaker)
         elif buttonState == HANDCAM:
             break
     button_thread.join()
