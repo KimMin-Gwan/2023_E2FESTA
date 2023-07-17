@@ -16,7 +16,7 @@ import time
 sys.path.append('/home/pi/2023_E2FESTA')
 from develop.modules.button import *
 from develop.modules.InfraSearch import *
-from modules.Speaker import *
+from develop.modules.Speaker import *
 from class_Information import *
 
 
