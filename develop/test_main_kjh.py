@@ -54,6 +54,7 @@ def main():
         time.sleep(0.1)
         print(info.getButtonState())
         if info.getButtonState() == SCAN:
+            info.setButtonState(-1)
             runInfrasearch()
         elif info.getButtonState() == HANDCAM:
             break
