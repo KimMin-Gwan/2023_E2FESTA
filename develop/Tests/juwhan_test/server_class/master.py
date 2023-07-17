@@ -1,11 +1,25 @@
+# master.py
+"""
+* Program Purpose and Features :
+* - for Running Surver 
+* - This file will run in AWS
+* Author : Juwhan Kim
+* First WriJuwhante Date : 2023.07.16
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		    Version		History                                                                                 code to fix
+* Juwhan KIM			2023.07.16      v0.10	    make file
+* 
+"""
 from typing import Any
 from flask import Flask, request
 from pymongo import MongoClient# pymongo 임포트
 
 class Server:
     
-    def __init__(self,app_self) -> None:
-        self.app = app_self
+    def __init__(self):
+        self.app = Flask(__name__)
         self.client=MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
         self.db=self.client['test_sun']
         self.collection=self.db['test']
@@ -53,9 +67,7 @@ class Server:
 
 
 if __name__=="__main__":
-    
-    app_m=Flask(__name__)
-    server=Server(app_m)
+    server=Server()
     server.strat_server()
 
     
