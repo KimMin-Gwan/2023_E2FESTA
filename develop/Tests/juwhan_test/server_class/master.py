@@ -34,10 +34,17 @@ class Server:
             query = {ids[0]:ids[1]}
             result = collection.find(query)
             list_reuslt=[]
+            check_result=[]
             for document in result:
                 list_reuslt.append(document)
+                if document["KEY"]==ids[2]:
+                    check_result.append(document)
+            print("data base에 있는 모든 data 는 ")
+            for i in range(len(list_reuslt)):
+                print(list_reuslt[i])
+            print("그중 전달받은 key값은",ids[2],"이고 이에 해당하는 데이터는")
+            print(check_result)
 
-            print(list_reuslt[0])
             return "he"
     def strat_server(self):
         self.app.run(host="127.0.0.1", port="8000")
