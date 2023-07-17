@@ -40,15 +40,12 @@ def runButton(button):
 
 
 def runInfrasearch():
-    duration = 2
-    scan_delegate = ScanDelegate()
-    scanner = Scanner().withDelegate(scan_delegate)
-    master = beacon_master(scanner, duration)
+    master = beacon_master()
     speaker = SpeakMaster()
-    master.scan_beacon()
-    master.process_beacon()
-    speaker.set_txt(master.get_gtts_data())
-    speaker.tts_read()
+    master.scan_beacon() #주변에서 비콘 스캔
+    master.process_beacon()  #스캔 받은 비콘 데이터 처리
+    speaker.set_txt(master.get_gtts_data())  #  전달 받은 data를 speak한다.
+    speaker.tts_read() 
 
 
 def main():

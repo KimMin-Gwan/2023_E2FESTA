@@ -24,8 +24,8 @@ UP_LINE="55"
 DOWN_LINE="44"
 
 
-Traffic="Traffic"  #name
-Subway="Subway"
+Traffic="TRF"  #name
+Subway="SUB"
 Red="빨간색"
 Green="초록색"
 Up_line="상행선"
