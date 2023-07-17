@@ -27,18 +27,23 @@ class Server:
             #이런 형태로 저장되어있음
             ids=request.args.getlist('id')
             print("===ids===",ids)
-            client = MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
-            # 데이터베이스 선택 (기본적으로 'test' 데이터베이스를 사용)
-            db = client['test_sun']
-            collection = db['test']
+            # client = MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
+            # # 데이터베이스 선택 (기본적으로 'test' 데이터베이스를 사용)
+            # db = client['test_sun']
+            # collection = db['test']
+            
+            
+            
             query = {ids[0]:ids[1]}
-            result = collection.find(query)
+            result = self.collection.find(query)
             list_reuslt=[]
             check_result=[]
             for document in result:
                 list_reuslt.append(document)
                 if document["KEY"]==ids[2]:
                     check_result.append(document)
+
+
             print("data base에 있는 모든 data 는 ")
             for i in range(len(list_reuslt)):
                 print(list_reuslt[i])
