@@ -16,6 +16,7 @@ import threading
 sys.path.append('/home/pi/2023_E2FESTA')
 from develop.modules.button import *
 from develop.modules.InfraSearch import *
+from modules.Speaker import *
 
 class information:
     def __init__(self):
