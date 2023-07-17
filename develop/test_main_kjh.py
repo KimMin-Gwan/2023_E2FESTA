@@ -11,6 +11,7 @@
 * JH KIM            2023.07.17		v1.00		First Write
 """
 import sys
+import time
 import threading
 sys.path.append('/home/pi/2023_E2FESTA')
 from develop.modules.button import *
@@ -35,6 +36,7 @@ def main():
     button_thread = threading.Thread(target=runButton, args=(button))
     button_thread.start()
     while True:
+        time.sleep(0.1)
         print(info.getButtonState())
         if info.getButtonState() == -2:
             break
