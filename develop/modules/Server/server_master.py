@@ -20,7 +20,7 @@ class Server_Master:
     def __init__(self):
         self.app = Flask(__name__)
         # 데이터베이스 연결
-        self.client=MongoClient("mongodb+srv://sbag00385:<password>@cluster0.xpb7mqw.mongodb.net/")
+        self.client=MongoClient("mongodb+srv://sbag00385:<>@cluster0.xpb7mqw.mongodb.net/")
         # 데이터베이스 이름 : flag
         self.db = self.client['flag']
         # ''라는 컬렉션 관리 함수 실행
