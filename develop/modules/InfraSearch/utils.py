@@ -14,6 +14,16 @@
 import threading
 
 from queue import PriorityQueue
+from bluepy.btle import Scanner
+from modules.InfraSearch.scannrecive import ScanDelegate
 
 lock=threading.Lock()
 que=PriorityQueue()
+
+
+
+
+duration=2
+scan_delegate=ScanDelegate()
+scanner=Scanner().withDelegate(scan_delegate)
+
