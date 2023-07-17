@@ -50,6 +50,8 @@ class beacon_master:
         response = requests.get(url)
         self.data+=response.text
         
+        print(self.data)
+        
         
         
     def start_gtts(self):
