@@ -16,15 +16,20 @@
 from modules.InfraSearch.processing import ProcessingData
 from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
 from bluepy.btle import Scanner
+from modules.InfraSearch.utils import *
+import requests
 import threading
 
 
 class beacon_master:
-    def __init__(self,scanner,duration) -> None:
+    def __init__(self,Speaker) -> None:
         self.receive=ReceiveSignal(scanner,duration)
         self.process=0
         self.information={}
-        
+        self.key=""
+        self.flag=""
+        self.data=""
+        self.speaker=Speaker
     def __call__(self):
         pass
     
@@ -36,9 +41,20 @@ class beacon_master:
         self.process.process_beacon_data()
 
     def get_gtts_data(self):
-        return self.process.return_gtts_mssage()  #gtts 데이터를 return해준다.        
-
-
+        self.data,self.flag,self.key =self.process.return_gtts_mssage()  #gtts 데이터를 return해준다.     
+        
+           
+    def send_server(self):
+        url='http://127.0.0.1:8000/rcv?id=ID&id='+self.flag+'&id='+self.key  #server로 전달할 id이다.
+        response = requests.get(url)
+        self.data+=response.text
+        
+        
+        
+    def start_gtts(self):
+        self.speaker.set_txt(self.data)
+        self.speaker.tts_read()
+        
 
 
 

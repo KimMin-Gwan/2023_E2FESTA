@@ -22,14 +22,21 @@ class ProcessingData:  #data처리 클래스
     def __init__(self,info_dict):
         self.information_dict=info_dict
         self.text=""
+        self.key=""
+        self.flag=""
+        
+        
     def process_beacon_data(self):    #print thread func
             if not self.information_dict:
+                
                 print("주변에 비콘이 없습니다.")
             else:
                 flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
-                if flag==Traffic:
+                if flag==Traffic:   #TRF
+                    self.flag=Traffic
                     self.Traffic_sign(flag)
                 elif flag==Subway:
+                    self.flag=Subway  #SUB
                     self.Subway_sign(flag)
 
 
@@ -42,16 +49,16 @@ class ProcessingData:  #data처리 클래스
             color=Red
 
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
-        trafiic_number=str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)
+        trafiic_number=      str(int(str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)))
         
         if int(Ten)-30==0:
             my_str=Traffic_info+color+Left_time+str(int(One)-30)+Second
         else:
-            my_str=Traffic_info+color+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
+            my_str=Traffic_info+color+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Second
 
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")  #콘솔 출력창 확인 위함 나중에 지워질 코드
         self.text=my_str
-
+        self.key=trafiic_number
 
     def Subway_sign(self,key):
         subway_number,way,Ten,One=self.information_dict[key][6:12],self.information_dict[key][12:14],self.information_dict[key][14:16],self.information_dict[key][16:18]
@@ -62,10 +69,8 @@ class ProcessingData:  #data처리 클래스
         
         
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
-        subway_number=str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)
-        
-        
-        
+        subway_number=  str(int(str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)))
+    
         
         
         if int(Ten)-30==0:
@@ -73,23 +78,12 @@ class ProcessingData:  #data처리 클래스
         else:
             my_str=my_str=Subway_info+way+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
             
-
-
-
         print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
         # self.tts_read(my_str)
         self.text=my_str
+        self.key=subway_number
         
     def return_gtts_mssage(self):
-        return self.text
         
-    # def tts_read(self,mytext):  #speaker class로 들어갈 내용
-    #     self.tts=gTTS(text=mytext,lang='ko')
-
-    #     self.tts.save('test2.mp3')
-    #     pygame.init()
-    #     pygame.mixer.music.load('test2.mp3')
-    #     pygame.mixer.music.play()
-
-    #     while pygame.mixer.music.get_busy():
-    #         pygame.time.Clock().tick(10)
+        return self.text, self.flag ,self.key
+        
