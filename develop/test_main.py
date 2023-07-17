@@ -25,12 +25,8 @@ def runButton(button):
         button.buttonInput()
 
 
-def runInfrasearch():
-    duration = 2
-    scan_delegate = ScanDelegate()
-    scanner = Scanner().withDelegate(scan_delegate)
-    master = beacon_master(scanner, duration)
-    speaker = SpeakMaster()
+def runInfrasearch(speaker):
+    master = beacon_master(speaker)
     master.scan_beacon()
     master.process_beacon()
     speaker.set_txt(master.get_gtts_data())
