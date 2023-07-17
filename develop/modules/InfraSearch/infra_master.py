@@ -50,7 +50,7 @@ class beacon_master:
         response = requests.get(url)
         self.data+=response.text
         
-        print(self.data)
+        print("확인할 최종 data======================================",self.data)
         
         
         
