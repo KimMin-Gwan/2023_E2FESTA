@@ -1,42 +1,61 @@
-
-from modules.InfraSearch import *
-from modules.Speaker import *
-import threading
+"""
+* Project : 2023 CDP main
+* Program Purpose and Features :
+* - main
+* Author : JH KIM
+* First Write Date : 2023.07.17
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		Version		History
+* JH KIM            2023.07.17		v1.00		First Write
+"""
+import sys
 import time
-que=PriorityQueue()
+
+sys.path.append('/home/pi/2023_E2FESTA')
+from develop.modules.button import *
+from develop.modules.InfraSearch import *
+from develop.modules.Speaker import *
+from class_Information import *
 
 
-def print_a():
+def runButton(button):
     while True:
-        print("a")
-        time.sleep(0.1)
-    
-def infrasearch():
-    duration =3 
+        button.buttonInput()
+
+
+def runInfrasearch():
+    duration = 2
     scan_delegate = ScanDelegate()
     scanner = Scanner().withDelegate(scan_delegate)
-    master=beacon_master(scanner,duration)
-    speaker=SpeakMaster()
-    while(True):
-        a=input("스캔을 원하시면 1을 입력하세요")
-        if a=="1":
-            master.scan_beacon()
-            master.process_beacon()
-            speaker.set_txt(master.get_gtts_data())
-            speaker.tts_read()
-        else:
-            continue
+    master = beacon_master(scanner, duration)
+    speaker = SpeakMaster()
+    master.scan_beacon()
+    master.process_beacon()
+    speaker.set_txt(master.get_gtts_data())
+    speaker.tts_read()
+
+
+def main():
+    info = information()
+    button = Button(info)
+    button_thread = threading.Thread(target=runButton, args=(button,))
+    button_thread.start()
+    while True:
         time.sleep(0.1)
+        info.cs.acquire()
+        buttonState = info.getButtonState()
+        info.cs.release()
+        print(info.getButtonState())
+        if buttonState == SCAN:
+            info.setButtonState(-1)
+            runInfrasearch()
+        elif buttonState == HANDCAM:
+            break
+    button_thread.join()
+    return
 
-if __name__=="__main__":
-    
 
-    print_thread=threading.Thread(target=print_a)  #scan후 처리할 스레드 시작
-    scan_thread=threading.Thread(target=infrasearch)  #scan스레드
-
-    scan_thread.start()
-    print_thread.start()
-
-    scan_thread.join()
-    print_thread.join()
-    
+if __name__ == "__main__":
+    main()
