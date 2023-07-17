@@ -10,7 +10,7 @@
 * Author    		Date		Version		History
 * JH KIM            2023.07.17		v1.00		First Write
 """
-
+import threading
 class information:
     def __init__(self):
         self.__buttonState = -1
