@@ -58,6 +58,7 @@ def main():
         elif info.getButtonState() == HANDCAM:
             break
     button_thread.join()
+    return
 
 if __name__ == "__main__":
     main()
