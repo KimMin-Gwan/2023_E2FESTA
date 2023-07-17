@@ -45,7 +45,7 @@ class Server:
             print("그중 전달받은 key값은",ids[2],"이고 이에 해당하는 데이터는")
             print(list_reuslt[0]["DATA_1"])
             
-            return "he"
+            return list_reuslt[0]["DATA_1"]
         
         
     def strat_server(self):
