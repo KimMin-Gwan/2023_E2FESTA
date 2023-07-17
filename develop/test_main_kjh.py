@@ -33,7 +33,7 @@ def runButton(button):
 def main():
     info = information()
     button = Button(info)
-    button_thread = threading.Thread(target=runButton, args=(button))
+    button_thread = threading.Thread(target=runButton, args=(button,))
     button_thread.start()
     while True:
         time.sleep(0.1)
