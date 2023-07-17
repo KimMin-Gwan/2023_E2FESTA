@@ -37,7 +37,7 @@ class Button:
         return self.__state
 
     def buttonInput(self):
-        time.sleep(0.1)
+        time.sleep(0.2)
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
             #print("1 Button Pushed")
             self.info.setButtonState(SCAN)
