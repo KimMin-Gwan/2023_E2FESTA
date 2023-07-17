@@ -3,6 +3,7 @@ from flask import Flask, request
 from pymongo import MongoClient# pymongo 임포트
 
 class Server:
+    
     def __init__(self,app_self) -> None:
         self.app = app_self
         self.client=MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
@@ -13,6 +14,7 @@ class Server:
 
     def __call__(self):
         pass
+
 
     def route(self):#비콘으로 부터 key값을 받아온 상황이라고 생각해보자
         @self.app.route('/')
@@ -35,21 +37,23 @@ class Server:
             for document in result:
                 list_reuslt.append(document)
 
-            print("data base에 있는 모든 data 는 ")
-            print("이때 총 list_result의 길이는",len(list_reuslt))
+
             for i in range(len(list_reuslt)):
                 print(list_reuslt[i])
                 
+
             print("그중 전달받은 key값은",ids[2],"이고 이에 해당하는 데이터는")
             print(list_reuslt[0]["DATA_1"])
-
-
+            
             return "he"
+        
+        
     def strat_server(self):
         self.app.run(host="127.0.0.1", port="8000")
 
 
 if __name__=="__main__":
+    
     app_m=Flask(__name__)
     server=Server(app_m)
     server.strat_server()
