@@ -1,7 +1,7 @@
 """
-* Project : 2023CDP main
+* Project : 2023 CDP main
 * Program Purpose and Features :
-* - Recognize User Button input
+* - main
 * Author : JH KIM
 * First Write Date : 2023.07.17
 * ==========================================================================
@@ -18,20 +18,7 @@ sys.path.append('/home/pi/2023_E2FESTA')
 from develop.modules.button import *
 from develop.modules.InfraSearch import *
 from modules.Speaker import *
-
-
-class information:
-    def __init__(self):
-        self.__buttonState = -1
-        self.cs = threading.Lock()
-
-    def setButtonState(self, state):
-        self.cs.acquire()
-        self.__buttonState = state
-        self.cs.release()
-
-    def getButtonState(self):
-        return self.__buttonState
+from class_Information import *
 
 
 def runButton(button):
