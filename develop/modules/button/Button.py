@@ -18,8 +18,6 @@ import RPi.GPIO as GPIO
 import time
 
 
-
-
 class Button:
     def __init__(self, info):
         GPIO.setwarnings(False)
@@ -30,32 +28,36 @@ class Button:
         self.__flag = 0
         self.__sTime = 0
         self.__eTime = 0
+        self.__lastInput = 0
         self.__state = ""
         self.info = info
 
     def getState(self):
+        self.__lastInput = time.time()
         return self.__state
 
     def buttonInput(self):
-        time.sleep(0.2)
+        time.sleep(0.1)
+        if time.time() - self.__lastInput < 0.5:
+            return None
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
-            #print("1 Button Pushed")
+            # print("1 Button Pushed")
             self.info.setButtonState(SCAN)
             return None
 
         elif GPIO.input(HANDCAMBUTTON) == GPIO.HIGH:
-            #print("3 Button Pushed")
+            # print("3 Button Pushed")
             self.info.setButtonState(HANDCAM)
             return None
 
-        elif self.__flag == 1 and GPIO.input(YESNOBUTTON) == GPIO.LOW:    #senter
+        elif self.__flag == 1 and GPIO.input(YESNOBUTTON) == GPIO.LOW:  # senter
             self.eTime = time.time()
             elapsedTime = self.eTime - self.sTime
             if elapsedTime <= 0.5:
-                #print("Yes Button Pushed")
+                # print("Yes Button Pushed")
                 self.info.setButtonState(YES)
             else:
-                #print("No Button Pushed")
+                # print("No Button Pushed")
                 self.info.setButtonState(NO)
             self.__flag = 0
             return None
@@ -65,11 +67,10 @@ class Button:
             self.sTime = time.time()
             return None
 
-
-#def main():
+# def main():
 #    bu = Button()
 #    while True:
 #        bu.buttonInput()
 #
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()
