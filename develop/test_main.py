@@ -49,8 +49,8 @@ def main():
         info.cs.release()
         print(info.getButtonState())
         if buttonState == SCAN:
-            info.setButtonState(-1)
             runInfrasearch(speaker)
+            info.setButtonState(-1)
         elif buttonState == HANDCAM:
             break
     button_thread.join()
