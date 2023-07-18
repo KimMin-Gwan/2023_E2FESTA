@@ -52,7 +52,7 @@ class beacon_master:
     
     def get_gtts_data(self):
         self.data,self.flag,self.key =self.process.return_gtts_mssage()  #gtts 데이터를 return해준다.     
-        
+        self.start_gtts()
            
     def send_server(self):
         url='http://127.0.0.1:8000/rcv?id=ID&id='+self.flag+'&id='+self.key  #server로 전달할 id이다.
