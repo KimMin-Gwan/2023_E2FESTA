@@ -21,7 +21,7 @@ class Server:
     
     def __init__(self):
         self.app = Flask(__name__)
-        self.client=MongoClient('mongodb+srv://sbag00385:qlalfQjsgh486@cluster0.xpb7mqw.mongodb.net/') #데이터베이스 연결
+        self.client=MongoClient('mongodb+srv://sbag00385:<pw>@cluster0.xpb7mqw.mongodb.net/') #데이터베이스 연결
         self.db=self.client['flag'] #데이터베이스 이름 : flag
         self.collection=self.db['kate'] #컬렉션(kate) 관리함수 실행
         self.route() #main클래스 실행
