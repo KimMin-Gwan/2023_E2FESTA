@@ -17,6 +17,7 @@ from modules.InfraSearch.processing import ProcessingData
 from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
 from bluepy.btle import Scanner
 from modules.InfraSearch.utils import *
+from modules.InfraSearch.constant import *
 import requests
 import threading
 
@@ -35,7 +36,15 @@ class beacon_master:
     
     def scan_beacon(self):  #scan부분
         self.information=self.receive.scanData()   #scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
-    
+        if not self.information:  #주변에 비콘이없다면
+            self.data="주변에 스캔된 비콘이 없습니다."
+            self.start_gtts()
+            return False
+        else:
+            self.scan_result_gtts()
+            self.start_gtts()
+            return True
+        
     def process_beacon(self): #processes하는 부분이다.
         self.process=ProcessingData(self.information)   #ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
@@ -57,12 +66,26 @@ class beacon_master:
     def start_gtts(self):
         self.speaker.set_txt(self.data)
         self.speaker.tts_read()
-        
+        self.data=""  #항상 읽고 data는 초기화 시켜준다.
     def connect_data_base(self):
         self.get_gtts_data()
         self.send_server()
         self.start_gtts()
-
+        
+    def scan_result_gtts(self):
+        result=[]
+        self.data="주변에 스캔된 비콘은 "
+        for i in self.information.keys():
+            if i==Traffic:
+                self.data+=trf_gtts
+            elif i==Subway:
+                self.data+=sub_gtts
+        self.data+="입니다"
+        
+            
+        
+        
+        
 
 
 
