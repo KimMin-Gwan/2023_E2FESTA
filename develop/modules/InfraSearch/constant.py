@@ -39,3 +39,8 @@ Left_time="이고 남은 시간은"
 
 Second="초 입니다"
 Minutes="분 입니다"
+
+
+
+trf_gtts="신호등"
+sub_gtts="지하철"
