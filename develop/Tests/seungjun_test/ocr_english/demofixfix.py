@@ -10,7 +10,7 @@ from utilsfixfix import CTCLabelConverter
 from datasetfixfix import RawDataset, AlignCollate
 from modelfixfix import Model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+import time
 
 def demo(opt):
     """ model configuration """
@@ -91,6 +91,7 @@ def demo(opt):
 
             log.close()
 
+begin = time.time()
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()  #파서 생성
     #파서가 구분할 명령어 추가
@@ -131,3 +132,6 @@ if __name__ == '__main__':
     opt.num_gpu = torch.cuda.device_count()
 
     demo(opt)
+end=time.time()
+elapsed=end-begin
+print("elapsed time = {:.5f}".format(elapsed))
