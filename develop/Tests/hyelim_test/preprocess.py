@@ -9,9 +9,8 @@ for key, value in test.items():
     ocr_files = os.listdir(FILE_PATH + value)
 
     if key is '증강인쇄체' or key is '간판':
-        ocr_sub_files = os.listdir(FILE_PATH + value)
-
-        for arg in ocr_sub_files:
+        for arg in ocr_files:
+            print(FILE_PATH + value + arg)
             ocr_files = os.listdir(FILE_PATH + value + arg)
             
             print(ocr_files[0:10])
