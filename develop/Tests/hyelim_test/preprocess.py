@@ -8,7 +8,7 @@ test = {'필기체' : 'htr/word_check', '인쇄체' : 'ocr_test/word_check',
 for key, value in test.items():
     ocr_files = os.listdir(FILE_PATH + value)
 
-    if key is '증강인쇄체' or key is '간판':
+    if key == '증강인쇄체' or key == '간판':
         for arg in ocr_files:
             print(FILE_PATH + value + arg)
             ocr_files = os.listdir(FILE_PATH + value + arg)
