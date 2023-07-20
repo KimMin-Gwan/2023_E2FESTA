@@ -4,7 +4,7 @@
 import requests
 
 def send():
-    url = 'http://172.31.7.94:5000/'
+    url = 'http://43.201.213.223:8080/'
     response = requests.get(url)
     
 send()

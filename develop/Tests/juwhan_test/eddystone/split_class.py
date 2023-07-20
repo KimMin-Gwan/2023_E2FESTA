@@ -24,6 +24,7 @@ from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
 
 import threading
+lock=threading.Lock()
 import time
 from gtts import gTTS
 import pygame
