@@ -16,7 +16,7 @@
 import requests
 
 def send():
-    url = 'http://127.0.0.1:7777/rcv?id=ID&id=SUB&id=1'
+    url = 'http://43.201.213.223:8080/rcv?id=ID&id=SUB&id=1'
     response = requests.get(url)
     print(response.text)
     
