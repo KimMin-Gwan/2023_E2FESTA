@@ -6,7 +6,12 @@ FILE_PATH = 'D:/kor_dataset/write/'
 test = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
         '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
 
-def process(PATH):
+def process(json_path, ocr_files):
+    file = json.load(open('D:/kor_dataset/write/Text/textinthewild_data_info.json', 'rt', encoding='UTF8'))
+    # open('파일경로', 'rt', encoding='UTF8')
+    file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
+    file['info']  # {'name': 'Text in the wild Dataset', 'date_created': '2019-10-14 04:31:48'}
+    type(file['images'])  # list
     ocr_good_files = os.listdir('d:/kor_dataset/write/Text_test/test/')  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
     len(ocr_good_files) # 37220
 
@@ -98,7 +103,7 @@ def main():
                         print(FILE_PATH + value + arg + argg)
                         ocr_files = os.listdir(FILE_PATH + value + arg + '/' + argg)
                         print(ocr_files[0:10])
-                        train, val, test = process(ocr_files)
+                        train, val, test = process(json_file, ocr_files)
                         train_data, val_data, test_data = dict_extend(train_data,
                                                                       val_data, test_data,
                                                                       train, val, test)
@@ -115,10 +120,8 @@ def main():
             train_data, val_data, test_data = dict_extend(train_data,
                                                                       val_data, test_data,
                                                                       train, val, test)
+    save_file(train_data, val_data, test_data)
 
-
-
-exit()
 
 
 
