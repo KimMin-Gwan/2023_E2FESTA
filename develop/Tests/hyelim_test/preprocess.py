@@ -3,8 +3,8 @@ import random
 import os
 
 FILE_PATH = 'D:/kor_dataset/write/'
-test = {'필기체' : 'htr/word_check', '인쇄체' : 'ocr_test/word_check',
-        '증강인쇄체' : 'print/check', '간판' : 'Text'}
+test = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
+        '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
 for key, value in test.items():
     ocr_files = os.listdir(FILE_PATH + value)
 
