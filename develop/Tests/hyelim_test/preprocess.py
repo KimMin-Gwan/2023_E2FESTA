@@ -15,8 +15,8 @@ for key, value in test.items():
             ocr_files = os.listdir(FILE_PATH + value + arg)
             
             print(ocr_files[0:10])
-
-    print(ocr_files[0:10])
+    else:
+        print(ocr_files[0:10])
 
 
 exit()
