@@ -3,7 +3,7 @@ import random
 import os
 
 FILE_PATH = 'D:/kor_dataset/write/'
-ocr_files = os.listdir(FILE_PATH)
+ocr_files = os.listdir(FILE_PATH + 'htr/word_check')
 print(ocr_files)
 
 exit()
