@@ -3,8 +3,10 @@ import random
 import os
 
 FILE_PATH = 'D:/kor_dataset/write/'
-ocr_files = os.listdir(FILE_PATH + 'htr/word_check')
-print(ocr_files)
+test = ['htr/word_check', 'ocr_test/word_check', 'print/check', 'Text']
+for arg in test:
+    ocr_files = os.listdir(FILE_PATH + arg)
+    print(ocr_files)
 
 exit()
 
