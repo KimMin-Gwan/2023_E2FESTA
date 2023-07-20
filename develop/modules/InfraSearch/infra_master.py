@@ -1,5 +1,4 @@
-
-#infra_master.py
+# infra_master.py
 """
 * Project : 2023CDP Eddystone Receiver
 * Program Purpose and Features :
@@ -10,7 +9,9 @@
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
-* MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py 
+* MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py
+* JH SUN            2023.07.18      v1.00       write beacon master
+* JH KIM            2023.07.20      v1.01       set_txt, read_tts merged
 """
 
 from modules.InfraSearch.processing import ProcessingData
@@ -23,69 +24,59 @@ import threading
 
 
 class beacon_master:
-    def __init__(self,Speaker) -> None:
-        self.receive=ReceiveSignal(scanner,duration)
-        self.process=0
-        self.information={}
-        self.key=""
-        self.flag=""
-        self.data=""
-        self.speaker=Speaker
+    def __init__(self, Speaker) -> None:
+        self.receive = ReceiveSignal(scanner, duration)
+        self.process = 0
+        self.information = {}
+        self.key = ""
+        self.flag = ""
+        self.data = ""
+        self.speaker = Speaker
+
     def __call__(self):
         pass
-    
-    def scan_beacon(self):  #scan부분
-        self.information=self.receive.scanData()   #scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
-        if not self.information:  #주변에 비콘이없다면
-            self.data="주변에 스캔된 비콘이 없습니다."
+
+    def scan_beacon(self):  # scan부분
+        self.information = self.receive.scanData()  # scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
+        if not self.information:  # 주변에 비콘이없다면
+            self.data = "주변에 스캔된 비콘이 없습니다."
             self.start_gtts()
             return False
         else:
             self.scan_result_gtts()
             self.start_gtts()
             return True
-        
-    def process_beacon(self): #processes하는 부분이다.
-        self.process=ProcessingData(self.information)   #ProcessingData클래스에 인자전달과 생성을 해준다
+
+    def process_beacon(self):  # processes하는 부분이다.
+        self.process = ProcessingData(self.information)  # ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
 
-    
     def get_gtts_data(self):
-        self.data,self.flag,self.key =self.process.return_gtts_mssage()  #gtts 데이터를 return해준다.     
+        self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
         self.start_gtts()
-           
+
     def send_server(self):
-        url='http://127.0.0.1:8000/rcv?id=ID&id='+self.flag+'&id='+self.key  #server로 전달할 id이다.
+        url = 'http://127.0.0.1:8000/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
-        self.data+=response.text
-        
-        print("확인할 최종 data======================================",self.data)
-        
-        
-        
+        self.data += response.text
+
+        print("확인할 최종 data======================================", self.data)
+
     def start_gtts(self):
-        self.speaker.set_txt(self.data)
-        self.speaker.tts_read()
-        self.data=""  #항상 읽고 data는 초기화 시켜준다.
+        self.speaker.tts_read(self.data)
+        self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
+
     def connect_data_base(self):
         self.get_gtts_data()
         self.send_server()
         self.start_gtts()
-        
+
     def scan_result_gtts(self):
-        result=[]
-        self.data="주변에 스캔된 비콘은 "
+        result = []
+        self.data = "주변에 스캔된 비콘은 "
         for i in self.information.keys():
-            if i==Traffic:
-                self.data+=trf_gtts
-            elif i==Subway:
-                self.data+=sub_gtts
-        self.data+="입니다"
-        
-            
-        
-        
-        
-
-
-
+            if i == Traffic:
+                self.data += trf_gtts
+            elif i == Subway:
+                self.data += sub_gtts
+        self.data += "입니다"
