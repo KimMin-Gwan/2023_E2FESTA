@@ -2,6 +2,8 @@ import json
 import random
 import os
 
+json_path = 'd:\kor_dataset\write\j_file'
+
 file = json.load(open('D:/kor_dataset/write/Text/textinthewild_data_info.json', 'rt', encoding='UTF8'))
 # open('파일경로', 'rt', encoding='UTF8')
 file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
