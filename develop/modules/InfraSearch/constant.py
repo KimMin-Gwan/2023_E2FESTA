@@ -33,12 +33,12 @@ Down_line="하행선"
 
 
 
-Traffic_info="신호등 입니다 현재 색깔은"
-Subway_info="지하철 입니다 방향은"
-Left_time="이고 남은 시간은"
+Traffic_info="신호등 입니다 현재 색깔은 "
+Subway_info="지하철 입니다 방향은 "
+Left_time="이고 남은 시간은 "
 
-Second="초 입니다"
-Minutes="분 입니다"
+Second="초 입니다 "
+Minutes="분 입니다 "
 
 
 
