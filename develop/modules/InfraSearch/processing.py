@@ -49,12 +49,13 @@ class ProcessingData:  #data처리 클래스
             color=Red
 
         trafiic_number_thrid,trafiic_number_second,trafiic_number_first=trafiic_number[0:2],trafiic_number[2:4],trafiic_number[4:6]
-        trafiic_number=      str(int(str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)))
+        trafiic_number= str(int(str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)))
         
         if int(Ten)-30==0:
             my_str=Traffic_info+color+Left_time+str(int(One)-30)+Second
         else:
-            my_str=Traffic_info+color+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Second
+            my_str=color+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Second
+
 
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")  #콘솔 출력창 확인 위함 나중에 지워질 코드
         self.text=my_str
@@ -66,19 +67,18 @@ class ProcessingData:  #data처리 클래스
             way=Up_line
         elif way==DOWN_LINE:
             way=Down_line
-        
-        
+
+
         subway_number_third,subway_number_second,subway_number_first=subway_number[0:2],subway_number[2:4],subway_number[4:6]
         subway_number=  str(int(str(int(subway_number_third)-30)+str(int(subway_number_second)-30)+str(int(subway_number_first)-30)))
     
         
         
         if int(Ten)-30==0:
-            my_str=my_str=Subway_info+way+Left_time+str(int(One)-30)+Minutes
+            my_str=Subway_info+Left_time+str(int(One)-30)+Minutes
         else:
-            my_str=my_str=Subway_info+way+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
-            
-        print("This is Subway subway_number is : ",subway_number,"Way is ",way,"left time is ",int(Ten)-30,int(One)-30,"min")
+            my_str=my_str=Subway_info+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
+        print(my_str)
         # self.tts_read(my_str)
         self.text=my_str
         self.key=subway_number

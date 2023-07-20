@@ -2,7 +2,7 @@ import json
 import random
 import os
 
-file = json.load(open('./../../../../TextDataKr/textinthewild_data_info.json', 'rt', encoding='UTF8'))
+file = json.load(open('D:/kor_dataset/write/Text/textinthewild_data_info.json', 'rt', encoding='UTF8'))
 # open('파일경로', 'rt', encoding='UTF8')
 file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
 file['info']  # {'name': 'Text in the wild Dataset', 'date_created': '2019-10-14 04:31:48'}
@@ -10,7 +10,7 @@ type(file['images'])  # list
 
 
 # './../../../../TextDataKr/' 얠 넣는 건가?
-ocr_good_files = os.listdir('/data/ocr/Goods/')  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
+ocr_good_files = os.listdir('d:/kor_dataset/write/Text_test/test/')  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
 len(ocr_good_files) # 37220
 
 random.shuffle(ocr_good_files)
@@ -62,9 +62,9 @@ for idx, annotation in enumerate(file['annotations']):
     elif annotation['image_id'] in test_ids_img:
         test_annotations[test_ids_img[annotation['image_id']]].append(annotation)
 
-with open('train_annotation.json', 'w') as file:
-    json.dump(train_annotations, file)
-with open('validation_annotation.json', 'w') as file:
-    json.dump(validation_annotations, file)
-with open('test_annotation.json', 'w') as file:
-    json.dump(test_annotations, file)
+with open('train_annotation.json', 'w',encoding='UTF-8') as file:
+    json.dump(train_annotations, file, indent=6,ensure_ascii=False)
+with open('validation_annotation.json', 'w',encoding='UTF-8') as file:
+    json.dump(validation_annotations, file,indent=6,ensure_ascii=False)
+with open('test_annotation.json', 'w',encoding='UTF-8') as file:
+    json.dump(test_annotations, file,indent=6,ensure_ascii=False)
