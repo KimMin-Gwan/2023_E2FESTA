@@ -13,7 +13,14 @@ for key, value in test.items():
             print(FILE_PATH + value + arg)
             ocr_files = os.listdir(FILE_PATH + value + arg)
             
-            print(ocr_files[0:10])
+            if key == '간판':
+                for argg in ocr_files:
+                    print(FILE_PATH + value + arg + argg)
+                    ocr_files = os.listdir(FILE_PATH + value + arg + argg)
+                    print(ocr_files[0:10])
+            else:
+                print(ocr_files[0:10])
+
     else:
         print(ocr_files[0:10])
 
