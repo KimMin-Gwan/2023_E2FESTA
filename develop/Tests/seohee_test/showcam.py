@@ -5,7 +5,7 @@ import cv2
 
 app=Flask(__name__)
 
-camera=cv2.VideoCapture(0)
+camera=cv2.VideoCapture(0) #0번캠(현재 내 )
 
 def gen_frames():  # generate frame by frame from camera
     while (True):
@@ -33,4 +33,4 @@ def hello():
     return render_template('video_show.html')
 
 if (__name__ == '__main__'):
-    app.run(host='165.229.125.172', port=7777)
+    app.run(host='165.229.125.130', port=7777) #host=내IP주소, 포트번호
