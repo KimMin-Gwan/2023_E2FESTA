@@ -1,11 +1,35 @@
 import json
 import random
 import os
+import tqdm
+import cv2
 
 FILE_PATH = 'D:/kor_dataset/write/'  # 모든 파일들이 들어있는 경로
 test = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
         '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
 
+
+data_root_path = FILE_PATH  
+save_root_path = FILE_PATH
+
+#이미지 나누기
+def image_read():
+    for key, value in test.items():
+        annotation_json = FILE_PATH 
+    test_annotations = json.load(open('./test_annotation.json'))
+    gt_file = open(save_root_path + 'gt_test.txt', 'w')
+    for file_name in tqdm(test_annotations):
+        annotations = test_annotations[file_name]
+        image = cv2.imread(data_root_path + file_name)
+        for idx, annotation in enumerate(annotations):
+            x,y,w,h = annotation['bbox']
+            if x<=0 or y<=0 or w<=0 or h<=0:
+                continue
+            text = annotation['text']
+            crop_img = image[y:y+h, x:x+w]
+            crop_file_name = file_name[:-4]+'_{:03}.jpg'.format(idx+1)
+            cv2.imwrite(save_root_path + 'test/' + crop_file_name, crop_img)
+            gt_file.write('test/{}\t\n'.format(crop_file_name, text))
 
 # 각 json 파일을 사용 용도(train, validation, test)에 따라 특정 비율로 분리
 def process(json_path, ocr_files):
@@ -13,7 +37,7 @@ def process(json_path, ocr_files):
     file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
     file['info']  # {'name': 'Text in the wild Dataset', 'date_created': '2019-10-14 04:31:48'}
     type(file['images'])  # list
-    ocr_good_files = os.listdir('d:/kor_dataset/write/Text_test/test/')  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
+    ocr_good_files = os.listdir(FILE_PATH)  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
     len(ocr_good_files) # 37220, 파일 내의 자료 개수 측정
 
     random.shuffle(ocr_good_files)
@@ -68,7 +92,7 @@ def process(json_path, ocr_files):
     return train_annotations, validation_annotations, test_annotations
 
 # 각 사용 용도에 따라 정리한 파일들을 '_annotation.json' 형태로 파일 저장
-def save_file(file, train_annotations, validation_annotations, test_annotations):
+def save_file(train_annotations, validation_annotations, test_annotations):
     with open('train_annotation.json', 'w', encoding='UTF-8') as file:
         json.dump(train_annotations, file, indent=6, ensure_ascii=False)  # indent: 6개씩 잘라서 줄 바꿈
     with open('validation_annotation.json', 'w', encoding='UTF-8') as file:
@@ -148,4 +172,12 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
+
+
+
+
+
+
+
+#annotation['attributes']['class'] = 'ignored', 'character', 'word',
+                                    
