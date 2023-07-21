@@ -40,6 +40,7 @@ def main():
     info = information()
     button = Button(info)
     speaker = SpeakMaster()
+    speaker.tts_read("나비가 시작되었습니다.")
     button_thread = threading.Thread(target=runButton, args=(button,))
     button_thread.start()
     while True:
