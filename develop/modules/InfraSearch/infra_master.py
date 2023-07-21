@@ -76,8 +76,8 @@ class beacon_master:
         self.data = "주변에 스캔된 비콘은 "
         for i in self.information.keys():
             if i == Traffic:
-                self.data += trf_gtts+" "
+                self.data += (trf_gtts+", ")
 
             elif i == Subway:
-                self.data += sub_gtts+" "
+                self.data += (sub_gtts+", ")
         self.data += "입니다"

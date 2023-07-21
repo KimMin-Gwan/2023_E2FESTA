@@ -75,7 +75,10 @@ class ProcessingData:  #data처리 클래스
         
         
         if int(Ten)-30==0:
-            my_str=Subway_info+Left_time+str(int(One)-30)+Minutes
+            if int(One)-30==0:
+                my_str=" 열차가 들어오고 있습니다."
+            else:
+                my_str=Subway_info+Left_time+str(int(One)-30)+Minutes
         else:
             my_str=Subway_info+Left_time+str(int(Ten)-30)+"십. "+str(int(One)-30)+Minutes
         print(my_str)
