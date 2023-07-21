@@ -52,9 +52,9 @@ class ProcessingData:  #data처리 클래스
         trafiic_number= str(int(str(int(trafiic_number_thrid)-30)+str(int(trafiic_number_second)-30)+str(int(trafiic_number_first)-30)))
         
         if int(Ten)-30==0:
-            my_str=Traffic_info+color+Left_time+str(int(One)-30)+Second
+            my_str=Traffic_info+color+" 입니다. "+Left_time+str(int(One)-30)+Second
         else:
-            my_str=color+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Second
+            my_str=Traffic_info+color+" 입니다. "+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Second
 
 
         print("This is Traffic  traffic_number is : " , trafiic_number,"color : ",color,"left time is ",int(Ten)-30,int(One)-30,"sec")  #콘솔 출력창 확인 위함 나중에 지워질 코드
@@ -77,9 +77,8 @@ class ProcessingData:  #data처리 클래스
         if int(Ten)-30==0:
             my_str=Subway_info+Left_time+str(int(One)-30)+Minutes
         else:
-            my_str=my_str=Subway_info+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
+            my_str=Subway_info+Left_time+str(int(Ten)-30)+"십"+str(int(One)-30)+Minutes
         print(my_str)
-        # self.tts_read(my_str)
         self.text=my_str
         self.key=subway_number
         
