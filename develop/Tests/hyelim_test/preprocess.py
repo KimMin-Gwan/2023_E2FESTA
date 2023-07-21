@@ -69,12 +69,12 @@ def process(json_path, ocr_files):
     
 
 def save_file(file, train_annotations, validation_annotations, test_annotations):
-    with open('train_annotation.json', 'w',encoding='UTF-8') as file:
-        json.dump(train_annotations, file, indent=6,ensure_ascii=False)
-    with open('validation_annotation.json', 'w',encoding='UTF-8') as file:
-        json.dump(validation_annotations, file,indent=6,ensure_ascii=False)
-    with open('test_annotation.json', 'w',encoding='UTF-8') as file:
-        json.dump(test_annotations, file,indent=6,ensure_ascii=False)
+    with open('train_annotation.json', 'w', encoding='UTF-8') as file:
+        json.dump(train_annotations, file, indent=6, ensure_ascii=False)  # indent: 6개씩 잘라서 줄 바꿈
+    with open('validation_annotation.json', 'w', encoding='UTF-8') as file:
+        json.dump(validation_annotations, file, indent=6, ensure_ascii=False)
+    with open('test_annotation.json', 'w', encoding='UTF-8') as file:
+        json.dump(test_annotations, file, indent=6, ensure_ascii=False)
 
 
 def dict_extend(train_dict, val_dict, test_dict, train, val, test):
@@ -121,8 +121,6 @@ def main():
                                                                       val_data, test_data,
                                                                       train, val, test)
     save_file(train_data, val_data, test_data)
-
-
 
 
 if __name__ == '__main__':
