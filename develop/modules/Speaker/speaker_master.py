@@ -18,12 +18,13 @@ import threading
 
 class SpeakMaster:
     # 생성자
-    def __init__(self, mutex):
+    def __init__(self):
         self.text = ""
         pygame.init()
         self.cs = threading.Lock()
 
     def tts_read(self, str):  # speaker class로 들어갈 내용
+        
         self.cs.acquire()
         self.tts = gTTS(text=self.str, lang='ko')
         self.tts.save('test3.mp3')
