@@ -128,7 +128,9 @@ def main():
                                                                       train, val, test)
                 else:
                     print(ocr_files[0:10])
-                    train, val, test = process(ocr_files)
+                    json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
+        #     #          ('D:/kor_dataset/write/') + 'j_file/augmentation_data_info.json'
+                    train, val, test = process(json_file, ocr_files)
                     train_data, val_data, test_data = dict_extend(train_data,
                                                                     val_data, test_data,
                                                                     train, val, test)
