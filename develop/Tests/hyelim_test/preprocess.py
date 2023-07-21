@@ -87,7 +87,7 @@ def dict_extend(train_dict, val_dict, test_dict, train, val, test):
 # main
 def main():
     train_data = {}  # dict
-    validation_data = {}
+    val_data = {}
     test_data = {}
 
     for key, value in test.items():
