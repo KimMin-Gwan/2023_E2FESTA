@@ -28,6 +28,7 @@ def runButton(button):
 def runInfrasearch(speaker, info):
     master = beacon_master(speaker, info)
     state=master.runScanBeacon()
+    return
 
 
 
