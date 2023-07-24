@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     while True:
         a = int(input("input number"))
-        if a == 1 and not t2.is_alive() or t2 is None:
+        if a == 1 and  t2 is None or not t2.is_alive():
             t2 = threading.Thread(target=b)  # t2 스레드를 매번 새로 생성합니다.
             t2.start()
         else:
