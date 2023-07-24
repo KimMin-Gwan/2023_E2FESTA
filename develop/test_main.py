@@ -49,7 +49,7 @@ def main():
         buttonState = info.getButtonState()
         print(info.getButtonState())
         info.cs.release()
-        if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
+        if buttonState == SCAN and infrasearch_thread is None or not infrasearch_thread.is_alive():
             info.setButtonState(-1)
             infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
