@@ -27,12 +27,8 @@ def runButton(button):
 
 def runInfrasearch(speaker, info):
     master = beacon_master(speaker, info)
-    state=master.scan_beacon()
-    if(state==True):  #주변에 scan된 비콘이있을때
-        master.process_beacon()
-        master.connect_data_base()
-    else:
-        return
+    state=master.runScanBeacon()
+    return
 
 
 
@@ -42,16 +38,21 @@ def main():
     speaker = SpeakMaster()
     speaker.tts_read("나비가 시작되었습니다.")
     button_thread = threading.Thread(target=runButton, args=(button,))
+    infrasearch_thread = None
     button_thread.start()
+
+
     while True:
+        infrasearch_cs = threading.Lock()
         time.sleep(0.1)
         info.cs.acquire()
         buttonState = info.getButtonState()
-        info.cs.release()
         print(info.getButtonState())
-        if buttonState == SCAN:
-            runInfrasearch(speaker, info)
+        info.cs.release()
+        if buttonState == SCAN and not infrasearch_thread.is_alive() or infrasearch_thread is None:
             info.setButtonState(-1)
+            infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
+            infrasearch_thread.start()
         elif buttonState == HANDCAM:
             break
     button_thread.join()
