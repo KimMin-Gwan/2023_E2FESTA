@@ -1,0 +1,22 @@
+
+<!doctype html>
+<html lang-"ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Search</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>카메라 화면</h4>
+                    <img src="{{ url_for('video_show') }}" style="width: 70%;">
+                </div>
+
+                <div class="col-md-6">
+                    <h4>인프라 검색 결과</h4>
+                    <p>{{result}}</p>
+                </div>
+            </div>
+        </div>
+</html>
