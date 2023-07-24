@@ -71,7 +71,7 @@ def process(file, ocr_files, flag = 0):
     file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
     file['info']  # {'name': 'Text in the wild Dataset', 'date_created': '2019-10-14 04:31:48'}
     type(file['images'])  # list
-    ocr_good_files = os.listdir(ocr_files)  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
+    ocr_good_files = ocr_files  # 특정 폴더에 있는 특정 파일 리스트 찾기 (파일 이름 있삼)
     len(ocr_good_files) # 37220, 파일 내의 자료 개수 측정
 
     random.shuffle(ocr_good_files)
@@ -94,7 +94,9 @@ def process(file, ocr_files, flag = 0):
     test_img_ids = {}
 
     # dict 형태로 만들어줌 { image_name : image_id, ... }
-    for image in file['images']:
+    for idx, image in enumerate(file['images']):
+        if idx % 5000 == 0:
+            print(idx,'/',len(file['images']),'make imge data')
         if image['file_name'] in train_files:
             train_img_ids[image['file_name']] = image['id']
         elif image['file_name'] in validation_files:
