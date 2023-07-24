@@ -27,8 +27,6 @@ class ProcessingData:  # data처리 클래스
         self.data = ""
 
     def process_beacon_data(self):  # print thread func
-        for key in self.information_dict.keys():
-            self.data = key
         flag = input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
         if flag == Traffic:  # TRF
             self.flag = Traffic

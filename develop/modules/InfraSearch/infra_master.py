@@ -13,6 +13,7 @@
 * JH SUN            2023.07.18      v1.00       write beacon master
 * JH KIM            2023.07.20      v1.01       set_txt, read_tts merged
 """
+import time
 
 from modules.InfraSearch.processing import ProcessingData
 from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
@@ -24,7 +25,7 @@ import threading
 
 
 class beacon_master:
-    def __init__(self, Speaker) -> None:
+    def __init__(self, Speaker, mainInfo) -> None:
         self.receive = ReceiveSignal(scanner, duration)
         self.process = 0
         self.information = {}
@@ -32,6 +33,7 @@ class beacon_master:
         self.flag = ""
         self.data = ""
         self.speaker = Speaker
+        self.mainInfo = mainInfo
 
     def __call__(self):
         pass
@@ -45,6 +47,19 @@ class beacon_master:
         else:
             self.scan_result_gtts()
             self.start_gtts()
+            for key in self.information.keys():
+                self.data = key
+                print(key)
+                self.start_gtts()
+
+                sTime = time.time()
+                while True:
+                    eTime = time.time()
+                    if eTime - sTime > 2:
+                        break
+            if self.mainInfo.getButtonState() == 2:
+                print(self.flag)
+                break
             return True
 
     def process_beacon(self):  # processes하는 부분이다.
