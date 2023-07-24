@@ -9,7 +9,8 @@
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
 * MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py 
-* MG KIM			2023.07.11      v0.10	    하드코딩 지양바람 - constnat.py에 기록 
+* MG KIM			2023.07.11      v0.10	    하드코딩 지양바람 - constnat.py에 기록
+* JH KIM            2023.07.24      v0.11       Add Scanned Data Announcement
 """
 
 
@@ -28,9 +29,9 @@ class ProcessingData:  #data처리 클래스
         
     def process_beacon_data(self):    #print thread func
             if not self.information_dict:
-                
                 print("주변에 비콘이 없습니다.")
             else:
+                print(self.information_dict.keys())
                 flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
                 if flag==Traffic:   #TRF
                     self.flag=Traffic
