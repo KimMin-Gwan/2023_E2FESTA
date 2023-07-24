@@ -81,5 +81,6 @@ class beacon_master:
 
             elif i == Subway:
                 self.data += (sub_gtts+", ")
+        self.data = self.data[:-2]
         self.data += "이 있습니다"
         print(self.data)
