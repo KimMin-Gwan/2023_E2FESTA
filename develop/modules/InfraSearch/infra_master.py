@@ -59,10 +59,10 @@ class beacon_master:
                     eTime = time.time()
                     if eTime - sTime > 2:
                         break
-                if self.mainInfo.getButtonState() == 2:
-                    self.flag = dict_key
-                    self.mainInfo.setButtonState(-1)
-                    return True
+                    if self.mainInfo.getButtonState() == 2:
+                        self.flag = dict_key
+                        self.mainInfo.setButtonState(-1)
+                        return True
             self.data = "버튼이 입력되지 않았습니다."
             self.start_gtts()
             return False
