@@ -48,7 +48,7 @@ class beacon_master:
             return True
 
     def process_beacon(self):  # processes하는 부분이다.
-        self.process = ProcessingData(self.information)  # ProcessingData클래스에 인자전달과 생성을 해준다
+        self.process = ProcessingData(self.information, self.speaker)  # ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
 
     def get_gtts_data(self):
