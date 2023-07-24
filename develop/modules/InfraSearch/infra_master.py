@@ -57,9 +57,9 @@ class beacon_master:
                     eTime = time.time()
                     if eTime - sTime > 2:
                         break
-            if self.mainInfo.getButtonState() == 2:
-                print(self.flag)
-                break
+                if self.mainInfo.getButtonState() == 2:
+                    print(self.flag)
+                    break
             return True
 
     def process_beacon(self):  # processes하는 부분이다.
