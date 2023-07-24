@@ -31,7 +31,7 @@ class ProcessingData:  #data처리 클래스
             if not self.information_dict:
                 print("주변에 비콘이 없습니다.")
             else:
-                for key in self.information_dict.keys()
+                for key in self.information_dict.keys():
                     print(key)
                 flag=input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
                 if flag==Traffic:   #TRF
