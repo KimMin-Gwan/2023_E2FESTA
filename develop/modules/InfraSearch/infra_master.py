@@ -61,8 +61,10 @@ class beacon_master:
                         break
                 if self.mainInfo.getButtonState() == 2:
                     self.flag = dict_key
-                    break
-            return True
+                    return True
+            self.data = "버튼이 입력되지 않았습니다."
+            self.start_gtts()
+            return False
 
     def process_beacon(self):  # processes하는 부분이다.
         self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
