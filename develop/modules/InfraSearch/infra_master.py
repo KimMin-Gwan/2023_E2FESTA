@@ -104,3 +104,10 @@ class beacon_master:
         self.data = self.data[:-2]
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
+    def runScanBeacon(self):
+        state = self.scan_beacon()
+        if (state == True):  # 주변에 scan된 비콘이있을때
+            self.process_beacon()
+            self.connect_data_base()
+        else:
+            return
