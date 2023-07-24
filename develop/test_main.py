@@ -25,8 +25,8 @@ def runButton(button):
         button.buttonInput()
 
 
-def runInfrasearch(speaker):
-    master = beacon_master(speaker)
+def runInfrasearch(speaker, info):
+    master = beacon_master(speaker, info)
     state=master.scan_beacon()
     if(state==True):  #주변에 scan된 비콘이있을때
         master.process_beacon()
@@ -50,7 +50,7 @@ def main():
         info.cs.release()
         print(info.getButtonState())
         if buttonState == SCAN:
-            runInfrasearch(speaker)
+            runInfrasearch(speaker, info)
             info.setButtonState(-1)
         elif buttonState == HANDCAM:
             break

@@ -5,7 +5,7 @@ import cv2
 
 app=Flask(__name__)
 
-camera=cv2.VideoCapture(0) #0번캠(현재 내 )
+camera=cv2.VideoCapture(0) #0번캠(현재 내 카메라)
 
 def gen_frames():  # generate frame by frame from camera
     while (True):

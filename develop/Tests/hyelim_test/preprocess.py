@@ -151,7 +151,7 @@ def process(file, ocr_files, flag = 0):
             annotation_temp['text'] = annotation['text']
             annotation_temp['attributes'] = {"class" : "word"}
             for image_data in file['images']:
-                if image_data['image_id'] == annotation['image_id']:
+                if image_data['id'] == annotation['image_id']:
                     x = image_data['width']
                     y = image_data['height']
                     break

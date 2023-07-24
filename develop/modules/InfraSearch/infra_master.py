@@ -13,6 +13,7 @@
 * JH SUN            2023.07.18      v1.00       write beacon master
 * JH KIM            2023.07.20      v1.01       set_txt, read_tts merged
 """
+import time
 
 from modules.InfraSearch.processing import ProcessingData
 from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
@@ -24,7 +25,7 @@ import threading
 
 
 class beacon_master:
-    def __init__(self, Speaker) -> None:
+    def __init__(self, Speaker, mainInfo) -> None:
         self.receive = ReceiveSignal(scanner, duration)
         self.process = 0
         self.information = {}
@@ -32,6 +33,7 @@ class beacon_master:
         self.flag = ""
         self.data = ""
         self.speaker = Speaker
+        self.mainInfo = mainInfo
 
     def __call__(self):
         pass
@@ -45,10 +47,28 @@ class beacon_master:
         else:
             self.scan_result_gtts()
             self.start_gtts()
-            return True
+            for dict_key in self.information.keys():
+                if dict_key == Subway:
+                    self.data = "지하철"
+                elif dict_key == Traffic:
+                    self.data = "신호등"
+                self.start_gtts()
+
+                sTime = time.time()
+                while True:
+                    eTime = time.time()
+                    if eTime - sTime > 2:
+                        break
+                if self.mainInfo.getButtonState() == 2:
+                    self.flag = dict_key
+                    self.mainInfo.setButtonState(-1)
+                    return True
+            self.data = "버튼이 입력되지 않았습니다."
+            self.start_gtts()
+            return False
 
     def process_beacon(self):  # processes하는 부분이다.
-        self.process = ProcessingData(self.information)  # ProcessingData클래스에 인자전달과 생성을 해준다
+        self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
 
     def get_gtts_data(self):
@@ -73,11 +93,14 @@ class beacon_master:
     def scan_result_gtts(self):
         result = []
         
-        self.data = "주변에 스캔된 비콘은 "
+        self.data = "주변에 "
+
         for i in self.information.keys():
             if i == Traffic:
                 self.data += (trf_gtts+", ")
 
             elif i == Subway:
                 self.data += (sub_gtts+", ")
-        self.data += "입니다"
+        self.data = self.data[:-2]
+        self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
+        print(self.data)
