@@ -19,13 +19,12 @@ import pygame
 
 
 class ProcessingData:  # data처리 클래스
-    def __init__(self, info_dict, speaker):
+    def __init__(self, info_dict):
         self.information_dict = info_dict
         self.text = ""
         self.key = ""
         self.flag = ""
         self.data = ""
-        self.speaker = speaker
 
     def process_beacon_data(self):  # print thread func
         if not self.information_dict:
@@ -33,7 +32,6 @@ class ProcessingData:  # data처리 클래스
         else:
             for key in self.information_dict.keys():
                 self.data = key
-                self.speaker.start_gtts()
             flag = input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
             if flag == Traffic:  # TRF
                 self.flag = Traffic
