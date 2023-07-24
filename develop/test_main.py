@@ -51,10 +51,11 @@ def main():
         if buttonState == SCAN and not infrasearch_thread.is_alive():
             info.setButtonState(-1)
             infrasearch_thread.start()
+            button_thread.join()
         elif buttonState == HANDCAM:
             break
     infrasearch_thread.join()
-    button_thread.join()
+
     return
 
 
