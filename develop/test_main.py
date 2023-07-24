@@ -27,12 +27,7 @@ def runButton(button):
 
 def runInfrasearch(speaker, info):
     master = beacon_master(speaker, info)
-    state=master.scan_beacon()
-    if(state==True):  #주변에 scan된 비콘이있을때
-        master.process_beacon()
-        master.connect_data_base()
-    else:
-        return
+    state=master.runScanBeacon()
 
 
 
