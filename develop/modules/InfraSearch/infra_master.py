@@ -57,7 +57,7 @@ class beacon_master:
     def send_server(self):
         url = 'http://43.201.213.223:8080/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
-        self.data = response.text+". "+self.data
+        self.data = response.text+self.data
 
         print("확인할 최종 data======================================", self.data)
 
@@ -72,10 +72,12 @@ class beacon_master:
 
     def scan_result_gtts(self):
         result = []
+        
         self.data = "주변에 스캔된 비콘은 "
         for i in self.information.keys():
             if i == Traffic:
-                self.data += trf_gtts
+                self.data += (trf_gtts+", ")
+
             elif i == Subway:
-                self.data += sub_gtts
+                self.data += (sub_gtts+", ")
         self.data += "입니다"
