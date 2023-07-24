@@ -38,7 +38,7 @@ json file 가지고와서 train, valid, test로 나눔
 """
 
 FILE_PATH = 'D:/kor_dataset/write/'  # 모든 파일들이 들어있는 경로
-test = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
+data_type = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
         '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
 
 
@@ -47,7 +47,7 @@ save_root_path = FILE_PATH
 
 #이미지 나누기
 def image_read():
-    for key, value in test.items():
+    for key, value in data_type.items():
         annotation_json = FILE_PATH 
     test_annotations = json.load(open('./test_annotation.json'))
     gt_file = open(save_root_path + 'gt_test.txt', 'w')
@@ -193,7 +193,7 @@ def main():
     val_data = {}
     test_data = {}
 
-    for key, value in test.items():
+    for key, value in data_type.items():
         ocr_files = os.listdir(FILE_PATH + value)
 
         if key == '필기체':
