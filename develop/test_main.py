@@ -38,7 +38,7 @@ def main():
     speaker.tts_read("나비가 시작되었습니다.")
     button_thread = threading.Thread(target=runButton, args=(button,))
     button_thread.start()
-    infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker,info))
+
     while True:
         time.sleep(0.1)
         info.cs.acquire()
@@ -46,8 +46,10 @@ def main():
         print(info.getButtonState())
         info.cs.release()
         if buttonState == SCAN:
-            info.setButtonState(-1)
+            infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
+            info.setButtonState(-1)
+
         elif buttonState == HANDCAM:
             break
     infrasearch_thread.join()
