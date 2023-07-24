@@ -48,8 +48,10 @@ class beacon_master:
             self.scan_result_gtts()
             self.start_gtts()
             for dict_key in self.information.keys():
-                self.data = dict_key
-                print(dict_key)
+                if dict_key == Subway:
+                    self.data = "지하철"
+                elif dict_key == Traffic:
+                    self.data = "신호등"
                 self.start_gtts()
 
                 sTime = time.time()
