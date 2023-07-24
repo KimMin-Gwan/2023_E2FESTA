@@ -47,9 +47,9 @@ class beacon_master:
         else:
             self.scan_result_gtts()
             self.start_gtts()
-            for key in self.information.keys():
-                self.data = key
-                print(key)
+            for dict_key in self.information.keys():
+                self.data = dict_key
+                print(dict_key)
                 self.start_gtts()
 
                 sTime = time.time()
@@ -58,12 +58,12 @@ class beacon_master:
                     if eTime - sTime > 2:
                         break
                 if self.mainInfo.getButtonState() == 2:
-                    print(self.flag)
+                    self.flag = dict_key
                     break
             return True
 
     def process_beacon(self):  # processes하는 부분이다.
-        self.process = ProcessingData(self.information)  # ProcessingData클래스에 인자전달과 생성을 해준다
+        self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
 
     def get_gtts_data(self):

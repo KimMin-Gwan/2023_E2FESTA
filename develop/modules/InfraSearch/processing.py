@@ -19,21 +19,20 @@ import pygame
 
 
 class ProcessingData:  # data처리 클래스
-    def __init__(self, info_dict):
+    def __init__(self, info_dict, flag):
         self.information_dict = info_dict
         self.text = ""
         self.key = ""
-        self.flag = ""
+        self.flag = flag
         self.data = ""
 
     def process_beacon_data(self):  # print thread func
-        flag = input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
-        if flag == Traffic:  # TRF
+        if self.flag == Traffic:  # TRF
             self.flag = Traffic
-            self.Traffic_sign(flag)
-        elif flag == Subway:
+            self.Traffic_sign(self.flag)
+        elif self.flag == Subway:
             self.flag = Subway  # SUB
-            self.Subway_sign(flag)
+            self.Subway_sign(self.flag)
 
     def Traffic_sign(self, key):
         trafiic_number, color, Ten, One = self.information_dict[key][6:12], self.information_dict[key][12:14], \
