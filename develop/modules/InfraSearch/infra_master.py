@@ -73,11 +73,11 @@ class beacon_master:
     def scan_result_gtts(self):
         result = []
         
-        self.data = "주변에 스캔된 비콘은 "
+        self.data = "주변에 "
         for i in self.information.keys():
             if i == Traffic:
                 self.data += (trf_gtts+", ")
 
             elif i == Subway:
                 self.data += (sub_gtts+", ")
-        self.data += "입니다"
+        self.data += "이 있습니다"
