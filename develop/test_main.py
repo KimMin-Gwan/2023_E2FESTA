@@ -40,7 +40,7 @@ def main():
     button_thread = threading.Thread(target=runButton, args=(button,))
     button_thread.start()
 
-    infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
+
     while True:
         infrasearch_cs = threading.Lock()
         time.sleep(0.1)
@@ -50,9 +50,8 @@ def main():
         info.cs.release()
         if buttonState == SCAN and not infrasearch_thread.is_alive():
             info.setButtonState(-1)
+            infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
-
-            infrasearch_thread.join()
         elif buttonState == HANDCAM:
             break
     button_thread.join()
