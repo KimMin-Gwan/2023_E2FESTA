@@ -27,18 +27,15 @@ class ProcessingData:  # data처리 클래스
         self.data = ""
 
     def process_beacon_data(self):  # print thread func
-        if not self.information_dict:
-            print("주변에 비콘이 없습니다.")
-        else:
-            for key in self.information_dict.keys():
-                self.data = key
-            flag = input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
-            if flag == Traffic:  # TRF
-                self.flag = Traffic
-                self.Traffic_sign(flag)
-            elif flag == Subway:
-                self.flag = Subway  # SUB
-                self.Subway_sign(flag)
+        for key in self.information_dict.keys():
+            self.data = key
+        flag = input("위에서 scan받은 데이터중 원하는 데이터를 입력하세요")
+        if flag == Traffic:  # TRF
+            self.flag = Traffic
+            self.Traffic_sign(flag)
+        elif flag == Subway:
+            self.flag = Subway  # SUB
+            self.Subway_sign(flag)
 
     def Traffic_sign(self, key):
         trafiic_number, color, Ten, One = self.information_dict[key][6:12], self.information_dict[key][12:14], \
