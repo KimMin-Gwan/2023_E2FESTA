@@ -13,6 +13,8 @@
 * JH KIM            2023.07.20      v1.01       set_txt, tts_read merged
 * JH KIM            2023.07.25      v1.02       flag added
 """
+import time
+
 from modules.Speaker.utils import *
 import threading
 
@@ -39,6 +41,7 @@ class SpeakMaster:
                 #self.cs.release()
                 self.setSpeakerFlag(0)
                 return
+            time.sleep(0.01)
             #pygame.time.Clock().tick(60)
         #self.cs.release()
         self.setSpeakerFlag(0)
