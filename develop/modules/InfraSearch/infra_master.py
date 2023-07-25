@@ -42,7 +42,9 @@ class beacon_master:
         self.information = self.receive.scanData()  # scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
         if not self.information:  # 주변에 비콘이없다면
             self.data = "주변에 스캔된 비콘이 없습니다."
-            self.start_gtts()
+            #self.start_gtts()
+            speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+            speaker_thread.start()
             return False
         else:
             self.scan_result_gtts()
@@ -112,12 +114,11 @@ class beacon_master:
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
     def runScanBeacon(self):
+        self.mainInfo.setButtonState(-1)
         state = self.scan_beacon()
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()
             self.connect_data_base()
-            self.mainInfo.setButtonState(-1)
             return
         else:
-            self.mainInfo.setButtonState(-1)
             return
