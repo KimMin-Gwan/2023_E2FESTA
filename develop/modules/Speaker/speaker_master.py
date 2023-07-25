@@ -34,7 +34,7 @@ class SpeakMaster:
         pygame.mixer.music.load('test3.mp3')
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
-            print("bust flag", self.flag)
+            print("busy flag", self.flag)
             if self.flag == 1:
                 #self.cs.release()
                 self.setSpeakerFlag(0)
