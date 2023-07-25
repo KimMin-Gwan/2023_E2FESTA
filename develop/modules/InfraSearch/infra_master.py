@@ -59,6 +59,7 @@ class beacon_master:
                 speaker_thread.start()
                 #self.start_gtts()
                 sTime = time.time()
+                print(sTime)
                 while True:
                     eTime = time.time()
                     if eTime - sTime > 3:
