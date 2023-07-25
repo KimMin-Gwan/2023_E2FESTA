@@ -35,12 +35,7 @@ class SpeakMaster:
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
         pygame.mixer.music.play()
-        while pygame.mixer.music.get_busy():
-            print("busy flag", self.flag)
-            if self.flag == 1:
-                self.cs.release()
-                self.setSpeakerFlag(0)
-                return
+        while pygame.mixer.music.get_busy() and self.flag == 0:
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
         self.cs.release()
