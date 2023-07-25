@@ -28,7 +28,7 @@ class SpeakMaster:
         self.flag = state
 
     def tts_read(self, str):  # speaker class로 들어갈 내용
-        self.cs.acquire()
+        #self.cs.acquire()
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
@@ -36,10 +36,10 @@ class SpeakMaster:
         while pygame.mixer.music.get_busy():
             print("bust flag", self.flag)
             if self.flag == 1:
-                self.cs.release()
+                #self.cs.release()
                 self.setSpeakerFlag(0)
                 return
             pygame.time.Clock().tick(60)
-        self.cs.release()
+        #self.cs.release()
         self.setSpeakerFlag(0)
 
