@@ -39,7 +39,7 @@ class SpeakMaster:
                 #self.cs.release()
                 self.setSpeakerFlag(0)
                 return
-            pygame.time.Clock().tick(60)
+            #pygame.time.Clock().tick(60)
         #self.cs.release()
         self.setSpeakerFlag(0)
 
