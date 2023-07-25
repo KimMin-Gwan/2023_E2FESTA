@@ -64,6 +64,7 @@ class beacon_master:
                     if eTime - sTime > 3:
                         break
                     if self.mainInfo.getButtonState() == 2:
+                        print("Here 2")
                         self.speaker.setSpeakerFlag(1)
                         time.sleep(0.01)
                         self.flag = dict_key
