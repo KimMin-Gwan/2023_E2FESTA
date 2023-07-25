@@ -42,29 +42,40 @@ class beacon_master:
         self.information = self.receive.scanData()  # scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
         if not self.information:  # 주변에 비콘이없다면
             self.data = "주변에 스캔된 비콘이 없습니다."
-            self.start_gtts()
+            #self.start_gtts()
+            speaker_thread = threading.Thread(target=self.start_gtts)
+            speaker_thread.start()
             return False
         else:
             self.scan_result_gtts()
-            self.start_gtts()
+            #self.start_gtts()
+
             for dict_key in self.information.keys():
                 if dict_key == Subway:
                     self.data = "지하철"
                 elif dict_key == Traffic:
                     self.data = "신호등"
-                self.start_gtts()
-
+                speaker_thread = threading.Thread(target=self.start_gtts)
+                speaker_thread.start()
+                #self.start_gtts()
                 sTime = time.time()
                 while True:
                     eTime = time.time()
-                    if eTime - sTime > 2:
+                    if eTime - sTime > 3:
                         break
                     if self.mainInfo.getButtonState() == 2:
+                        print("Here 2")
+                        self.speaker.setSpeakerFlag(1)
+                        time.sleep(0.01)
                         self.flag = dict_key
                         self.mainInfo.setButtonState(-1)
+                        if speaker_thread.is_alive():
+                            speaker_thread.join()
                         return True
             self.data = "버튼이 입력되지 않았습니다."
-            self.start_gtts()
+            speaker_thread = threading.Thread(target=self.start_gtts)
+            speaker_thread.start()
+            #self.start_gtts()
             return False
 
     def process_beacon(self):  # processes하는 부분이다.
@@ -102,15 +113,19 @@ class beacon_master:
             elif i == Subway:
                 self.data += (sub_gtts+", ")
         self.data = self.data[:-2]
+
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
+        speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+        speaker_thread.start()
+        self.mainInfo.setButtonState(-1)
+
     def runScanBeacon(self):
+        self.mainInfo.setButtonState(-1)
         state = self.scan_beacon()
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()
             self.connect_data_base()
-            self.mainInfo.setButtonState(-1)
             return
         else:
-            self.mainInfo.setButtonState(-1)
             return

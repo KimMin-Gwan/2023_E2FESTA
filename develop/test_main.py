@@ -11,6 +11,7 @@
 * JH KIM            2023.07.17		v1.00		First Write
 """
 import sys
+import threading
 import time
 
 sys.path.append('/home/pi/2023_E2FESTA')
@@ -36,7 +37,9 @@ def main():
     info = information()
     button = Button(info)
     speaker = SpeakMaster()
-    speaker.tts_read("나비가 시작되었습니다.")
+    #speaker.tts_read("나비가 시작되었습니다.")
+    speaker_thread = threading.Thread(target=speaker.tts_read, args=("나비가 시작되었습니다.",))
+    speaker_thread.start()
     button_thread = threading.Thread(target=runButton, args=(button,))
     infrasearch_thread = None
     button_thread.start()

@@ -10,6 +10,8 @@
 * Author    		Date		    Version		History                                                                                 code to fix
 * MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py 
 * MG KIM			2023.07.11      v0.10	    하드코딩 지양바람 - constnat.py에 기록
+* JH SUN            2023.07.21      v1.00       processing.py 작성완료
+* JH KIM            2023.07.25      v1.01       dictionary value modified (power, data)
 """
 
 import time
@@ -35,8 +37,8 @@ class ProcessingData:  # data처리 클래스
             self.Subway_sign(self.flag)
 
     def Traffic_sign(self, key):
-        trafiic_number, color, Ten, One = self.information_dict[key][6:12], self.information_dict[key][12:14], \
-        self.information_dict[key][14:16], self.information_dict[key][16:18]  # tuple형태로 data 꺼내오기
+        trafiic_number, color, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
+        self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]  # tuple형태로 data 꺼내오기
         if color == GREEN:
             color = Green
 
@@ -61,8 +63,8 @@ class ProcessingData:  # data처리 클래스
         self.key = trafiic_number
 
     def Subway_sign(self, key):
-        subway_number, way, Ten, One = self.information_dict[key][6:12], self.information_dict[key][12:14], \
-        self.information_dict[key][14:16], self.information_dict[key][16:18]
+        subway_number, way, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
+        self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]
         if way == UP_LINE:
             way = Up_line
         elif way == DOWN_LINE:
