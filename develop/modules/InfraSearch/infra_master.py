@@ -112,9 +112,9 @@ class beacon_master:
         self.data = self.data[:-2]
         self.mainInfo.setButtonState(-1)
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
+        print(self.data)
         speaker_thread = threading.Thread(target=self.start_gtts(), args=())
         speaker_thread.start()
-        print(self.data)
 
     def runScanBeacon(self):
         self.mainInfo.setButtonState(-1)
