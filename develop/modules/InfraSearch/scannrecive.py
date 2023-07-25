@@ -45,7 +45,8 @@ class ReceiveSignal:  #receive class
         print("=============================")
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
-                if  KEY in value:
+                if KEY in value:
+                    print(KEY)
                     rssi_power=abs(dev.rssi)   #if big rssi then less recive power
                     beaconData = value[8:]  #erase flag
                     print(rssi_power,beaconData)
