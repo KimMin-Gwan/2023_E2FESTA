@@ -23,6 +23,9 @@ class SpeakMaster:
         self.flag = 0 # flag 0으로 초기화 1이면 종료 코드
         self.cs = threading.Lock()
 
+    def setSpeakerFlag(self, state):
+        self.flag = state
+
     def tts_read(self, str):  # speaker class로 들어갈 내용
         
         self.cs.acquire()
@@ -34,3 +37,5 @@ class SpeakMaster:
         while pygame.mixer.music.get_busy() and self.flag == 0:
             pygame.time.Clock().tick(10)
         self.cs.release()
+        self.setSpeakerFlag(0)
+
