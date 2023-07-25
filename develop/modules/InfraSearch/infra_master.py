@@ -48,7 +48,7 @@ class beacon_master:
             return False
         else:
             self.scan_result_gtts()
-            self.start_gtts()
+            #self.start_gtts()
 
             for dict_key in self.information.keys():
                 if dict_key == Subway:
@@ -112,7 +112,10 @@ class beacon_master:
         self.data = self.data[:-2]
         self.mainInfo.setButtonState(-1)
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
+        speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+        speaker_thread.start()
         print(self.data)
+
     def runScanBeacon(self):
         self.mainInfo.setButtonState(-1)
         state = self.scan_beacon()
