@@ -43,7 +43,7 @@ class beacon_master:
         if not self.information:  # 주변에 비콘이없다면
             self.data = "주변에 스캔된 비콘이 없습니다."
             #self.start_gtts()
-            speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+            speaker_thread = threading.Thread(target=self.start_gtts)
             speaker_thread.start()
             return False
         else:
@@ -55,11 +55,10 @@ class beacon_master:
                     self.data = "지하철"
                 elif dict_key == Traffic:
                     self.data = "신호등"
-                speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+                speaker_thread = threading.Thread(target=self.start_gtts)
                 speaker_thread.start()
                 #self.start_gtts()
                 sTime = time.time()
-                print(sTime)
                 while True:
                     eTime = time.time()
                     if eTime - sTime > 3:
@@ -74,7 +73,7 @@ class beacon_master:
                             speaker_thread.join()
                         return True
             self.data = "버튼이 입력되지 않았습니다."
-            speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+            speaker_thread = threading.Thread(target=self.start_gtts)
             speaker_thread.start()
             #self.start_gtts()
             return False
