@@ -46,12 +46,17 @@ class ReceiveSignal:  #receive class
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
                 if KEY in value:
-                    print(KEY)
                     rssi_power=abs(dev.rssi)   #if big rssi then less recive power
                     beaconData = value[8:]  #erase flag
                     print(rssi_power,beaconData)
                     key=self.Check_flag(beaconData)
-                    self.information_dict[key]=beaconData
+                    if key in self.information_dict:
+                        if self.information_dict[key][0]< rssi_power:
+                            self.information_dict[key] = (rssi_power, beaconData)
+                        else:
+                            continue
+                    else :
+                        self.information_dict[key]=(rssi_power, beaconData)
                     
         return self.information_dict  #scan하고 return하는 경우와
     
