@@ -28,7 +28,6 @@ class SpeakMaster:
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         
-        
         pygame.mixer.music.load('test3.mp3')
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
