@@ -47,12 +47,13 @@ class beacon_master:
         else:
             self.scan_result_gtts()
             self.start_gtts()
+            speaker_thread = threading.Thread(target=self.start_gtts(), args=())
             for dict_key in self.information.keys():
                 if dict_key == Subway:
                     self.data = "지하철"
                 elif dict_key == Traffic:
                     self.data = "신호등"
-                speaker_thread = threading.Thread(target=self.start_gtts(), args=())
+
                 speaker_thread.start()
                 #self.start_gtts()
                 sTime = time.time()
@@ -67,7 +68,8 @@ class beacon_master:
                             speaker_thread.join()
                         return True
             self.data = "버튼이 입력되지 않았습니다."
-            self.start_gtts()
+            speaker_thread.start()
+            #self.start_gtts()
             return False
 
     def process_beacon(self):  # processes하는 부분이다.
