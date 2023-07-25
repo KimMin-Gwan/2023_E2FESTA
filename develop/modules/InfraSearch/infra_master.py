@@ -52,9 +52,9 @@ class beacon_master:
 
             for dict_key in self.information.keys():
                 if dict_key == Subway:
-                    self.data = "지하철입니다 안녕하세요 저는 지하철이에요"
+                    self.data = "지하철"
                 elif dict_key == Traffic:
-                    self.data = "신호등입니다 안녕하세요 저는 지하철이에요"
+                    self.data = "신호등"
                 speaker_thread = threading.Thread(target=self.start_gtts)
                 speaker_thread.start()
                 #self.start_gtts()
