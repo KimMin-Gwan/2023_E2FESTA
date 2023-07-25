@@ -9,8 +9,9 @@
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
 * MG KIM			2023.07.11      v0.10	    make file
-* JH SUN            2023.07.18      v0.11       write SpeakerMaster
-* JH KIM            2023.07.20      v0.12       set_txt, tts_read merged
+* JH SUN            2023.07.18      v1.00       write SpeakerMaster
+* JH KIM            2023.07.20      v1.01       set_txt, tts_read merged
+* JH KIM            2023.07.25      v1.02       flag added
 """
 from modules.Speaker.utils import *
 import threading
