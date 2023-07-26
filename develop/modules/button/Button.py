@@ -38,9 +38,10 @@ class Button:
     def getLastInputTime(self):
         return self.__lastInput
 
+
     def buttonInput(self):
-        print(time.time() - getLastInputTime())
-        if time.time() - getLastInputTime() < 0.3:
+        print(time.time() - self.getLastInputTime())
+        if time.time() - self.getLastInputTime() < 0.3:
             return None
 
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
@@ -74,15 +75,9 @@ class Button:
             self.sTime = time.time()
             return None
 
-    def setbuttonExitFlag(self, state):
-        self.__buttonExitFlag = state
 
-    def getbuttonExitFlag(self):
-        return self.__buttonExitFlag
 
     def startButton(self):
         while True:
-            if self.getbuttonExitFlag() == True:
-                break
             self.buttonInput()
             time.sleep(0.1)
