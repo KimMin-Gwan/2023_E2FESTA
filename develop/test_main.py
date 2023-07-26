@@ -65,10 +65,8 @@ def main():
             infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
 
-        elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
-            button.setbuttonExitFlag(True)
-            button_thread.join()
-            return
+        #elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
+
         time.sleep(0.01)
 
     return
