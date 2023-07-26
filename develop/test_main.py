@@ -56,7 +56,7 @@ def main():
         # print button state
         info.cs.acquire()
         buttonState = info.getButtonState()
-        #print(info.getButtonState())
+        print(info.getButtonState())
         info.cs.release()
 
         # run func
