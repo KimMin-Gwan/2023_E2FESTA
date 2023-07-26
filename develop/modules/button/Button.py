@@ -40,8 +40,8 @@ class Button:
 
 
     def buttonInput(self):
-        print(time.time() - self.getLastInputTime())
-        if time.time() - self.getLastInputTime() < 0.3:
+        #print(time.time() - self.getLastInputTime())
+        if time.time() - self.getLastInputTime() < 0.2:
             return None
 
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
