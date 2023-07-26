@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<html lang-"ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search</title>
+        <style>
+            .container1{
+                position: fixed;
+                top:1%;
+                left:1%;
+                width:70%;
+                text-align: center;
+            }
+            .container2{
+                position: fixed;
+                top:1%;
+                left:79%;
+                margin-left: 10px;
+                text-align: center;
+            }
+            .container3{
+                position: fixed;
+                top:20%;
+                left:72%;
+                width: 25%;
+                height: 20%;
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container1">
+            <h4>카메라 화면</h4>
+                <img id="stream" src="{{ url_for('video_show') }}" style="width: 100%;">
+                <div class="container3">  
+                    <button id="snapshotButton">Snapshot</button>
+                    <img id="snapshotImage" src="" width="100%" style="display: none;" />
+                    <script>
+                        const video = document.getElementById('stream');
+                        const snapshotButton = document.getElementById('snapshotButton');
+                        const snapshotImage = document.getElementById('snapshotImage');
+
+                        snapshotButton.addEventListener('click', () => {
+                        fetch('/snapshot')
+                        .then(response => response.blob())
+                        .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        snapshotImage.src = url;
+                        snapshotImage.style.display = "block";
+                        });
+                    });
+                    </script>
+                </div> 
+        </div>
+
+        <div class="container2">
+            <h4>인프라 검색</h4>
+            <input type="submit" value="{{name1}}" 
+            onclick="if(!confirm('{{name1}}을(를) 선택하시겠습니까?')){return false;}"/>
+            <input type="submit" value="{{name2}}" 
+            onclick="if(!confirm('{{name2}}를(을) 선택하시겠습니까?')){return false;}"/>
+            <input type="submit" value="{{name3}}" 
+            onclick="if(!confirm('{{name3}}을(를) 선택하시겠습니까?')){return false;}"/>
+        </div>
+    </body>
+</html> 
