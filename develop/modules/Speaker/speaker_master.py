@@ -21,10 +21,11 @@ import threading
 
 class SpeakMaster:
     # 생성자
-    def __init__(self):
+    def __init__(self, info):
         pygame.init()
         self.speakerKillFlag = False # flag 0으로 초기화 1이면 종료 코드
         self.cs = threading.Lock()
+        self.info = info
 
     def setSpeakerKillFlag(self, state):
         self.speakerKillFlag = state
@@ -35,7 +36,7 @@ class SpeakMaster:
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
         pygame.mixer.music.play()
-        while pygame.mixer.music.get_busy() and self.speakerKillFlag == False:
+        while pygame.mixer.music.get_busy() and self.speakerKillFlag == False or self.info.getButtonState() == NO:
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
         self.cs.release()

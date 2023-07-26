@@ -37,7 +37,7 @@ def main():
     # class object
     info = information()
     button = Button(info)
-    speaker = SpeakMaster()
+    speaker = SpeakMaster(info)
 
 
     #speaker.tts_read("나비가 시작되었습니다.")
