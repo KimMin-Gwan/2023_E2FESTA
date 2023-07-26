@@ -34,7 +34,7 @@ class information:
         return self.__buttonState
 
 
-def runButton(button):
+def startButton(button):
     while True:
         button.buttonInput()
 

@@ -31,6 +31,7 @@ class Button:
         self.__lastInput = 0
         self.__state = ""
         self.info = info
+        self.__buttonExitFlag = False
 
     def getState(self):
         self.__lastInput = time.time()
@@ -67,10 +68,14 @@ class Button:
             self.sTime = time.time()
             return None
 
-# def main():
-#    bu = Button()
-#    while True:
-#        bu.buttonInput()
-#
-# if __name__ == "__main__":
-#    main()
+    def setbuttonExitFlag(self, state):
+        self.__buttonExitFlag = state
+
+    def getbuttonExitFlag(self, state):
+        return self.__buttonExitFlag
+
+    def startButton(self):
+        while True:
+            if self.getbuttonExitFlag() == True:
+                break
+            self.buttonInput()
