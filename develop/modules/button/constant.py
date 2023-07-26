@@ -22,3 +22,4 @@ SCAN = 1
 YES = 2
 NO = -2
 HANDCAM = 3
+DEFAULT = -1

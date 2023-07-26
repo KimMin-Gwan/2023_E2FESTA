@@ -1,7 +1,7 @@
 """
 * Project : 2023 CDP main
 * Program Purpose and Features :
-* - main
+* - 2023 CDP main
 * Author : JH KIM
 * First Write Date : 2023.07.17
 * ==========================================================================
@@ -9,6 +9,7 @@
 * ==========================================================================
 * Author    		Date		Version		History
 * JH KIM            2023.07.17		v1.00		First Write
+* JH KIM            2023.07.26      v1.01       comment added
 """
 import sys
 import threading
@@ -60,7 +61,7 @@ def main():
 
         # run func
         if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
-            info.setButtonState(-1)
+            info.setButtonState(DEFAULT)
             infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
 
