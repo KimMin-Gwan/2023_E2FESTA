@@ -41,7 +41,7 @@ class SpeakMaster:
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
         self.setSpeakerKillFlag(False)
-        #self.info.setButtonState(-1)
+        self.info.setButtonState(-1)
         self.cs.release()
 
 
