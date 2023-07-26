@@ -38,7 +38,6 @@ class Button:
         return self.__state
 
     def buttonInput(self):
-        time.sleep(0.1)
         if time.time() - self.__lastInput < 0.5:
             return None
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
@@ -79,3 +78,4 @@ class Button:
             if self.getbuttonExitFlag() == True:
                 break
             self.buttonInput()
+            time.sleep(0.1)

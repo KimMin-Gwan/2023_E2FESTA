@@ -52,9 +52,6 @@ def main():
 
 
     while True:
-        infrasearch_cs = threading.Lock()
-        time.sleep(0.01)
-
         # print button state
         info.cs.acquire()
         buttonState = info.getButtonState()
@@ -69,8 +66,10 @@ def main():
 
         elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
             button.setbuttonExitFlag(True)
+            button_thread.join()
             return
-    button_thread.join()
+        time.sleep(0.01)
+
     return
 
 
