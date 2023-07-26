@@ -44,8 +44,8 @@ class beacon_master:
         if not self.information:  # 주변에 비콘이없다면
             self.data = "주변에 스캔된 비콘이 없습니다."
             # self.start_gtts()
-            speaker_thread = threading.Thread(target=self.start_gtts)
-            speaker_thread.start()
+            #speaker_thread = threading.Thread(target=self.start_gtts)
+            self.speaker_thread.start()
             return False
         else:
             self.scan_result_gtts()
