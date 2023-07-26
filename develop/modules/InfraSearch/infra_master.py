@@ -95,7 +95,7 @@ class beacon_master:
         print("확인할 최종 data======================================", self.data)
 
     def start_gtts(self):
-        speaker_thread = threading.Thread(target=self.speaker.tts_read,target=(self.data))
+        speaker_thread = threading.Thread(target=self.speaker.tts_read,args=(self.data))
         # self.speaker.tts_read(self.data)
         speaker_thread.start()
         self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
