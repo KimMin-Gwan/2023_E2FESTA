@@ -43,7 +43,6 @@ def main():
     #speaker.tts_read("나비가 시작되었습니다.")
     speaker_thread = threading.Thread(target=speaker.tts_read, args=("나비가 시작되었습니다.",))   # welcome sound
     speaker_thread.start()
-    time.sleep(1)
 
     button_thread = threading.Thread(target=runButton, args=(button,))      # button thread
     button_thread.start()                                                   # button start
