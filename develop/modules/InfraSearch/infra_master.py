@@ -68,8 +68,8 @@ class beacon_master:
                         self.mainInfo.setButtonState(-1)
                         self.speaker.setSpeakerKillFlag(True)
                         self.flag = dict_key
-                        if speaker_thread.is_alive():
-                            speaker_thread.join()
+                        if self.speaker_thread.is_alive():
+                            self.speaker_thread.join()
                         return True
             self.data = "버튼이 입력되지 않았습니다."
             #speaker_thread = threading.Thread(target=self.start_gtts)
