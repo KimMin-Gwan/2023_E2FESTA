@@ -33,21 +33,25 @@ class Button:
         self.info = info
         self.__buttonExitFlag = False
 
-    def getState(self):
+    def setLastInputTime(self):
         self.__lastInput = time.time()
-        return self.__state
+    def getLastInputTime(self):
+        return self.__lastInput
 
     def buttonInput(self):
-        if time.time() - self.__lastInput < 0.5:
+        if time.time() - getLastInputTime() < 0.3:
             return None
+
         if GPIO.input(BEACONSCANBUTTON) == GPIO.HIGH:
             # print("1 Button Pushed")
             self.info.setButtonState(SCAN)
+            self.setLastInputTime()
             return None
 
         elif GPIO.input(HANDCAMBUTTON) == GPIO.HIGH:
             # print("3 Button Pushed")
             self.info.setButtonState(HANDCAM)
+            self.setLastInputTime()
             return None
 
         elif self.__flag == 1 and GPIO.input(YESNOBUTTON) == GPIO.LOW:  # senter
@@ -56,9 +60,11 @@ class Button:
             if elapsedTime <= 0.5:
                 # print("Yes Button Pushed")
                 self.info.setButtonState(YES)
+                self.setLastInputTime()
             else:
                 # print("No Button Pushed")
                 self.info.setButtonState(NO)
+                self.setLastInputTime()
             self.__flag = 0
             return None
 
