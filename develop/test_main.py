@@ -68,6 +68,7 @@ def main():
             infrasearch_thread.start()
 
         elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
+            button.setbuttonExitFlag(True)
             return
     button_thread.join()
     return

@@ -71,7 +71,7 @@ class Button:
     def setbuttonExitFlag(self, state):
         self.__buttonExitFlag = state
 
-    def getbuttonExitFlag(self, state):
+    def getbuttonExitFlag(self):
         return self.__buttonExitFlag
 
     def startButton(self):
