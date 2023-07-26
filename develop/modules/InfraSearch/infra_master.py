@@ -69,8 +69,8 @@ class beacon_master:
                         time.sleep(0.01)
                         self.flag = dict_key  #flag를 지정해서 
                         self.mainInfo.setButtonState(-1)
-                        if speaker_thread.is_alive():  #스피커 스레드가 살아있다면 끝날때 까지 기다린다.
-                            speaker_thread.join()
+                        # if speaker_thread.is_alive():  #스피커 스레드가 살아있다면 끝날때 까지 기다린다.
+                        #     speaker_thread.join()
                         return True
                     
                     
@@ -95,7 +95,7 @@ class beacon_master:
         print("확인할 최종 data======================================", self.data)
 
     def start_gtts(self):
-        speaker_thread = threading.Thread(target=self.speaker.tts_read,args=(self.data))
+        speaker_thread = threading.Thread(target=self.speaker.tts_read,args=(self.data,))
         # self.speaker.tts_read(self.data)
         speaker_thread.start()
         self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
@@ -120,8 +120,9 @@ class beacon_master:
 
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
-        speaker_thread = threading.Thread(target=self.start_gtts(), args=())
-        speaker_thread.start()
+        # speaker_thread = threading.Thread(target=self.start_gtts, args=())
+        # speaker_thread.start()
+        self.start_gtts()
         self.mainInfo.setButtonState(-1)
 
     def runScanBeacon(self):
