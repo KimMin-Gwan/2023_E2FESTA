@@ -20,6 +20,6 @@ class information:
     def setButtonState(self, state):
         self.cs.acquire()
         self.__buttonState = state
-        print(self.getButtonState())
+        print("Button setting : {}".format(self.getButtonState()))
         self.cs.release()
 

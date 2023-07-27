@@ -26,22 +26,30 @@ class SpeakMaster:
         self.speakerKillFlag = False # flag 0으로 초기화 1이면 종료 코드
         self.cs = threading.Lock()
         self.info = info
+        self.exitCode = 0
 
 
 
     def tts_read(self, str):  # speaker class로 들어갈 내용
         self.cs.acquire()
+        self.exitCode = 0
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
         pygame.mixer.music.play()
         # speaker kill flag또는 button state가 DEFAULT(-1)이 아니면 스피커 종료
-        while pygame.mixer.music.get_busy() and self.info.getButtonState() != 3:
+        while pygame.mixer.music.get_busy():
+            if self.info.getButtonState() == 1:
+                self.exitCode = -1
+                break
+            elif self.info.getButtonState() == 3:
+                break
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
         pygame.mixer.music.stop()
         self.info.setButtonState(-1)
         self.cs.release()
+        return self.exitCode
 
 
 
