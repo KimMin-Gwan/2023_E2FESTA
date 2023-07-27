@@ -19,17 +19,13 @@ def print_a():
         print("a")
         time.sleep(0.1)
 
-def runButton():
-    button = Button()
-    while True:
-        button.buttonInput()
-
-if __name__ == "__main__":
-     print_thread = threading.Thread(target=print_a)
-     button_thread = threading.Thread(target=runButton)
-
-     print_thread.start()
-     button_thread.start()
-
-     print_thread.join()
-     button_thread.join()
+    # 글자를 카메라로 찍어서 읽으려면 좌우반전을 하면 안 됨
+    
+    if status:
+        cv2.imshow("test", frame)  # 창 제목
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가기
+        break
+    
+    if cv2.waitKey(1) & 0xFF == ord('a'):  # a 누르면 사진 찍기
+        cv2.imwrite('self camera test.jpg', frame) # 사진 저장
