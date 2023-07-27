@@ -1,6 +1,6 @@
 import cv2
 
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(0)  # 0번 카메라
 
 if not webcam.isOpened():  # 카메라가 켜지지 않았을 때
     print("Could not open webcam")  # 오류 메시지 출력
@@ -24,5 +24,3 @@ while webcam.isOpened():  # 카메라가 켜졌을 때
     
 webcam.release()
 cv2.destroyAllWindows()
-
-
