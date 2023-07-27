@@ -28,6 +28,7 @@ def runButton(button):              # run Button
 
 def runInfrasearch(speaker, info):  # run InfraSearch(beacon scan)
     master = beacon_master(speaker, info)
+
     state=master.runScanBeacon()
     return
 
@@ -53,16 +54,16 @@ def main():
 
     while True:
         # print button state
-        info.cs.acquire()
         buttonState = info.getButtonState()
-        print(info.getButtonState())
-        info.cs.release()
+        #print(buttonState)
+
 
         # run func
         if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
             info.setButtonState(DEFAULT)
             infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
+
 
         #elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
 
