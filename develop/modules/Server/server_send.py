@@ -12,7 +12,9 @@
 * Juwhan KIM			2023.07.16      v0.10	    make file
 * 
 """
+
 #url 을 전송하는 방법
+
 import requests
 
 def send():
