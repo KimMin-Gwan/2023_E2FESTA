@@ -115,6 +115,7 @@ class beacon_master:
         print(self.data)
         exitCode = self.start_gtts()
         return exitCode
+
     def runScanBeacon(self):
         infraSearchExitCode = 0
         state = self.scan_beacon()
