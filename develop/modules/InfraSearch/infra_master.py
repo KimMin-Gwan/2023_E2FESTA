@@ -93,6 +93,7 @@ class beacon_master:
         self.get_gtts_data()
         self.send_server()
         self.start_gtts()
+        print("db end")
 
     def scan_result_gtts(self):
         result = []
@@ -117,6 +118,7 @@ class beacon_master:
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()
             self.connect_data_base()
+            print("infra end")
             return
         else:
             return
