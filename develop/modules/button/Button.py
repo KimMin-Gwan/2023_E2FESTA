@@ -80,4 +80,4 @@ class Button:
     def startButton(self):
         while True:
             self.buttonInput()
-            time.sleep(0.1)
+            time.sleep(0.01)
