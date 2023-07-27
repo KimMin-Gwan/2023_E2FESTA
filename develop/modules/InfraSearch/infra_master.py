@@ -21,7 +21,6 @@ from bluepy.btle import Scanner
 from modules.InfraSearch.utils import *
 from modules.InfraSearch.constant import *
 import requests
-import threading
 
 
 class beacon_master:
@@ -44,8 +43,6 @@ class beacon_master:
         if not self.information:  # 주변에 비콘이없다면
             self.data = "주변에 스캔된 비콘이 없습니다."
             self.start_gtts()
-            #speaker_thread = threading.Thread(target=self.start_gtts)
-            #self.speaker_thread.start()
             return False
         else:
             self.scan_result_gtts()
@@ -66,14 +63,11 @@ class beacon_master:
                         break
                     if self.mainInfo.getButtonState() == 2:
                         self.mainInfo.setButtonState(-1)
-                        self.speaker.setSpeakerKillFlag(True)
                         self.flag = dict_key
                         #if self.speaker_thread.is_alive():
                         #    self.speaker_thread.join()
                         return True
             self.data = "버튼이 입력되지 않았습니다."
-            #speaker_thread = threading.Thread(target=self.start_gtts)
-            #self.speaker_thread.start()
             self.start_gtts()
             return False
 
@@ -115,8 +109,6 @@ class beacon_master:
 
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
-        #speaker_thread = threading.Thread(target=self.start_gtts(), args=())
-        #self.speaker_thread.start()
         self.start_gtts()
 
     def runScanBeacon(self):

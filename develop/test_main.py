@@ -53,10 +53,9 @@ def main():
 
     while True:
         # print button state
-        info.cs.acquire()
         buttonState = info.getButtonState()
-        print(info.getButtonState())
-        info.cs.release()
+        print(buttonState)
+
 
         # run func
         if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
