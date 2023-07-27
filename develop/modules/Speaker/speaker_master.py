@@ -43,6 +43,6 @@ class SpeakMaster:
         self.setSpeakerKillFlag(False)
         self.info.setButtonState(-1)
         self.cs.release()
-        return
+
 
 
