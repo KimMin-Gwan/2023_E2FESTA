@@ -39,8 +39,10 @@ class SpeakMaster:
         pygame.mixer.music.play()
         # speaker kill flag또는 button state가 DEFAULT(-1)이 아니면 스피커 종료
         while pygame.mixer.music.get_busy():
-            if self.info.getButtonState() == 3:
+            if self.info.getButtonState() == 1:
                 self.exitCode = -1
+                break
+            elif self.info.getButtonState() == 3:
                 break
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
