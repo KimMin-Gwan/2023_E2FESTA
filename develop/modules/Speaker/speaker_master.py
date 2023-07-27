@@ -30,7 +30,7 @@ class SpeakMaster:
 
 
     def tts_read(self, str):  # speaker class로 들어갈 내용
-        #self.cs.acquire()
+        self.cs.acquire()
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
@@ -41,7 +41,7 @@ class SpeakMaster:
             #pygame.time.Clock().tick(60)
         pygame.mixer.music.stop()
         self.info.setButtonState(-1)
-        #self.cs.release()
+        self.cs.release()
 
 
 

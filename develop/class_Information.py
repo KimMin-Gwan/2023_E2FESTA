@@ -15,11 +15,11 @@ class information:
     def __init__(self):
         self.__buttonState = -1
         self.cs = threading.Lock()
-
+    def getButtonState(self):
+        return self.__buttonState
     def setButtonState(self, state):
         self.cs.acquire()
         self.__buttonState = state
+        print(self.getButtonState())
         self.cs.release()
 
-    def getButtonState(self):
-        return self.__buttonState
