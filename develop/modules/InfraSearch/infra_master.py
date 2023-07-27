@@ -63,7 +63,6 @@ class beacon_master:
                         break
                     if self.mainInfo.getButtonState() == 2:
                         self.mainInfo.setButtonState(-1)
-                        self.speaker.setSpeakerKillFlag(True)
                         self.flag = dict_key
                         #if self.speaker_thread.is_alive():
                         #    self.speaker_thread.join()
