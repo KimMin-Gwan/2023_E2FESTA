@@ -93,6 +93,7 @@ class beacon_master:
         self.get_gtts_data()
         self.send_server()
         self.start_gtts()
+        print("db end")
 
     def scan_result_gtts(self):
         result = []

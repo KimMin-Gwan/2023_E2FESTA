@@ -54,7 +54,7 @@ def main():
     while True:
         # print button state
         buttonState = info.getButtonState()
-        print(buttonState)
+        #print(buttonState)
 
 
         # run func
