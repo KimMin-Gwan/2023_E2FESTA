@@ -39,6 +39,7 @@ class SpeakMaster:
         while pygame.mixer.music.get_busy() and self.info.getButtonState() != 3:
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)
+        pygame.mixer.music.stop()
         self.info.setButtonState(-1)
         #self.cs.release()
 
