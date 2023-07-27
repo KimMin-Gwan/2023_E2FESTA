@@ -20,7 +20,7 @@ from develop.modules.button import *
 from develop.modules.InfraSearch import *
 from develop.modules.Speaker import *
 from class_Information import *
-
+import multiprocessing
 
 def runButton(button):              # run Button
     button.startButton()
@@ -28,6 +28,7 @@ def runButton(button):              # run Button
 
 def runInfrasearch(speaker, info):  # run InfraSearch(beacon scan)
     master = beacon_master(speaker, info)
+
     state=master.runScanBeacon()
     return
 
@@ -60,8 +61,11 @@ def main():
         # run func
         if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
             info.setButtonState(DEFAULT)
-            infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
+            infrasearch_thread = multiprocessing.Process(target=runInfrasearch, args=(speaker, info))
+            #infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
+        elif buttonState == -2:
+            infrasearch_thread.terminate()
 
         #elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
 
