@@ -17,7 +17,7 @@ limitations under the License.
 import torch.nn as nn
 
 from modules.transformation import TPS_SpatialTransformerNetwork
-from modules.feature_extraction import ResNet_FeatureExtractor
+from modules.feature_extraction_fix import ResNet_FeatureExtractor
 from modules.sequence_modeling import BidirectionalLSTM
 from modules.prediction import Attention
 
