@@ -1,33 +1,51 @@
+## License: Apache 2.0. See LICENSE file in root directory.
+## Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
+
+#####################################################
+## librealsense tutorial #1 - Accessing depth data ##
+#####################################################
+
+# First import the library
 import pyrealsense2 as rs
 
-def main():
-    # 카메라 초기화
+try:
+    # Create a context object. This object owns the handles to all connected realsense devices
     pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)  # 해상도와 프레임 속도 설정
 
-    # 스트리밍 시작
+    # Configure streams
+    config = rs.config()
+    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+
+    # Start streaming
     pipeline.start(config)
 
-    try:
-        while True:
-            # 프레임 얻기
-            frames = pipeline.wait_for_frames()
-            depth_frame = frames.get_depth_frame()
+    while True:
+        # This call waits until a new coherent set of frames is available on a device
+        # Calls to get_frame_data(...) and get_frame_timestamp(...) on a device will return stable values until wait_for_frames(...) is called
+        frames = pipeline.wait_for_frames()
+        depth = frames.get_depth_frame()
+        if not depth: continue
 
-            # 프레임이 유효한지 확인
-            if not depth_frame:
-                continue
+        # Print a simple text-based representation of the image, by breaking it into 10x20 pixel regions and approximating the coverage of pixels within one meter
+        coverage = [0] * 64
+        for y in range(480):
+            for x in range(640):
+                dist = depth.get_distance(x, y)
+                if 0 < dist and dist < 1:
+                    coverage[x // 10] += 1
 
-            # 프레임 데이터 얻기
-            distance = depth_frame.get_distance(640, 360)  # 중앙점의 거리를 얻음 (x, y)
-
-            # 출력
-            print(f"거리: {distance:.2f} 미터")
-
-    finally:
-        # 종료 시 리소스 해제
-        pipeline.stop()
-
-if __name__ == "__main__":
-    main()
+            if y % 20 is 19:
+                line = ""
+                for c in coverage:
+                    line += " .:nhBXWW"[c // 25]
+                coverage = [0] * 64
+                print(line)
+    exit(0)
+# except rs.error as e:
+#    # Method calls agaisnt librealsense objects may throw exceptions of type pylibrs.error
+#    print("pylibrs.error was thrown when calling %s(%s):\n", % (e.get_failed_function(), e.get_failed_args()))
+#    print("    %s\n", e.what())
+#    exit(1)
+except Exception as e:
+    print(e)
+    pass

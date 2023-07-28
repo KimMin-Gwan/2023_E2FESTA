@@ -67,6 +67,8 @@ pipeline = rs.pipeline()
 config = rs.config()
 
 pipeline_wrapper = rs.pipeline_wrapper(pipeline)
+
+# 범인
 pipeline_profile = config.resolve(pipeline_wrapper)
 device = pipeline_profile.get_device()
 
