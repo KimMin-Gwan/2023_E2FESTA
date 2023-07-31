@@ -45,7 +45,9 @@ class beacon_master:
             self.start_gtts()
             return False
         else:
-            self.scan_result_gtts()
+            exitCode = self.scan_result_gtts()
+            if exitCode == -1:
+                return -1
             # self.start_gtts()
 
             for dict_key in self.information.keys():
@@ -55,7 +57,9 @@ class beacon_master:
                     self.data = "신호등"
 
                 #self.speaker_thread.start()
-                self.start_gtts()
+                exitCode = self.start_gtts()
+                if exitCode == -1:
+                    return exitCode
                 sTime = time.time()
                 while True:
                     eTime = time.time()
@@ -86,20 +90,19 @@ class beacon_master:
         print("확인할 최종 data======================================", self.data)
 
     def start_gtts(self):
-        self.speaker.tts_read(self.data)
+        exitCode = self.speaker.tts_read(self.data)
         self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
+        return exitCode
 
     def connect_data_base(self):
         self.get_gtts_data()
         self.send_server()
-        self.start_gtts()
-        print("db end")
+        exitCode = self.start_gtts()
+        return exitCode
 
     def scan_result_gtts(self):
         result = []
-
         self.data = "주변에 "
-
         for i in self.information.keys():
             if i == Traffic:
                 self.data += (trf_gtts + ", ")
@@ -110,10 +113,11 @@ class beacon_master:
 
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
         print(self.data)
-        self.start_gtts()
+        exitCode = self.start_gtts()
+        return exitCode
 
     def runScanBeacon(self):
-
+        infraSearchExitCode = 0
         state = self.scan_beacon()
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()

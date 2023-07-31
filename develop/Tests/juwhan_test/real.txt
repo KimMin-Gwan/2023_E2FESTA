@@ -1,0 +1,69 @@
+00:19 Install OS: Raspberry Pi OS (32 bit, Release date May 7th 2021)
+3:12 Command Prompt: sudo apt-get update && sudo apt-get dist-upgrade
+3:31 Command Prompt: sudo apt-get install automake libtool vim cmake libusb-1.0-0-dev libx11-dev xorg-dev libglu1-mesa-dev
+4:01 Command Prompt: sudo raspi-config
+4:12 Config: Advanced options/Expand Filesystem/OK
+4:49 Command Prompt: sudo nano /etc/dphys-swapfile
+4:52 dphys-swapfile: CONF_SWAPSIZE=2048
+5:04 Command Prompt: sudo /etc/init.d/dphys-swapfile restart swapon -s
+5:25 Command Prompt: cd ~
+         Command Prompt: git clone https://github.com/IntelRealSense/lib...
+5:31 Command Prompt: cd librealsense
+5:34 Command Prompt: sudo cp config/99-realsense-libusb.rules /etc/udev/rules.d/ 
+5:36 Command Prompt: sudo su
+5:38 Command Prompt: udevadm control --reload-rules && udevadm trigger
+5:41 Command Prompt: exit
+5:48 Command Prompt: sudo nano ~/.bashrc
+5:59 .bashrc file: export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+6:06 Command Prompt: source ~/.bashrc
+Install protobuf
+6:11 Command Prompt: cd ~
+6.14 Command Prompt: git clone --depth=1 -b v3.10.0 https://github.com/google/protobuf.git
+6:20 Command Prompt: cd protobuf
+6:24  Command Prompt: ./autogen.sh
+6:30 Command Prompt: ./configure
+6.35 Command Prompt: make -j1
+6:43 Command Prompt: sudo make install
+6:49 Command Prompt: cd python
+6:54 Command Prompt: export LD_LIBRARY_PATH=../src/.libs
+7:00 Command Prompt: python3 setup.py build --cpp_implementation 
+7:05 Command Prompt: python3 setup.py test --cpp_implementation
+7:14 Command Prompt: sudo python3 setup.py install --cpp_implementation
+7:23 Command Prompt: export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp
+         Command Prompt: export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION_VERSION=3
+7:33 Command Prompt: sudo ldconfig
+Install libtbb-dev
+7:40 Command Prompt: cd ~
+7:43 Command Prompt: wget https://github.com/PINTO0309/TBBonARM...
+7:53 Command Prompt: sudo dpkg -i ~/libtbb-dev_2018U2_armhf.deb
+7:56 Command Prompt: sudo ldconfig
+Install librealsense
+8:04 Command Prompt: cd ~/librealsense
+8:07 Command Prompt: mkdir  build  && cd build
+8:09 Command Prompt: cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
+8:20 Command Prompt: make -j1
+8:34 Command Prompt: sudo make install
+Install pyrealsense2
+8:42 Command Prompt: cd ~/librealsense/build
+8:48 Command Prompt: cmake .. -DBUILD_PYTHON_BINDINGS=bool:true -DPYTHON_EXECUTABLE=$(which python3)
+9:11 Command Prompt: make -j1
+9:20 Command Prompt: sudo make install
+9:32 Command Prompt: sudo nano ~/.bashrc
+9:34 Command Prompt: bashrc file: export PYTHONPATH=$PYTHONPATH:/usr/local/lib
+9:41 Command Prompt: source ~/.bashrc
+Install OpenGL
+9:47 Command Prompt: sudo apt-get install python-opengl
+9:58 Command Prompt: sudo -H pip3 install pyopengl
+10:03 Command Prompt: sudo -H pip3 install pyopengl_accelerate==3.1.3rc1
+10:20 Command Prompt: sudo raspi-config
+10:21 Advanced options/GL Driver/GL (Fake (KMS))/OK
+Install openCV (without Virtual Environments)
+10:35 Command Prompt: sudo apt-get install libatlas-base-dev \
+           libhdf5-dev libhdf5-serial-dev libjasper-dev \
+           libqtgui4 libqt4-test
+10:50 Command Prompt: pip3 install opencv_python
+11:27 Command Prompt: realsense-viewer
+12:18 Command Prompt: python3 opencv_viewer_example.py
+12:24 Error "...no attribute pipeline"
+12:33: opencv_viewer_example.py: import pyrealsense2.pyrealsense2
+12:49 Command Prompt: python3 opencv_viewer_example.py

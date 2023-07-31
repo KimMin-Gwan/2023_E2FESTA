@@ -73,7 +73,7 @@ def image_read():
 
 # 각 json 파일을 사용 용도(train, validation, test)에 따라 특정 비율로 분리
 # flag가 1이면 간판 데이터임
-def process(file, ocr_files, flag = 0):
+def process(file, ocr_files, now_path, flag = 0):
     #file = json.load(open(json_path, 'rt', encoding='UTF8'))  # open('파일경로', 'rt', encoding='UTF8')
     file.keys()  # dict_keys(['info', 'images(모든 이미지 정보)', 'annotations', 'licenses']), key들로 이뤄짐
     file['info']  # {'name': 'Text in the wild Dataset', 'date_created': '2019-10-14 04:31:48'}
@@ -152,11 +152,17 @@ def process(file, ocr_files, flag = 0):
             annotation_temp['image_id'] = annotation['image_id']
             annotation_temp['text'] = annotation['text']
             annotation_temp['attributes'] = {"class" : "word"}
-            for image_data in file['images']:
-                if image_data['id'] == annotation['image_id']:
-                    x = image_data['width']
-                    y = image_data['height']
-                    break
+
+            # for image_data in file['images']:
+            #     if image_data['id'] == annotation['image_id']:
+            #         x = image_data['width']
+            #         y = image_data['height']
+            #         break
+
+            # 각 이미지의 크기 측정 후 반환하여 bbox 값으로 사용
+            CheckImageSize = cv2.imread(os.path.join(now_path + '/', imgName))
+            y, x, NotUse = print(CheckImageSize.shape) # 세로, 가로, 색?(근데 얜 사용 X)
+
             annotation_temp['bbox'] = [0,
                                        0,
                                        x,
@@ -203,14 +209,15 @@ def main():
     test_data = {}
 
     for key, value in data_type.items():
-        ocr_files = os.listdir(FILE_PATH + value)
+        now_path = FILE_PATH + value
+        ocr_files = os.listdir(now_path)
 
         if key == '필기체':
             #print(ocr_files[0:10])
             print('processing now : ', key)
             json_file = json.load(open(FILE_PATH + 'j_file/handwriting_data_info_clean.json', 'rt', encoding='UTF8'))
             #          ('D:/kor_dataset/write/') + 'j_file/handwriting_data_info_clean.json'
-            train, val, test = process(json_file, ocr_files)
+            train, val, test = process(json_file, ocr_files, now_path)
             train_data, val_data, test_data = dict_extend(train_data,
                                                             val_data, test_data,
                                                             train, val, test)
@@ -219,7 +226,7 @@ def main():
             print('processing now : ', key)
             json_file = json.load(open(FILE_PATH + 'j_file/printed_data_info.json', 'rt', encoding='UTF8'))
             #          ('D:/kor_dataset/write/') + 'j_file/printed_data_info.json'
-            train, val, test = process(json_file, ocr_files)
+            train, val, test = process(json_file, ocr_files, now_path)
             train_data, val_data, test_data = dict_extend(train_data,
                                                             val_data, test_data,
                                                             train, val, test)
@@ -227,17 +234,19 @@ def main():
         if key == '증강인쇄체' or key == '간판':
             for fold in ocr_files:
                 #print(FILE_PATH + value + fold)
-                ocr_files = os.listdir(FILE_PATH + value + fold)
-                
+                now_path = FILE_PATH + value + fold
+                ocr_files = os.listdir(now_path)
+
                 if key == '간판':
                     for subfold in ocr_files:
                         print('processing now : ', key)
                         #print(FILE_PATH + value + fold + subfold) # IMAGE 파일 경로
+                        now_path = FILE_PATH + value + fold + '/' + subfold
                         ocr_files = os.listdir(FILE_PATH + value + fold + '/' + subfold)
                         #print(ocr_files[0:10])
                         json_file = json.load(open(FILE_PATH + 'j_file/textinthewild_data_info.json', 'rt', encoding='UTF8'))
                         #          ('D:/kor_dataset/write/') + 'j_file/textinthewild_data_info.json'
-                        train, val, test = process(json_file, ocr_files, flag = 1)
+                        train, val, test = process(json_file, ocr_files, now_path, flag = 1)
                         train_data, val_data, test_data = dict_extend(train_data,
                                                                       val_data, test_data,
                                                                       train, val, test)
@@ -246,7 +255,7 @@ def main():
                     #print(ocr_files[0:10])
                     json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
                     #          ('D:/kor_dataset/write/') + 'j_file/augmentation_data_info.json'
-                    train, val, test = process(json_file, ocr_files)
+                    train, val, test = process(json_file, ocr_files, now_path)
                     train_data, val_data, test_data = dict_extend(train_data,
                                                                     val_data, test_data,
                                                                     train, val, test)
