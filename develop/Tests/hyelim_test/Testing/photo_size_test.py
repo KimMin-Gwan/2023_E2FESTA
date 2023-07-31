@@ -11,11 +11,12 @@ import cv2
 import os
 import time
 
-path = 'C:/Users/y2h75/Desktop/hyelim/'
+path = 'D:/kor_dataset/write/'
 imgName = '500651.jpg'
 
 start_time = time.time()
 img = cv2.imread(os.path.join(path, imgName))
 end_time = time.time()
 print(end_time - start_time)
+
 print(img.shape) # h, w, c

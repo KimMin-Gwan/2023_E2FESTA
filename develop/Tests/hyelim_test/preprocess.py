@@ -135,17 +135,9 @@ def process(file, ocr_files, now_path, flag = 0):
             elif annotation['image_id'] in test_ids_img:
                 test_annotations[test_ids_img[annotation['image_id']]].append(annotation)
     else:
-        # annotation을 만드는 부분
-        """
-        'id': "000000000",
-        'image_id': "00000000",
-        'text" : "text",
-        attributes:{ class : "word" },
-        bbox: [x1, y1, x2, y2]
-        """
         annotations = []
         annotation_temp = {}
-        for idx, annotation in enumerate(file['annotation']):
+        for idx, annotation in enumerate(file['annotations']):
             if idx % 5000 == 0:
                 print(idx, '/', len(file['annotations']), "making annotation")
             annotation_temp['id'] = annotation['id']
@@ -168,7 +160,14 @@ def process(file, ocr_files, now_path, flag = 0):
                                        x,
                                        y]
             annotations.append(annotation_temp)
-            
+                  # annotation을 만드는 부분
+        """
+        'id': "000000000",
+        'image_id': "00000000",
+        'text" : "text",
+        attributes:{ class : "word" },
+        bbox: [x1, y1, x2, y2]
+        """  
         # 실제로 분할되는 부분
         for idx, annotation in enumerate(annotations):
             if idx % 5000 == 0:
