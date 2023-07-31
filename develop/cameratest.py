@@ -14,7 +14,7 @@ try:
 
     # Configure streams
     config = rs.config()
-    config.enable_stream(rs.stream.depth, 480, 270, rs.format.z16, 6)
+    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     print("1")
     # Start streaming
     pipeline.start(config)
@@ -28,8 +28,8 @@ try:
 
         # Print a simple text-based representation of the image, by breaking it into 10x20 pixel regions and approximating the coverage of pixels within one meter
         coverage = [0] * 64
-        for y in range(270):
-            for x in range(480):
+        for y in range(480):
+            for x in range(640):
                 dist = depth.get_distance(x, y)
                 if 0 < dist and dist < 1:
                     coverage[x // 10] += 1
