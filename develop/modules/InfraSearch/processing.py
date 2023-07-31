@@ -21,22 +21,24 @@ import pygame
 
 
 class ProcessingData:  # data처리 클래스
-    def __init__(self, info_dict, flag):
+    def __init__(self, info_dict, flag): 
         self.information_dict = info_dict
-        self.text = ""
-        self.key = ""
-        self.flag = flag
-        self.data = ""
+        self.text = ""  #비콘으로 부터 받아온 data에서 gtts로 출력해야할 text
+        self.key = ""  #몇번째 비콘인지 나타내기 위한 key값 
+        self.flag = flag  #어떠한 종류의 비콘인지 
+        self.data = ""  #비콘에 들어온 Raw Data
 
     def process_beacon_data(self):  # print thread func
+        
         if self.flag == Traffic:  # TRF
             self.flag = Traffic
-            self.Traffic_sign(self.flag)
+            self.Traffic_sign(self.flag)  #Traffic data 처리 함수
+            
         elif self.flag == Subway:
             self.flag = Subway  # SUB
             self.Subway_sign(self.flag)
 
-    def Traffic_sign(self, key):
+    def Traffic_sign(self, key):  #Traffic data 처리 함수
         trafiic_number, color, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
         self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]  # tuple형태로 data 꺼내오기
         if color == GREEN:
@@ -62,7 +64,7 @@ class ProcessingData:  # data처리 클래스
         self.text = my_str
         self.key = trafiic_number
 
-    def Subway_sign(self, key):
+    def Subway_sign(self, key):  #지하철 Raw data 처리 함수
         subway_number, way, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
         self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]
         if way == UP_LINE:
@@ -86,6 +88,6 @@ class ProcessingData:  # data처리 클래스
         self.text = my_str
         self.key = subway_number
 
-    def return_gtts_mssage(self):
+    def return_gtts_mssage(self):  #처리된 text와 flag key값을 return 해준다.
 
         return self.text, self.flag, self.key
