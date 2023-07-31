@@ -1,7 +1,7 @@
 import json
 import random
 import os
-import tqdm
+from tqdm import tqdm
 import cv2
 
 
@@ -43,33 +43,9 @@ FILE_PATH = 'D:/kor_dataset/write/'  # 모든 파일들이 들어있는 경로
 data_type = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
         '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
 
-data_root_path = FILE_PATH  
-save_root_path = FILE_PATH
+data_root_path = FILE_PATH+'dataset/'
+save_root_path = FILE_PATH+'text_data/'
 
-
-# 이미지 나누기
-def image_read():
-    for key, value in data_type.items():
-        annotation_json = FILE_PATH
-
-    test_annotations = json.load(open('./test_annotation.json'))
-    gt_file = open(save_root_path + 'gt_test.txt', 'w')
-    
-    for file_name in tqdm(test_annotations):
-        annotations = test_annotations[file_name]
-        image = cv2.imread(data_root_path + file_name)
-        
-        for idx, annotation in enumerate(annotations):
-            x, y, w, h = annotation['bbox']
-            
-            if x <= 0 or y <= 0 or w <= 0 or h <= 0:
-                continue
-            
-            text = annotation['text']
-            crop_img = image[y:y+h, x:x+w]
-            crop_file_name = file_name[:-4]+'_{:03}.jpg'.format(idx+1)
-            cv2.imwrite(save_root_path + 'test/' + crop_file_name, crop_img)
-            gt_file.write('test/{}\t\n'.format(crop_file_name, text))
 
 # 각 json 파일을 사용 용도(train, validation, test)에 따라 특정 비율로 분리
 # flag가 1이면 간판 데이터임
@@ -134,6 +110,7 @@ def process(file, ocr_files, now_path, flag = 0):
                 validation_annotations[validation_ids_img[annotation['image_id']]].append(annotation)
             elif annotation['image_id'] in test_ids_img:
                 test_annotations[test_ids_img[annotation['image_id']]].append(annotation)
+    """
     else:
         annotations = []
         annotation_temp = {}
@@ -152,8 +129,8 @@ def process(file, ocr_files, now_path, flag = 0):
             #         break
 
             # 각 이미지의 크기 측정 후 반환하여 bbox 값으로 사용
-            CheckImageSize = cv2.imread(os.path.join(now_path + '/', imgName))
-            y, x, NotUse = print(CheckImageSize.shape) # 세로, 가로, 색?(근데 얜 사용 X)
+            #CheckImageSize = cv2.imread(os.path.join(now_path + '/', imgName))
+            #y, x, NotUse = print(CheckImageSize.shape) # 세로, 가로, 색?(근데 얜 사용 X)
 
             annotation_temp['bbox'] = [0,
                                        0,
@@ -161,13 +138,11 @@ def process(file, ocr_files, now_path, flag = 0):
                                        y]
             annotations.append(annotation_temp)
                   # annotation을 만드는 부분
-        """
         'id': "000000000",
         'image_id': "00000000",
         'text" : "text",
         attributes:{ class : "word" },
         bbox: [x1, y1, x2, y2]
-        """  
         # 실제로 분할되는 부분
         for idx, annotation in enumerate(annotations):
             if idx % 5000 == 0:
@@ -181,6 +156,7 @@ def process(file, ocr_files, now_path, flag = 0):
             elif annotation['image_id'] in test_ids_img:
                 test_annotations[test_ids_img[annotation['image_id']]].append(annotation)
 
+    """  
     # 각 용도에 해당하는 id 값을 저장한 list 반환
     return train_annotations, validation_annotations, test_annotations
 
@@ -193,6 +169,16 @@ def save_file(train_annotations, validation_annotations, test_annotations):
     with open('test_annotation.json', 'w', encoding='UTF-8') as file:
         json.dump(test_annotations, file, indent=6, ensure_ascii=False)
 
+def gt_file():
+    obj_list = ['train', 'validation', 'test']
+    for obj in obj_list:
+        total_annotations = json.load(open(FILE_PATH+f'jsonfile/{obj}_annotation.json'))
+        gt_file = open(f'{save_root_path}gt_{obj}.txt', 'w')
+        for file_name in tqdm(total_annotations):
+            annotations = total_annotations[file_name]
+            for idx, annotation in enumerate(annotations):
+                text = annotation['text']
+                gt_file.write(f'{obj}/{file_name}\t{text}\n')
 # process() 함수의 반환값인 '_annotations'을 train, val, test라는 이름으로 추가 (update())
 def dict_extend(train_dict, val_dict, test_dict, train, val, test):
     train_dict.update(train)
@@ -211,6 +197,7 @@ def main():
         now_path = FILE_PATH + value
         ocr_files = os.listdir(now_path)
 
+        """
         if key == '필기체':
             #print(ocr_files[0:10])
             print('processing now : ', key)
@@ -230,12 +217,13 @@ def main():
                                                             val_data, test_data,
                                                             train, val, test)
             
+        """
+        
         if key == '증강인쇄체' or key == '간판':
             for fold in ocr_files:
                 #print(FILE_PATH + value + fold)
                 now_path = FILE_PATH + value + fold
                 ocr_files = os.listdir(now_path)
-
                 if key == '간판':
                     for subfold in ocr_files:
                         print('processing now : ', key)
@@ -249,6 +237,8 @@ def main():
                         train_data, val_data, test_data = dict_extend(train_data,
                                                                       val_data, test_data,
                                                                       train, val, test)
+
+                """
                 else:
                     print('processing now : ', key)
                     #print(ocr_files[0:10])
@@ -259,6 +249,7 @@ def main():
                                                                     val_data, test_data,
                                                                     train, val, test)
 
+                """
         # else:
         #     print(ocr_files[0:10])
         #     json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
@@ -267,7 +258,7 @@ def main():
         #     train_data, val_data, test_data = dict_extend(train_data,
         #                                                     val_data, test_data,
         #                                                     train, val, test)
-        
+    gt_file()    
     save_file(train_data, val_data, test_data)
 
 if __name__ == '__main__':
