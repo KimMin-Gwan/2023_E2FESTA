@@ -15,10 +15,10 @@ try:
     # Configure streams
     config = rs.config()
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-
+    print("1")
     # Start streaming
     pipeline.start(config)
-
+    print("2")
     while True:
         # This call waits until a new coherent set of frames is available on a device
         # Calls to get_frame_data(...) and get_frame_timestamp(...) on a device will return stable values until wait_for_frames(...) is called
