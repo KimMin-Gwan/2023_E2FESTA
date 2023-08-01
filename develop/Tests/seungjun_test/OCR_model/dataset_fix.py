@@ -5,6 +5,7 @@ import six
 import math
 import lmdb
 import torch
+import cv2
 
 from natsort import natsorted
 from PIL import Image
@@ -22,6 +23,8 @@ class RawDataset(Dataset):
             for name in filenames:
                 _, ext = os.path.splitext(name)
                 ext = ext.lower()
+                '''cap = cv2.VideoCapture(0)
+                success, frame = cap.read()'''
                 if ext == '.jpg' or ext == '.jpeg' or ext == '.png':
                     self.image_path_list.append(os.path.join(dirpath, name))
 

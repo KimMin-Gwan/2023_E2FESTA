@@ -8,7 +8,7 @@ data_type = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check
 def move_photo(path, file_list):
     for idx, photo in enumerate(file_list):
         if idx % 5000  == 0:
-            print(idx,'/',len(file_list),'move imge data')
+            print(idx,'/',len(file_list),'move image data')
             
         shutil.move(path + '/' + photo, FILE_PATH + 'dataset/' + photo) # (기존 폴더, 옮길 폴더)
         
