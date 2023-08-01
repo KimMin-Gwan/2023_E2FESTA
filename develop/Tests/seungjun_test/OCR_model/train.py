@@ -13,7 +13,7 @@ import torch.utils.data
 import numpy as np
 
 from utils_fix import AttnLabelConverter, Averager#, #CTCLabelConverter, CTCLabelConverterForBaiduWarpctc 
-from dataset_fix import hierarchical_dataset, AlignCollate, Batch_Balanced_Dataset
+from dataset_train import hierarchical_dataset, AlignCollate, Batch_Balanced_Dataset
 from model_fix import Model
 from test import validation
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
