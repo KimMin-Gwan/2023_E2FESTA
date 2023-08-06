@@ -1,5 +1,5 @@
 
-from camera_on_test_Class import camera as cam  # 하면 받아와짐 ~!
+from camera_on_test_Class import camera as cam  # 하면 camera() 클래스 받아와짐 ~!
 
 
 def main():
