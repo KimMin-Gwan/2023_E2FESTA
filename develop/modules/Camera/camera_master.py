@@ -35,7 +35,9 @@ class Camera():
 
 def main():
     camera=Camera()
-    camera.Starthandcam()
+
+    while True:
+        camera.Starthandcam()
 
 if __name__ == "__main__":
     main()
