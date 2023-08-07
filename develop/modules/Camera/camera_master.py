@@ -1,20 +1,20 @@
 import cv2
 import numpy as np
 
-webcam = cv2.VideoCapture(0)  # 0번 카메라
-# handcam = cv2.VideoCapture(1) # 1번 카메라
+handcam = cv2.VideoCapture(0)  # 0번 카메라
+
 
 class Camera():
     def __init__(self):
         print("make camera")
         
-    def StartWebCam(self):
-        if not webcam.isOpened():  # 카메라가 켜지지 않았을 때
-            print("Could not open webcam")  # 오류 메시지 출력
+    def Starthandcam(self):
+        if not handcam.isOpened():  # 카메라가 켜지지 않았을 때
+            print("Could not open handcam")  # 오류 메시지 출력
             exit()  # 종료
 
-        while webcam.isOpened():  # 카메라가 켜졌을 때
-            self.status, self.frame = webcam.read()
+        while handcam.isOpened():  # 카메라가 켜졌을 때
+            self.status, self.frame = handcam.read()
 
             if self.status:
                 cv2.imshow("Camera", self.frame)  # 창 제목
@@ -28,12 +28,14 @@ class Camera():
 
         print(processed_frame_array)
         
-        webcam.release()
+        handcam.release()
         cv2.destroyAllWindows()
+
+    
 
 def main():
     camera=Camera()
-    camera.StartWebCam()
+    camera.Starthandcam()
 
 if __name__ == "__main__":
     main()
