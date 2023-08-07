@@ -10,11 +10,11 @@ achieved with hardware acceleration.
 
 Usage:
 ------
-Mouse:
-    Drag with left button to rotate around pivot (thick small axes),
+Mouse: 
+    Drag with left button to rotate around pivot (thick small axes), 
     with right button to translate and the wheel to zoom.
 
-Keyboard:
+Keyboard: 
     [p]     Pause
     [r]     Reset View
     [d]     Cycle through decimation values
@@ -67,8 +67,6 @@ pipeline = rs.pipeline()
 config = rs.config()
 
 pipeline_wrapper = rs.pipeline_wrapper(pipeline)
-
-# 범인
 pipeline_profile = config.resolve(pipeline_wrapper)
 device = pipeline_profile.get_device()
 

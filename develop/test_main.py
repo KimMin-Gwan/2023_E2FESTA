@@ -22,16 +22,15 @@ from develop.modules.Speaker import *
 from class_Information import *
 
 
-def runButton(button):              # run Button
+def runButton(button):  # run Button
     button.startButton()
 
 
 def runInfrasearch(speaker, info):  # run InfraSearch(beacon scan)
     master = beacon_master(speaker, info)
 
-    state=master.runScanBeacon()
+    state = master.runScanBeacon()
     return
-
 
 
 def main():
@@ -40,23 +39,19 @@ def main():
     button = Button(info)
     speaker = SpeakMaster(info)
 
-
-    #speaker.tts_read("나비가 시작되었습니다.")
-    speaker_thread = threading.Thread(target=speaker.tts_read, args=("나비가 시작되었습니다.",))   # welcome sound
+    # speaker.tts_read("나비가 시작되었습니다.")
+    speaker_thread = threading.Thread(target=speaker.tts_read, args=("나비가 시작되었습니다.",))  # welcome sound
     speaker_thread.start()
 
-    button_thread = threading.Thread(target=runButton, args=(button,))      # button thread
-    button_thread.start()                                                   # button start
+    button_thread = threading.Thread(target=runButton, args=(button,))  # button thread
+    button_thread.start()  # button start
 
     infrasearch_thread = None
-
-
 
     while True:
         # print button state
         buttonState = info.getButtonState()
-        #print(buttonState)
-
+        # print(buttonState)
 
         # run func
         if buttonState == SCAN and (infrasearch_thread is None or not infrasearch_thread.is_alive()):
@@ -64,8 +59,7 @@ def main():
             infrasearch_thread = threading.Thread(target=runInfrasearch, args=(speaker, info))
             infrasearch_thread.start()
 
-
-        #elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
+        # elif buttonState == HANDCAM:        # Handcam 미구성으로 Handcam버튼 입력시 프로그램 종료
 
         time.sleep(0.01)
 
