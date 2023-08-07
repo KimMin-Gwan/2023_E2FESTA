@@ -1,11 +1,15 @@
-## License: Apache 2.0. See LICENSE file in root directory.
-## Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
-
-#####################################################
-## librealsense tutorial #1 - Accessing depth data ##
-#####################################################
-
-# First import the library
+"""
+* Project : 2023 CDP main
+* Program Purpose and Features : 카메라로 사물인식후 코드로 출력되는 코드
+* - cameratest.py
+* Author : JH KIM
+* First Write Date : 2023.07.17
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		Version		History
+* JH KIM            2023.07.17		v1.00		First Write
+"""
 import pyrealsense2.pyrealsense2 as rs
 
 try:
