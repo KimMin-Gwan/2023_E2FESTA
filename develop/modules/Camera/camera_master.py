@@ -32,12 +32,17 @@ class Camera():
         cv2.destroyAllWindows()
 
 
+    def process_video(self, image):
+        return image
+
+
     def StartWebCam(self):
         ## License: Apache 2.0. See LICENSE file in root directory.
         ## Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
         # Configure depth and color streams
         # depth cam 제외, rgb 카메라만 사용할 수 있도록 기본 코드에서 수정.
         
+        # Configure depth and color streams
         pipeline = rs.pipeline()
         config = rs.config()
 
@@ -49,14 +54,17 @@ class Camera():
 
         try:
             while True:
-            # Wait for a frame
+                # Wait for a frame : color
                 frames = pipeline.wait_for_frames()
                 color_frame = frames.get_color_frame()
+                
                 if not color_frame:
                     continue
 
                 # Convert image to numpy array
                 color_image = np.asanyarray(color_frame.get_data())
+
+                self.process_video(color_image)
 
                 # Show RGB image
                 cv2.namedWindow('RGB Camera', cv2.WINDOW_AUTOSIZE)
@@ -66,6 +74,13 @@ class Camera():
         finally:
             # Stop streaming
             pipeline.stop()
+
+        
+
+    def changeCam(self):
+        pass
+       
+
 
 def main():
     camera=Camera()
@@ -77,6 +92,7 @@ def main():
         
         else:
             camera.StartWebCam()
+            
 
 if __name__ == "__main__":
     main()
