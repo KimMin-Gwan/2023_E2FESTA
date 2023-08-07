@@ -23,6 +23,9 @@ class TxtRecognizer():
         pass
     
     def RunRecognition(self):
+        # inport camera module 
+        #    <- handcam&webcam 관련 함수 제작했다고 가정
+        # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
         """
         1. 카메라 켜기
         2. 카메라로 사진 찍기
