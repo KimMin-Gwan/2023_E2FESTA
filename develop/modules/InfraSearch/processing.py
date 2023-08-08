@@ -12,6 +12,7 @@
 * MG KIM			2023.07.11      v0.10	    하드코딩 지양바람 - constnat.py에 기록
 * JH SUN            2023.07.21      v1.00       processing.py 작성완료
 * JH KIM            2023.07.25      v1.01       dictionary value modified (power, data)
+* JH KIM            2023.08.08      v1.01       beacon time Synchronization
 """
 
 import time
