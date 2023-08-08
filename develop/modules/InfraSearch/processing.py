@@ -33,11 +33,11 @@ class ProcessingData:  # data처리 클래스
         if self.flag == Traffic:
             elapsedTime = int(int(self.information_dict[self.flag][2]) - time.time())
             sec = int(self.information_dict[self.flag][1][16]) * 10 + int(self.information_dict[self.flag][1][17])
+            color = self.information_dict[self.flag][1][12:14]
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
             else:
                 newSec = 60 - abs(sec - elapsedTime)
-                color = self.information_dict[self.flag][1][12:14]
                 if color == RED:
                     color = GREEN
                 else:
