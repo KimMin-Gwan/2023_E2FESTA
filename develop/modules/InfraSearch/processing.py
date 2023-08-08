@@ -67,7 +67,7 @@ class ProcessingData:  # data처리 클래스
         elif color == RED:
             color = Red
 
-        trafiic_number_thrid, trafiic_number_second, trafiic_number_first = trafiic_number[0:2], trafiic_number[4:6]
+        trafiic_number_thrid, trafiic_number_second, trafiic_number_first = trafiic_number[0:2], trafiic_number[2:4], trafiic_number[4:6]
         trafiic_number = str(int(str(int(trafiic_number_thrid) - 30) + str(int(trafiic_number_second) - 30) + str(
             int(trafiic_number_first) - 30)))
 
