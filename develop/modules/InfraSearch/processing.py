@@ -34,6 +34,7 @@ class ProcessingData:  # data처리 클래스
             elapsedTime = int(int(self.information_dict[self.flag][2]) - time.time())
             sec = int(self.information_dict[self.flag][1][16]) * 10 + int(self.information_dict[self.flag][1][17])
             color = self.information_dict[self.flag][1][12:14]
+            print(self.information_dict[self.flag][1])
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
             else:
@@ -43,13 +44,9 @@ class ProcessingData:  # data처리 클래스
                 else:
                     color = RED
                 print("color:",color)
-            print(self.information_dict[self.flag][1][0:12])
-            print(color)
-            print(self.information_dict[self.flag][1][14:16])
-            print(str(newSec // 10))
-            print(str(newSec % 10))
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
                                                  self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(newSec % 10)
+            print(self.information_dict[self.flag][1])
 
     def process_beacon_data(self):  # print thread func
         self.timeSynchronization()
@@ -103,7 +100,6 @@ class ProcessingData:  # data처리 클래스
                 my_str = Subway_info + Left_time + str(int(One) - 30) + Minutes
         else:
             my_str = Subway_info + Left_time + str(int(Ten) - 30) + "십. " + str(int(One) - 30) + Minutes
-        print("ONE", str(int(One) - 30))
         print(my_str)
         self.text = my_str
         self.key = subway_number
