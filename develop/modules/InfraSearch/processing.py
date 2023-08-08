@@ -58,6 +58,7 @@ class ProcessingData:  # data처리 클래스
 
         elif self.flag == Subway:
             self.Subway_sign(self.flag)
+        return self.return_gtts_mssage()
 
     def Traffic_sign(self, key):  # Traffic data 처리 함수
         trafiic_number, color, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
