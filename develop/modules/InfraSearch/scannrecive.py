@@ -43,6 +43,7 @@ class ReceiveSignal:  #receive class
         
     def scanData(self):   #scan thread func
         devices = self.scanner.scan(self.duration)
+        receiveTime = time.time()
         print("scan end",end="\n ")
         print("=============================")
         for dev in devices:
@@ -54,11 +55,11 @@ class ReceiveSignal:  #receive class
                     key=self.Check_flag(beaconData)
                     if key in self.information_dict:
                         if self.information_dict[key][0]< rssi_power:
-                            self.information_dict[key] = (rssi_power, beaconData)       # (tx_power, data)
+                            self.information_dict[key] = (rssi_power, beaconData, receiveTime)       # (tx_power, data)
                         else:
                             continue
                     else :
-                        self.information_dict[key]=(rssi_power, beaconData)
+                        self.information_dict[key]=(rssi_power, beaconData, receiveTime)
                     
         return self.information_dict  #scan하고 return하는 경우와
     
