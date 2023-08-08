@@ -35,14 +35,16 @@ class ScanDelegate(DefaultDelegate):
 
     def getScanData(self):
         return self.__scan_data__
-class ReceiveSignal:  #receive class
+
+
+class ReceiveSignal:                        #receive class
     
     def __init__(self,scanner,duration):
-        self.scanner=scanner  #scanner
-        self.duration=duration  #scan duration
+        self.scanner=scanner                #scanner
+        self.duration=duration              #scan duration
         self.information_dict={}
         
-    def scanData(self):   #scan thread func
+    def scanData(self):                     #scan thread func
         devices = self.scanner.scan(self.duration)
         receiveTime = time.time()
         print("scan end",end="\n ")
@@ -50,19 +52,19 @@ class ReceiveSignal:  #receive class
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
                 if KEY in value:
-                    rssi_power=abs(dev.rssi)   #if big rssi then less recive power
-                    beaconData = value[8:]  #erase flag
+                    rssi_power=abs(dev.rssi)    #if big rssi then less recive power
+                    beaconData = value[8:]      #erase flag
                     print(rssi_power,beaconData)
                     key=self.Check_flag(beaconData)
                     if key in self.information_dict:
                         if self.information_dict[key][0]< rssi_power:
-                            self.information_dict[key] = (rssi_power, beaconData, receiveTime)       # (tx_power, data)
+                            self.information_dict[key] = (rssi_power, beaconData, receiveTime)       # (tx_power, data, receiveTime)
                         else:
                             continue
                     else :
                         self.information_dict[key]=(rssi_power, beaconData, receiveTime)
                     
-        return self.information_dict  #scan하고 return하는 경우와
+        return self.information_dict
     
     def Check_flag(self,data):
         if TRAFFIC in data:
