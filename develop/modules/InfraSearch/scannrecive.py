@@ -15,6 +15,7 @@
 """
 from bluepy.btle import DefaultDelegate
 from modules.InfraSearch.constant import *
+import time
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
         self.__scan_data__ = {}
