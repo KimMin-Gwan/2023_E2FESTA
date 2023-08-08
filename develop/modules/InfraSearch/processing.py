@@ -43,6 +43,11 @@ class ProcessingData:  # data처리 클래스
                 else:
                     color = RED
                 print("color:",color)
+            print(self.information_dict[self.flag][1][0:12])
+            print(color)
+            print(self.information_dict[self.flag][1][14:16])
+            print(str(newSec // 10))
+            print(str(newSec % 10))
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
                                                  self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(newSec % 10)
 
