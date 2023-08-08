@@ -1,14 +1,17 @@
 import cv2
 import numpy as np
 import pyrealsense2.pyrealsense2 as rs
+import time
 
-handcam = cv2.VideoCapture(0)  # 0번 카메라
 
 class Camera():
+
     def __init__(self):
         print("make camera")
         
     def StartHandCam(self):
+        handcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # 0번 카메라
+        processed_frame_array=[]
         if not handcam.isOpened():  # 카메라가 켜지지 않았을 때
             print("Could not open handcam")  # 오류 메시지 출력
             exit()  # 종료
@@ -19,22 +22,25 @@ class Camera():
             if self.status:
                 cv2.imshow("Camera", self.frame)  # 창 제목
     
-            if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가기
+            if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가고 웹캠으로 전환
                 break
     
             if cv2.waitKey(1) & 0xFF == ord('a'):  # z 누르면 사진 찍기
-                processed_frame_array = self.frame  # 행렬로 처리된 프레임을 변수에 할당
+                processed_frame_array.extend(self.frame)  # 행렬로 처리된 프레임을 변수에 할당
                 break
-
-        print(processed_frame_array)
+            
         
+        #print(processed_frame_array)
+       
         handcam.release()
         cv2.destroyAllWindows()
+        self.StartWebCam() 
 
 
-    def process_video(self, image):
+    def web_video(self, image):
+        # 웹캠 return용 (while문 내 return 위치하면, 속도 저하)
         return image
-
+ 
 
     def StartWebCam(self):
         ## License: Apache 2.0. See LICENSE file in root directory.
@@ -64,34 +70,30 @@ class Camera():
                 # Convert image to numpy array
                 color_image = np.asanyarray(color_frame.get_data())
 
-                self.process_video(color_image)
-
                 # Show RGB image
                 cv2.namedWindow('RGB Camera', cv2.WINDOW_AUTOSIZE)
                 cv2.imshow('RGB Camera', color_image)
                 cv2.waitKey(1)
+                
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
 
+                self.web_video(color_image)
+            
+            cv2.destroyAllWindows()
+            self.StartHandCam()
+    
         finally:
             # Stop streaming
             pipeline.stop()
-
         
-
-    def changeCam(self):
-        pass
        
+  
 
 
 def main():
     camera=Camera()
-
-    while True:
-        # if-else문: 특정 버튼 누르면 각각의 함수 실행
-        if cv2.waitKey(1) & 0xFF == ord('q'): # key 수정 필요
-            camera.StartHandCam()
-        
-        else:
-            camera.StartWebCam()
+    camera.StartHandCam()
             
 
 if __name__ == "__main__":
