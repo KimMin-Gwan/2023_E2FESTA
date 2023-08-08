@@ -47,6 +47,7 @@ class ProcessingData:  # data처리 클래스
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
                                                  self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(newSec % 10)
             print(self.information_dict[self.flag][1])
+            print("Elapsed", elapsedTime)
 
     def process_beacon_data(self):  # print thread func
         self.timeSynchronization()
