@@ -46,6 +46,7 @@ class ProcessingData:  # data처리 클래스
                 newSec % 10)
 
     def process_beacon_data(self):  # print thread func
+        print("key:", self.key)
         self.timeSynchronization()
         if self.flag == Traffic:  # TRF
             self.flag = Traffic
