@@ -16,25 +16,25 @@
 from bluepy.btle import DefaultDelegate
 from modules.InfraSearch.constant import *
 import time
-#class ScanDelegate(DefaultDelegate):
-#    def __init__(self):
-#        self.__scan_data__ = {}
-#
-#        if (DefaultDelegate != None):
-#            DefaultDelegate.__init__(self)
-#
-#    def handleDiscovery(self, dev, isNewDev, isNewData):
-#        raw = dev.getScanData()
-#        mac = dev.addr.upper()
-#        rssi = dev.rssi
-#        data = {}
-#        data['raw'] = raw
-#        data['mac'] = mac
-#        data['rssi'] = rssi
-#        self.__scan_data__ = data
-#
-#    def getScanData(self):
-#        return self.__scan_data__
+class ScanDelegate(DefaultDelegate):
+    def __init__(self):
+        self.__scan_data__ = {}
+
+        if (DefaultDelegate != None):
+            DefaultDelegate.__init__(self)
+
+    def handleDiscovery(self, dev, isNewDev, isNewData):
+        raw = dev.getScanData()
+        mac = dev.addr.upper()
+        rssi = dev.rssi
+        data = {}
+        data['raw'] = raw
+        data['mac'] = mac
+        data['rssi'] = rssi
+        self.__scan_data__ = data
+
+    def getScanData(self):
+        return self.__scan_data__
 class ReceiveSignal:  #receive class
     
     def __init__(self,scanner,duration):
