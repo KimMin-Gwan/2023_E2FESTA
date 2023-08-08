@@ -109,7 +109,6 @@ class beacon_master:
         self.process.process_beacon_data()
 
     def connect_data_base(self):
-
         self.send_server()
         return
 
