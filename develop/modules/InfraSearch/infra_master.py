@@ -38,6 +38,22 @@ class beacon_master:
     def __call__(self):
         pass
 
+    def scan_result_gtts(self):
+        result = []
+        self.data = "주변에 "
+        for i in self.information.keys():
+            if i == Traffic:
+                self.data += (trf_gtts + ", ")
+
+            elif i == Subway:
+                self.data += (sub_gtts + ", ")
+        self.data = self.data[:-2]
+
+        self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
+        print(self.data)
+        exitCode = self.start_gtts()
+        return exitCode
+
     def scan_beacon(self):  # scan부분
         self.information = self.receive.scanData()  # scan을 한뒤 이러한 데이터가 있음을 알려주고 data를 전달받는다.
         if not self.information:  # 주변에 비콘이없다면
@@ -74,25 +90,23 @@ class beacon_master:
             self.data = "버튼이 입력되지 않았습니다."
             self.start_gtts()
             return False
-
-    def process_beacon(self):  # processes하는 부분이다.
-        self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
-        self.process.process_beacon_data()
-
-    def get_gtts_data(self):
-        self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
+    def start_gtts(self):
+        exitCode = self.speaker.tts_read(self.data)
+        self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
+        return exitCode
 
     def send_server(self):
         url = 'http://43.201.213.223:8080/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
         self.data = response.text + self.data
-
         print("확인할 최종 data======================================", self.data)
 
-    def start_gtts(self):
-        exitCode = self.speaker.tts_read(self.data)
-        self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
-        return exitCode
+    def get_gtts_data(self):
+        self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
+
+    def process_beacon(self):  # processes하는 부분이다.
+        self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
+        self.process.process_beacon_data()
 
     def connect_data_base(self):
         self.get_gtts_data()
@@ -100,21 +114,7 @@ class beacon_master:
         exitCode = self.start_gtts()
         return exitCode
 
-    def scan_result_gtts(self):
-        result = []
-        self.data = "주변에 "
-        for i in self.information.keys():
-            if i == Traffic:
-                self.data += (trf_gtts + ", ")
 
-            elif i == Subway:
-                self.data += (sub_gtts + ", ")
-        self.data = self.data[:-2]
-
-        self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
-        print(self.data)
-        exitCode = self.start_gtts()
-        return exitCode
 
     def runScanBeacon(self):
         infraSearchExitCode = 0
