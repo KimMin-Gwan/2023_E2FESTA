@@ -111,8 +111,7 @@ class beacon_master:
     def connect_data_base(self):
         self.get_gtts_data()
         self.send_server()
-        exitCode = self.start_gtts()
-        return exitCode
+        return
 
 
 
@@ -122,6 +121,7 @@ class beacon_master:
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()
             #self.connect_data_base()
+            self.start_gtts()
             print("infra end")
             return
         else:
