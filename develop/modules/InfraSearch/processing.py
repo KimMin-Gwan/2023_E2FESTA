@@ -42,7 +42,7 @@ class ProcessingData:  # data처리 클래스
                     color = GREEN
                 else:
                     color = RED
-            self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
+            self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + str(color) + \
                                                  self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(
                 newSec % 10)
 
