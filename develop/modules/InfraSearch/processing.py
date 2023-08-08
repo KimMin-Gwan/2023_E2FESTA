@@ -35,6 +35,7 @@ class ProcessingData:  # data처리 클래스
             sec = int(self.information_dict[self.flag][1][16]) * 10 + int(self.information_dict[self.flag][1][17])
             color = self.information_dict[self.flag][1][12:14]
             print(self.information_dict[self.flag][1])
+            print("sec", sec)
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
             else:
