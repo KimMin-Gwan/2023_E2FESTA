@@ -2,14 +2,15 @@ output_directory = '/home/antl/Desktop/model_test/custom_model_lite'
 last_model_path = '/home/antl/Desktop/model_test/training'
 pipeline_file = '/home/antl/Desktop/model_test/models/mymodel/pipeline_file.config'
 
-"""
 import os
 import sys
 os.system(f"python3 /home/antl/Desktop/model_test/models/research/object_detection/export_tflite_graph_tf2.py \
             --trained_checkpoint_dir {last_model_path} \
             --output_directory {output_directory} \
             --pipeline_config_path {pipeline_file}")
-"""
+
+
+exit()
 # Convert exported graph file into TFLite model file
 import tensorflow as tf
 

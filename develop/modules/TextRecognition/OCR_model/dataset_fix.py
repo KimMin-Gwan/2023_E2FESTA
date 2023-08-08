@@ -39,6 +39,7 @@ class RawDataset(Dataset):
         try:
             if self.opt.rgb:
                 img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
+                #img = camera.get_frame
             else:
                 img = Image.open(self.image_path_list[index]).convert('L')
 
