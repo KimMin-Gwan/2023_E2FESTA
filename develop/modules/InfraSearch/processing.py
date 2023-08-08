@@ -30,30 +30,28 @@ class ProcessingData:  # data처리 클래스
 
     def timeSynchronization(self):
         if self.flag == Traffic:
-            elapsedTime = int(int(self.information_dict[self.key][2]) - time.time())
-            sec = int(self.information_dict[self.key][1][16]) * 10 + int(self.information_dict[self.key][1][17])
+            elapsedTime = int(int(self.information_dict[self.flag][2]) - time.time())
+            sec = int(self.information_dict[self.flag][1][16]) * 10 + int(self.information_dict[self.flag][1][17])
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
             else:
                 newSec = 60 - abs(sec - elapsedTime)
-                color = self.information_dict[self.key][1][12:14]
+                color = self.information_dict[self.flag][1][12:14]
                 if color == RED:
                     color = GREEN
                 else:
                     color = RED
-            self.information_dict[self.key][1] = self.information_dict[self.key][1][0:12] + color + \
-                                                 self.information_dict[self.key][1][14:16] + str(newSec // 10) + str(
+            self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
+                                                 self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(
                 newSec % 10)
 
     def process_beacon_data(self):  # print thread func
         print("key:", self.flag)
         self.timeSynchronization()
         if self.flag == Traffic:  # TRF
-            self.flag = Traffic
             self.Traffic_sign(self.flag)  # Traffic data 처리 함수
 
         elif self.flag == Subway:
-            self.flag = Subway  # SUB
             self.Subway_sign(self.flag)
 
     def Traffic_sign(self, key):  # Traffic data 처리 함수
