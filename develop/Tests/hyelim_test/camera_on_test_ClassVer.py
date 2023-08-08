@@ -4,8 +4,13 @@ from camera_on_test_Class import camera as cam  # 하면 camera() 클래스 받�
 
 def main():
     카메라 = cam()
-    카메라.StartHandCam()
+    result = 카메라.StartHandCam()
     
+    # print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print(result)
+    # for i in range(len(result[0])):
+    #     print(result[0][i])
+        
 if __name__ == "__main__":
     main()
 

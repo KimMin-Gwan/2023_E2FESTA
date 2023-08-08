@@ -41,8 +41,12 @@ class camera():
                 
                 # shutil.move(PATH + '/selfcameratest.jpg', PATH + '/develop/Tests/hyelim_test/selfcameratest.jpg') # (기존 폴더, 옮길 폴더)
                 # print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
-
-        print(processed_frame_array)
+            # for i in range(len(processed_frame_array[0])):
+            #     print(processed_frame_array[0][i])
+            print(processed_frame_array)
+        # print("func finishedddddddddddddddddddddddddddddd")
         
         webcam.release()
         cv2.destroyAllWindows()
+        
+        return processed_frame_array

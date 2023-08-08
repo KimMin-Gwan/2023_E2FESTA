@@ -28,8 +28,9 @@ class ProcessingData:  # data처리 클래스
         self.flag = flag  #어떠한 종류의 비콘인지 
         self.data = ""  #비콘에 들어온 Raw Data
 
+    def 
+
     def process_beacon_data(self):  # print thread func
-        
         if self.flag == Traffic:  # TRF
             self.flag = Traffic
             self.Traffic_sign(self.flag)  #Traffic data 처리 함수
