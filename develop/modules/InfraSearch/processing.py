@@ -42,12 +42,12 @@ class ProcessingData:  # data처리 클래스
                     color = GREEN
                 else:
                     color = RED
+                print("color:",color)
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + str(color) + \
                                                  self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(
                 newSec % 10)
 
     def process_beacon_data(self):  # print thread func
-        print("key:", self.flag)
         self.timeSynchronization()
         if self.flag == Traffic:  # TRF
             self.Traffic_sign(self.flag)  # Traffic data 처리 함수
