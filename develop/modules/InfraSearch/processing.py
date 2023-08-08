@@ -31,7 +31,7 @@ class ProcessingData:  # data처리 클래스
 
     def timeSynchronization(self):
         if self.flag == Traffic:
-            elapsedTime = int(int(self.information_dict[self.flag][2]) - time.time())
+            elapsedTime = int(time.time() - int(self.information_dict[self.flag][2]))
             sec = int(self.information_dict[self.flag][1][16]) * 10 + int(self.information_dict[self.flag][1][17])
             color = self.information_dict[self.flag][1][12:14]
             print(self.information_dict[self.flag][1])
