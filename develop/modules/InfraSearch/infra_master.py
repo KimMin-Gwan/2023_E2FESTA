@@ -16,7 +16,8 @@
 import time
 
 from modules.InfraSearch.processing import ProcessingData
-from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
+#from modules.InfraSearch.scannrecive import ScanDelegate, ReceiveSignal
+from modules.InfraSearch.scannrecive import ReceiveSignal
 from bluepy.btle import Scanner
 from modules.InfraSearch.utils import *
 from modules.InfraSearch.constant import *
