@@ -58,11 +58,11 @@ class ReceiveSignal:                        #receive class
                     key=self.Check_flag(beaconData)
                     if key in self.information_dict:
                         if self.information_dict[key][0]< rssi_power:
-                            self.information_dict[key] = (rssi_power, beaconData, receiveTime)       # (tx_power, data, receiveTime)
+                            self.information_dict[key] = [rssi_power, beaconData, receiveTime]       # (tx_power, data, receiveTime)
                         else:
                             continue
                     else :
-                        self.information_dict[key]=(rssi_power, beaconData, receiveTime)
+                        self.information_dict[key]=[rssi_power, beaconData, receiveTime]
                     
         return self.information_dict
     
