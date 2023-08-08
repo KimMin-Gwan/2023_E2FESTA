@@ -33,7 +33,8 @@ class ProcessingData:  # data처리 클래스
         if self.flag == Traffic:
             elapsedTime = int(time.time() - int(self.information_dict[self.flag][2]))
             sec = (int(self.information_dict[self.flag][1][14:16])-30) * 10 + int(self.information_dict[self.flag][1][16:18])-30
-
+            print("ten", int(self.information_dict[self.flag][1][14:16]) * 10)
+            print("One", int(self.information_dict[self.flag][1][16:18]))
             color = self.information_dict[self.flag][1][12:14]
             print(self.information_dict[self.flag][1])
             print("sec", sec)
@@ -46,8 +47,10 @@ class ProcessingData:  # data처리 클래스
                 else:
                     color = RED
                 print("color:",color)
+            print(str(newSec // 10))
+            print(str(newSec % 10))
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + \
-                                                 self.information_dict[self.flag][1][14:16] + str((newSec // 10 +30) + str((newSec % 10) + 30)
+                                                 self.information_dict[self.flag][1][14:16] + str(newSec // 10) + str(newSec % 10)
             print(self.information_dict[self.flag][1])
             print("Elapsed", elapsedTime)
 
