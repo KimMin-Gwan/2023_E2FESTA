@@ -121,7 +121,7 @@ class beacon_master:
         state = self.scan_beacon()
         if (state == True):  # 주변에 scan된 비콘이있을때
             self.process_beacon()
-            self.connect_data_base()
+            #self.connect_data_base()
             print("infra end")
             return
         else:
