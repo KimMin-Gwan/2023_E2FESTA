@@ -30,7 +30,7 @@ class ProcessingData:  # data처리 클래스
 
     def timeSynchronization(self):
         if self.flag == Traffic:
-            elapsedTime = int(self.information_dict[self.key][3] - time.time())
+            elapsedTime = int(int(self.information_dict[self.key][3]) - time.time())
             sec = int(self.information_dict[self.key][1][16]) * 10 + int(self.information_dict[self.key][1][17])
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
