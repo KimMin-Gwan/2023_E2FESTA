@@ -12,6 +12,7 @@ class Camera():
     def StartHandCam(self):
         handcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # 0번 카메라
         processed_frame_array=[]
+
         if not handcam.isOpened():  # 카메라가 켜지지 않았을 때
             print("Could not open handcam")  # 오류 메시지 출력
             exit()  # 종료

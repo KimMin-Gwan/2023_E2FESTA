@@ -28,6 +28,23 @@
                 height: 20%;
                 margin-left: 10px;
             }
+            .container4{
+                position: fixed;
+                top:15%;
+                left:72%;
+                width: 25%;
+                height: 20%;
+                margin-left: 10px;
+            }
+            .swap{
+                background: #4e54c8;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                border:none;
+                color: white;
+                width: 100px;
+                height:30px;
+            }
             .snapshot{
                 background: #4e54c8;  /* fallback for old browsers */
                 background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
@@ -37,6 +54,7 @@
                 width: 100px;
                 height:30px;
             }
+            
             .name1{
                 background: #4B79A1; 
                 background: -webkit-linear-gradient(45deg, #283E51, #4B79A1);
@@ -70,13 +88,31 @@
         <div class="container1">
             <h4>카메라 화면</h4>
                 <img id="stream" src="{{ url_for('video_show') }}" style="width: 100%;">
-                <div class="container3">  
+                <!-- 카메라 화면 전환 컨테이너 -->
+                <div class="container4">
+                    <button class='swap' id="swapButton">Swap</button>
+                    <script>
+                        const video1 = document.getElementById('stream');
+                        const swapButton = document.getElementById('swapButton');
+                        let currentCameraIndex = 0;
+                        const cameraUrls = [
+                            "{{ url_for('video_show') }}",  // 첫 번째 카메라 피드의 URL
+                            "{{ url_for('swap_video') }}"  // 두 번째 카메라 피드의 URL
+                            ];
+                        swapButton.addEventListener('click', () => {
+                        currentCameraIndex = (currentCameraIndex + 1) % cameraUrls.length;
+                        video1.src = cameraUrls[currentCameraIndex];
+                        });
+                    </script>
+                </div>
+                <!-- 카메라 화면 캡쳐 컨테이터 -->
+                <div class="container3">
                     <button class='snapshot' id="snapshotButton">Snapshot</button>
                     <br>
                     <img id="snapshotImage" src="" width="100%" style="display: none;" />
                     
                     <script>
-                        const video = document.getElementById('stream');
+                        const video2 = document.getElementById('stream');
                         const snapshotButton = document.getElementById('snapshotButton');
                         const snapshotImage = document.getElementById('snapshotImage');
                         // 일치하는 id 속성을 가진 요소 찾고, 반환
@@ -96,6 +132,7 @@
                     </script>
                 </div> 
         </div>
+   
 
         <div class="container2">
             <h4>인프라 검색</h4>
@@ -107,4 +144,5 @@
             onclick="if(!confirm('{{name3}}을(를) 선택하시겠습니까?')){return false;}"/>
         </div>
     </body>
+
 </html> 

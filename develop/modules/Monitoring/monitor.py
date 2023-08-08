@@ -1,7 +1,7 @@
 from flask import Flask, render_template, Response
 from flask import send_file #인프라 서치에서 한국어 반환 위해
 import cv2, io #핸드카메라&스냅샷 위해
-from Monitoring import SUB,BUS,TRAFT
+from constant import SUB,BUS,TRAFT
 
 class Monitor:
 
@@ -15,9 +15,7 @@ class Monitor:
 
     
     def hand_cam(self):
-
         camera=cv2.VideoCapture(0) #0번캠(현재 내 카메라)
-    
         while (self.streaming):
         # 프레임 단위로 캡쳐
             success, frame = camera.read()  #카메라 프레임 읽어오기      
@@ -39,8 +37,13 @@ class Monitor:
         @self.app.route('/snapshot')
         def snapshot():
             return send_file(io.BytesIO(stop_frame), mimetype='image/jpeg')
-
-
+        
+        
+        @self.app.route('/swap_video')
+        def swap_video():
+            return Response(self.hand_cam(), 
+                mimetype='multipart/x-mixed-replace; boundary=frame')
+        
         @self.app.route('/video_show')
         def video_show():
             return Response(self.hand_cam(), 
