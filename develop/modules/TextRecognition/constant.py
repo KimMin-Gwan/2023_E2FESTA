@@ -13,13 +13,18 @@
 * SJ Yang			2023.08.09      v0.10	    first write
 * SJ Yang           2023.08.09      v1.00       
 """
-SAVE_MODEL = "C:/dddd/"
 
-WORKERS = 0
-BATCH_SIZE = 192
-BATCH_MAX_LENGTH = 25
-IMG_HEIGHT = 32
-IMG_WIDTH = 100
+
+SAVED_MODEL = 'C:/Users/yangs/OneDrive/바탕 화면/CDP/2023_E2FESTA/develop/modules/TextRecognition/'
+
+WORKERS = 0                 #'number of data loading workers'
+BATCH_SIZE = 192            #'input batch size'
+
+
+""" Data processing """
+BATCH_MAX_LENGTH = 25       #'maximum-label-length'
+IMG_HEIGHT = 32             #'the height of the input image'
+IMG_WIDTH = 100             #'the width of the input image'
 RGB = 
 CHARACTER = '0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강갖같갚갛개객걀걔거걱건걷걸검겁것겉게겨\
             격겪견결겹경곁계고곡곤곧골곰곱곳공과관광괜괴굉교구국군굳굴굵굶굽궁권귀귓규균귤그극근글긁금급긋긍기긴길\
@@ -40,14 +45,16 @@ CHARACTER = '0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강�
             측츰층치칙친칠침칫칭카칸칼캄캐캠커컨컬컴컵컷케켓켜코콘콜콤콩쾌쿄쿠퀴크큰클큼키킬타탁탄탈탑탓탕태택탤터\
             턱턴털텅테텍텔템토톤톨톱통퇴투툴툼퉁튀튜트특튼튿틀틈티틱팀팅파팎판팔팝패팩팬퍼퍽페펜펴편펼평폐포폭폰표\
             푸푹풀품풍퓨프플픔피픽필핏핑하학한할함합항해핵핸햄햇행향허헌험헤헬혀현혈협형혜호혹혼홀홈홉홍화확환활황\
-            회획횟횡효후훈훌훔훨휘휴흉흐흑흔흘흙흡흥흩희흰히힘?!()'
+            회획횟횡효후훈훌훔훨휘휴흉흐흑흔흘흙흡흥흩희흰히힘?!()'     #'character label'
 
-TRANSFORMATION = 'TPS'
-FEATURE_EXTRACTION = 'ResNet'
-SEQUENCE_MODELING = 'BiLSTM'
-PREDICTION = 'Attn'
 
-NUM_FIDUCIAL = 20
-INPUT_CHANNEL = 1
-OUTPUT_CHANNEL = 512
-HIDDEN_SIZE = 256
+""" Model Architecture """
+TRANSFORMATION = 'TPS'          #'Transformation stage. None|TPS'
+FEATURE_EXTRACTION = 'ResNet'   #'FeatureExtraction stage. VGG|RCNN|ResNet'
+SEQUENCE_MODELING = 'BiLSTM'    #'SequenceModeling stage. None|BiLSTM'
+PREDICTION = 'Attn'             #'Prediction stage. CTC|Attn'
+
+NUM_FIDUCIAL = 20               #'number of fiducial points of TPS-STN'
+INPUT_CHANNEL = 1               #'the number of input channel of Feature extractor'
+OUTPUT_CHANNEL = 512            #'the number of output channel of Feature extractor'
+HIDDEN_SIZE = 256               #'the size of the LSTM hidden state'
