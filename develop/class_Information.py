@@ -10,12 +10,13 @@
 * Author    		Date		Version		History
 * JH KIM            2023.07.17		v1.00		First Write
 """
+from develop.constant import *
 import threading
 class information:
     def __init__(self):
         self.__buttonState = -1
         self.cs = threading.Lock()
-        self.systemState = -1
+        self.systemState = 0
 
     def getButtonState(self):
         return self.__buttonState
@@ -30,4 +31,6 @@ class information:
         return self.systemState
 
     def setSystemState(self, newSysState):
+        print("SYSTEM ALARM::System State Changed({} -> {})".format(self.getSystemState(), newSysState))
         self.systemState = newSysState
+

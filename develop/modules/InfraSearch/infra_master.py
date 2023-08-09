@@ -111,10 +111,8 @@ class beacon_master:
         self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
 
     def runScanBeacon(self):
-        infraSearchExitCode = 0
         state = self.scan_beacon()
         if (state == True):                 # 주변에 scan된 비콘이있을때
             self.process_beacon()
             self.start_gtts()
-        print("SYSTEM ALARM::InfraSearch Exit")
         return
