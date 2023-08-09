@@ -47,8 +47,7 @@ class ReceiveSignal:                        #receive class
     def scanData(self):                     #scan thread func
         devices = self.scanner.scan(self.duration)
         receiveTime = time.time()
-        print("scan end",end="\n ")
-        print("=============================")
+        print("SYSTEM ALARM::Scanned Data")
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
                 if KEY in value:
