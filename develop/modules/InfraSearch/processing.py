@@ -46,12 +46,8 @@ class ProcessingData:  # data처리 클래스
                     color = GREEN
                 else:
                     color = RED
-                print("color:",color)
-            print(str(newSec // 10))
-            print(str(newSec % 10))
             self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + str((newSec // 10) +30) + str((newSec % 10)+30)
-            print(self.information_dict[self.flag][1])
-            print("Elapsed", elapsedTime)
+
 
     def process_beacon_data(self):  # print thread func
         self.timeSynchronization()

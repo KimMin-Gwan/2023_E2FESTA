@@ -23,8 +23,8 @@ class information:
 
     def setButtonState(self, state):
         self.cs.acquire()
+        print("SYSTEM ALARM::Button State Changed({} -> {})".format(self.getButtonState(), state))
         self.__buttonState = state
-        print("Button setting : {}".format(self.getButtonState()))
         self.cs.release()
 
     def getSystemState(self):
