@@ -48,9 +48,7 @@ class beacon_master:
             elif i == Subway:
                 self.data += (sub_gtts + ", ")
         self.data = self.data[:-2]
-
         self.data += "이 있습니다. 원하시는 정보에 예 버튼을 눌러주세요"
-        print(self.data)
         exitCode = self.start_gtts()
         return exitCode
 
