@@ -33,6 +33,7 @@ class SpeakMaster:
     def tts_read(self, str):  # speaker class로 들어갈 내용
         self.cs.acquire()
         self.exitCode = 0
+        print("SYSTEM ALARM::Speaker Output({})".format(str))
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')
@@ -42,7 +43,8 @@ class SpeakMaster:
             if self.info.getButtonState() == 1:
                 self.exitCode = -1
                 break
-            elif self.info.getButtonState() == 3:
+            elif self.info.getButtonState() == 2:
+                self.exitCode = 2
                 break
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)

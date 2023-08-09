@@ -14,6 +14,8 @@ from torch.utils.data import Dataset#, ConcatDataset, Subset
 from torch._utils import _accumulate
 import torchvision.transforms as transforms
 
+from Camera import *
+
 class RawDataset(Dataset):
 
     def __init__(self, root, opt):
@@ -23,8 +25,7 @@ class RawDataset(Dataset):
             for name in filenames:
                 _, ext = os.path.splitext(name)
                 ext = ext.lower()
-                '''cap = cv2.VideoCapture(0)
-                success, frame = cap.read()'''
+               
                 if ext == '.jpg' or ext == '.jpeg' or ext == '.png':
                     self.image_path_list.append(os.path.join(dirpath, name))
 
@@ -38,9 +39,11 @@ class RawDataset(Dataset):
 
         try:
             if self.opt.rgb:
-                img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
+                #img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
+                img = Camera_Master.get_frame()
             else:
-                img = Image.open(self.image_path_list[index]).convert('L')
+                #img = Image.open(self.image_path_list[index]).convert('L')
+                img = Camera_Master.get_frame()
 
         except IOError:
             print(f'Corrupted image for {index}')

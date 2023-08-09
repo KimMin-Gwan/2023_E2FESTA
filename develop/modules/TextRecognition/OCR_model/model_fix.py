@@ -20,46 +20,46 @@ from modules.transformation import TPS_SpatialTransformerNetwork
 from modules.feature_extraction_fix import ResNet_FeatureExtractor
 from modules.sequence_modeling import BidirectionalLSTM
 from modules.prediction import Attention
-
+from TextRecognition.constant import *
 
 class Model(nn.Module):
 
     def __init__(self, opt):
         super(Model, self).__init__()
         self.opt = opt
-        self.stages = {'Trans': opt.Transformation, 'Feat': opt.FeatureExtraction,
-                       'Seq': opt.SequenceModeling, 'Pred': opt.Prediction}
+        self.stages = {'Trans': TRANSFORMATION, 'Feat': FEATURE_EXTRACTION,
+                       'Seq': SEQUENCE_MODELING, 'Pred': PREDICTION}
 
         """ Transformation """
-        if opt.Transformation == 'TPS':
+        if TRANSFORMATION == 'TPS':
             self.Transformation = TPS_SpatialTransformerNetwork(
-                F=opt.num_fiducial, I_size=(opt.imgH, opt.imgW), I_r_size=(opt.imgH, opt.imgW), I_channel_num=opt.input_channel)
+                F=NUM_FIDUCIAL, I_size=(IMG_HEIGHT, IMG_WIDTH), I_r_size=(IMG_HEIGHT, IMG_WIDTH), I_channel_num=INPUT_CHANNEL)
         else:
             print('No Transformation module specified')
 
         """ FeatureExtraction """
-        if opt.FeatureExtraction == 'ResNet':
-            self.FeatureExtraction = ResNet_FeatureExtractor(opt.input_channel, opt.output_channel)
+        if FEATURE_EXTRACTION == 'ResNet':
+            self.FeatureExtraction = ResNet_FeatureExtractor(INPUT_CHANNEL, OUTPUT_CHANNEL)
         else:
             raise Exception('No FeatureExtraction module specified')
-        self.FeatureExtraction_output = opt.output_channel  # int(imgH/16-1) * 512
+        self.FeatureExtraction_output = OUTPUT_CHANNEL  # int(imgH/16-1) * 512
         self.AdaptiveAvgPool = nn.AdaptiveAvgPool2d((None, 1))  # Transform final (imgH/16-1) -> 1
 
         """ Sequence modeling"""
-        if opt.SequenceModeling == 'BiLSTM':
+        if SEQUENCE_MODELING == 'BiLSTM':
             self.SequenceModeling = nn.Sequential(
-                BidirectionalLSTM(self.FeatureExtraction_output, opt.hidden_size, opt.hidden_size),
-                BidirectionalLSTM(opt.hidden_size, opt.hidden_size, opt.hidden_size))
-            self.SequenceModeling_output = opt.hidden_size
+                BidirectionalLSTM(self.FeatureExtraction_output, HIDDEN_SIZE, HIDDEN_SIZE),
+                BidirectionalLSTM(HIDDEN_SIZE, HIDDEN_SIZE, HIDDEN_SIZE))
+            self.SequenceModeling_output = HIDDEN_SIZE
         else:
             print('No SequenceModeling module specified')
             self.SequenceModeling_output = self.FeatureExtraction_output
 
         """ Prediction """
-        if opt.Prediction == 'CTC':
+        if PREDICTION == 'CTC':
             self.Prediction = nn.Linear(self.SequenceModeling_output, opt.num_class)
-        elif opt.Prediction == 'Attn':
-            self.Prediction = Attention(self.SequenceModeling_output, opt.hidden_size, opt.num_class)
+        elif PREDICTION == 'Attn':
+            self.Prediction = Attention(self.SequenceModeling_output, HIDDEN_SIZE, opt.num_class)
         else:
             raise Exception('Prediction is neither CTC or Attn')
 

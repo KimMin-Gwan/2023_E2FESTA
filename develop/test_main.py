@@ -20,6 +20,7 @@ from develop.modules.button import *
 from develop.modules.InfraSearch import *
 from develop.modules.Speaker import *
 from class_Information import *
+from develop.constant import *
 
 
 def runButton(button):  # run Button
@@ -27,9 +28,10 @@ def runButton(button):  # run Button
 
 
 def runInfrasearch(speaker, info):  # run InfraSearch(beacon scan)
+    info.setSystemState(SYSSTATEINFRA)
     master = beacon_master(speaker, info)
-
     state = master.runScanBeacon()
+    info.setSystemState(SYSSTATEDEFAULT)
     return
 
 
@@ -39,7 +41,6 @@ def main():
     button = Button(info)
     speaker = SpeakMaster(info)
 
-    # speaker.tts_read("나비가 시작되었습니다.")
     speaker_thread = threading.Thread(target=speaker.tts_read, args=("나비가 시작되었습니다.",))  # welcome sound
     speaker_thread.start()
 

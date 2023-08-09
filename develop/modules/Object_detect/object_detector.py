@@ -9,7 +9,6 @@ class Object_detector():
     def __init__(self, info, camera):
         self.info = info  # 현재 상탱 확인
         self.tool = Tools()
-        self.tool2 = Tools()
         self.image_manager = Image_Manager(self.tool)
         self.bbox_maker = Bbox_maker()
         self.camera = camera
