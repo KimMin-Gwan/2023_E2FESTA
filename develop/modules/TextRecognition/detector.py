@@ -1,3 +1,19 @@
+"""
+* Project : 2023CDP OCR(Optical Character Recognition)
+* Program Purpose and Features :
+* - Recognize text
+* Author : SJ Yang
+* First Write Date : 2023.08.09
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		    Version		History                                                                                 code to fix
+* SJ Yang			2023.08.09      v0.10	    first write
+* SJ Yang           2023.08.09      v1.00       variable fix
+"""
+
+
+
 from OCR_model.dataset_fix import *
 from OCR_model.model_fix import *
 from OCR_model.utils_fix import *
@@ -20,19 +36,19 @@ from TextRecognition.constant import *
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-class demo_module():
+class Dectector():
     def demo(self, opt, camera):
         """ model configuration """
-        if 'Attn' in opt.Prediction:
-            converter = AttnLabelConverter(opt.character)
+        if 'Attn' in PREDICTION:
+            converter = AttnLabelConverter(CHARACTER)
         opt.num_class = len(converter.character)
 
         if opt.rgb:
-            opt.input_channel = 3
+            INPUT_CHANNEL = 3
         model = Model(opt)
-        print('model input parameters', opt.imgH, opt.imgW, opt.num_fiducial, opt.input_channel, opt.output_channel,
-            opt.hidden_size, opt.num_class, opt.batch_max_length, opt.Transformation, opt.FeatureExtraction,
-            opt.SequenceModeling, opt.Prediction)
+        print('model input parameters', IMG_HEIGHT, IMG_WIDTH, NUM_FIDUCIAL, INPUT_CHANNEL, OUTPUT_CHANNEL,
+            HIDDEN_SIZE, opt.num_class, BATCH_MAX_LENGTH, TRANSFORMATION, FEATURE_EXTRACTION,
+            SEQUENCE_MODELING, PREDICTION)
         model = torch.nn.DataParallel(model).to(device)
 
         # load model
@@ -41,13 +57,13 @@ class demo_module():
         model.load_state_dict(torch.load(SAVE_MODEL, map_location=device))
 
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
-        AlignCollate_demo = AlignCollate(imgH=opt.imgH, imgW=opt.imgW, keep_ratio_with_pad=opt.PAD)
+        AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=opt.PAD)
        # demo_data = RawDataset(root=opt.image_folder, opt=opt)  # use RawDataset
         demo_data = 
         demo_loader = torch.utils.data.DataLoader(
-            demo_data, batch_size=opt.batch_size,
+            demo_data, batch_size=BATCH_SIZE,
             shuffle=False,
-            num_workers=int(opt.workers),
+            num_workers=int(WORKERS),
             collate_fn=AlignCollate_demo, pin_memory=True)
 
         # predict
@@ -57,10 +73,10 @@ class demo_module():
                 batch_size = image_tensors.size(0)
                 image = image_tensors.to(device)
                 # For max length prediction
-                length_for_pred = torch.IntTensor([opt.batch_max_length] * batch_size).to(device)
-                text_for_pred = torch.LongTensor(batch_size, opt.batch_max_length + 1).fill_(0).to(device)
+                length_for_pred = torch.IntTensor([BATCH_MAX_LENGTH] * batch_size).to(device)
+                text_for_pred = torch.LongTensor(batch_size, BATCH_MAX_LENGTH + 1).fill_(0).to(device)
 
-                if 'CTC' in opt.Prediction:
+                if 'CTC' in PREDICTION:
                     preds = model(image, text_for_pred)
 
                     # Select max probabilty (greedy decoding) then decode index to character
@@ -87,7 +103,7 @@ class demo_module():
                 preds_prob = F.softmax(preds, dim=2)
                 preds_max_prob, _ = preds_prob.max(dim=2)
                 for img_name, pred, pred_max_prob in zip(image_path_list, preds_str, preds_max_prob):
-                    if 'Attn' in opt.Prediction:
+                    if 'Attn' in PREDICTION:
                         pred_EOS = pred.find('[s]')
                         pred = pred[:pred_EOS]  # prune after "end of sentence" token ([s])
                         pred_max_prob = pred_max_prob[:pred_EOS]
@@ -154,7 +170,7 @@ class demo_module():
 
         """ vocab / character number configuration """
         if opt.sensitive:
-            opt.character = string.printable[:-6]  # same with ASTER setting (use 94 char).
+            CHARACTER = string.printable[:-6]  # same with ASTER setting (use 94 char).
 
         cudnn.benchmark = True
         cudnn.deterministic = True
@@ -163,5 +179,5 @@ class demo_module():
         self.demo(opt)
         
 if __name__ == '__main__':
-    predict = demo_module()
+    predict = Dectector()
     predict.run_module()

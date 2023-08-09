@@ -1,12 +1,12 @@
 from TextRecognition.constant import *
-from TextRecognition import demo_module
+from TextRecognition import Dectector
 
 
 class TxtRecognizer():
     def __init__(self, camera, speaker = None):
         self.camera = camera
         self.speakr = speaker
-        detector = demo_module()  # 검출기 (Text-recognition 결과로 나온 단어)
+        detector = Dectector()  # 검출기 (Text-recognition 결과로 나온 단어)
 
     def __call__(self):
         pass
