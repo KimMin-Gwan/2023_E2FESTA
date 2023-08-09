@@ -160,8 +160,6 @@ class ProcessingData:  #data처리 클래스
             pygame.time.Clock().tick(10)
 
 
-
-
 def main():
 
 
