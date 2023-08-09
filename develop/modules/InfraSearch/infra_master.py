@@ -90,39 +90,31 @@ class beacon_master:
             self.data = "버튼이 입력되지 않았습니다."
             self.start_gtts()
             return False
+
     def start_gtts(self):
         exitCode = self.speaker.tts_read(self.data)
         self.data = ""  # 항상 읽고 data는 초기화 시켜준다.
         return exitCode
 
-    def send_server(self):
+    def connect_data_base(self):
         url = 'http://43.201.213.223:8080/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
         self.data = response.text + self.data
         print("확인할 최종 data======================================", self.data)
 
-    def get_gtts_data(self):
-        self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
+
 
     def process_beacon(self):  # processes하는 부분이다.
         self.process = ProcessingData(self.information, self.flag)  # ProcessingData클래스에 인자전달과 생성을 해준다
         self.process.process_beacon_data()
-
-    def connect_data_base(self):
-        self.send_server()
-        return
-
-
+        # self.connect_data_base()       # data_base에 연결하는 경우 주석 해제
+        self.data, self.flag, self.key = self.process.return_gtts_mssage()  # gtts 데이터를 return해준다.
 
     def runScanBeacon(self):
         infraSearchExitCode = 0
         state = self.scan_beacon()
-        if (state == True):  # 주변에 scan된 비콘이있을때
+        if (state == True):                 # 주변에 scan된 비콘이있을때
             self.process_beacon()
-            #self.connect_data_base()
-            self.get_gtts_data()
             self.start_gtts()
-            print("infra end")
-            return
-        else:
-            return
+        print("SYSTEM ALARM::InfraSearch Exit")
+        return
