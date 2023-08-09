@@ -43,7 +43,8 @@ class SpeakMaster:
             if self.info.getButtonState() == 1:
                 self.exitCode = -1
                 break
-            elif self.info.getButtonState() == 3:
+            elif self.info.getButtonState() == 2:
+                self.exitCode = 2
                 break
             time.sleep(0.01)
             #pygame.time.Clock().tick(60)

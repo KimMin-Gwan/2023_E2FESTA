@@ -77,9 +77,9 @@ class beacon_master:
                 sTime = time.time()
                 while True:
                     eTime = time.time()
-                    if eTime - sTime > 3:
+                    if eTime - sTime > 2:
                         break
-                    if self.mainInfo.getButtonState() == 2:
+                    if self.mainInfo.getButtonState() == 2 or exitCode == 2:
                         self.mainInfo.setButtonState(-1)
                         self.flag = dict_key
                         #if self.speaker_thread.is_alive():
