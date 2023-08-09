@@ -43,7 +43,7 @@ class Dectector():
             converter = AttnLabelConverter(CHARACTER)
         opt.num_class = len(converter.character)
 
-        if opt.rgb:
+        if RGB:
             INPUT_CHANNEL = 3
         model = Model(opt)
         print('model input parameters', IMG_HEIGHT, IMG_WIDTH, NUM_FIDUCIAL, INPUT_CHANNEL, OUTPUT_CHANNEL,
@@ -59,7 +59,10 @@ class Dectector():
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=opt.PAD)
        # demo_data = RawDataset(root=opt.image_folder, opt=opt)  # use RawDataset
-        demo_data = 
+        ocr_cam = Camera_Master()
+        ocr_cam.StartHandCam(1)
+        demo_data = ocr_cam.get_frame()
+        
         demo_loader = torch.utils.data.DataLoader(
             demo_data, batch_size=BATCH_SIZE,
             shuffle=False,
@@ -119,13 +122,10 @@ class Dectector():
     def run_module(self):
         parser = argparse.ArgumentParser()  #파서 생성
         #파서가 구분할 명령어 추가
-        parser.add_argument('--image_folder', required=True, help='path to image_folder which contains text images')
-        parser.add_argument('--saved_model', required=True, help="path to saved_model to evaluation")
         """ Data processing """
         # 추가 옵션을 받는 경우 action = 'store
         # 추가 옵션을 받지 않고, 옵션의 유/무만 필요한 경우 action = 'store_true'
-        parser.add_argument('--rgb', action='store_true', help='use rgb input')
-        
+        #parser.add_argument('--rgb', action='store_true', help='use rgb input')
         parser.add_argument('--sensitive', action='store_true', help='for sensitive character mode')
         parser.add_argument('--PAD', action='store_true', help='whether to keep ratio then pad for image resize')
         #config 객체 생성
