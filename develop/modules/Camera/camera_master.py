@@ -1,3 +1,22 @@
+# camera_master.py
+"""
+* Program Purpose and Features :
+* - Camera Module
+* Author : HL YANG, SH PARK, MG KIM
+* First Write Date : 2023.08.06
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		    Version		History                                                                                 code to fix
+* SH PARK			2023.08.07      v0.10	    Making Camera Module
+* SH PARK			2023.08.07      v0.11	    init structure
+* SH PARK			2023.08.07      v0.12	    change function name
+* HL YANG			2023.08.07      v0.20	    make hand camera
+* SH PARK			2023.08.07      v0.30	    set intel camera modul
+* SH PARK			2023.08.07      v0.31	    make test main file
+* MG KIM			2023.08.09      v0.40	    초기 설계 세팅 및 수정
+"""
+
 import cv2
 import numpy as np
 import pyrealsense2.pyrealsense2 as rs
@@ -28,14 +47,19 @@ class Camera_Master():
         return
         
     def swap_camera(self):
-        self.thread.join()
+        # 그냥 join 해버리니까 스레드 종료과정에서 while 부근에서 오류가남
+        # 그래서 플래그를 새워서 와일문을 종료시켜서 끌것
+        self.swap_flag = 1 
+        cv2.destroyAllWindows()
+        #self.thread.join()
         if self.status == 1:
-            
+            self.swap_flag = 0
             self.thread = threading.Thread(target=self.StartHandCam, args=(True))
             self.thread.start()
             self.status = 2
         else:
             
+            self.swap_flag = 0
             self.thread = threading.Thread(target=self.StartWebCam, args=(True))
             self.thread.start()
             self.status = 1
@@ -47,7 +71,6 @@ class Camera_Master():
     
     # flag 를 True로 하면 화면에 출력이 나옴
     def StartHandCam(self, flag = False):
-        processed_frame_array=[]
 
         self.frame = None
         if not self.handcam.isOpened():  # 카메라가 켜지지 않았을 때
@@ -55,16 +78,14 @@ class Camera_Master():
             exit()  # 종료
 
         while self.handcam.isOpened():  # 카메라가 켜졌을 때
+            if self.swap_flag == 1:
+                break
             ret, self.frame = self.handcam.read()
 
             if flag:
                 cv2.imshow("Camera", self.frame)  # 창 제목
     
-                # if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가고 웹캠으로 전환
-                #     break
-        
-                if cv2.waitKey(1) & 0xFF == ord('a'):  # z 누르면 사진 찍기
-                    processed_frame_array.extend(self.frame)  # 행렬로 처리된 프레임을 변수에 할당
+                if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가고 웹캠으로 전환
                     break
             
             if not ret:
@@ -124,6 +145,10 @@ class Camera_Master():
             # Stop streaming
             self.pipeline.stop()
        
+    # 모니터링용 데이터 처리
     def get_frame(self):
         # 웹캠 return용 (while문 내 return 위치하면, 속도 저하) 
-        return self.frame
+        # 바이트 단위로 다시 인코딩
+        _, buffer = cv2.imencode('.jpg', self.frame)
+        frame = buffer.tobytes()
+        return frame
