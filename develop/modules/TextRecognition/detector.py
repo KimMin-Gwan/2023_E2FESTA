@@ -7,7 +7,7 @@
 * ==========================================================================
 * Program history
 * ==========================================================================
-* Author    		Date		    Version		History                                                                                 code to fix
+* Author    		Date		    Version		History
 * SJ Yang			2023.08.09      v0.10	    first write
 * SJ Yang           2023.08.09      v1.00       variable fix
 """
