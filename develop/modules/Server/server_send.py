@@ -10,7 +10,7 @@
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
 * SH PARK   		2023.07.17      v0.10	    make send system
-* JW KIM	        2023.07.20      v0.20       change send method
+* JW KIM	        2023.07.20      v0.20       change the send method
 * SH PARK           2023.07.20      v0.30       change IP of url
 * 
 """
