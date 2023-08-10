@@ -1,3 +1,20 @@
+# TextRecognizer.py
+"""
+* Program Purpose and Features :
+* - TextRecognizer with OCR system(made from NAVER CLOVA)
+* Author : HL YANG, SJ YANG, SH PARK, MG KIM
+* First Write Date : 2023.08.06
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		    Version		History                                                                                 code to fix
+* HL YANG			2023.08.06      v0.10	    making TextRecognizer.py
+* HL YANG			2023.08.07      v0.20	    OCR파트 삽입
+* SH PARK           2023.08.07      v0.21	    OCR파트 삽입
+* MG KIM			2023.08.08      v0.30	    시스템 개편 및 설계
+* SJ YANG			2023.08.09      v0.40	    ocr파트 개선 및 메서드로 설계
+"""
+
 from TextRecognition.constant import *
 from TextRecognition import Dectector
 
