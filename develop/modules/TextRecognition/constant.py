@@ -26,7 +26,7 @@ BATCH_SIZE = 192            #'input batch size'
 BATCH_MAX_LENGTH = 25       #'maximum-label-length'
 IMG_HEIGHT = 32             #'the height of the input image'
 IMG_WIDTH = 100             #'the width of the input image'
-RGB = True  #????
+RGB = True   #????          #'use rgb input'
 CHARACTER = '0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강갖같갚갛개객걀걔거걱건걷걸검겁것겉게겨\
             격겪견결겹경곁계고곡곤곧골곰곱곳공과관광괜괴굉교구국군굳굴굵굶굽궁권귀귓규균귤그극근글긁금급긋긍기긴길\
             김깅깊까깍깎깐깔깜깝깡깥깨꺼꺾껌껍껏껑께껴꼬꼭꼴꼼꼽꽂꽃꽉꽤꾸꾼꿀꿈뀌끄끈끊끌끓끔끗끝끼낌나낙낚난날낡\
