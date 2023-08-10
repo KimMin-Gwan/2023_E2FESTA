@@ -10,3 +10,4 @@
 // video.src = cameraUrls[currentCameraIndex];
 // });
 
+//windows 사용?
