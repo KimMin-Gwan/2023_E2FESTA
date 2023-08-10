@@ -7,13 +7,13 @@ const snapshotImage = document.getElementById('snapshotImage');
 snapshotButton.addEventListener('click', () => {
     // /snapshot 주소로 요청
     fetch('/snapshot')
-    // 성공하면 .then을 이용해 리턴
+    // 성공하면 blob형태의 응답 리턴
         .then(response => response.blob()) 
         // 이미지 저장
         .then(blob => {
             const url = URL.createObjectURL(blob);
             snapshotImage.src = url;
             snapshotImage.style.display = "block";
-            // 캡쳐한 이미지가 보여진다
+            // 캡쳐한 이미지가 보여진다(미리보기처럼)
         });
 });
