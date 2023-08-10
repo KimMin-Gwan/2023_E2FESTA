@@ -1,7 +1,9 @@
+
 const video2 = document.getElementById('stream');
 const snapshotButton = document.getElementById('snapshotButton');
 const snapshotImage = document.getElementById('snapshotImage');
 // 일치하는 id 속성을 가진 요소 찾고, 반환
+
 snapshotButton.addEventListener('click', () => {
     // /snapshot 주소로 요청
     fetch('/snapshot')

@@ -3,13 +3,15 @@
 * Program Purpose and Features :
 * - for Running Client 
 * - This file will run in rasberryPI
-* Author : Juwhan Kim
-* First WriJuwhante Date : 2023.07.16
+* Author : JW KIM, SH PARK
+* First WriJuwhante Date : 2023.07.17
 * ==========================================================================
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
-* Juwhan KIM			2023.07.16      v0.10	    make file
+* SH PARK   		2023.07.17      v0.10	    make send system
+* JW KIM	        2023.07.20      v0.20       change send method
+* SH PARK           2023.07.20      v0.30       change IP of url
 * 
 """
 

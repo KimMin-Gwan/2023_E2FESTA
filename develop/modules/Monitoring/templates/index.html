@@ -28,14 +28,14 @@
                     <script>
                         const video = document.getElementById('stream');
                         const swapButton = document.getElementById('swapButton');
-                        let currentCameraIndex = 0;
-                        const cameraUrls = [
+                        let CameraIndex = 0;
+                        const camUrl = [
                             "{{url_for('static',filename='blender.png')}}",
                             "{{url_for('video_show')}}"
                         ];
                         swapButton.addEventListener('click', () => {
-                        currentCameraIndex = (currentCameraIndex + 1) % cameraUrls.length;
-                        video.src = cameraUrls[currentCameraIndex];
+                        CameraIndex = (CameraIndex + 1) % camUrl.length;
+                        video.src = camUrl[CameraIndex];
                         });
 
 

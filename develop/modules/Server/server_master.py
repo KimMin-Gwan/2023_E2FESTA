@@ -3,17 +3,17 @@
 * Program Purpose and Features :
 * - for Running Surver 
 * - This file will run in AWS
-* Author : JW Kim, SH PARK
+* Author : JW KIM, SH PARK
 * First WriJuwhante Date : 2023.07.12
 * ==========================================================================
 * Program history
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
-* SH Park			2023.07.12      v0.10	    make server system
-* SH Park           2023.07.14      v0.20       set mongodb
-* JW Kim            2023.07.17      v0.30       make receive part from server
-* JW Kim            2023.07.20      v0.40       change code to class and change mongodb part
-* SH Park           2023.07.20      v0.41       change host IP
+* SH PARK			2023.07.12      v0.10	    make server system
+* SH PARK           2023.07.14      v0.20       set mongodb
+* JW KIM            2023.07.17      v0.30       make receive part from server
+* JW KIM            2023.07.20      v0.40       change code to class and change mongodb part
+* SH PARK           2023.07.20      v0.41       change host IP
 """
 from typing import Any
 from flask import Flask, request

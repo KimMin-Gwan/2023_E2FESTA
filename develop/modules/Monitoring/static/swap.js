@@ -1,3 +1,4 @@
+
 // const video = document.getElementById('stream');
 // const swapButton = document.getElementById('swapButton');
 // let currentCameraIndex = 0;
