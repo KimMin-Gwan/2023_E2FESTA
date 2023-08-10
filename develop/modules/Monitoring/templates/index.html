@@ -15,7 +15,10 @@
                 <img id="stream" src="{{ url_for('video_show') }}" style="width: 100%;">
                 <!-- 카메라 화면 전환 컨테이너 -->
                 <div class="container4">
-                    <button class='swap' id="swapButton">Swap</button>
+                    <!-- 카메라 전환 버튼 -->
+                    <form action = "swap">
+                        <button type = "submit" class='swap' id="swapButton">Swap</button>
+                    </form>
 
                     <!-- <script src="{{ url_for('static',filename='swap.js') }}"></script> -->
                     
