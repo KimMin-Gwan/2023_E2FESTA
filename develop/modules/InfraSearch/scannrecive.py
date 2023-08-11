@@ -22,7 +22,6 @@ import time
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
         self.__scan_data__ = {}
-
         if (DefaultDelegate != None):
             DefaultDelegate.__init__(self)
 
@@ -41,25 +40,24 @@ class ScanDelegate(DefaultDelegate):
 
 
 class ReceiveSignal:  # receive class
-
     def __init__(self, scanner, duration):
         self.scanner = scanner  # scanner
         self.duration = duration  # scan duration
         self.information_dict = {}
 
     def scanData(self):  # scan thread func
-        devices = self.scanner.scan(self.duration)
-        receiveTime = time.time()
+        devices = self.scanner.scan(self.duration)  # scan beacon for duration
+        receiveTime = time.time()       # time check
         print("SYSTEM ALARM::Scanned Data")
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
-                if KEY in value:
+                if KEY in value:    # Verify if the scanned data is NAVI data
                     rssi_power = abs(dev.rssi)  # if big rssi then less recive power
                     beaconData = value[8:]  # erase flag
                     print(rssi_power, beaconData)
                     key = self.Check_flag(beaconData)
                     if key in self.information_dict:
-                        if self.information_dict[key][0] < rssi_power:
+                        if self.information_dict[key][0] < rssi_power:  # 같은 종류의 beacon이 여러개 scan된 경우, rssi power가 가장 큰 비콘 사용
                             self.information_dict[key] = [rssi_power, beaconData,
                                                           receiveTime]  # (tx_power, data, receiveTime)
                         else:
