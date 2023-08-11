@@ -73,7 +73,7 @@ class Camera_Master():
             self.status = 1  # Change Cam's status; hand > web
     
 
-    # flag 를 True로 하면 화면에 출력이 나옴
+    # flag를 True로 하면 화면에 출력이 나옴
     def StartHandCam(self, flag = False):
 
         self.frame = None
