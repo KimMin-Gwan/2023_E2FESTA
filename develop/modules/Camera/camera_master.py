@@ -73,7 +73,7 @@ class Camera_Master():
             self.status = 1  # Change Cam's status; hand > web
     
 
-    # flag를 True로 하면 화면에 출력이 나옴
+    # HandCam ON;  flag를 True로 하면 화면에 출력이 나옴
     def StartHandCam(self, flag = False):
 
         self.frame = None
@@ -106,7 +106,7 @@ class Camera_Master():
         # self.swap_camera()
 
 
-    # Web cam ON
+    # WebCam ON
     def StartWebCam(self, flag = False):
         ## License: Apache 2.0. See LICENSE file in root directory.
         ## Copyright(c) 2015-2017 Intel Corporation. All Rights Reserved.
