@@ -41,7 +41,7 @@ class RawDataset(Dataset):
         try:
             if RGB:
                 #img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
-                img = Camera_Master.get_frame()
+                img = Camera_Master.get_frame() #####easyOCR
             else:
                 #img = Image.open(self.image_path_list[index]).convert('L')
                 img = Camera_Master.get_frame()
