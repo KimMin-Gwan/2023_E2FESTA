@@ -10,7 +10,6 @@
 * Author    		Date		Version		History
 * JH KIM            2023.07.17		v1.00		First Write
 """
-from develop.constant import *
 import threading
 
 

@@ -13,13 +13,9 @@
 * JH KIM            2023.08.11      v1.02       Program optimized
 """
 import sys
-import threading
-import time
 from develop.modules.button import *
-from develop.modules.InfraSearch import *
-from develop.modules.Speaker import *
-from class_Information import *
-from develop.constant import *
+from develop.modules.naviUtils import *
+
 
 sys.path.append('/home/pi/2023_E2FESTA')
 
