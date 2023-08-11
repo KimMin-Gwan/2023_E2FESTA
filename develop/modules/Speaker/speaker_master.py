@@ -16,7 +16,7 @@
 """
 import time
 
-from modules.Speaker.utils import *
+from develop.modules.Speaker.utils import *
 import threading
 
 
