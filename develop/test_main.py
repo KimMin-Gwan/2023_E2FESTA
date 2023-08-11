@@ -13,11 +13,14 @@
 * JH KIM            2023.08.11      v1.02       Program optimized
 """
 import sys
+
+sys.path.append('/home/pi/2023_E2FESTA')
+
 from develop.modules.button import *
 from develop.modules.naviUtils import *
 
 
-sys.path.append('/home/pi/2023_E2FESTA')
+
 
 
 def runButton(button):  # run Button
