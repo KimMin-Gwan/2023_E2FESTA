@@ -12,6 +12,7 @@
 * JH SUN            2023.07.18      v1.00       write SpeakerMaster
 * JH KIM            2023.07.20      v1.01       set_txt, tts_read merged
 * JH KIM            2023.07.25      v1.02       flag added
+* JH KIM            2023.08.11      v1.10       System State added
 """
 import time
 
