@@ -18,7 +18,7 @@ sys.path.append('/home/pi/2023_E2FESTA')
 
 from develop.modules.button import *
 from develop.modules.naviUtils import *
-
+from develop.modules.Speaker import *
 
 
 
