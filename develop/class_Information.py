@@ -12,25 +12,26 @@
 """
 from develop.constant import *
 import threading
+
+
 class information:
     def __init__(self):
-        self.__buttonState = -1
+        self.__buttonState = -1  # Default Button State : -1
         self.cs = threading.Lock()
-        self.systemState = 0
+        self.__systemState = 0
 
-    def getButtonState(self):
+    def getButtonState(self):  # Button state accessor
         return self.__buttonState
 
-    def setButtonState(self, state):
+    def setButtonState(self, state):  # Button state mutator
         self.cs.acquire()
         print("SYSTEM ALARM::Button State Changed({} -> {})".format(self.getButtonState(), state))
         self.__buttonState = state
         self.cs.release()
 
-    def getSystemState(self):
-        return self.systemState
+    def getSystemState(self):  # System state accessor
+        return self.__systemState
 
-    def setSystemState(self, newSysState):
+    def setSystemState(self, newSysState):  # System state mutator
         print("SYSTEM ALARM::System State Changed({} -> {})".format(self.getSystemState(), newSysState))
-        self.systemState = newSysState
-
+        self.__systemState = newSysState
