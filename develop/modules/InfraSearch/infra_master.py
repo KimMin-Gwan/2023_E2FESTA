@@ -54,8 +54,8 @@ class beacon_master:
         else:
             self.scanDataConvertToText()  # 스캔된 데이터를 Speaker Output을 위해 변환
             exitCode = self.start_gtts()
-            if exitCode == -1:  # Infrasearch exit button input
-                return -1
+            if exitCode == 1:  # Infrasearch exit button input
+                return 1
 
             for dict_key in self.information.keys():
                 if dict_key == Subway:
@@ -64,7 +64,7 @@ class beacon_master:
                     self.data = "신호등"
 
                 exitCode = self.start_gtts()
-                if exitCode == -1:  # Infrasearch exit button input
+                if exitCode == 1:  # Infrasearch exit button input
                     return exitCode
                 sTime = time.time()
                 while True:
