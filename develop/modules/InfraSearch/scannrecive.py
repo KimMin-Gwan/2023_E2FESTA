@@ -1,4 +1,4 @@
-#scan n recive.py
+# scan n recive.py
 """
 * Project : 2023CDP Eddystone Receiver
 * Program Purpose and Features :
@@ -12,10 +12,13 @@
 * MG KIM			2023.07.11      v0.10	    make from /juwhan_test/split_class.py
 * JH SUN            2023.07.24      v1.00       receiver writing complete
 * JH KIM            2023.07.25      v1.01       dict value modified (power, data)
+* JH KIM            2023.08.11      v1.02       source code optimized
 """
 from bluepy.btle import DefaultDelegate
 from modules.InfraSearch.constant import *
 import time
+
+
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
         self.__scan_data__ = {}
@@ -37,40 +40,39 @@ class ScanDelegate(DefaultDelegate):
         return self.__scan_data__
 
 
-class ReceiveSignal:                        #receive class
-    
-    def __init__(self,scanner,duration):
-        self.scanner=scanner                #scanner
-        self.duration=duration              #scan duration
-        self.information_dict={}
-        
-    def scanData(self):                     #scan thread func
+class ReceiveSignal:  # receive class
+
+    def __init__(self, scanner, duration):
+        self.scanner = scanner  # scanner
+        self.duration = duration  # scan duration
+        self.information_dict = {}
+
+    def scanData(self):  # scan thread func
         devices = self.scanner.scan(self.duration)
         receiveTime = time.time()
         print("SYSTEM ALARM::Scanned Data")
         for dev in devices:
             for (adtype, desc, value) in dev.getScanData():
                 if KEY in value:
-                    rssi_power=abs(dev.rssi)    #if big rssi then less recive power
-                    beaconData = value[8:]      #erase flag
-                    print(rssi_power,beaconData)
-                    key=self.Check_flag(beaconData)
+                    rssi_power = abs(dev.rssi)  # if big rssi then less recive power
+                    beaconData = value[8:]  # erase flag
+                    print(rssi_power, beaconData)
+                    key = self.Check_flag(beaconData)
                     if key in self.information_dict:
-                        if self.information_dict[key][0]< rssi_power:
-                            self.information_dict[key] = [rssi_power, beaconData, receiveTime]       # (tx_power, data, receiveTime)
+                        if self.information_dict[key][0] < rssi_power:
+                            self.information_dict[key] = [rssi_power, beaconData,
+                                                          receiveTime]  # (tx_power, data, receiveTime)
                         else:
                             continue
-                    else :
-                        self.information_dict[key]=[rssi_power, beaconData, receiveTime]
-                    
+                    else:
+                        self.information_dict[key] = [rssi_power, beaconData, receiveTime]
+
         return self.information_dict
-    
-    def Check_flag(self,data):
-        if TRAFFIC in data:
+
+    def Check_flag(self, data):
+        if TRAFFIC in data:  # Traffic Sign
             return Traffic
-        
-        elif SUBWAY in data:  #SUB subway
+        elif SUBWAY in data:  # Subway
             return Subway
-    
-        else: #이후 모듈추가될때 작성될 코드
+        else:  # beacon 종류가 추가 되면 작성
             pass
