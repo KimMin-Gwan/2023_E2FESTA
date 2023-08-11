@@ -155,10 +155,13 @@ class Camera_Master():
             self.pipeline.stop()
        
        
-    # 모니터링용 데이터 처리
+    # 모니터링용 데이터 처리 (Functions for the web only)
     def get_frame(self):
         # 웹캠 return용 (while문 내 return 위치하면, 속도 저하) 
         # 바이트 단위로 다시 인코딩
         _, buffer = cv2.imencode('.jpg', self.frame)
         frame = buffer.tobytes()
         return frame
+
+
+    # 프레임 가지고 오는 함수
