@@ -41,7 +41,7 @@ class TxtRecognizer():
            그러며 ㄴ camera_master.py 안에 있는 def starthandcam()
            안에서 if 버튼ㄴ 눌렀을 때 카메라 바꾸는 코드를 지우고 함수를 때려박어 어딘지 찾아서/.
         2. 카메라로 사진 찍기
-        
+        2.5 ; 사진 하나에 여러 문장이 있을 때 인식 불가능 > easy_ocr 사용하여 글자 프레임 인식 후 넘겨주기
         3. 프레임 배열 넘겨서 처리하기 > text string 형태의 결과로 나옴
         result = self.detector.demo(frame)
         4. 결과로 나온 string 전체를 스피커로 출력하기
