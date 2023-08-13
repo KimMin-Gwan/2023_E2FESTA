@@ -9,15 +9,21 @@
 * ==========================================================================
 * Author    		Date		    Version		History                                                                                 code to fix
 * HL YANG			2023.08.06      v0.10	    making TextRecognizer.py
-* HL YANG			2023.08.07      v0.20	    OCR파트 삽입
-* SH PARK           2023.08.07      v0.21	    OCR파트 삽입
+* HL YANG			2023.08.07      v0.20	    OCR 파트 삽입
+* SH PARK           2023.08.07      v0.21	    OCR 파트 삽입
 * MG KIM			2023.08.08      v0.30	    시스템 개편 및 설계
-* SJ YANG			2023.08.09      v0.40	    ocr파트 개선 및 메서드로 설계
+* SJ YANG			2023.08.09      v0.40	    ocr 파트 개선 및 메서드로 설계
+* HL YANG			2023.08.13      v0.50	    Making RunRecognition()
 """
 
+from runpy import run_module
 from TextRecognition.constant import *
 from TextRecognition import Dectector
+# from Camera.camera_master import *
+# from Speaker.speaker_master import *
 
+import Camera
+import Speaker
 
 class TxtRecognizer():
     def __init__(self, camera, speaker = None):
@@ -32,6 +38,17 @@ class TxtRecognizer():
         # inport camera module 
         #    <- handcam&webcam 관련 함수 제작했다고 가정
         # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
+    
+        photo_frame = Camera.Camera_Master.get_frame()
+        
+        photo_texts = []
+        photo_texts = easy_ocr(photo_frame)
+        
+        text_result = []
+        text_result = run_module(photo_texts)
+        
+        Speaker.SpeakMaster.tts_read(text_result)
+        
         
         """
         1. 카메라 바꾸기
@@ -49,3 +66,16 @@ class TxtRecognizer():
         """
     
 #################################################################################################################################################
+
+"""
+0. 카메라를 실행하는 건 main 문에서 하는 건가? monitor_test_main.py의 camera.RunCamera()처럼?
+   그럼 이 .py 안에다 안 만들어도 되는 거 아닌가?
+   
+(카메라를 실행하고 웹에서 전환 버튼을 눌렀을 때 카메라 전환되는 것까지 타 파일에서 완성되어있다고 했을 때)
+1. 카메라 내에서 실행 중인 상태에서 촬영 버튼을 눌렀을 때 get_frame()으로 프레임 넘겨받기
+2. 넘겨받은 프레임을 easy_ocr()을 통해 사진 내의 여러 문장을 각각의 텍스트로 읽어서 넘겨받기
+3. 그 여러 개의 프레임들을 받아 OCR 텍스트 인식 진행하고, 진행한 결과를 받기
+4. 받은 결과(string)를 스피커로 읽어줄 수 있게 read_tts()를 사용하여 결과 읽어주기
+   ㄴ 들려주다가 버튼을 누르면 끊기 / 다시 듣기  << 기능은 여기서 구현? or 버튼에서 구현?
+
+"""

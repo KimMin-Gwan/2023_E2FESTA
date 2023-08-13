@@ -4,10 +4,10 @@
 * - Camera Module
 * Author : HL YANG, SH PARK, MG KIM
 * First Write Date : 2023.08.06
-* ==========================================================================
+* =================================================================================
 * Program history
-* ==========================================================================
-* Author    		Date		    Version		History                                                                                 code to fix
+* =================================================================================
+* Author    		Date		    Version		History                                                                           code to fix
 * SH PARK			2023.08.07      v0.10	    Making Camera Module
 * SH PARK			2023.08.07      v0.11	    init structure
 * SH PARK			2023.08.07      v0.12	    change function name
@@ -15,9 +15,11 @@
 * SH PARK			2023.08.07      v0.30	    set intel camera modul
 * SH PARK			2023.08.07      v0.31	    make test main file
 * MG KIM			2023.08.09      v0.40	    초기 설계 세팅 및 수정
-* HL YANG			2023.08.11      v0.50	    edit internal code
+* HL YANG			2023.08.11      v0.50	    Edit Internal Code
+* HL YANG			2023.08.13      v0.51	    Writing Internal Code & Annotation
 """
 
+from tkinter import Frame
 import cv2
 import numpy as np
 import pyrealsense2.pyrealsense2 as rs
@@ -45,7 +47,7 @@ class Camera_Master():
     # 카메라 ON
     def RunCamera(self):
         # webcam(기본값) 스레드 실행
-        self.thread = threading.Thread(target=self.StartWebCam, args=(True))
+        self.thread = threading.Thread(target=self.StartWebCam, args=(True))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
         self.thread.start()
         return
     
@@ -61,14 +63,14 @@ class Camera_Master():
         # WebCam → HandCam
         if self.status == 1:  # Now: Web
             self.swap_flag = 0
-            self.thread = threading.Thread(target=self.StartHandCam, args=(True))
+            self.thread = threading.Thread(target=self.StartHandCam, args=(True))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
             self.thread.start()
             self.status = 2  # Change Cam's status; web > hand
         
         # HandCam → WebCam
         else:
             self.swap_flag = 0
-            self.thread = threading.Thread(target=self.StartWebCam, args=(True))
+            self.thread = threading.Thread(target=self.StartWebCam, args=(True))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
             self.thread.start()
             self.status = 1  # Change Cam's status; hand > web
     
@@ -119,8 +121,8 @@ class Camera_Master():
         try:
             while True:
 
-                if self.swap_flag == 1:  # web에서 swap cam 버튼이 눌려 flag 0 > 1 변경, 카메라 전환을 하겠다는 의미
-                break
+                if self.swap_flag == 1:  # web에서 swap cam 버튼이 눌려 flag 0 -> 1 변경, 카메라 전환을 하겠다는 의미
+                    break
 
                 # Wait for a frame : color
                 frames = self.pipeline.wait_for_frames()
@@ -138,7 +140,7 @@ class Camera_Master():
                     cv2.imshow('RGB Camera', self.frame)
                     cv2.waitKey(1)
                     
-                    if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정
+                    if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정 후 핸드캠으로 전환됨
                         break
                 
                 if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
@@ -156,12 +158,17 @@ class Camera_Master():
        
        
     # 모니터링용 데이터 처리 (Functions for the web only)
-    def get_frame(self):
-        # 웹캠 return용 (while문 내 return 위치하면, 속도 저하) 
+    """ 기존 함수 이름:: def get_frame(self):  // 수정되었다고 알려줘야 함 """
+    def get_frame_bytes(self):
+        # 웹캠 return용 (while문 내 return 위치할 때 속도 저하) 
         # 바이트 단위로 다시 인코딩
         _, buffer = cv2.imencode('.jpg', self.frame)
         frame = buffer.tobytes()
         return frame
 
 
-    # 프레임 가지고 오는 함수
+    # (버튼을 눌렀을 때) 프레임 가지고 오는 함수
+    def get_frame(self):
+        return self.frame  # 프레임 반환
+        
+        
