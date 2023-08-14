@@ -76,7 +76,7 @@ def detection_image(org_image):
     
     
 if __name__=="__main__":
-    image_path = 'C:\\Users\\ICE\\Desktop\\df\\letsbe.png'
+    image_path = 'C:\\Users\\IT\\Desktop\\df\\letsb.png'
     image = cv2.imread(image_path)
     st_time=time.time()
     list_images=detection_image(image)
