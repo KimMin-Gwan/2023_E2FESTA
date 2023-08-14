@@ -1,6 +1,5 @@
 #from Object_detect import MIN_CONF_THRESHOLD
 from Object_detect import *
-from Object_detect import Collision_Preventer as CP
 import cv2
 import numpy as np
 
@@ -14,10 +13,10 @@ class Object_detector():
         self.status = 0 # 0 : 정지, 1 : 동작, 2 : 일시정지
         self.pause_flag = False
 
-        self.cp = CP()
-        self.tool = Tools()
+        self.cp = Object_detector.Collision_Preventer()
+        self.tool = Object_detector.Tools()
         self.tool.set_labels()
-        self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
+        self.image_manager = Object_detector.Image_Manager(self.tool, self.tool.get_labels())
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
     
     def __object_detection(self):
