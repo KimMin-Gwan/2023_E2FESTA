@@ -1,6 +1,6 @@
 from typing import Any
 import numpy as np
-from Object_detect import PATH_TO_MODEL, PATH_TO_LABEL, INPUT_MEAN, INPUT_STD, MIN_CONF_THRESHOLD 
+from Object_detect.constant import PATH_TO_MODEL, PATH_TO_LABEL, INPUT_MEAN, INPUT_STD, MIN_CONF_THRESHOLD 
 from tensorflow.lite.python.interpreter import Interpreter
 
 class Tools:
