@@ -84,9 +84,9 @@ def main():
     #PATH_TO_MODEL='/home/antl/Desktop/model_test/custom_model_lite/detect.tflite'   # Path to .tflite model file
     #PATH_TO_LABELS='/home/antl/Desktop/model_test/labelmap.txt'   # Path to labelmap.txt file
 
-    PATH_TO_MODEL='D:/work_space/VSCode/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/'
-    PATH_TO_LABELS='D:/work_space/VSCode/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/labelmap.txt'   # Path to labelmap.txt file
-    min_conf_threshold=0.5   # Confidence threshold (try changing this to 0.01 if you don't see any detection results)
+    PATH_TO_MODEL='C:/Users/IT/Documents/GitHub/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/mobile_SSD_v2_320x320_kr_ob.tflite'
+    PATH_TO_LABELS='C:/Users/IT/Documents/GitHub/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/labelmap.txt'   # Path to labelmap.txt file
+    min_conf_threshold=0.2  # Confidence threshold (try changing this to 0.01 if you don't see any detection results)
     object_detection(PATH_TO_MODEL, PATH_TO_LABELS, min_conf_threshold)
     
 if __name__ == '__main__':

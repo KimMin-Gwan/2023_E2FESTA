@@ -101,7 +101,7 @@ class Camera_Master():
             if flag:
                 cv2.imshow("Camera", self.frame)  # 창 제목
     
-                if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가고 웹캠으로 전환
+                if cv2.waitKey(1) & 0xFF == ord('q'):  # q 누르면 나가기
                     break
             
             if not ret:
@@ -153,11 +153,15 @@ class Camera_Master():
                     if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정 후 핸드캠으로 전환됨
                         break
                 
+<<<<<<< Updated upstream
                 if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
                     self.swap_camera()
                     # break
                 
             if flag:  # flag == 1로 설정 시(기본값 0) window에 띄워진 카메라 화면 창 닫기
+=======
+            if flag:
+>>>>>>> Stashed changes
                 cv2.destroyAllWindows()
                 
             self.StartHandCam(False)  # hand cam 실행
