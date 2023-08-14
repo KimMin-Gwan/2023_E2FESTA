@@ -7,7 +7,8 @@ import lmdb
 import torch
 import cv2
 
-from TextRecognition.constant import *
+from constant import *
+from Camera import *
 from natsort import natsorted
 from PIL import Image
 import numpy as np
@@ -15,23 +16,30 @@ from torch.utils.data import Dataset#, ConcatDataset, Subset
 from torch._utils import _accumulate
 import torchvision.transforms as transforms
 
-from Camera import *
 
 class RawDataset(Dataset):
 
     def __init__(self, root):
         #self.opt = opt
-        self.image_path_list = []
-        for dirpath, dirnames, filenames in os.walk(root):
+        #self.image_path_list = []
+        self.image_list = []
+
+        for i in root:
+            self.image_list.append(i)
+
+        self.image_list = natsorted(self.image_list)
+        self.nSamples = len(self.image_list)
+        '''for dirpath, dirnames, filenames in os.walk(root):
             for name in filenames:
                 _, ext = os.path.splitext(name)
-                ext = ext.lower()
+                ext = ext.lower()'''
                
-                if ext == '.jpg' or ext == '.jpeg' or ext == '.png':
-                    self.image_path_list.append(os.path.join(dirpath, name))
+                #if ext == '.jpg' or ext == '.jpeg' or ext == '.png':
+                    #self.image_path_list.append(os.path.join(dirpath, name))
 
-        self.image_path_list = natsorted(self.image_path_list)
-        self.nSamples = len(self.image_path_list)
+        #self.image_path_list = natsorted(self.image_path_list)
+        #self.nSamples = len(self.image_path_list)
+        
 
     def __len__(self):
         return self.nSamples
@@ -40,11 +48,17 @@ class RawDataset(Dataset):
 
         try:
             if RGB:
-                #img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
-                img = Camera_Master.get_frame() #####easyOCR
+                ord_img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
+                #img = Camera_Master.get_frame() #####easyOCR
+                new_img = np.array(ord_img)
+                img = Image.fromarray(np.uint8(new_img))
+                
+
             else:
-                #img = Image.open(self.image_path_list[index]).convert('L')
-                img = Camera_Master.get_frame()
+                ord_img = Image.open(self.image_path_list[index]).convert('L')
+                #img = Camera_Master.get_frame()
+                new_img = np.array(ord_img)
+                img = Image.fromarray(np.uint8(new_img))
 
         except IOError:
             print(f'Corrupted image for {index}')
@@ -54,8 +68,8 @@ class RawDataset(Dataset):
             else:
                 img = Image.new('L', (IMG_WIDTH, IMG_HEIGHT))
 
-        return (img, self.image_path_list[index])
-
+        # return (img, self.image_path_list[index])
+        return (img,self.image_list[index])  #img path 여러개가 존재해서 그걸 index 접근한건데 이거를 list_index접근으로 
 
 class ResizeNormalize(object):
 

@@ -13,14 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
 import torch.nn as nn
+import sys, os
 
-from modules.transformation import TPS_SpatialTransformerNetwork
-from modules.feature_extraction_fix import ResNet_FeatureExtractor
-from modules.sequence_modeling import BidirectionalLSTM
-from modules.prediction import Attention
-from TextRecognition.constant import *
+from OCR_model.transformation import TPS_SpatialTransformerNetwork
+from OCR_model.feature_extraction_fix import ResNet_FeatureExtractor
+from OCR_model.sequence_modeling import BidirectionalLSTM
+from OCR_model.prediction import Attention
+
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from constant import *
 
 class Model(nn.Module):
 
