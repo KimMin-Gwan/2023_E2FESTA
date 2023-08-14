@@ -17,7 +17,7 @@
 """
 
 from runpy import run_module
-from constant import *
+from TextRecognition.constant import *
 from TextRecognition import *
 from Easy_ocr import Easy_ocr
 # from Easy_ocr
