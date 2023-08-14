@@ -13,7 +13,6 @@
 """
 
 
-
 from OCR_model.dataset_fix import *
 from OCR_model.model_fix import *
 from OCR_model.utils_fix import *
@@ -27,6 +26,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.nn.functional as F
+
 
 '''from utils_fix import AttnLabelConverter 
 from dataset_fix import RawDataset, AlignCollate
@@ -58,7 +58,7 @@ class Dectector():
 
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
-        demo_data = RawDataset(root=IMAGE_FOLDER)  # use RawDataset
+        demo_data = RawDataset(root=frame)  # use RawDataset
         
         #demo_data =
         
