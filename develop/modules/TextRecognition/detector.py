@@ -13,11 +13,12 @@
 """
 
 
-from OCR_model.dataset_fix import *
-from OCR_model.model_fix import *
-from OCR_model.utils_fix import *
+from OCR_model_ee.dataset_fix import *
+from OCR_model_ee.model_fix import *
+from OCR_model_ee.utils_fix import *
 
-from TextRecognition.constant import *
+from constant import *
+from easyOCR import *
 
 import string
 import argparse  # argument(명령어)를 읽고 parsing(파씽)해주는 라이브러리
@@ -32,12 +33,12 @@ import torch.nn.functional as F
 from dataset_fix import RawDataset, AlignCollate
 from model_fix import Model'''
 
-from TextRecognition.constant import *
+from constant import *
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Dectector():
-    def demo(self, camera):
+    def demo(self, ):
         """ model configuration """
         if 'Attn' in PREDICTION:
             converter = AttnLabelConverter(CHARACTER)
@@ -58,7 +59,9 @@ class Dectector():
 
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
-        demo_data = RawDataset(root=frame)  # use RawDataset
+        
+        image_list = []
+        demo_data = RawDataset(root = image_list)  # use RawDataset
         
         #demo_data =
         
