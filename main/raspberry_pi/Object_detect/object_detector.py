@@ -51,7 +51,7 @@ class Object_detector():
 
         
     # 실행기
-    def run_system(self, running_type):
+    def run_system(self):
         now_camera_set = self.camera.get_status()
         # 카메라 점검 있어야함
         if now_camera_set == 'hand':
