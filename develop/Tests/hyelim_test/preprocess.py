@@ -39,9 +39,8 @@ json file 가지고 와서 train, valid, test로 나눔
     9-1. bbox가 없는 맴버가 하나라도 존재하는 이미지는 버림
 """
 
-FILE_PATH = 'D:/kor_dataset/write/'  # 모든 파일들이 들어있는 경로
-data_type = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
-        '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
+FILE_PATH = 'D:/kor/write/'  # 모든 파일들이 들어있는 경로
+data_type = {'증강인쇄체' : 'print/check/'}#, '간판':'Text/'}
 
 data_root_path = FILE_PATH+'dataset/'
 save_root_path = FILE_PATH+'text_data/'
@@ -102,8 +101,8 @@ def process(file, ocr_files, now_path, flag = 0):
         for idx, annotation in enumerate(file['annotations']):
             if idx % 5000 == 0:
                 print(idx, '/', len(file['annotations']),'processed')
-            if annotation['attributes']['class'] != 'word':
-                continue
+            #if annotation['attributes']['class'] != 'word':
+                #continue
             if annotation['image_id'] in train_ids_img:
                 train_annotations[train_ids_img[annotation['image_id']]].append(annotation)
             elif annotation['image_id'] in validation_ids_img:
@@ -172,13 +171,20 @@ def save_file(train_annotations, validation_annotations, test_annotations):
 def gt_file():
     obj_list = ['train', 'validation', 'test']
     for obj in obj_list:
-        total_annotations = json.load(open(FILE_PATH+f'jsonfile/{obj}_annotation.json'))
+        total_annotations = json.load(open(FILE_PATH+f'json_file/{obj}_annotation.json'))
         gt_file = open(f'{save_root_path}gt_{obj}.txt', 'w')
         for file_name in tqdm(total_annotations):
             annotations = total_annotations[file_name]
+            image = cv2.imread(data_root_path+file_name)
             for idx, annotation in enumerate(annotations):
+                x,y,w,h = annotation['bbox']
+                if x<=0 or y<=0 or w<=0 or h<=0:
+                    continue
                 text = annotation['text']
-                gt_file.write(f'{obj}/{file_name}\t{text}\n')
+                crop_image = image[y:y+h, x:x+w]
+                crop_file_name = file_name[:-4]+'_{:03}.jpg'.format(idx+1)
+                cv2.imwrite(save_root_path + f'{obj}/' + crop_file_name, crop_image)
+                gt_file.write(f'{obj}/{crop_file_name}\t{text}\n')
 # process() 함수의 반환값인 '_annotations'을 train, val, test라는 이름으로 추가 (update())
 def dict_extend(train_dict, val_dict, test_dict, train, val, test):
     train_dict.update(train)
@@ -197,34 +203,34 @@ def main():
         now_path = FILE_PATH + value
         ocr_files = os.listdir(now_path)
 
-        """
-        if key == '필기체':
+    
+    '''if key == '필기체':
             #print(ocr_files[0:10])
             print('processing now : ', key)
             json_file = json.load(open(FILE_PATH + 'j_file/handwriting_data_info_clean.json', 'rt', encoding='UTF8'))
             #          ('D:/kor_dataset/write/') + 'j_file/handwriting_data_info_clean.json'
-            train, val, test = process(json_file, ocr_files, now_path)
+            train, val, test = process(json_file, ocr_files, now_path,flag=1)
             train_data, val_data, test_data = dict_extend(train_data,
                                                             val_data, test_data,
-                                                            train, val, test)
-        if key == '인쇄체':
+                                                            train, val, test)'''
+    if key == '증강인쇄체':
             #print(ocr_files[0:10])
             print('processing now : ', key)
-            json_file = json.load(open(FILE_PATH + 'j_file/printed_data_info.json', 'rt', encoding='UTF8'))
+            json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
             #          ('D:/kor_dataset/write/') + 'j_file/printed_data_info.json'
-            train, val, test = process(json_file, ocr_files, now_path)
+            train, val, test = process(json_file, ocr_files, now_path,flag=1)
             train_data, val_data, test_data = dict_extend(train_data,
                                                             val_data, test_data,
                                                             train, val, test)
             
-        """
         
-        if key == '증강인쇄체' or key == '간판':
+        
+    '''if key == '증강인쇄체' or key == '간판':
             for fold in ocr_files:
                 #print(FILE_PATH + value + fold)
                 now_path = FILE_PATH + value + fold
                 ocr_files = os.listdir(now_path)
-                if key == '간판':
+        if key == '간판':
                     for subfold in ocr_files:
                         print('processing now : ', key)
                         #print(FILE_PATH + value + fold + subfold) # IMAGE 파일 경로
@@ -236,20 +242,20 @@ def main():
                         train, val, test = process(json_file, ocr_files, now_path, flag = 1)
                         train_data, val_data, test_data = dict_extend(train_data,
                                                                       val_data, test_data,
-                                                                      train, val, test)
+                                                                      train, val, test)'''
 
-                """
-                else:
+    
+    '''if key == '증강인쇄체':
                     print('processing now : ', key)
                     #print(ocr_files[0:10])
                     json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
                     #          ('D:/kor_dataset/write/') + 'j_file/augmentation_data_info.json'
-                    train, val, test = process(json_file, ocr_files, now_path)
+                    train, val, test = process(json_file, ocr_files, now_path,flag=1)
                     train_data, val_data, test_data = dict_extend(train_data,
                                                                     val_data, test_data,
-                                                                    train, val, test)
+                                                                    train, val, test)'''
 
-                """
+                
         # else:
         #     print(ocr_files[0:10])
         #     json_file = json.load(open(FILE_PATH + 'j_file/augmentation_data_info.json', 'rt', encoding='UTF8'))
@@ -258,7 +264,7 @@ def main():
         #     train_data, val_data, test_data = dict_extend(train_data,
         #                                                     val_data, test_data,
         #                                                     train, val, test)
-    gt_file()    
+    #gt_file()    
     save_file(train_data, val_data, test_data)
 
 if __name__ == '__main__':

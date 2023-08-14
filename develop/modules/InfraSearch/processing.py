@@ -29,10 +29,11 @@ class ProcessingData:  # data처리 클래스
         self.flag = flag  # 어떠한 종류의 비콘인지
         self.data = ""  # 비콘에 들어온 Raw Data
 
-    def timeSynchronization(self):
+    def timeSynchronization(self):  # time Synchronization for traffic Sign
         if self.flag == Traffic:
             elapsedTime = int(time.time() - int(self.information_dict[self.flag][2]))
-            sec = (int(self.information_dict[self.flag][1][14:16])-30) * 10 + int(self.information_dict[self.flag][1][16:18])-30
+            sec = (int(self.information_dict[self.flag][1][14:16]) - 30) * 10 + int(
+                self.information_dict[self.flag][1][16:18]) - 30
             color = self.information_dict[self.flag][1][12:14]
             if sec > elapsedTime:
                 newSec = sec - elapsedTime
@@ -42,19 +43,18 @@ class ProcessingData:  # data처리 클래스
                     color = GREEN
                 else:
                     color = RED
-            self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + str((newSec // 10) +30) + str((newSec % 10)+30)
+            self.information_dict[self.flag][1] = self.information_dict[self.flag][1][0:12] + color + str(
+                (newSec // 10) + 30) + str((newSec % 10) + 30)
 
-
-    def process_beacon_data(self):  # print thread func
+    def process_beacon_data(self):  # process scanned data
         self.timeSynchronization()
-        if self.flag == Traffic:  # TRF
-            self.Traffic_sign(self.flag)  # Traffic data 처리 함수
-
-        elif self.flag == Subway:
-            self.Subway_sign(self.flag)
+        if self.flag == Traffic:  # Traffic Sign
+            self.Traffic_sign(self.flag)  # Traffic Sign data processging
+        elif self.flag == Subway:  # Subway
+            self.Subway_sign(self.flag)  # Subway data processing
         return self.return_gtts_mssage()
 
-    def Traffic_sign(self, key):  # Traffic data 처리 함수
+    def Traffic_sign(self, key):  # Traffic sign data processing
         trafiic_number, color, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
             self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]  # tuple형태로 data 꺼내오기
         if color == GREEN:
@@ -62,7 +62,9 @@ class ProcessingData:  # data처리 클래스
         elif color == RED:
             color = Red
 
-        trafiic_number_thrid, trafiic_number_second, trafiic_number_first = trafiic_number[0:2], trafiic_number[2:4], trafiic_number[4:6]
+        trafiic_number_thrid, trafiic_number_second, trafiic_number_first = trafiic_number[0:2], trafiic_number[
+                                                                                                 2:4], trafiic_number[
+                                                                                                       4:6]
         trafiic_number = str(int(str(int(trafiic_number_thrid) - 30) + str(int(trafiic_number_second) - 30) + str(
             int(trafiic_number_first) - 30)))
 
@@ -72,12 +74,12 @@ class ProcessingData:  # data처리 클래스
             my_str = Traffic_info + color + " 입니다. " + Left_time + str(int(Ten) - 30) + "십. " + str(
                 int(One) - 30) + Second
 
-        print("This is Traffic  traffic_number is : ", trafiic_number, "color : ", color, "left time is ",
-              int(Ten) - 30, int(One) - 30, "sec")  # 콘솔 출력창 확인 위함 나중에 지워질 코드
+        # print("This is Traffic  traffic_number is : ", trafiic_number, "color : ", color, "left time is ",
+        #           int(Ten) - 30, int(One) - 30, "sec")  # 콘솔 출력창 확인 위함 나중에 지워질 코드
         self.text = my_str
         self.key = trafiic_number
 
-    def Subway_sign(self, key):  # 지하철 Raw data 처리 함수
+    def Subway_sign(self, key):  # Subway data processing
         subway_number, way, Ten, One = self.information_dict[key][1][6:12], self.information_dict[key][1][12:14], \
             self.information_dict[key][1][14:16], self.information_dict[key][1][16:18]
         if way == UP_LINE:
@@ -100,6 +102,5 @@ class ProcessingData:  # data처리 클래스
         self.text = my_str
         self.key = subway_number
 
-    def return_gtts_mssage(self):  # 처리된 text와 flag key값을 return 해준다.
-
+    def return_gtts_mssage(self):  # return text, flag, key
         return self.text, self.flag, self.key

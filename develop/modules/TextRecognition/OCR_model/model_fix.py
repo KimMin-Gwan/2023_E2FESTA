@@ -24,9 +24,9 @@ from TextRecognition.constant import *
 
 class Model(nn.Module):
 
-    def __init__(self, opt):
+    def __init__(self, num_class):
         super(Model, self).__init__()
-        self.opt = opt
+        #self.opt = opt
         self.stages = {'Trans': TRANSFORMATION, 'Feat': FEATURE_EXTRACTION,
                        'Seq': SEQUENCE_MODELING, 'Pred': PREDICTION}
 
@@ -57,9 +57,9 @@ class Model(nn.Module):
 
         """ Prediction """
         if PREDICTION == 'CTC':
-            self.Prediction = nn.Linear(self.SequenceModeling_output, opt.num_class)
+            self.Prediction = nn.Linear(self.SequenceModeling_output, num_class)
         elif PREDICTION == 'Attn':
-            self.Prediction = Attention(self.SequenceModeling_output, HIDDEN_SIZE, opt.num_class)
+            self.Prediction = Attention(self.SequenceModeling_output, HIDDEN_SIZE, num_class)
         else:
             raise Exception('Prediction is neither CTC or Attn')
 
@@ -83,6 +83,6 @@ class Model(nn.Module):
         if self.stages['Pred'] == 'CTC':
             prediction = self.Prediction(contextual_feature.contiguous())
         else:
-            prediction = self.Prediction(contextual_feature.contiguous(), text, is_train, batch_max_length=self.opt.batch_max_length)
+            prediction = self.Prediction(contextual_feature.contiguous(), text, is_train, batch_max_length=BATCH_MAX_LENGTH)
 
         return prediction

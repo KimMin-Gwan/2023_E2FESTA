@@ -2,13 +2,33 @@ import cv2
 import numpy as np
 
 class Bbox_maker:
-    def __init__(self):
-        pass
+    def __init__(self, labels):
+        print("bbox maker ready")
+        self.labels = labels
+    
+    # bbox making
+    def make_bbox(self, frame, score, bbox, class_name):
+        cv2.rectangle(frame, (bbox["xmin"], bbox["ymin"]), 
+                      (bbox["xmax"], bbox["ymax"]), (10, 255, 0), 2)
+        # get label
+        object_name = self.labels[int(class_name)]
+        accuracy = int(score *100)
+        label = f'{object_name} : {accuracy}'
+        labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)
+        label_ymin = max(bbox['ymin'], labelSize[1] + 10)
+        cv2.rectangle(frame, (bbox['xmin'], label_ymin-labelSize[1]-10),
+                        (bbox['xmin']+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
+        cv2.putText(frame, label, (bbox['xmin'], label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
+        return frame
+
+
     
 class Image_Manager:
-    def __init__(self, tool):
+    def __init__(self, tool, labels):
         self.frame = None # 3차원 행렬
-        self.tool = tool
+        self.tool = tool  # 지울 고려해야됨
+        self.bbox_manager = Bbox_maker(labels)
+
         self.width = 0
         self.height = 0
         self.init_flag = False
@@ -18,9 +38,8 @@ class Image_Manager:
         self.frame = frame
         # 최초에 한번만 연산
         if not self.init_flag:
-            height, width, _ = frame.shape
-            self.height = height
-            self.width = width
+            self.height, self.width, _ = frame.shape
+            self.init_flag == True
             
         return self.height, self.width
         
@@ -31,6 +50,19 @@ class Image_Manager:
         image_resized = cv2.resize(rgb_image, (width, height))
         input_data = np.expand_dims(image_resized, axis = 0) # 4차원 행렬로 재배치
         return input_data
+    
+    # bbox 만들기
+    def make_bbox(self, score, bbox, class_name):
+        self.frame = self.bbox_manager.make_bbox(self.frame, score, bbox, class_name)
+        return
+    
+    def show_test_window(self):
+        cv2.imshow('test_window', self.frame)
+        return
+
+    def get_bboxed_frame(self):
+        return self.frame
+    
         
         
     

@@ -8,30 +8,69 @@ import numpy as np
 class Object_detector():
     def __init__(self, info, camera):
         self.info = info  # 현재 상탱 확인
+        self.camera = camera # 카메라 정보 
+        self.status = 0 # 0 : 정지, 1 : 동작, 2 : 일시정지
+        self.pause_flag = False
+
         self.tool = Tools()
-        self.image_manager = Image_Manager(self.tool)
-        self.bbox_maker = Bbox_maker()
-        self.camera = camera
+        self.tool.set_labels()
+        self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
-        
-    def run_system(self, running_type):
-        self.__object_detection()
-        pass
-    
     
     def __object_detection(self):
+        # 해석기 세팅
         self.tool.set_interpreter()
-        self.tool.set_labels()
-        
+        # 라벨 세팅
+
         #반복되는 핵심 와일문
         while True:
-            ret, frame = self.camera.read() # ret : 정상작동 플레그
+            # 일시정지 상태
+            if self.pause_flag:
+                continue
+
+            ret, frame = self.camera.get_frame()
+
             if ret:
-                self.image_manager.recog_image(frame)
+                width, height = self.image_manager.recog_image(frame)
                 input_data = self.image_manager.make_input_data()
-                self.tool.init_tensor(input_data)
-            
-                self.bbox_maker.making_bbox(frame)
+                boxes, classes, scores = self.tool.get_object(input_data)
+
+                for i in range(len(scores)):
+                    bbox = self.recog_tensor(boxes[i], scores[i], width, height)
+                    self.image_manager.make_bbox(scores[i], bbox, classes[i])
+
+                # 테스트용 윈도우 보여주는 창
+                #self.image_manager.show_test_window()
+                bboxed_frame = self.image_manager.get_bboxed_frame()
+                self.camera.set_object_frame(bboxed_frame)
+
+        
+    # 실행기
+    def run_system(self, running_type):
+        now_camera_set = self.camera.get_status()
+        # 카메라 점검 있어야함
+        if now_camera_set == 'hand':
+            self.camera.swap_camera()
+
+        self.status = 1
+        self.__object_detection()
+
+    def pause_system(self):
+        # 동작중인 시스템을 일시정지
+        if self.status == 1:
+            self.pause_flag = True
+        elif self.status == 2:
+            self.pause_flag = False
+        else:
+            print("Error : System does not work")
+
+        return
+
+
+
+
+
+
             
         
         

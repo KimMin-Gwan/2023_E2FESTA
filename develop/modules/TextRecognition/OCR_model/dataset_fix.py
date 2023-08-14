@@ -7,6 +7,7 @@ import lmdb
 import torch
 import cv2
 
+from TextRecognition.constant import *
 from natsort import natsorted
 from PIL import Image
 import numpy as np
@@ -18,8 +19,8 @@ from Camera import *
 
 class RawDataset(Dataset):
 
-    def __init__(self, root, opt):
-        self.opt = opt
+    def __init__(self, root):
+        #self.opt = opt
         self.image_path_list = []
         for dirpath, dirnames, filenames in os.walk(root):
             for name in filenames:
@@ -38,9 +39,9 @@ class RawDataset(Dataset):
     def __getitem__(self, index):
 
         try:
-            if self.opt.rgb:
+            if RGB:
                 #img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
-                img = Camera_Master.get_frame()
+                img = Camera_Master.get_frame() #####easyOCR
             else:
                 #img = Image.open(self.image_path_list[index]).convert('L')
                 img = Camera_Master.get_frame()
@@ -48,10 +49,10 @@ class RawDataset(Dataset):
         except IOError:
             print(f'Corrupted image for {index}')
             # make dummy image and dummy label for corrupted image.
-            if self.opt.rgb:
-                img = Image.new('RGB', (self.opt.imgW, self.opt.imgH))
+            if RGB:
+                img = Image.new('RGB', (IMG_WIDTH, IMG_HEIGHT))
             else:
-                img = Image.new('L', (self.opt.imgW, self.opt.imgH))
+                img = Image.new('L', (IMG_WIDTH, IMG_HEIGHT))
 
         return (img, self.image_path_list[index])
 

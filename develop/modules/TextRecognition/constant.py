@@ -9,15 +9,14 @@
 * ==========================================================================
 * Program history
 * ==========================================================================
-* Author    		Date		    Version		History                                                                                 code to fix
+* Author    		Date		    Version		History
 * SJ Yang			2023.08.09      v0.10	    first write
 * SJ Yang           2023.08.09      v1.00       
 """
 
 #"path to saved_model to evaluation"
 SAVED_MODEL = 'C:/Users/yangs/OneDrive/바탕 화면/CDP/2023_E2FESTA/develop/modules/TextRecognition/'
-IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'
-###frame이 필요하지 않은가
+IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'    ###frame이 필요하지 않은가
 WORKERS = 0                 #'number of data loading workers'
 BATCH_SIZE = 192            #'input batch size'
 

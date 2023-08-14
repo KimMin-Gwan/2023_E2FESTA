@@ -7,11 +7,10 @@
 * ==========================================================================
 * Program history
 * ==========================================================================
-* Author    		Date		    Version		History                                                                                 code to fix
+* Author    		Date		    Version		History
 * SJ Yang			2023.08.09      v0.10	    first write
 * SJ Yang           2023.08.09      v1.00       variable fix
 """
-
 
 
 from OCR_model.dataset_fix import *
@@ -28,6 +27,7 @@ import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.nn.functional as F
 
+
 '''from utils_fix import AttnLabelConverter 
 from dataset_fix import RawDataset, AlignCollate
 from model_fix import Model'''
@@ -37,17 +37,17 @@ from TextRecognition.constant import *
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Dectector():
-    def demo(self, opt, camera):
+    def demo(self, camera):
         """ model configuration """
         if 'Attn' in PREDICTION:
             converter = AttnLabelConverter(CHARACTER)
-        opt.num_class = len(converter.character)
+        num_class = len(converter.character)
 
         if RGB:
             INPUT_CHANNEL = 3
-        model = Model(opt)
+        model = Model(num_class)
         print('model input parameters', IMG_HEIGHT, IMG_WIDTH, NUM_FIDUCIAL, INPUT_CHANNEL, OUTPUT_CHANNEL,
-            HIDDEN_SIZE, opt.num_class, BATCH_MAX_LENGTH, TRANSFORMATION, FEATURE_EXTRACTION,
+            HIDDEN_SIZE, num_class, BATCH_MAX_LENGTH, TRANSFORMATION, FEATURE_EXTRACTION,
             SEQUENCE_MODELING, PREDICTION)
         model = torch.nn.DataParallel(model).to(device)
 
@@ -57,11 +57,10 @@ class Dectector():
         model.load_state_dict(torch.load(SAVED_MODEL, map_location=device))
 
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
-        AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=opt.PAD)
-       # demo_data = RawDataset(root=opt.image_folder, opt=opt)  # use RawDataset
-        ocr_cam = Camera_Master()
-        ocr_cam.StartHandCam(1)
-        demo_data = ocr_cam.get_frame()
+        AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
+        demo_data = RawDataset(root=frame)  # use RawDataset
+        
+        #demo_data =
         
         demo_loader = torch.utils.data.DataLoader(
             demo_data, batch_size=BATCH_SIZE,
@@ -126,20 +125,18 @@ class Dectector():
         # 추가 옵션을 받는 경우 action = 'store
         # 추가 옵션을 받지 않고, 옵션의 유/무만 필요한 경우 action = 'store_true'
         #parser.add_argument('--rgb', action='store_true', help='use rgb input')
-        parser.add_argument('--sensitive', action='store_true', help='for sensitive character mode')
-        parser.add_argument('--PAD', action='store_true', help='whether to keep ratio then pad for image resize')
+        
+        #parser.add_argument('--PAD', action='store_true', help='whether to keep ratio then pad for image resize')
         #config 객체 생성
-        opt = parser.parse_args() #파서의 구문을 가지고 있는 객체
+        #opt = parser.parse_args() #파서의 구문을 가지고 있는 객체
 
         """ vocab / character number configuration """
-        if opt.sensitive:
-            CHARACTER = string.printable[:-6]  # same with ASTER setting (use 94 char).
 
         cudnn.benchmark = True
         cudnn.deterministic = True
-        opt.num_gpu = torch.cuda.device_count()
+        #num_gpu = torch.cuda.device_count()
 
-        self.demo(opt)
+        self.demo()
         
 if __name__ == '__main__':
     predict = Dectector()
