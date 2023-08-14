@@ -49,16 +49,14 @@ def plt_imshow(title='image', img=None, figsize=(8 ,5)):
         plt.xticks([]), plt.yticks([])
         plt.show()
 
+
 def detection_image(org_image):
     i=0
     list_crop_image=[]
     copy_image=copy.deepcopy(org_image)
     langs = ['ko', 'en']
     reader = Reader(lang_list=langs, gpu=False)
-    
     results = reader.readtext(org_image)
-    
-    
     for i in range(len(results[0][0])):
         for k in range(4):
             results[i][0][k][0]+=px[k]
@@ -73,8 +71,7 @@ def detection_image(org_image):
         copy_image=copy.deepcopy(org_image)
     return list_crop_image
         
-    
-    
+
 if __name__=="__main__":
     image_path = 'C:\\Users\\IT\\Desktop\\df\\letsb.png'
     image = cv2.imread(image_path)
