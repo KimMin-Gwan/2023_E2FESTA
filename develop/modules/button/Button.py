@@ -56,13 +56,13 @@ class Button:
             self.info.setButtonState(HANDCAM)
             self.setLastInputTime()
             return None
-        """
-        Yes/No Button의 동작 원리
-        1. self.__flag는 초기 0으로 설정
-        2. Yes/No 버튼이 입력되면 __flag 1로 설정
-        3. __flag상태가 1일 때, Yes/No Button state가 Low인 경우 버튼 입력이 종료 되었다고 판단
-        4. 버튼 입력 종료까지의 시간이 0.5초 이하면 Yes, 0.5초 초과이면 No 버튼으로 판단.
-        """
+
+        # Yes/No Button의 동작 원리
+        # 1. self.__flag는 초기 0으로 설정
+        # 2. Yes/No 버튼이 입력되면 __flag 1로 설정
+        # 3. __flag상태가 1일 때, Yes/No Button state가 Low인 경우 버튼 입력이 종료 되었다고 판단
+        # 4. 버튼 입력 종료까지의 시간이 0.5초 이하면 Yes, 0.5초 초과이면 No 버튼으로 판단.
+
         elif self.__flag == 1 and GPIO.input(YESNOBUTTON) == GPIO.LOW:  # Button 2, Yes Button Input
             self.eTime = time.time()
             elapsedTime = self.eTime - self.sTime
