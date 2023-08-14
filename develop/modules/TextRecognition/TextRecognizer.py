@@ -19,35 +19,46 @@
 from runpy import run_module
 from TextRecognition.constant import *
 from TextRecognition import Dectector
+from Easy_ocr import Easy_ocr
+# from Easy_ocr
+# from EASY_OCR.Easy_ocr import easy_ocr
+
 # from Camera.camera_master import *
 # from Speaker.speaker_master import *
-
-import Camera
-import Speaker
+# import Camera
+# import Speaker
 
 class TxtRecognizer():
-    def __init__(self, camera, speaker = None):
-        self.camera = camera
-        self.speakr = speaker
-        detector = Dectector()  # 검출기 (Text-recognition 결과로 나온 단어)
+   def __init__(self, info, camera, speaker = None):
+      self.info = info  # 버튼
+      self.camera = camera
+      self.speaker = speaker
+      self.detector = Dectector()  # 검출기 (Text-recognition 결과로 나온 단어)
+      self.e_ocr = Easy_ocr()  # 인식기 (사진 내의 여러 줄의 텍스트를 인식하고 list로 반환)
 
-    def __call__(self):
+   def __call__(self):
         pass
 
-    def RunRecognition(self):
-        # inport camera module 
-        #    <- handcam&webcam 관련 함수 제작했다고 가정
-        # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
-    
-        photo_frame = Camera.Camera_Master.get_frame()
-        
-        photo_texts = []
-        photo_texts = easy_ocr(photo_frame)
-        
-        text_result = []
-        text_result = run_module(photo_texts)
-        
-        Speaker.SpeakMaster.tts_read(text_result)
+   def RunRecognition(self):
+      # inport camera module 
+       #    <- handcam&webcam 관련 함수 제작했다고 가정
+       # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
+      
+      self.camera.swap_camera()
+      
+      while True:
+         
+         cam_button = self.info.getButtonState()
+      
+         if cam_button == 4:
+            photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
+            
+            break
+      
+      photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
+      text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
+      self.speaker.tts_read(text_result)                         # string 형태로 받아온 글자 speaker로 읽어주기
+         
         
         
         """
