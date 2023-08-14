@@ -19,7 +19,7 @@
 from runpy import run_module
 from TextRecognition.constant import *
 from TextRecognition import *
-from Easy_ocr import *
+from TextRecognition.Easy_ocr import *
 # from Easy_ocr
 # from EASY_OCR.Easy_ocr import easy_ocr
 
