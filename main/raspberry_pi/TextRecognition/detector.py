@@ -37,7 +37,7 @@ from constant import *
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-class Dectector():
+class Detector():
     def demo(self, img_list):
         """ model configuration """
         if 'Attn' in PREDICTION:
