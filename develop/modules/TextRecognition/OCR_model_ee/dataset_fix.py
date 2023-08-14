@@ -20,28 +20,13 @@ import torchvision.transforms as transforms
 class RawDataset(Dataset):
 
     def __init__(self, root):
-        #self.opt = opt
-        #self.image_path_list = []  2
-        #self.image_list = []
 
-        #for i in root:
-            #self.image_path_list.append(i)
         self.image_path_list=root
-       
-       #self.image_path_list = natsorted(self.image_path_list)
         self.nSamples = len(self.image_path_list)
         '''for dirpath, dirnames, filenames in os.walk(root):
             for name in filenames:
                 _, ext = os.path.splitext(name)
                 ext = ext.lower()'''
-               
-                #if ext == '.jpg' or ext == '.jpeg' or ext == '.png':
-                    #self.image_path_list.append(os.path.join(dirpath, name))
-
-        #self.image_path_list = natsorted(self.image_path_list)
-        #self.nSamples = len(self.image_path_list)
-        
-
     def __len__(self):
         return self.nSamples
 
@@ -49,19 +34,8 @@ class RawDataset(Dataset):
 
         try:
             if RGB:
-                #ord_img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
-                #img = Camera_Master.get_frame() #####easyOCR
-                #new_img = np.array(ord_img)
-                #img = Image.fromarray(np.uint8(new_img))
                 img = self.image_path_list[index].convert('L')
-                print("dfasdfasfdasfasfasdfaff")
-                print(img)
-
             else:
-                # ord_img = Image.open(self.image_path_list[index]).convert('L') 2
-                #img = Camera_Master.get_frame()   1
-                # new_img = np.array(ord_img)  2
-                # img = Image.fromarray(np.uint8(new_img)) 2
                 img = self.image_path_list[index]
 
         except IOError:

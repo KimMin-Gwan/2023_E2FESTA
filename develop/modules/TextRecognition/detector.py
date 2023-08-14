@@ -143,7 +143,7 @@ class Dectector():
 if __name__ == '__main__':
     predict = Dectector()
     image_list=""
-    img = Image.open('c:\\Users\\IT\\Desktop\\test\\kantata.jpg')
+    img = Image.open('C:\\Users\\ICE\\Desktop\\df\\letsbe.png')
     
     new_img = np.array(img)
     # print(new_img)
