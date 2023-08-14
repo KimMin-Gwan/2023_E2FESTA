@@ -2,8 +2,7 @@ import os
 import shutil
 
 FILE_PATH = 'D:/kor_dataset/write/'  # 모든 파일들이 들어있는 경로
-data_type = {'필기체' : 'htr/word_check/', '인쇄체' : 'ocr_test/word_check/',
-           '증강인쇄체' : 'print/check/', '간판' : 'Text/'}
+data_type = { '간판' : 'Text/'}
 
 def move_photo(path, file_list):
     for idx, photo in enumerate(file_list):
