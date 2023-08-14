@@ -40,7 +40,15 @@ class Camera_Master():
         # Configure depth and color streams
         self.pipeline = rs.pipeline()
         self.config = rs.config()
-        # Enable RGB stream only
+
+        # Get device product line for setting a supporting resolution
+        pipeline_wrapper = rs.pipeline_wrapper(self.pipeline)
+        pipeline_profile = self.config.resolve(pipeline_wrapper)
+        device = pipeline_profile.get_device()
+        device_product_line = str(device.get_info(rs.camera_info.product_line))
+
+        # RGB & Depth
+        self.config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
         self.config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
     
 
@@ -127,12 +135,15 @@ class Camera_Master():
                 # Wait for a frame : color
                 frames = self.pipeline.wait_for_frames()
                 color_frame = frames.get_color_frame()
-                
+                depth_frame = frames.get_depth_frame()
+
                 #if not color_frame:
                 #    continue
 
                 # Convert image to numpy array
+                self.depth_image = np.asanyarray(depth_frame.get_data())
                 self.frame = np.asanyarray(color_frame.get_data())
+
 
                 if flag:  # flag == 1로 설정 시(기본값 0) window에 카메라 화면 창 띄우기
                     # Show RGB image
@@ -143,15 +154,11 @@ class Camera_Master():
                     if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정 후 핸드캠으로 전환됨
                         break
                 
-<<<<<<< Updated upstream
-                if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
-                    self.swap_camera()
+                #if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
+                 #   self.swap_camera()
                     # break
                 
             if flag:  # flag == 1로 설정 시(기본값 0) window에 띄워진 카메라 화면 창 닫기
-=======
-            if flag:
->>>>>>> Stashed changes
                 cv2.destroyAllWindows()
                 
             self.StartHandCam(False)  # hand cam 실행
@@ -174,5 +181,9 @@ class Camera_Master():
     # (버튼을 눌렀을 때) 프레임 가지고 오는 함수
     def get_frame(self):
         return self.frame  # 프레임 반환
-        
-        
+    
+    def get_depth(self):
+        return self.depth_image
+    
+    def get_status(self):
+        return self.status
