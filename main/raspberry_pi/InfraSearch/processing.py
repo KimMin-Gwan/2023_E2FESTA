@@ -16,7 +16,7 @@
 """
 
 import time
-from modules.InfraSearch.constant import *
+from InfraSearch.constant import *
 from gtts import gTTS
 import pygame
 

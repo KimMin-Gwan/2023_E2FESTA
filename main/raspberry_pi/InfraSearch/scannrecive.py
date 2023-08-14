@@ -15,7 +15,7 @@
 * JH KIM            2023.08.11      v1.02       source code optimized
 """
 from bluepy.btle import DefaultDelegate
-from modules.InfraSearch.constant import *
+from InfraSearch.constant import *
 import time
 
 
