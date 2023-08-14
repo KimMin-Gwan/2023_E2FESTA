@@ -40,12 +40,12 @@ class Main_Function():
         self.object_detection_thread = Thread(target=self.object_detect.run_system)
         self.object_detection_thread.start()
 
-    def infra_Search(self):
+    def _infra_Search(self):
         print("SYSTEM ALARM::Infra_Search System Start")
         self.infra_search_thread = Thread(target=self.infra.runScanBeacon)
         self.infra_search_thread.start()
 
-    def text_recognition(self):
+    def _text_recognition(self):
         print("SYSTEM ALARM::Text_Recognition System Start")
         self.text_recognition_thread = Thread(target=self.txt_recog.RunRecognition())
         self.object_detection_thread.start()
@@ -54,9 +54,13 @@ class Main_Function():
         while True:
             buttonState = self.info.getButtonState()
 
-            if buttonState == SCAN and (self.infrasearch_thread is None or not infrasearch_thread.is_alive()):
+            if buttonState == SCAN and (self.infra_search_thread is None or not self.infra_search_thread.is_alive()):
                 self.info.setButtonState(DEFAULT)  # Button state reset
-                self.infra_Search()
+                self._infra_Search()
+
+            if buttonState == HAND_CAM and (self.text_recognition_thread is None or not self.text_recognition_thread.is_alive()):
+                self.info.setButtonState(DEFAULT)  # Button state reset
+                self._text_recognition()
 
 
 

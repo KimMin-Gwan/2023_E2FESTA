@@ -24,5 +24,5 @@ DEFAULT = -1        # Button Default State
 SCAN = 1            # SCAN Start/Stop Button
 YES = 2             # Yes Button
 NO = -2             # No Button
-HANDCAM = 3         # HANDCAM Start Button
+HAND_CAM= 3         # HANDCAM Start Button
 HCAMCAPTURE = 4     # HANDCAM Capture Button
