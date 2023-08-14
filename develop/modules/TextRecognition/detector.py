@@ -59,8 +59,8 @@ class Dectector():
 
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
-        
-        demo_data = RawDataset(root = img_list)  # use RawDataset
+       
+        demo_data = RawDataset(root=img_list)  # use RawDataset
         
         #demo_data =
         
@@ -137,9 +137,24 @@ class Dectector():
         cudnn.benchmark = True
         cudnn.deterministic = True
         #num_gpu = torch.cuda.device_count()
-
+        
         self.demo(image_list)
         
 if __name__ == '__main__':
     predict = Dectector()
-    predict.run_module()
+    image_list=""
+    img = Image.open('c:\\Users\\IT\\Desktop\\test\\kantata.jpg')
+    
+    new_img = np.array(img)
+    # print(new_img)
+
+    new = Image.fromarray(np.uint8(new_img))
+    print(new)
+    
+    
+    easy_ocr = Easy_ocr()
+    image_list = easy_ocr.run_easyocr_module(new_img)
+    for i in range(len(image_list)):
+        image_list[i]=Image.fromarray(np.uint8(image_list[i]))
+
+    predict.run_module(image_list)

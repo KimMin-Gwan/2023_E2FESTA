@@ -106,13 +106,7 @@ def putText(cv_img, text, x, y, color=(0, 0, 0), font_size=2):
     cv_img = np.array(img)
 
     return cv_img  
-
-url ='https://postfiles.pstatic.net/MjAyMjA1MTNfMjg0/MDAxNjUyNDI3NjE5MjUw.afSWVWPelX1Lslwma_zJt63aPUP8baWB_S4zcf1ChAQg.AdfEyvT97Q3kKlMipXYia1t8UFLbX8qT1Kjn0QdfZTEg.JPEG.hyunk0928/1.jpg?type=w773'
-image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
-org_image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR) 
-plt_imshow("orignal image", org_image)
-
-ticket1_image = make_scan_image(org_image, width=200, ksize=(5, 5), min_threshold=20, max_threshold=100)
+ticket1_image=Image.open("C:\\Users\\IT\\Desktop\\test\\kantata.jpg")
 
 langs = ['ko', 'en']
 

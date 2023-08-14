@@ -8,7 +8,7 @@ import torch
 import cv2
 
 from constant import *
-from Camera import *
+
 from natsort import natsorted
 from PIL import Image
 import numpy as np
@@ -21,14 +21,20 @@ class RawDataset(Dataset):
 
     def __init__(self, root):
         #self.opt = opt
-        #self.image_path_list = []
-        self.image_list = []
+        # self.image_path_list = []  2
+        #self.image_list = []
 
-        for i in root:
-            self.image_list.append(i)
+        # for i in root:
+            
+        #     self.image_path_list.append(i)
+        self.image_path_list=root
 
-        self.image_list = natsorted(self.image_list)
-        self.nSamples = len(self.image_list)
+        self.temp_path_list=[]
+       
+        for i in range(1,10):
+            self.temp_path_list.append(f"C:\\Users\\IT\\Desktop\\save\\save_img{i}.png")
+       #self.image_path_list = natsorted(self.image_path_list)
+        self.nSamples = len(self.image_path_list)
         '''for dirpath, dirnames, filenames in os.walk(root):
             for name in filenames:
                 _, ext = os.path.splitext(name)
@@ -48,17 +54,20 @@ class RawDataset(Dataset):
 
         try:
             if RGB:
-                ord_img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
+                #ord_img = Image.open(self.image_path_list[index]).convert('RGB')  # for color image
                 #img = Camera_Master.get_frame() #####easyOCR
-                new_img = np.array(ord_img)
-                img = Image.fromarray(np.uint8(new_img))
-                
+                #new_img = np.array(ord_img)
+                #img = Image.fromarray(np.uint8(new_img))
+                img = self.image_path_list[index]
+                print("dfasdfasfdasfasfasdfaff")
+                print(img)
 
             else:
-                ord_img = Image.open(self.image_path_list[index]).convert('L')
-                #img = Camera_Master.get_frame()
-                new_img = np.array(ord_img)
-                img = Image.fromarray(np.uint8(new_img))
+                # ord_img = Image.open(self.image_path_list[index]).convert('L') 2
+                #img = Camera_Master.get_frame()   1
+                # new_img = np.array(ord_img)  2
+                # img = Image.fromarray(np.uint8(new_img)) 2
+                img = self.image_path_list[index]
 
         except IOError:
             print(f'Corrupted image for {index}')
@@ -69,7 +78,7 @@ class RawDataset(Dataset):
                 img = Image.new('L', (IMG_WIDTH, IMG_HEIGHT))
 
         # return (img, self.image_path_list[index])
-        return (img,self.image_list[index])  #img path 여러개가 존재해서 그걸 index 접근한건데 이거를 list_index접근으로 
+        return (img,self.temp_path_list[index])  #img path 여러개가 존재해서 그걸 index 접근한건데 이거를 list_index접근으로 
 
 class ResizeNormalize(object):
 
