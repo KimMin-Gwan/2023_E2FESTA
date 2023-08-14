@@ -18,7 +18,7 @@
 
 from runpy import run_module
 from TextRecognition.constant import *
-from TextRecognition import Dectector
+from TextRecognition import Detector
 from Easy_ocr import Easy_ocr
 # from Easy_ocr
 # from EASY_OCR.Easy_ocr import easy_ocr
@@ -33,7 +33,7 @@ class TxtRecognizer():
       self.info = info  # 버튼
       self.camera = camera
       self.speaker = speaker
-      self.detector = Dectector()  # 검출기 (Text-recognition 결과로 나온 단어)
+      self.detector = Detector()  # 검출기 (Text-recognition 결과로 나온 단어)
       self.e_ocr = Easy_ocr()  # 인식기 (사진 내의 여러 줄의 텍스트를 인식하고 list로 반환)
 
    def __call__(self):
