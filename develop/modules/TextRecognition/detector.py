@@ -115,8 +115,8 @@ class Dectector():
                     # calculate confidence score (= multiply of pred_max_prob)
                     confidence_score = pred_max_prob.cumprod(dim=0)[-1]
 
-                    print(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}')
-                    log.write(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}\n')
+                    print(f'{pred:25s}\t{confidence_score:0.4f}')
+                    log.write(f'{pred:25s}\t{confidence_score:0.4f}\n')
 
                 log.close()
                 

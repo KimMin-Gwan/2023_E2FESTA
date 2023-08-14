@@ -21,18 +21,13 @@ class RawDataset(Dataset):
 
     def __init__(self, root):
         #self.opt = opt
-        # self.image_path_list = []  2
+        #self.image_path_list = []  2
         #self.image_list = []
 
-        # for i in root:
-            
-        #     self.image_path_list.append(i)
+        #for i in root:
+            #self.image_path_list.append(i)
         self.image_path_list=root
-
-        self.temp_path_list=[]
        
-        for i in range(1,10):
-            self.temp_path_list.append(f"C:\\Users\\IT\\Desktop\\save\\save_img{i}.png")
        #self.image_path_list = natsorted(self.image_path_list)
         self.nSamples = len(self.image_path_list)
         '''for dirpath, dirnames, filenames in os.walk(root):
@@ -58,7 +53,7 @@ class RawDataset(Dataset):
                 #img = Camera_Master.get_frame() #####easyOCR
                 #new_img = np.array(ord_img)
                 #img = Image.fromarray(np.uint8(new_img))
-                img = self.image_path_list[index]
+                img = self.image_path_list[index].convert('L')
                 print("dfasdfasfdasfasfasdfaff")
                 print(img)
 
@@ -78,7 +73,7 @@ class RawDataset(Dataset):
                 img = Image.new('L', (IMG_WIDTH, IMG_HEIGHT))
 
         # return (img, self.image_path_list[index])
-        return (img,self.temp_path_list[index])  #img path 여러개가 존재해서 그걸 index 접근한건데 이거를 list_index접근으로 
+        return (img,self.image_path_list[index])  #img path 여러개가 존재해서 그걸 index 접근한건데 이거를 list_index접근으로 
 
 class ResizeNormalize(object):
 
