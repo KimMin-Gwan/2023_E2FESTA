@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<html lang-"ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head> 
+
+    <body>
+
+        <div class="container1">
+            <h4>카메라 화면</h4>
+                <img id="stream" src="{{ url_for('video_show') }}" style="width: 100%;">
+                <!-- 카메라 화면 전환 컨테이너 -->
+                <div class="container4">
+                    <!-- 카메라 전환 버튼 -->
+                    <form action = "swap">
+                        <button type = "submit" class='swap' id="swapButton">Swap</button>
+                    </form>
+
+                    <!-- <script src="{{ url_for('static',filename='swap.js') }}"></script> -->
+                    
+                    <!-- url_for()는 js에 넣었을때 실행이 안되는듯...다른방법 생각하기! -->
+                    <!-- 클릭했을때 이미지와 영상이랑 서로 교환은 되는데 시간이 좀 걸리며, 영상일 경우 오류가 발생하는듯(추측) -->
+                    <!-- 이미지는 임의로 넣었습니당. 단축키...사진 -->
+                    <script>
+                        const video = document.getElementById('stream');
+                        const swapButton = document.getElementById('swapButton');
+                        let CameraIndex = 0;
+                        const camUrl = [
+                            "{{url_for('static',filename='blender.png')}}",
+                            "{{url_for('video_show')}}"
+                        ];
+                        swapButton.addEventListener('click', () => {
+                        CameraIndex = (CameraIndex + 1) % camUrl.length;
+                        video.src = camUrl[CameraIndex];
+                        });
+
+
+                    </script>
+
+                </div>
+                <!-- 카메라 화면 캡쳐 컨테이터 -->
+                <div class="container3">
+                    <button class='snapshot' id="snapshotButton">Snapshot</button>
+                    <br>
+                    <img id="snapshotImage" src="" width="100%" style="display: none;" />
+        
+                    <script src="{{ url_for('static',filename='snapshot.js') }}"></script>
+        
+                </div> 
+        </div>
+        
+        <!-- 인프라 검색 버튼 컨테이너 -->
+        <div class="container2">
+            <h4>인프라 검색</h4>
+            <input class='name1' type="submit" value="{{name1}}" 
+                onclick="if(!confirm('{{name1}}을(를) 선택하시겠습니까?')){return false;}"/>
+            <input class='name2' type="submit" value="{{name2}}" 
+                onclick="if(!confirm('{{name2}}를(을) 선택하시겠습니까?')){return false;}"/>
+            <input class='name3' type="submit" value="{{name3}}" 
+                onclick="if(!confirm('{{name3}}을(를) 선택하시겠습니까?')){return false;}"/>
+        </div>
+    </body>
+
+</html> 

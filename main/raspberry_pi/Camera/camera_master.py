@@ -186,4 +186,10 @@ class Camera_Master():
         return self.depth_image[x, y]
     
     def get_status(self):
-        return self.status
+        self.status = 1  # 1: Web, 2: Hand
+        if self.status == 1:
+            return 'web'
+        elif self.status == 2:
+            return 'hand'
+        else:
+            return 'default'

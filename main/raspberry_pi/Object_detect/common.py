@@ -84,7 +84,6 @@ class Collision_Preventer:
     def check_object(self, bbox):
         y = bbox['ymin'] + (bbox['ymax'] - bbox['ymin'])
         x = bbox['xmin'] + (bbox['xmax'] - bbox['xmin'])
-        return x, y
 
 
 
