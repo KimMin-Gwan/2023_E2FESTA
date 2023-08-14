@@ -13,7 +13,7 @@
 import threading
 
 
-class information:
+class Information:
     def __init__(self):
         self.__buttonState = -1  # Default Button State : -1
         self.cs = threading.Lock()

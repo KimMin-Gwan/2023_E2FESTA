@@ -14,7 +14,7 @@ import torch
 px=[-1,1,1,-1]
 py=[-1,-1,1,1]
 
-class easy_ocr:
+class Easy_ocr:
     def __init__(self):   #생성자
         print("dasfsd")
         self.one_frame=""  #받아올 프레임
