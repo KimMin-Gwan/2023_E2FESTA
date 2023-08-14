@@ -14,7 +14,7 @@
 * JH KIM            2023.08.14      v1.10       add HCAM Capture Button
 """
 
-from modules.button.constant import *
+from button.constant import *
 import RPi.GPIO as GPIO
 import time
 
