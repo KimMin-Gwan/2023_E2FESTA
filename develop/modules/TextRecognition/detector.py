@@ -18,7 +18,7 @@ from OCR_model_ee.model_fix import *
 from OCR_model_ee.utils_fix import *
 
 from constant import *
-from easyOCR import *
+from Easy_ocr import *
 
 import string
 import argparse  # argument(명령어)를 읽고 parsing(파씽)해주는 라이브러리
@@ -38,7 +38,7 @@ from constant import *
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Dectector():
-    def demo(self, ):
+    def demo(self, img_list):
         """ model configuration """
         if 'Attn' in PREDICTION:
             converter = AttnLabelConverter(CHARACTER)
@@ -60,8 +60,7 @@ class Dectector():
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
         
-        image_list = []
-        demo_data = RawDataset(root = image_list)  # use RawDataset
+        demo_data = RawDataset(root = img_list)  # use RawDataset
         
         #demo_data =
         
@@ -121,7 +120,7 @@ class Dectector():
 
                 log.close()
                 
-    def run_module(self):
+    def run_module(self, image_list):
         parser = argparse.ArgumentParser()  #파서 생성
         #파서가 구분할 명령어 추가
         """ Data processing """
@@ -139,7 +138,7 @@ class Dectector():
         cudnn.deterministic = True
         #num_gpu = torch.cuda.device_count()
 
-        self.demo()
+        self.demo(image_list)
         
 if __name__ == '__main__':
     predict = Dectector()
