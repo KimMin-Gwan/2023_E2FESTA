@@ -20,6 +20,7 @@ from flask import send_file # 인프라 서치에서 한국어 반환 위해
 import cv2, io # 핸드카메라&스냅샷 위해
 from constant import SUB,BUS,TRAFT
 import numpy as np
+import Camera
 #import pyrealsense2.pyrealsense2 as rs
 
 class Monitor:
@@ -52,7 +53,7 @@ class Monitor:
     # 위의 hand_cam과 동일한 역할
     def get_frame(self):
         while(True):
-            data = self.camera.get_frame()
+            data = self.camera. get_frame_bytes()
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
 
@@ -86,5 +87,6 @@ class Monitor:
         self.app.run(host="0.0.0.0", port="7777")
 
 if __name__=="__main__":
+    camera = Camera.Camera_Master()
     monitor=Monitor()
-    monitor.start_monitor()
+    monitor.start_monitor(camera=camera)
