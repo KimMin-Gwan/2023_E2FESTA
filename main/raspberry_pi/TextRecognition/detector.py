@@ -141,5 +141,5 @@ class Detector():
         self.demo(image_list)
         
 if __name__ == '__main__':
-    predict = Dectector()
+    predict = Detector()
     predict.run_module()
