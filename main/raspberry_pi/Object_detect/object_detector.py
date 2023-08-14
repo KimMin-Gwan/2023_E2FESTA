@@ -1,9 +1,10 @@
-from Object_detect import MIN_CONF_THRESHOLD
+#from Object_detect import MIN_CONF_THRESHOLD
 from Object_detect import Tools, Bbox_maker, Image_Manager
 from Object_detect import Collision_Preventer as CP
 import cv2
 import numpy as np
 
+MIN_CONF_THRESHOLD = 0.5
 
 
 class Object_detector():
