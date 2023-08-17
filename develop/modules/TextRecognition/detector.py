@@ -39,39 +39,52 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class Dectector():
     def demo(self, img_list):
+        
         """ model configuration """
         if 'Attn' in PREDICTION:
             converter = AttnLabelConverter(CHARACTER)
         num_class = len(converter.character)
 
+        
         if RGB:
             INPUT_CHANNEL = 3
+        
+        
         model = Model(num_class)
+        
+        
         print('model input parameters', IMG_HEIGHT, IMG_WIDTH, NUM_FIDUCIAL, INPUT_CHANNEL, OUTPUT_CHANNEL,
             HIDDEN_SIZE, num_class, BATCH_MAX_LENGTH, TRANSFORMATION, FEATURE_EXTRACTION,
             SEQUENCE_MODELING, PREDICTION)
+        
+        t=time.time()
         model = torch.nn.DataParallel(model).to(device)
-
+        #model = model.to('cpu')
+        tz=time.time()
+        print("Demo start",tz-t)
         # load model
+        
         print('loading pretrained model from %s' % SAVED_MODEL)
+        
         #model.load_state_dict(torch.load(opt.saved_model, map_location=device))
         model.load_state_dict(torch.load(SAVED_MODEL, map_location=device))
-
         # prepare data. two demo images from https://github.com/bgshih/crnn#run-demo
         AlignCollate_demo = AlignCollate(imgH=IMG_HEIGHT, imgW=IMG_WIDTH, keep_ratio_with_pad=False)
        
         demo_data = RawDataset(root=img_list)  # use RawDataset
-        
+    
         #demo_data =
+        
         
         demo_loader = torch.utils.data.DataLoader(
             demo_data, batch_size=BATCH_SIZE,
             shuffle=False,
             num_workers=int(WORKERS),
             collate_fn=AlignCollate_demo, pin_memory=True)
-
+        
         # predict
         model.eval()
+        begin4 = time.time()
         with torch.no_grad():
             for image_tensors, image_path_list in demo_loader:
                 batch_size = image_tensors.size(0)
@@ -119,9 +132,10 @@ class Dectector():
                     log.write(f'{pred:25s}\t{confidence_score:0.4f}\n')
 
                 log.close()
-                
+        begin5 = time.time()       
+        print("print with load demo time : ",begin5-begin4) 
     def run_module(self, image_list):
-        parser = argparse.ArgumentParser()  #파서 생성
+        # parser = argparse.ArgumentParser()  #파서 생성
         #파서가 구분할 명령어 추가
         """ Data processing """
         # 추가 옵션을 받는 경우 action = 'store
@@ -161,6 +175,7 @@ if __name__ == '__main__':
 
     predict=Dectector()
     image_list=""
+<<<<<<< Updated upstream
     url = 'https://user-images.githubusercontent.com/69428232/155486780-55525c3c-8f5f-4313-8590-dd69d4ce4111.jpg'
  
     image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
@@ -173,11 +188,18 @@ if __name__ == '__main__':
     image_list=easy_ocr.run_easyocr_module(org_image)
     ed=time.time()
     print("end easy ocr ",ed-st)
+=======
+    img = Image.open('C:\\Users\\IT\\Desktop\\test\\kantata.jpg')
+    
+    new_img = np.array(img)
+    # print(new_img)
+>>>>>>> Stashed changes
 
     
     for i in range(len(image_list)):
         image_list[i]=Image.fromarray(np.unit8(image_list[i]))
 
+<<<<<<< Updated upstream
 
 
 
@@ -185,3 +207,11 @@ if __name__ == '__main__':
     predict.run_module(image_list)
     ed=time.time()
     print("예측 결과 시간",ed-st)
+=======
+    begin = time.time()
+    predict.run_module(image_list)
+    after = time.time()
+
+    diff = after - begin
+    print("fian : " , diff)
+>>>>>>> Stashed changes
