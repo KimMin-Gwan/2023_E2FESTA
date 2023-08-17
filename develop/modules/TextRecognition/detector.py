@@ -27,7 +27,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.nn.functional as F
-
+import time
 
 '''from utils_fix import AttnLabelConverter 
 from dataset_fix import RawDataset, AlignCollate
@@ -141,20 +141,47 @@ class Dectector():
         self.demo(image_list)
         
 if __name__ == '__main__':
-    predict = Dectector()
+    # predict = Dectector()
+    # image_list=""
+    # img = Image.open('C:\\Users\\ICE\\Desktop\\df\\letsbe.png')
+    
+    # new_img = np.array(img)
+    # # print(new_img)
+
+    # new = Image.fromarray(np.uint8(new_img))
+    # print(new)
+    
+    
+    # easy_ocr = Easy_ocr()
+    # image_list = easy_ocr.run_easyocr_module(new_img)
+    # for i in range(len(image_list)):
+    #     image_list[i]=Image.fromarray(np.uint8(image_list[i]))
+
+    # predict.run_module(image_list)
+
+    predict=Dectector()
     image_list=""
-    img = Image.open('C:\\Users\\ICE\\Desktop\\df\\letsbe.png')
-    
-    new_img = np.array(img)
-    # print(new_img)
+    url = 'https://user-images.githubusercontent.com/69428232/155486780-55525c3c-8f5f-4313-8590-dd69d4ce4111.jpg'
+ 
+    image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
+    org_image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
+    new=Image.fromarray(np.unit8(org_image))
 
-    new = Image.fromarray(np.uint8(new_img))
-    print(new)
+    easy_ocr=Easy_ocr()
+
+    st=time.time()
+    image_list=easy_ocr.run_easyocr_module(org_image)
+    ed=time.time()
+    print("end easy ocr ",ed-st)
+
     
-    
-    easy_ocr = Easy_ocr()
-    image_list = easy_ocr.run_easyocr_module(new_img)
     for i in range(len(image_list)):
-        image_list[i]=Image.fromarray(np.uint8(image_list[i]))
+        image_list[i]=Image.fromarray(np.unit8(image_list[i]))
 
+
+
+
+    st=time.time()
     predict.run_module(image_list)
+    ed=time.time()
+    print("예측 결과 시간",ed-st)
