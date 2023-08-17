@@ -15,9 +15,9 @@
 """
 
 #"path to saved_model to evaluation"
-SAVED_MODEL = 'C:\\Users\\ICE\\Desktop\\df\\Data\\saved_models\\TPS-ResNet-BiLSTM-Attn-Seed1111\\best_accuracy.pth'
+SAVED_MODEL = 'C:\\Users\\IT\\Documents\\GitHub\\2023_E2FESTA\\develop\\Tests\\seungjun_test\\ocr_english\\text_ocr_model\\TPS-ResNet-BiLSTM-Attn-Seed1111\\best_accuracy.pth'
 IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'    ###frame이 필요하지 않은가
-WORKERS = 0                 #'number of data loading workers'
+WORKERS = 0                #'number of data loading workers'
 BATCH_SIZE = 192            #'input batch size'
 
 

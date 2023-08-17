@@ -11,12 +11,13 @@ import time
 import copy
 import pickle
 import torch
-px=[-1,1,1,-1]
-py=[-1,-1,1,1]
+'''px=[-1,1,1,-1]
+py=[-1,-1,1,1]'''
+px=[0,0,0,0]
+py=[0,0,0,0]
 
 class Easy_ocr:
     def __init__(self):   #생성자
-        print("dasfsd")
         self.one_frame=""  #받아올 프레임
         self.frame_list=[]  #전달할 img_list frame
         self.reader=""  # easy_ocr model
@@ -36,10 +37,10 @@ class Easy_ocr:
 
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
         self.results = self.reader.readtext(self.one_frame)
-        for i in range(len(self.results[0][0])):
-            for k in range(4):
-                self.results[i][0][k][0]+=px[k]
-                self.results[i][0][k][1]+=py[k]
+        # for i in range(len(self.results[0][0])):
+        #     for k in range(4):
+        #         self.results[i][0][k][0]+=px[k]
+        #         self.results[i][0][k][1]+=py[k]
 
 
     def crop_image(self): #크롭 함수
