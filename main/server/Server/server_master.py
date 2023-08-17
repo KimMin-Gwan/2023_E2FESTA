@@ -17,6 +17,8 @@
 """
 from typing import Any
 from flask import Flask, request
+import numpy as np
+from Easy_ocr import Easy_ocr
 from pymongo import MongoClient# pymongo 임포트
 
 class Server:
@@ -26,6 +28,7 @@ class Server:
         self.client=MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
         self.db=self.client['test_sun']
         self.collection=self.db['test']
+        self.e_ocr = Easy_ocr()
         # self.client=MongoClient('mongodb+srv://sbag00385:qlalfQjsgh486@cluster0.xpb7mqw.mongodb.net/') #데이터베이스 연결
         # self.db=self.client['flag'] #데이터베이스 이름 : flag
         # self.collection=self.db['kate'] #컬렉션(kate) 관리함수 실행
@@ -67,6 +70,18 @@ class Server:
             
             return list_reuslt[0]["DATA"]
         
+        @self.app.route('/easy_ocr', methods =['POST'])
+        def run_easy_ocr():
+            data = request.json
+            try:
+                frame = np.array(data['frame'])
+                photo_texts = self.e_ocr.run_easyocr_module(frame) 
+                return_data = {'frame':photo_texts}
+            except:
+                print("ERROR : Easy OCR did not work !!!")
+                return_data = {'frame':0}
+            return return_data
+
         
     def strat_server(self):
         self.app.run(host="43.201.213.223:8080", port="8080")

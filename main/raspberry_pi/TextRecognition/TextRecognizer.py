@@ -52,9 +52,18 @@ class TxtRecognizer():
       
          if cam_button == 4:
             photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
-            
             break
       
-      photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
+
+      data = {'frame':photo_frame}
+      url = "서버주소"
+      try:
+         return_data = requests.post(url, json = data)
+         #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
+         photo_texts = return_data['frame']
+      except:
+         print("ERROR : Server Error")
+         exit()
+
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
       self.speaker.tts_read(text_result)                         # string 형태로 받아온 글자 speaker로 읽어주기
