@@ -49,7 +49,7 @@ class Tools:
         return boxes, classes, scores
     
     # 텐서 해석 세팅
-    def __init_tensor(self):
+    def __init_tensor(self, input_data):
         if self.float_input:
             input_data = (np.float32(input_data) - INPUT_MEAN) / INPUT_STD
 
@@ -67,7 +67,10 @@ class Tools:
 
     # 각 텐서의 bbox 분석 및 사용가능하게 준비
     def recog_tensor(self, boxes, scores, img_width, img_height):
-        ymin, xmin, ymax, xmax = 0
+        ymin = 0
+        xmin = 0
+        ymax = 0
+        xmax = 0
         if ((scores > MIN_CONF_THRESHOLD) and (scores <= 1.0)):
             ymin = int(max(1, (boxes[0] * img_height)))
             xmin = int(max(1, (boxes[1] * img_width)))
@@ -78,12 +81,13 @@ class Tools:
 
 
 class Collision_Preventer:
-    def __init__(self, now_data):
+    def __init__(self):
         pass
 
     def check_object(self, bbox):
         y = bbox['ymin'] + (bbox['ymax'] - bbox['ymin'])
         x = bbox['xmin'] + (bbox['xmax'] - bbox['xmin'])
+        return x, y
 
 
 

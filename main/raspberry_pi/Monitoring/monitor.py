@@ -53,7 +53,7 @@ class Monitor:
     # 위의 hand_cam과 동일한 역할
     def get_frame(self):
         while(True):
-            data = self.camera. get_frame_bytes()
+            data = self.camera.get_frame_bytes()
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
 
@@ -72,7 +72,7 @@ class Monitor:
         
         @self.app.route('/video_show')
         def video_show():
-            return Response(self.hand_cam(), 
+            return Response(self.get_frame(), 
                 mimetype='multipart/x-mixed-replace; boundary=frame')
          # mimetype~=> return받은 것 (프레임)을 서버로 푸쉬하는듯
 

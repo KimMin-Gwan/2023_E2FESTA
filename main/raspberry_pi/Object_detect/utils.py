@@ -46,7 +46,7 @@ class Image_Manager:
             self.height, self.width, _ = frame.shape
             self.init_flag == True
             
-        return self.height, self.width
+        return self.width, self.height
         
     # 해석기에 넣을 행렬 형태로 변환 (3차원 -> 4차원)
     def make_input_data(self):

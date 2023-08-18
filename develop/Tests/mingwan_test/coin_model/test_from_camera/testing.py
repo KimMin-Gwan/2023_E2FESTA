@@ -4,6 +4,8 @@ import numpy as np
 import sys
 import random
 from tensorflow.lite.python.interpreter import Interpreter
+from realsense_depth import *
+import pyrealsense2
 
 # 인터프리터 불러오기
 def get_interpreter(model_path):
@@ -17,7 +19,13 @@ def get_labels(lable_path):
     return labels
 
 def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
-    camera = cv2.VideoCapture(0)
+    #camera = cv2.VideoCapture(0)
+    dc = DepthCamera()
+
+
+
+
+
 
     interpreter = get_interpreter(model_path=model_path)
     input_details = interpreter.get_input_details()
@@ -31,7 +39,8 @@ def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
     labels = get_labels(lblpath)
     
     while True:
-        ret, frame = camera.read()
+        #ret, frame = camera.read()
+        ret, _, frame= dc.get_frame()
         if ret:
             image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image_height, image_width, _ = frame.shape # height, width, dim
@@ -77,15 +86,14 @@ def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
                 
-    camera.release()
-    cv2.destroyAllWindows()
+
     
 def main():
     #PATH_TO_MODEL='/home/antl/Desktop/model_test/custom_model_lite/detect.tflite'   # Path to .tflite model file
     #PATH_TO_LABELS='/home/antl/Desktop/model_test/labelmap.txt'   # Path to labelmap.txt file
 
-    PATH_TO_MODEL='C:/Users/IT/Documents/GitHub/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/mobile_SSD_v2_320x320_kr_ob.tflite'
-    PATH_TO_LABELS='C:/Users/IT/Documents/GitHub/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/labelmap.txt'   # Path to labelmap.txt file
+    PATH_TO_MODEL='D:/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/mobile_SSD_v2_320x320_kr_ob.tflite'
+    PATH_TO_LABELS='D:/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/labelmap.txt'   # Path to labelmap.txt file
     min_conf_threshold=0.2  # Confidence threshold (try changing this to 0.01 if you don't see any detection results)
     object_detection(PATH_TO_MODEL, PATH_TO_LABELS, min_conf_threshold)
     

@@ -13,11 +13,11 @@
 """
 
 
-from OCR_model_ee.dataset_fix import *
-from OCR_model_ee.model_fix import *
-from OCR_model_ee.utils_fix import *
+from TextRecognition.OCR_model_ee.dataset_fix import *
+from TextRecognition.OCR_model_ee.model_fix import *
+from TextRecognition.OCR_model_ee.utils_fix import *
 
-from constant import *
+from TextRecognition.constant import *
 from Easy_ocr import *
 
 import string

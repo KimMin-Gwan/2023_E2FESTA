@@ -7,7 +7,7 @@ import lmdb
 import torch
 import cv2
 
-from constant import *
+from TextRecognition.constant import *
 from Camera import *
 from natsort import natsorted
 from PIL import Image

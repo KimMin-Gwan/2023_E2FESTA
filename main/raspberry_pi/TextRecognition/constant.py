@@ -15,7 +15,7 @@
 """
 
 #"path to saved_model to evaluation"
-SAVED_MODEL = 'C:/Users/yangs/OneDrive/바탕 화면/CDP/2023_E2FESTA/develop/modules/TextRecognition/'
+SAVED_MODEL = 'D:/2023_E2FESTA/main/raspberry_pi/TextRecognition/best_accuracy.pth'
 IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'    ###frame이 필요하지 않은가
 WORKERS = 0                 #'number of data loading workers'
 BATCH_SIZE = 192            #'input batch size'

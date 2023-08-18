@@ -16,10 +16,10 @@ limitations under the License.
 import torch.nn as nn
 import sys, os
 
-from OCR_model.transformation import TPS_SpatialTransformerNetwork
-from OCR_model.feature_extraction_fix import ResNet_FeatureExtractor
-from OCR_model.sequence_modeling import BidirectionalLSTM
-from OCR_model.prediction import Attention
+from TextRecognition.OCR_model.transformation import TPS_SpatialTransformerNetwork
+from TextRecognition.OCR_model.feature_extraction_fix import ResNet_FeatureExtractor
+from TextRecognition.OCR_model.sequence_modeling import BidirectionalLSTM
+from TextRecognition.OCR_model.prediction import Attention
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from constant import *

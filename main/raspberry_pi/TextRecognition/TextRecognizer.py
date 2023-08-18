@@ -21,6 +21,7 @@ from TextRecognition.constant import *
 from TextRecognition import *
 from TextRecognition.Easy_ocr import *
 from TextRecognition.detector import *
+import time
 # from Easy_ocr
 # from EASY_OCR.Easy_ocr import easy_ocr
 
@@ -30,8 +31,8 @@ from TextRecognition.detector import *
 # import Speaker
 
 class TxtRecognizer():
-   def __init__(self, info, camera, speaker = None):
-      self.info = info  # 버튼
+   def __init__(self, camera, speaker = None, info = None):
+      #self.info = info  # 버튼
       self.camera = camera
       self.speaker = speaker
       self.detector = Detector()  # 검출기 (Text-recognition 결과로 나온 단어)
@@ -46,15 +47,24 @@ class TxtRecognizer():
        # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
       
       self.camera.swap_camera()
-      
+      time.sleep(0.5)
+      count = 0
       while True:
-         
+         """
          cam_button = self.info.getButtonState()
       
          if cam_button == 4:
             photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
             break
-      
+         """
+         time.sleep(1)
+         count += 1
+         print('pick count :',count)
+         if count == 5:
+            photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
+            print("check")
+            break
+
 
       data = {'frame':photo_frame}
       url = "서버주소"
