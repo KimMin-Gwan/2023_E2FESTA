@@ -34,3 +34,4 @@ class DepthCamera:
 
     def release(self):
         self.pipeline.stop()
+        
