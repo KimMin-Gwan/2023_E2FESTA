@@ -84,7 +84,7 @@ class Server:
 
         
     def strat_server(self):
-        self.app.run(host="3.35.154.132:80", port="80")
+        self.app.run(host="3.35.154.132", port="80")
 
 
 if __name__=="__main__":
