@@ -17,12 +17,13 @@
 * MG KIM			2023.08.09      v0.40	    초기 설계 세팅 및 수정
 * HL YANG			2023.08.11      v0.50	    Edit Internal Code
 * HL YANG			2023.08.13      v0.51	    Writing Internal Code & Annotation
+* JH KIM            2023.08.18      v0.52       delete import .pyrealsense2
 """
 
 from tkinter import Frame
 import cv2
 import numpy as np
-import pyrealsense2.pyrealsense2 as rs
+import pyrealsense2 as rs
 import time
 import threading
 
