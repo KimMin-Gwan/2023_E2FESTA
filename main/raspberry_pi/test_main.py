@@ -58,7 +58,7 @@ def main():
 if __name__ == '__main__':
     main()
 """
-
+"""
 import Object_detect
 import Camera
 import Monitoring
@@ -75,7 +75,6 @@ def main():
 if __name__ == '__main__':
     main()
 """
-
 import TextRecognition
 import Camera
 import Object_detect
@@ -110,4 +109,3 @@ def main():
 
 if __name__=="__main__":
     main()
-"""

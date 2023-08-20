@@ -27,12 +27,12 @@ class Object_detector():
 
         #반복되는 핵심 와일문
         while True:
-            now_camera_set = self.camera.get_status()
             # 일시정지 상태
-            #if now_camera_set != 'web':
-            #    continue
-            if self.pause_flag:
+            if self.camera.get_status() == 'hand':
                 continue
+            #if self.pause_flag:
+            #    continue
+            #print("pause")
 
             frame = self.camera.get_webcam_frame()
 
@@ -62,7 +62,7 @@ class Object_detector():
         if now_camera_set == 'hand':
             self.camera.swap_camera()
 
-        self.status = 1  
+        self.status = 1 # 텐서 연산을 한다 : 1, 안한다 : 2
         object_detector_thread = Thread(target=self.__object_detection)
         object_detector_thread.start()
         #self.__object_detection()

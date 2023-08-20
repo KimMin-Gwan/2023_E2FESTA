@@ -15,7 +15,7 @@
 * SJ YANG			2023.08.09      v0.40	    ocr 파트 개선 및 메서드로 설계
 * HL YANG			2023.08.13      v0.50	    Making RunRecognition()
 """
-
+import requests
 from runpy import run_module
 from TextRecognition.constant import *
 from TextRecognition import *
@@ -65,15 +65,16 @@ class TxtRecognizer():
             print("check")
             break
 
-
-      data = {'frame':photo_frame}
-      url = "서버주소"
+      print('type : ', type(photo_frame))
+      data = {'frame':photo_frame.tolist()}
+      url = "http://127.0.0.1:8080/easy_ocr"
       try:
          return_data = requests.post(url, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
-         photo_texts = return_data['frame']
-      except:
+         photo_texts = return_data.json()['frame']
+      except Exception as e:
          print("ERROR : Server Error")
+         print("ERROR CODE : ", e)
          exit()
 
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환

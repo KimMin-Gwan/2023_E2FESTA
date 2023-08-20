@@ -36,7 +36,7 @@ class Camera_Master():
         self.info = info
         self.web_monitor = web_monitor
         self.handcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
-        self.status = 1  # 1: Web, 2: Hand
+        self.status = 2  # 1: Web, 2: Hand
         self.swap_flag = 0  # 0: default, 1: for replacement
 
         # Configure depth and color streams
@@ -65,6 +65,7 @@ class Camera_Master():
         self.pipeline.start(self.config)
         self.thread = threading.Thread(target=self.StartWebCam, args=(TEST_FLAG))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
         self.thread.start()
+        self.status = 1  # 1: Web, 2: Hand
         return
     
 
@@ -74,10 +75,12 @@ class Camera_Master():
         # 그래서 플래그를 세워 StartCam 내부의 while 문을 종료시켜서 끌 것
         self.swap_flag = 1  # 기본 flag == 0, 멈추려고 할 때는 flag == 1로 설정해주기
         #self.thread.join()
+        print('Now Status : ', self.status)
 
         time.sleep(0.5)
         # WebCam → HandCam
         if self.status == 1:  # Now: Web
+            print('starg hand cam')
             self.swap_flag = 0
             self.thread = threading.Thread(target=self.StartHandCam, args=(TEST_FLAG))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
             self.thread.start()
@@ -85,13 +88,15 @@ class Camera_Master():
         
         # HandCam → WebCam
         else:
+            print('starg web cam')
             self.swap_flag = 0
             self.pipeline.start(self.config)
             self.thread = threading.Thread(target=self.StartWebCam, args=(TEST_FLAG))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
             self.thread.start()
             self.status = 1  # Change Cam's status; hand > web
 
-        print(self.status)
+        print('After Status : ', self.status)
+        return
     
 
     # HandCam ON;  flag를 True로 하면 화면에 출력이 나옴
@@ -119,6 +124,7 @@ class Camera_Master():
                 print("Error : Camera did not captured")
                 continue
             
+        print("System : Terminate Handcam")
         #self.handcam.release()
         #cv2.destroyAllWindows()
         # self.StartWebCam()
@@ -173,7 +179,7 @@ class Camera_Master():
         if flag:  # flag == 1로 설정 시(기본값 0) window에 띄워진 카메라 화면 창 닫기
             cv2.destroyAllWindows()
             
-    
+        print("System : Terminate Webcam")
         # Stop streaming
         self.pipeline.stop()
        
@@ -209,7 +215,7 @@ class Camera_Master():
         return depth
     
     def get_status(self):
-        self.status = 1  # 1: Web, 2: Hand
+        #self.status = 1  # 1: Web, 2: Hand
         if self.status == 1:
             return 'web'
         elif self.status == 2:

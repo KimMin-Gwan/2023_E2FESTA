@@ -75,11 +75,13 @@ class Server:
             data = request.json
             try:
                 frame = np.array(data['frame'])
-                photo_texts = self.e_ocr.run_easyocr_module(frame) 
+                print("type : ", type(frame[0][0][0]))
+                photo_texts = self.e_ocr.run_easyocr_module(frame)
                 return_data = {'frame':photo_texts}
-            except:
+            except Exception as e:
                 print("ERROR : Easy OCR did not work !!!")
-                return_data = {'frame':0}
+                print("ERROR CODE : ", e)
+                return_data = data
             return return_data
 
         
