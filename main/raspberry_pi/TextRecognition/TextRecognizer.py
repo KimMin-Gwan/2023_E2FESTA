@@ -77,8 +77,8 @@ class TxtRecognizer():
          print("ERROR : Server Error")
          print("ERROR CODE : ", e)
          exit()
-      print(photo_texts)
-      print(len(photo_texts))
+      #print(photo_texts)
+      #print(len(photo_texts))
       for i in range(len(photo_texts)):
          photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
       print("=========================================")
