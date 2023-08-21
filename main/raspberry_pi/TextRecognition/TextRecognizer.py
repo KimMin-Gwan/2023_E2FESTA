@@ -22,6 +22,7 @@ from TextRecognition import *
 from TextRecognition.Easy_ocr import *
 from TextRecognition.detector import *
 import time
+import matplotlib.pyplot as plt
 # from Easy_ocr
 # from EASY_OCR.Easy_ocr import easy_ocr
 
@@ -67,7 +68,8 @@ class TxtRecognizer():
 
       print('type : ', type(photo_frame))
       data = {'frame':photo_frame.tolist()}
-      url = "http://127.0.0.1:8080/easy_ocr"
+      #url = "http://127.0.0.1:8080/easy_ocr"
+      url = "http://165.229.86.74:8080/easy_ocr"
       try:
          return_data = requests.post(url, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
@@ -76,6 +78,12 @@ class TxtRecognizer():
          print("ERROR : Server Error")
          print("ERROR CODE : ", e)
          exit()
-
+      print(photo_texts)
+      print(len(photo_texts))
+      for i in range(len(photo_texts)):
+         photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
+      print("=========================================")
+      print(type(photo_texts))
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
+      
       self.speaker.tts_read(text_result)                         # string 형태로 받아온 글자 speaker로 읽어주기

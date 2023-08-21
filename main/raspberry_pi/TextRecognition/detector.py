@@ -63,13 +63,13 @@ class Detector():
         demo_data = RawDataset(root = img_list)  # use RawDataset
         
         #demo_data =
-        
+        print("2222")
         demo_loader = torch.utils.data.DataLoader(
             demo_data, batch_size=BATCH_SIZE,
             shuffle=False,
             num_workers=int(WORKERS),
             collate_fn=AlignCollate_demo, pin_memory=True)
-
+        print("3333333333333")
         # predict
         model.eval()
         with torch.no_grad():
@@ -79,7 +79,7 @@ class Detector():
                 # For max length prediction
                 length_for_pred = torch.IntTensor([BATCH_MAX_LENGTH] * batch_size).to(device)
                 text_for_pred = torch.LongTensor(batch_size, BATCH_MAX_LENGTH + 1).fill_(0).to(device)
-
+                print("4444444444444")
                 if 'CTC' in PREDICTION:
                     preds = model(image, text_for_pred)
 
@@ -95,8 +95,8 @@ class Detector():
                     # select max probabilty (greedy decoding) then decode index to character
                     _, preds_index = preds.max(2)
                     preds_str = converter.decode(preds_index, length_for_pred)
-
-
+                    print("5555555555555555")
+                print("6666666666666666666")
                 log = open(f'./log_demo_result.txt', 'a')
                 dashed_line = '-' * 80
                 head = f'{"image_path":25s}\t{"predicted_labels":25s}\tconfidence score'
@@ -115,13 +115,13 @@ class Detector():
                     # calculate confidence score (= multiply of pred_max_prob)
                     confidence_score = pred_max_prob.cumprod(dim=0)[-1]
 
-                    print(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}')
-                    log.write(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}\n')
+                    print(f'{pred:25s}\t{confidence_score:0.4f}')
+                    log.write(f'{pred:25s}\t{confidence_score:0.4f}\n')
 
                 log.close()
                 
     def run_module(self, image_list):
-        parser = argparse.ArgumentParser()  #파서 생성
+        #parser = argparse.ArgumentParser()  #파서 생성
         #파서가 구분할 명령어 추가
         """ Data processing """
         # 추가 옵션을 받는 경우 action = 'store
@@ -137,9 +137,9 @@ class Detector():
         cudnn.benchmark = True
         cudnn.deterministic = True
         #num_gpu = torch.cuda.device_count()
-
+        print("11111111")
         self.demo(image_list)
         
-if __name__ == '__main__':
-    predict = Detector()
-    predict.run_module()
+#if __name__ == '__main__':
+    #predict = Detector()
+    #predict.run_module()

@@ -88,7 +88,7 @@ def main_loop(tr):
         time.sleep(1)
         count+=1
         print(count)
-        if count == 10:
+        if count == 5:
             print("start txt recog")
             tr.RunRecognition()
             break
