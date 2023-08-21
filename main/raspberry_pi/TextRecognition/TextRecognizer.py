@@ -22,7 +22,6 @@ from TextRecognition import *
 from TextRecognition.Easy_ocr import *
 from TextRecognition.detector import *
 import time
-import matplotlib.pyplot as plt
 # from Easy_ocr
 # from EASY_OCR.Easy_ocr import easy_ocr
 
