@@ -20,7 +20,7 @@ from flask import Flask, request
 import numpy as np
 from Easy_ocr import Easy_ocr
 from pymongo import MongoClient# pymongo 임포트
-
+from PIL import Image
 class Server:
     
     def __init__(self):
@@ -77,6 +77,9 @@ class Server:
                 frame = np.uint8(np.array(data['frame']))
                 # print("type : ", type(frame[0][0][0]))
                 photo_texts = self.e_ocr.run_easyocr_module(frame)
+                # for i in range(len(photo_texts)):
+                #     photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
+                #print(photo_texts)
                 return_data = {'frame':photo_texts}
                 print("len : ", photo_texts)
             except Exception as e:
