@@ -19,7 +19,7 @@ import requests
 from runpy import run_module
 from TextRecognition.constant import *
 from TextRecognition import *
-from TextRecognition.Easy_ocr import *
+#from TextRecognition.Easy_ocr import *
 from TextRecognition.detector import *
 import time
 # from Easy_ocr
