@@ -36,7 +36,7 @@ class TxtRecognizer():
       self.camera = camera
       self.speaker = speaker
       self.detector = Detector()  # 검출기 (Text-recognition 결과로 나온 단어)
-      self.e_ocr = Easy_ocr()  # 인식기 (사진 내의 여러 줄의 텍스트를 인식하고 list로 반환)
+      #self.e_ocr = Easy_ocr()  # 인식기 (사진 내의 여러 줄의 텍스트를 인식하고 list로 반환)
 
    def __call__(self):
         pass
