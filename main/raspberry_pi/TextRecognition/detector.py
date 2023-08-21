@@ -18,7 +18,7 @@ from TextRecognition.OCR_model_ee.model_fix import *
 from TextRecognition.OCR_model_ee.utils_fix import *
 
 from TextRecognition.constant import *
-from Easy_ocr import *
+#from Easy_ocr import *
 
 import string
 import argparse  # argument(명령어)를 읽고 parsing(파씽)해주는 라이브러리
