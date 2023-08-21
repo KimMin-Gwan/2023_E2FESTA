@@ -27,7 +27,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.nn.functional as F
-import time
+
 
 '''from utils_fix import AttnLabelConverter 
 from dataset_fix import RawDataset, AlignCollate
@@ -155,63 +155,35 @@ class Dectector():
         self.demo(image_list)
         
 if __name__ == '__main__':
-    # predict = Dectector()
-    # image_list=""
-    # img = Image.open('C:\\Users\\ICE\\Desktop\\df\\letsbe.png')
-    
-    # new_img = np.array(img)
-    # # print(new_img)
+    while True:
+        i=1
+        a =int(input("입력 하시오"))
+        if a==1:
+            predict = Dectector()
+            image_list=""
+            img = Image.open(f'C:\\Users\\IT\\Desktop\\test\\kantata{i}.jpg')
+        
+            new_img = np.array(img)
+            print("type : ", type(new_img[0][0][0]))
 
-    # new = Image.fromarray(np.uint8(new_img))
-    # print(new)
-    
-    
-    # easy_ocr = Easy_ocr()
-    # image_list = easy_ocr.run_easyocr_module(new_img)
-    # for i in range(len(image_list)):
-    #     image_list[i]=Image.fromarray(np.uint8(image_list[i]))
+            new = Image.fromarray(np.uint8(new_img))
+            
+            
+            easy_ocr = Easy_ocr()
+            
+            image_list = easy_ocr.run_easyocr_module(new_img)
+            for i in range(len(image_list)):
+                image_list[i]=Image.fromarray(np.uint8(image_list[i]))
 
-    # predict.run_module(image_list)
+            begin = time.time()
+            print("=================================")
+            print(image_list)
+            print(type(image_list))
+            predict.run_module(image_list)
+            after = time.time()
 
-    predict=Dectector()
-    image_list=""
-<<<<<<< Updated upstream
-    url = 'https://user-images.githubusercontent.com/69428232/155486780-55525c3c-8f5f-4313-8590-dd69d4ce4111.jpg'
- 
-    image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
-    org_image = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
-    new=Image.fromarray(np.unit8(org_image))
-
-    easy_ocr=Easy_ocr()
-
-    st=time.time()
-    image_list=easy_ocr.run_easyocr_module(org_image)
-    ed=time.time()
-    print("end easy ocr ",ed-st)
-=======
-    img = Image.open('C:\\Users\\IT\\Desktop\\test\\kantata.jpg')
-    
-    new_img = np.array(img)
-    # print(new_img)
->>>>>>> Stashed changes
-
-    
-    for i in range(len(image_list)):
-        image_list[i]=Image.fromarray(np.unit8(image_list[i]))
-
-<<<<<<< Updated upstream
-
-
-
-    st=time.time()
-    predict.run_module(image_list)
-    ed=time.time()
-    print("예측 결과 시간",ed-st)
-=======
-    begin = time.time()
-    predict.run_module(image_list)
-    after = time.time()
-
-    diff = after - begin
-    print("fian : " , diff)
->>>>>>> Stashed changes
+            diff = after - begin
+            print("fian : " , diff)
+            i+=1
+        else:
+            break

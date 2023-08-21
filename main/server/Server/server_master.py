@@ -74,10 +74,11 @@ class Server:
         def run_easy_ocr():
             data = request.json
             try:
-                frame = np.array(data['frame'])
-                print("type : ", type(frame[0][0][0]))
+                frame = np.uint8(np.array(data['frame']))
+                # print("type : ", type(frame[0][0][0]))
                 photo_texts = self.e_ocr.run_easyocr_module(frame)
                 return_data = {'frame':photo_texts}
+                print("len : ", photo_texts)
             except Exception as e:
                 print("ERROR : Easy OCR did not work !!!")
                 print("ERROR CODE : ", e)

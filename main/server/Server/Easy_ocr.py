@@ -11,8 +11,8 @@ import time
 import copy
 import pickle
 import torch
-px=[-1,1,1,-1]
-py=[-1,-1,1,1]
+# px=[-1,1,1,-1]
+# py=[-1,-1,1,1]
 
 class Easy_ocr:
     def __init__(self):   #생성자
@@ -35,26 +35,38 @@ class Easy_ocr:
 
 
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
+        print("2")
         self.results = self.reader.readtext(self.one_frame)
-        for i in range(len(self.results[0][0])):
-            for k in range(4):
-                self.results[i][0][k][0]+=px[k]
-                self.results[i][0][k][1]+=py[k]
+        print("results",self.results)
+        print("길이 출력",len(self.results[0][0]))
+        # for i in range(len(self.results[0][0])):
+        #     for k in range(4):
+        #         self.results[i][0][k][0]+=px[k]
+        #         self.results[i][0][k][1]+=py[k]
+        print("3")
 
 
     def crop_image(self): #크롭 함수
         i=0
+        print("4")
+        print(len(self.results))
         for i in range(len(self.results)):
             copy_image=copy.deepcopy(self.one_frame)
             coordinates = self.results[i][0]
             points = np.array(coordinates, np.int32)
             cv2.polylines(copy_image, [points], isClosed=True, color=(0, 255, 0), thickness=2)
-            cropped_image = copy_image[coordinates[0][1]:coordinates[2][1], coordinates[0][0]:coordinates[1][0]]
-            self.frame_list.append(cropped_image)
+            cropped_image = copy_image[int(coordinates[0][1]):int(coordinates[2][1]),
+                                        int(coordinates[0][0]):int(coordinates[1][0])]
+            self.frame_list.append(cropped_image.tolist())
             i+=1
+        print("5")
 
     def return_frame(self):  #return function
-        return self.frame_list
+        print("6")
+        return_data = self.frame_list.copy()
+        self.frame_list.clear()
+        print("dfdfffdfdfd",return_data)
+        return return_data
     
     def plt_imshow(title='image', img=None, figsize=(8 ,5)):
         plt.figure(figsize=figsize)
@@ -92,6 +104,7 @@ class Easy_ocr:
 
 
     def run_easyocr_module(self,frame):  #외부에서 실행시킬 run_module 함수
+        print("1")
         self.one_frame=frame
         self.make_model()   #모델 만들기
         self.detection_image()

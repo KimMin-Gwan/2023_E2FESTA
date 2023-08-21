@@ -15,10 +15,11 @@
 """
 
 #"path to saved_model to evaluation"
-SAVED_MODEL = 'C:\\Users\\IT\\Documents\\GitHub\\2023_E2FESTA\\develop\\Tests\\seungjun_test\\ocr_english\\text_ocr_model\\TPS-ResNet-BiLSTM-Attn-Seed1111\\best_accuracy.pth'
+SAVED_MODEL = 'C:\\Users\\IT\\Documents\\GitHub\\2023_E2FESTA\develop\\Tests\\seungjun_test\\ocr_english\\text_ocr_model\\TPS-ResNet-BiLSTM-Attn-Seed1111\\best_accuracy.pth'
+#SAVED_MODEL = 'C:\\Users\\IT\\Desktop\\model\\best_accuracy.pth'
 IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'    ###frame이 필요하지 않은가
 WORKERS = 0                #'number of data loading workers'
-BATCH_SIZE = 192            #'input batch size'
+BATCH_SIZE = 192           #'input batch size'
 
 
 """ Data processing """
@@ -26,7 +27,7 @@ BATCH_MAX_LENGTH = 25       #'maximum-label-length'
 IMG_HEIGHT = 32             #'the height of the input image'
 IMG_WIDTH = 100             #'the width of the input image'
 RGB = True   #????          #'use rgb input'
-CHARACTER = "0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강갖같갚갛개객걀걔거걱건걷걸검겁것겉게겨\
+CHARACTER = '0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강갖같갚갛개객걀걔거걱건걷걸검겁것겉게겨\
                         격겪견결겹경곁계고곡곤곧골곰곱곳곶공과관광괜괴굉교구국군굳굴굵굶굽궁권귀귓규균귤그극근글긁금급긋긍기긴길\
                         김깅깊까깍깎깐깔깜깝깡깥깨꺼꺾껌껍껏껑께껴꼬꼭꼴꼼꼽꽂꽃꽉꽤꾸꾼꿀꿈뀌끄끈끊끌끓끔끗끝끼낌나낙낚난날낡\
                         남납낫낭낮낯낱낳내냄냇냉냐냥너넉넌널넓넘넣네넥넷녀녁년념녕노녹논놀놈농높놓놔뇌뇨누눈눕뉘뉴늄느늑는늘늙\
@@ -45,7 +46,7 @@ CHARACTER = "0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강�
                         측츰층치칙친칠침칫칭카칵칸칼캄캐캠캥커컨컬컴컵컷케켓켜코콕콘콜콤콩쾌쿄쿠퀴크큰클큼키킬타탁탄탈탑탓탕태택탤터\
                         턱턴털텅테텍텔템토톤톨톱통퇴투툴툼퉁튀튜트특튼튿틀틈티틱팀팅파팎판팔팝패팩팬퍼퍽페펜펴편펼평폐포폭폰표\
                         푸푹풀품풍퓨프플픔피픽필핏핑하학한할함합항해핵핸햄햇행향허헌험헤헬혀현혈협형혜호혹혼홀홈홉홍화확환활황\
-                        회획횟횡효후훈훌훔훨휘휴흉흐흑흔흘흙흡흥흩희흰히힘?!()"     #'character label'
+                        회획횟횡효후훈훌훔훨휘휴흉흐흑흔흘흙흡흥흩희흰히힘?!()'     #'character label'
 
 
 """ Model Architecture """
@@ -53,6 +54,11 @@ TRANSFORMATION = 'TPS'          #'Transformation stage. None|TPS'
 FEATURE_EXTRACTION = 'ResNet'   #'FeatureExtraction stage. VGG|RCNN|ResNet'
 SEQUENCE_MODELING = 'BiLSTM'    #'SequenceModeling stage. None|BiLSTM'
 PREDICTION = 'Attn'             #'Prediction stage. CTC|Attn'
+# TRANSFORMATION = 'None'          #'Transformation stage. None|TPS'
+# FEATURE_EXTRACTION = 'VGG'   #'FeatureExtraction stage. VGG|RCNN|ResNet'
+# SEQUENCE_MODELING = 'BiLSTM'    #'SequenceModeling stage. None|BiLSTM'
+# PREDICTION = 'CTC'             #'Prediction stage. CTC|Attn'
+
 
 NUM_FIDUCIAL = 20               #'number of fiducial points of TPS-STN'
 INPUT_CHANNEL = 1               #'the number of input channel of Feature extractor'
