@@ -23,7 +23,7 @@
 from tkinter import Frame
 import cv2
 import numpy as np
-import pyrealsense2 as rs
+import pyrealsense2.pyrealsense2 as rs
 import time
 import threading
 from Camera.constant import *
