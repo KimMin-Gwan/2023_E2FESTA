@@ -35,7 +35,7 @@ class Camera_Master():
         # hand camera init
         self.info = info
         self.web_monitor = web_monitor
-        self.handcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
+        self.handcam = cv2.VideoCapture(6)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
         self.status = 2  # 1: Web, 2: Hand
         self.swap_flag = 0  # 0: default, 1: for replacement
 
@@ -43,7 +43,6 @@ class Camera_Master():
         self.pipeline = rs.pipeline()
         self.config = rs.config()
 
-        # Get device product line for setting a supporting resolution
         pipeline_wrapper = rs.pipeline_wrapper(self.pipeline)
         pipeline_profile = self.config.resolve(pipeline_wrapper)
         device = pipeline_profile.get_device()
@@ -63,6 +62,8 @@ class Camera_Master():
     def RunCamera(self):
         # webcam(기본값) 스레드 실행
         self.pipeline.start(self.config)
+        #self.info.setSystemState(newSystem)
+        self.info.add_thread()
         self.thread = threading.Thread(target=self.StartWebCam, args=(TEST_FLAG))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
         self.thread.start()
         self.status = 1  # 1: Web, 2: Hand

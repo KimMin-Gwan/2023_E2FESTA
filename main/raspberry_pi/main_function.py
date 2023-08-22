@@ -36,29 +36,45 @@ class Main_Function():
         button_thread = Thread(target=self.button.startButton , args=(button,))  # Button Thread
         button_thread.start()  # Button start
 
-        print("SYSTEM ALARM::Object_Detection System Start")
-        self.object_detection_thread = Thread(target=self.object_detect.run_system)
-        self.object_detection_thread.start()
+        # Camera Start
+        self.camera.RunCamera()
 
+        # Object Detection System Start
+        print("SYSTEM ALARM::Object_Detection System Start")
+        self.object_detect.run_system()
+
+        # main_loop Start
+        loop_thread = Thread(target=self.main_loop)
+        loop_thread.start()
+
+        # Monitoring System Start (main_thread)
+        self.monitor.start_monitor(self.camera)
+
+    # infra seartch system start
     def _infra_Search(self):
         print("SYSTEM ALARM::Infra_Search System Start")
         self.infra_search_thread = Thread(target=self.infra.runScanBeacon)
         self.infra_search_thread.start()
 
+    # txt recognition system start
     def _text_recognition(self):
         print("SYSTEM ALARM::Text_Recognition System Start")
-        self.text_recognition_thread = Thread(target=self.txt_recog.RunRecognition())
-        self.object_detection_thread.start()
+        self.txt_recog.RunRecognition()
 
+    # System Main Loop
     def main_loop(self):
         while True:
+            # check button State
             buttonState = self.info.getButtonState()
 
+            # if alive already, do not start this system again
+            # only start since default state
             if buttonState == SCAN and (self.infra_search_thread is None or not self.infra_search_thread.is_alive()):
                 self.info.setButtonState(DEFAULT)  # Button state reset
                 self._infra_Search()
 
-            if buttonState == HAND_CAM and (self.text_recognition_thread is None or not self.text_recognition_thread.is_alive()):
+            # need to check now system alive
+            if buttonState == HAND_CAM and (self.infra_search_thread is None or not self.infra_search_thread.is_alive()):
                 self.info.setButtonState(DEFAULT)  # Button state reset
                 self._text_recognition()
 

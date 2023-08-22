@@ -15,8 +15,8 @@
 """
 
 #"path to saved_model to evaluation"
-#SAVED_MODEL = 'D:/2023_E2FESTA/main/raspberry_pi/TextRecognition/best_accuracy1.pth'
-SAVED_MODEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/TextRecognition/best_accuracy1.pth"
+SAVED_MODEL = 'D:/2023_E2FESTA/main/raspberry_pi/TextRecognition/best_accuracy1.pth'
+#SAVED_MODEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/TextRecognition/best_accuracy1.pth"
 IMAGE_FOLDER = 'C:////'     #'path to image_folder which contains text images'    ###frame이 필요하지 않은가
 WORKERS = 0                 #'number of data loading workers'
 BATCH_SIZE = 192            #'input batch size'
@@ -60,3 +60,7 @@ INPUT_CHANNEL = 1               #'the number of input channel of Feature extract
 
 OUTPUT_CHANNEL = 512            #'the number of output channel of Feature extractor'
 HIDDEN_SIZE = 256               #'the size of the LSTM hidden state'
+
+SYS_STATE_HANDCAM = 3
+#URL = "http://127.0.0.1:8080/easy_ocr"
+URL = "http://165.229.86.74:8080/easy_ocr"
