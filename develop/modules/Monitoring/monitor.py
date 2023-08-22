@@ -84,7 +84,7 @@ class Monitor:
     def start_monitor(self, camera):
         # 카메라 객체 생성
         self.camera = camera
-        self.app.run(host="0.0.0.0", port="7777")
+        self.app.run(host="0.0.0.0", port="8080")
 
 if __name__=="__main__":
     camera = Camera.Camera_Master()
