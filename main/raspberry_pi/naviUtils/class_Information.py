@@ -25,7 +25,9 @@ class Information:
         self.__buttonState = -1  # Default Button State : -1
         self.cs = threading.Lock()
         self.__systemState = 0
-        self.now_thread = []
+        self.now_system = []  # 실행중인 시스템 목록
+        self.now_thread = []  # 실행중인 스레드 목록
+        self.terminate_flag = False
 
     def getButtonState(self):  # Button state accessor
         return self.__buttonState
@@ -46,15 +48,32 @@ class Information:
         print("SYSTEM ALARM::System State Changed({} -> {})".format(self.getSystemState(), newSysState))
         self.__systemState = newSysState
         return
+    
+    # Add System in system list
+    def add_system(self, system_purpose):
+        print(f"SYSTEM ALARM::{system_purpose} appended in SYSTEM list")
+        self.now_system.append(system_purpose)
+        return
+
+    # remove system list
+    def remove_system(self, system_purpose):
+        print(f"SYSTEM ALARM::{system_purpose} system removed from list")
+        if system_purpose in self.now_system:
+            self.now_system.remove(system_purpose)
+        else:
+            print("Information System Error")
+            assert("ERROR TYPE : SYSTEM irregular terminate occur")
+        return
+
 
     # Add Thread in thread list
     def add_thread(self, thread_purpose):
-        print(f"SYSTEM ALARM::{thread_purpose} appended in thread list")
+        print(f"SYSTEM ALARM::{thread_purpose} appended in THREAD list")
         self.now_thread.append(thread_purpose)
         return
     
     # Therminate Thread list
-    def therminate_thread(self, thread_purpose):
+    def terminate_thread(self, thread_purpose):
         print(f"SYSTEM ALARM::{thread_purpose} thread terminated")
         if thread_purpose in self.now_thread:
             self.now_thread.remove(thread_purpose)
@@ -63,6 +82,17 @@ class Information:
             assert("ERROR TYPE : Thread Could not Found")
         return
 
+
+    # terminate flag accesser
+    def get_terminate_flag(self):
+        return self.terminate_flag
+    
+    # try system terminate
+    def terminate_all(self):
+        self.terminate_flag = True
+        return
+
+        
 
 
 

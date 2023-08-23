@@ -12,6 +12,7 @@
 * JH KIM            2023.07.11		v1.01		add button
 * JH KIM            2023.07.13      v1.01       add accessor
 * JH KIM            2023.08.14      v1.10       add HCAM Capture Button
+* MG KIM            2023.08.23      v1.20       add HCAM Capture Button
 """
 
 from button.constant import *
@@ -20,7 +21,8 @@ import time
 
 
 class Button:
-    def __init__(self, info):
+    def __init__(self, info = None):
+        print("SYSTEM ALARM::Button Configure initiating")
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(BEACONSCANBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -33,6 +35,12 @@ class Button:
         self.__state = ""
         self.info = info
         self.__buttonExitFlag = False
+        print("______________BUTTON SET_________________")
+        print(f"Button GPIO | infra_search : {BEACONSCANBUTTON}")
+        print(f"Button GPIO | yes_button : {YESNOBUTTON}")
+        print(f"Button GPIO | text_recognition : {HANDCAMBUTTON}")
+        print(f"Button GPIO | camera pick : {HANDCAMBUTTON}")
+        print("SYSTEM ALARM::Button Configure initiating Complete")
 
     def setLastInputTime(self):
         self.__lastInput = time.time()
@@ -53,7 +61,7 @@ class Button:
 
         elif GPIO.input(HANDCAMBUTTON) == GPIO.HIGH:  # Button 3, Handcam Search Input
             # print("3 Button Pushed")
-            self.info.setButtonState(HANDCAM)
+            self.info.setButtonState(HAND_CAM)
             self.setLastInputTime()
             return None
 
@@ -89,5 +97,9 @@ class Button:
 
     def startButton(self):
         while True:
+            if self.info.get_terminate_flag():
+               break 
             self.buttonInput()
             time.sleep(0.01)
+        self.info.remove_system('button')
+        self.info.terminate_thread('button')

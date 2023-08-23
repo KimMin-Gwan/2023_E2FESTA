@@ -30,16 +30,13 @@ class Object_detector():
             # 일시정지 상태
             if self.camera.get_status() == 'hand':
                 continue
-            #if self.pause_flag:
-            #    continue
-            #print("pause")
 
             frame = self.camera.get_webcam_frame()
-
             width, height = self.image_manager.recog_image(frame)
             input_data = self.image_manager.make_input_data()
             boxes, classes, scores = self.tool.get_tensor(input_data)
 
+            # output을 바탕으로 사용가능한 bbox인지 체크 및 그리기
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
                 if bbox['ymin'] == 0 and bbox['ymax'] == 0:
@@ -49,8 +46,7 @@ class Object_detector():
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
                 self.image_manager.depth_draw(x, y, depth)
 
-            # 테스트용 윈도우 보여주는 창
-            #self.image_manager.show_test_window()
+            # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             self.camera.set_object_frame(bboxed_frame)
 
@@ -63,6 +59,8 @@ class Object_detector():
             self.camera.swap_camera()
 
         self.status = 1 # 텐서 연산을 한다 : 1, 안한다 : 2
+        self.info.add_system("object_detection")
+        self.info.add_thread("object_detection")
         object_detector_thread = Thread(target=self.__object_detection)
         object_detector_thread.start()
         #self.__object_detection()

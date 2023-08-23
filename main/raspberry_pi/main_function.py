@@ -23,20 +23,24 @@ class Main_Function():
         self.txt_recog = TextRecognition.TxtRecognizer(self.info, self.camera, self.speaker)
         print("SYSTEM ALARM::Initializing Successfully Finishied")
 
-        self.infra_search_thread = None
-        self.object_detection_thread = None
-        self.text_recognition_thread = None
 
     def start_System(self):
         # Speaker Thread
+        print("SYSTEM ALARM::System Start")
+        self.info.add_system("start_tts")
+        self.info.add_thread("start_tts")
         speaker_thread = Thread(target=self.speaker.tts_read, args=("나비가 시작되었습니다.",))  # Welcome Sound Thread
         speaker_thread.start()  # Welcome Sound start
 
         # Button Thread
+        print("SYSTEM ALARM::Button System Start")
+        self.info.add_system("button")
+        self.info.add_thread("button")
         button_thread = Thread(target=self.button.startButton , args=(button,))  # Button Thread
         button_thread.start()  # Button start
 
         # Camera Start
+        print("SYSTEM ALARM::Button System Start")
         self.camera.RunCamera()
 
         # Object Detection System Start
@@ -63,6 +67,8 @@ class Main_Function():
 
     # System Main Loop
     def main_loop(self):
+        print("SYSTEM ALARM::Main Loop Starting")
+        self.info.add_system("main")
         while True:
             # check button State
             buttonState = self.info.getButtonState()

@@ -31,8 +31,8 @@ from Camera.constant import *
 
 class Camera_Master():
     def __init__(self, info = None, web_monitor = None):
-        print("make camera")
         # hand camera init
+        print("SYSTEM ALARM::Camera Configure initiating")
         self.info = info
         self.web_monitor = web_monitor
         self.handcam = cv2.VideoCapture(6)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
@@ -54,6 +54,7 @@ class Camera_Master():
         self.wait_img = cv2.imread(WAIT_IMG_PATH)
         self.frame = self.wait_img   # 사람이 보기에 최적화된 프레임
         self.raw_frame = self.wait_img # 웹캠에서만 사용하는 날것의 프레임
+        print("SYSTEM ALARM::Camera Configure Initiating Complete")
 
 
     
@@ -63,7 +64,8 @@ class Camera_Master():
         # webcam(기본값) 스레드 실행
         self.pipeline.start(self.config)
         #self.info.setSystemState(newSystem)
-        self.info.add_thread()
+        self.info.add_system("camera")
+        self.info.add_thread("camera")
         self.thread = threading.Thread(target=self.StartWebCam, args=(TEST_FLAG))  # True로 해둬야 테스트 과정에서 화면 확인 O (없을 시 스레드 종료 불가)
         self.thread.start()
         self.status = 1  # 1: Web, 2: Hand
