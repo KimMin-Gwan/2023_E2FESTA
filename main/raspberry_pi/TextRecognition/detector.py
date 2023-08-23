@@ -139,8 +139,10 @@ class Detector():
         cudnn.deterministic = True
         #num_gpu = torch.cuda.device_count()
         print("11111111")
-        self.demo(image_list)
-
+        self.text = []
+        self.text = self.demo(image_list)
+        
+        return self.text
         
 #if __name__ == '__main__':
     #predict = Detector()
