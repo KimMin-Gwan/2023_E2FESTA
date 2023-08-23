@@ -71,6 +71,7 @@ class Detector():
             collate_fn=AlignCollate_demo, pin_memory=True)
         print("3333333333333")
         # predict
+        text_list = []
         model.eval()
         with torch.no_grad():
             for image_tensors, image_path_list in demo_loader:
@@ -111,7 +112,7 @@ class Detector():
                         pred_EOS = pred.find('[s]')
                         pred = pred[:pred_EOS]  # prune after "end of sentence" token ([s])
                         pred_max_prob = pred_max_prob[:pred_EOS]
-
+                        text_list.append(pred)
                     # calculate confidence score (= multiply of pred_max_prob)
                     confidence_score = pred_max_prob.cumprod(dim=0)[-1]
 
@@ -119,7 +120,7 @@ class Detector():
                     log.write(f'{pred:25s}\t{confidence_score:0.4f}\n')
 
                 log.close()
-                
+        return text_list       
     def run_module(self, image_list):
         #parser = argparse.ArgumentParser()  #파서 생성
         #파서가 구분할 명령어 추가
@@ -139,6 +140,7 @@ class Detector():
         #num_gpu = torch.cuda.device_count()
         print("11111111")
         self.demo(image_list)
+
         
 #if __name__ == '__main__':
     #predict = Detector()
