@@ -30,12 +30,12 @@ from Camera.constant import *
 
 
 class Camera_Master():
-    def __init__(self, info = None, web_monitor = None):
+    def __init__(self, info = None):
         # hand camera init
         print("SYSTEM ALARM::Camera Configure initiating")
         self.info = info
-        self.web_monitor = web_monitor
-        self.handcam = cv2.VideoCapture(6)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
+        #self.web_monitor = web_monitor
+        self.handcam = cv2.VideoCapture(0)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
         self.status = 2  # 1: Web, 2: Hand
         self.swap_flag = 0  # 0: default, 1: for replacement
 
