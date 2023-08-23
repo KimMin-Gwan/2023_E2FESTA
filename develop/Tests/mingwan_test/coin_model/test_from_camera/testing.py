@@ -5,7 +5,8 @@ import sys
 import random
 from tensorflow.lite.python.interpreter import Interpreter
 from realsense_depth import *
-import pyrealsense2
+#import pyrealsense2
+
 
 # 인터프리터 불러오기
 def get_interpreter(model_path):
@@ -19,13 +20,7 @@ def get_labels(lable_path):
     return labels
 
 def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
-    #camera = cv2.VideoCapture(0)
-    dc = DepthCamera()
-
-
-
-
-
+    camera = cv2.VideoCapture(0)
 
     interpreter = get_interpreter(model_path=model_path)
     input_details = interpreter.get_input_details()
@@ -40,7 +35,7 @@ def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
     
     while True:
         #ret, frame = camera.read()
-        ret, _, frame= dc.get_frame()
+        ret, frame= camera.read()
         if ret:
             image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image_height, image_width, _ = frame.shape # height, width, dim
