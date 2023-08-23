@@ -11,9 +11,6 @@ import time
 import copy
 import pickle
 import torch
-px=[-1,1,1,-1]
-py=[-1,-1,1,1]
-
 class Easy_ocr:
     def __init__(self):   #생성자
         print("dasfsd")
@@ -36,12 +33,7 @@ class Easy_ocr:
 
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
         self.results = self.reader.readtext(self.one_frame)
-        for i in range(len(self.results[0][0])):
-            for k in range(4):
-                self.results[i][0][k][0]+=px[k]
-                self.results[i][0][k][1]+=py[k]
-
-
+        
     def crop_image(self): #크롭 함수
         i=0
         for i in range(len(self.results)):

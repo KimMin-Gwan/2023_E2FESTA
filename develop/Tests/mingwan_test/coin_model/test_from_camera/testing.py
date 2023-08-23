@@ -3,14 +3,34 @@ import cv2
 import numpy as np
 import sys
 import random
-from tensorflow.lite.python.interpreter import Interpreter
+#from tensorflow.lite.python.interpreter import Interpreter
+import tflite_runtime.interpreter as tflite
 from realsense_depth import *
+import platform
 #import pyrealsense2
+path = "D://2023_E2FESTA//develop//Tests//mingwan_test//coin_model//test_from_camera//edgetpu.dll"
+model = "edgetpu.dll"
 
+EDGETPU_SHARED_LIB = {
+  'Linux': 'libedgetpu.so.1',
+  'Darwin': 'libedgetpu.1.dylib',
+  'Windows': "edgetpu.dll"
+}[platform.system()]
 
 # 인터프리터 불러오기
-def get_interpreter(model_path):
-    interpreter = Interpreter(model_path=model_path)
+def get_interpreter(model_file):
+    #interpreter = Interpreter(model_path=model_path)
+    #interpreter = tflite.Interpreter(model_path=model_path,
+    #                                 #experimental_delegates=[tflite.load_delegate(path)])
+    model_path=os.path.join(path,model)
+    model_path, *device = model_path.split('@')
+    interpreter = tflite.Interpreter(
+      model_path=model_path,
+      experimental_delegates=[
+          tflite.load_delegate(EDGETPU_SHARED_LIB,
+                               {'device': device[0]} if device else {}) #edeTPU 데이터 디바이스에서 받아옴
+      ])
+
     interpreter.allocate_tensors()
     return interpreter
 
@@ -22,7 +42,7 @@ def get_labels(lable_path):
 def object_detection(model_path, lblpath, min_conf=0.5, txt_only=False):
     camera = cv2.VideoCapture(0)
 
-    interpreter = get_interpreter(model_path=model_path)
+    interpreter = get_interpreter(model_file=model_path)
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     float_input = (input_details[0]['dtype'] == np.float32)
@@ -87,7 +107,7 @@ def main():
     #PATH_TO_MODEL='/home/antl/Desktop/model_test/custom_model_lite/detect.tflite'   # Path to .tflite model file
     #PATH_TO_LABELS='/home/antl/Desktop/model_test/labelmap.txt'   # Path to labelmap.txt file
 
-    PATH_TO_MODEL='D:/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/mobile_SSD_v2_320x320_kr_ob.tflite'
+    PATH_TO_MODEL='D:/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/mobile_SSD_v2_320x320_kr_ob_edgetpu.tflite'
     PATH_TO_LABELS='D:/2023_E2FESTA/develop/Tests/mingwan_test/coin_model/test_from_camera/labelmap.txt'   # Path to labelmap.txt file
     min_conf_threshold=0.2  # Confidence threshold (try changing this to 0.01 if you don't see any detection results)
     object_detection(PATH_TO_MODEL, PATH_TO_LABELS, min_conf_threshold)

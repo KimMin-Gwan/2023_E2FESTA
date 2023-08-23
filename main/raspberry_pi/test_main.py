@@ -97,8 +97,8 @@ def main_loop(tr):
 
 def main():
     info = naviUtils.Information()
-    monitor = Monitoring.Monitor()
     camera = Camera.Camera_Master(info=info)
+    monitor = Monitoring.Monitor()
     camera.RunCamera()
     od = Object_detect.Object_detector(camera=camera, info=info)
     tr = TextRecognition.TxtRecognizer(camera=camera, info=info)
