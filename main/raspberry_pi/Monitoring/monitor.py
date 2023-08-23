@@ -24,8 +24,9 @@ import Camera
 #import pyrealsense2.pyrealsense2 as rs
 
 class Monitor:
-    def __init__(self):
+    def __init__(self, info = None):
         self.app=Flask(__name__)
+        self.info = info
         self.app.config['JSON_AS_ASCII'] = False
         self.streaming=True
         self.stop_frame=None

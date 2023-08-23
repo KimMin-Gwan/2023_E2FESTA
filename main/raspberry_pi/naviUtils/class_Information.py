@@ -31,6 +31,12 @@ class Information:
 
     def getButtonState(self):  # Button state accessor
         return self.__buttonState
+    
+    def get_now_system(self):
+        return self.now_system
+
+    def get_now_thread(self):
+        return self.now_thread
 
     def setButtonState(self, state):  # Button state mutator
         self.cs.acquire()
