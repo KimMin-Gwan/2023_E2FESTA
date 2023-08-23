@@ -90,7 +90,7 @@ def main_loop(tr):
         print(count)
         if count == 5:
             print("start txt recog")
-            tr.RunRecognition()
+            tr.runRecognition()
             break
     return
 

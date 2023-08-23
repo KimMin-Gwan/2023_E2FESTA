@@ -94,5 +94,6 @@ class TxtRecognizer():
       print(type(photo_texts))
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
       
-      self.speaker.tts_read(text_result)                         # string 형태로 받아온 글자 speaker로 읽어주기
+      for arg in text_result:
+         self.speaker.tts_read(arg)                             # string 형태로 받아온 글자 speaker로 읽어주기
       self.info.therminate_thread("TextRecognizer")
