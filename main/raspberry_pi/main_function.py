@@ -14,7 +14,7 @@ class Main_Function():
     def __init__(self):
         print("SYSTEM ALARM::Initiating Navi")
         self.info = naviUtils.Information()
-        self.monitor = Monitoring.Monitor(self.info)
+        self.monitor = Monitoring.Monitor(info=self.info)
         self.button = button.Button(self.info)
         self.camera = Camera.Camera_Master(self.info)
         self.speaker = Speaker.SpeakMaster(self.info)

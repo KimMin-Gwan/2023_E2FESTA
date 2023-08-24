@@ -98,7 +98,7 @@ def main_loop(tr):
 def main():
     info = naviUtils.Information()
     camera = Camera.Camera_Master(info=info)
-    monitor = Monitoring.Monitor()
+    monitor = Monitoring.Monitor(info=info)
     camera.RunCamera()
     info.show_info()
     print(camera.RunCamera)
