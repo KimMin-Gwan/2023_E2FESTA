@@ -31,7 +31,7 @@ class Object_detector():
             if self.camera.get_status() == 'hand':
                 continue
 
-            if self.info.get_terminate_flag:
+            if self.info.get_terminate_flag():
                 break
 
             frame = self.camera.get_webcam_frame()
