@@ -19,7 +19,7 @@ class Main_Function():
         self.camera = Camera.Camera_Master(self.info)
         self.speaker = Speaker.SpeakMaster(self.info)
         self.infra = InfraSearch.Beacon_Master(self.speaker, self.info)
-        self.object_detect = Object_detect.Object_detector(self.info, self.camera)
+        self.object_detect = Object_detect.Object_detector(info=self.info, camera=self.camera)
         self.txt_recog = TextRecognition.TxtRecognizer(self.info, self.camera, self.speaker)
         print("SYSTEM ALARM::Initializing Successfully Finishied")
 
