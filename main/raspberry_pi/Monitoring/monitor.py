@@ -99,21 +99,6 @@ class Monitor:
                                thrlist=thrlist, systate=systate,
                                flag=flag)
         
-        @self.app.route('/show_inform')
-        def show_inform():
-            info= self.info_list
-            button=info[0]
-            syslist=info[1]
-            thrlist=info[2]
-            systate=info[3]
-            flag=info[4]
-
-            print(button)
-            print(flag)
-
-            return render_template('index.html',button=button, syslist=syslist,
-                               thrlist=thrlist, systate=systate,
-                               flag=flag)
         
         @self.app.route('/exit')
         def exit_system():
