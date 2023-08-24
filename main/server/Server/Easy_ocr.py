@@ -38,7 +38,7 @@ class Easy_ocr:
         print("2")
         self.results = self.reader.readtext(self.one_frame)
         print("results",self.results)
-        print("길이 출력",len(self.results[0][0]))
+        #print("길이 출력",len(self.results[0][0]))
         # for i in range(len(self.results[0][0])):
         #     for k in range(4):
         #         self.results[i][0][k][0]+=px[k]
