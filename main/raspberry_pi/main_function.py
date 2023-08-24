@@ -27,8 +27,8 @@ class Main_Function():
     def start_System(self):
         # Speaker Thread
         print("SYSTEM ALARM::System Start")
-        self.info.add_system("start_tts")
-        self.info.add_thread("start_tts")
+        self.info.add_system("speaker")
+        self.info.add_thread("speaker")
         speaker_thread = Thread(target=self.speaker.tts_read, args=("나비가 시작되었습니다.",))  # Welcome Sound Thread
         speaker_thread.start()  # Welcome Sound start
 
@@ -48,6 +48,8 @@ class Main_Function():
         self.object_detect.run_system()
 
         # main_loop Start
+        self.info.add_system("main_loop")
+        self.info.add_thread("main_loop")
         loop_thread = Thread(target=self.main_loop)
         loop_thread.start()
 
@@ -57,6 +59,8 @@ class Main_Function():
     # infra seartch system start
     def _infra_Search(self):
         print("SYSTEM ALARM::Infra_Search System Start")
+        self.info.add_system("infra")
+        self.info.add_thread("infra")
         self.infra_search_thread = Thread(target=self.infra.runScanBeacon)
         self.infra_search_thread.start()
 
@@ -68,8 +72,10 @@ class Main_Function():
     # System Main Loop
     def main_loop(self):
         print("SYSTEM ALARM::Main Loop Starting")
-        self.info.add_system("main")
         while True:
+            if self.info.get_terminate_flag():
+                break
+
             # check button State
             buttonState = self.info.getButtonState()
 
@@ -84,6 +90,8 @@ class Main_Function():
                 self.info.setButtonState(DEFAULT)  # Button state reset
                 self._text_recognition()
 
+        self.info.remove_system("main_loop")
+        self.info.terminate_thread("main_loop")
 
 
 

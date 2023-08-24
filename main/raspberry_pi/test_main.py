@@ -100,6 +100,8 @@ def main():
     camera = Camera.Camera_Master(info=info)
     monitor = Monitoring.Monitor()
     camera.RunCamera()
+    info.show_info()
+    print(camera.RunCamera)
     od = Object_detect.Object_detector(camera=camera, info=info)
     tr = TextRecognition.TxtRecognizer(camera=camera, info=info)
 
@@ -111,3 +113,6 @@ def main():
 
 if __name__=="__main__":
     main()
+
+
+

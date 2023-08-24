@@ -19,26 +19,25 @@ from flask import Flask, render_template, Response
 from flask import send_file # 인프라 서치에서 한국어 반환 위해
 import cv2, io # 핸드카메라&스냅샷 위해
 from Monitoring import SUB,BUS,TRAFT
+from Monitoring.constant import*
 import numpy as np
 import Camera.camera_master
 #import pyrealsense2.pyrealsense2 as rs
 import naviUtils.class_Information
+import time
 
 class Monitor:
     def __init__(self,info=None):
         self.app=Flask(__name__)
-        self.app.config['JSON_AS_ASCII'] = False
+        self.info = info
+        self.app.config[JSON_AS_ASCII] = False
         self.streaming=True
         self.stop_frame=None
 
         self.info=info
-        # self.info_list=self.info.show_info()
+        self.info_list=self.info.show_info()
         
         self.route()
-    
-
-  
-
 
     def hand_cam(self):
         camera=cv2.VideoCapture(1,cv2.CAP_DSHOW)
@@ -50,7 +49,7 @@ class Monitor:
                 break
             
             else:
-                ret, buffer = cv2.imencode('.jpg', frame)
+                ret, buffer = cv2.imencode(JPG, frame)
                 frame = buffer.tobytes()
                 global stop_frame
                 stop_frame=frame
@@ -63,7 +62,6 @@ class Monitor:
     def get_frame(self):
         while(True):
             self.info_list = self.info.show_info()
-           
             data = self.camera.get_frame_bytes()
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
@@ -103,10 +101,18 @@ class Monitor:
             return render_template('index.html',button=button, syslist=syslist,
                                thrlist=thrlist, systate=systate,
                                flag=flag)
+        
+        @self.app.route('/exit')
+        def hello_name():
+            self.info.terminate_all()
+            time.sleep(5)
+            exit()
+
 
     def start_monitor(self, camera):
         # 카메라 객체 생성
+        self.info.add_system("monitor")
+        self.info.add_thread("monitor")
         self.camera = camera
-        self.app.run(host="0.0.0.0", port="7777")
-
+        self.app.run(host=HOST, port=PORT)
 

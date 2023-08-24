@@ -33,7 +33,7 @@ class Easy_ocr:
 
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
         self.results = self.reader.readtext(self.one_frame)
-        
+
     def crop_image(self): #크롭 함수
         i=0
         for i in range(len(self.results)):

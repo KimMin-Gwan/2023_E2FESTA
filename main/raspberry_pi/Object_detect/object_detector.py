@@ -31,6 +31,9 @@ class Object_detector():
             if self.camera.get_status() == 'hand':
                 continue
 
+            if self.info.get_terminate_flag:
+                break
+
             frame = self.camera.get_webcam_frame()
             width, height = self.image_manager.recog_image(frame)
             input_data = self.image_manager.make_input_data()
@@ -49,6 +52,8 @@ class Object_detector():
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             self.camera.set_object_frame(bboxed_frame)
+        self.info.remove_system("object_detection")
+        self.info.terminate_thread("object_detection")
 
         
     # 실행기
@@ -74,7 +79,7 @@ class Object_detector():
             self.pause_flag = False
             self.status = 1  
         else:
-            print("Error : System does not work")
+            print("ERROR::System does not work")
 
         return
 
