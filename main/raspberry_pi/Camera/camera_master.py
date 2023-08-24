@@ -53,7 +53,6 @@ class Camera_Master():
 
     # picamera 초기화
     def __init_picamera(self):
-        self.handcam = Picamera2()
         self.handcam.preview_configuration.main.size = (H_HEIGHT, H_WIDTH)
         self.handcam.preview_configuration.main.format = PI_FORMAT
         self.handcam.preview_configuration.align()
