@@ -138,13 +138,13 @@ class Camera_Master():
                     break
             
             # 예외처리
-            if self.frame == None:
-                if check_flag == False:
-                    check_flag = True
-                    print("ERROR::Camera did not captured")
-                continue
-            else:
-                check_flag = False
+            #if self.frame == None:
+                #if check_flag == False:
+                    #check_flag = True
+                    #print("ERROR::Camera did not captured")
+                #continue
+            #else:
+                #check_flag = False
             
         print("SYSTEM ARAM::Terminate Handcam")
 
