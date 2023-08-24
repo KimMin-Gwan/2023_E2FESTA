@@ -98,6 +98,10 @@ class Monitor:
             thrlist=info[2]
             systate=info[3]
             flag=info[4]
+
+            print(button)
+            print(flag)
+            
             return render_template('index.html',button=button, syslist=syslist,
                                thrlist=thrlist, systate=systate,
                                flag=flag)
