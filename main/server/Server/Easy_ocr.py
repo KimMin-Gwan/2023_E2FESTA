@@ -16,7 +16,7 @@ import torch
 
 class Easy_ocr:
     def __init__(self):   #생성자
-        print("dasfsd")
+        #print("dasfsd")
         self.one_frame=""  #받아올 프레임
         self.frame_list=[]  #전달할 img_list frame
         self.reader=""  # easy_ocr model
@@ -35,20 +35,20 @@ class Easy_ocr:
 
 
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
-        print("2")
+        #print("2")
         self.results = self.reader.readtext(self.one_frame)
-        print("results",self.results)
+        #print("results",self.results)
         #print("길이 출력",len(self.results[0][0]))
         # for i in range(len(self.results[0][0])):
         #     for k in range(4):
         #         self.results[i][0][k][0]+=px[k]
         #         self.results[i][0][k][1]+=py[k]
-        print("3")
+        #print("3")
 
 
     def crop_image(self): #크롭 함수
         i=0
-        print("4")
+        #print("4")
         print(len(self.results))
         for i in range(len(self.results)):
             copy_image=copy.deepcopy(self.one_frame)
@@ -59,13 +59,13 @@ class Easy_ocr:
                                         int(coordinates[0][0]):int(coordinates[1][0])]
             self.frame_list.append(cropped_image.tolist())
             i+=1
-        print("5")
+        #print("5")
 
     def return_frame(self):  #return function
-        print("6")
+        #print("6")
         return_data = self.frame_list.copy()
         self.frame_list.clear()
-        print("dfdfffdfdfd",return_data)
+        #print("dfdfffdfdfd",return_data)
         return return_data
     
     def plt_imshow(title='image', img=None, figsize=(8 ,5)):
@@ -104,7 +104,7 @@ class Easy_ocr:
 
 
     def run_easyocr_module(self,frame):  #외부에서 실행시킬 run_module 함수
-        print("1")
+        #print("1")
         self.one_frame=frame
         self.make_model()   #모델 만들기
         self.detection_image()
