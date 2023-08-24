@@ -81,7 +81,7 @@ class Server:
                 #     photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
                 #print(photo_texts)
                 return_data = {'frame':photo_texts}
-                print("len : ", photo_texts)
+                #print("len : ", photo_texts)
             except Exception as e:
                 print("ERROR : Easy OCR did not work !!!")
                 print("ERROR CODE : ", e)
