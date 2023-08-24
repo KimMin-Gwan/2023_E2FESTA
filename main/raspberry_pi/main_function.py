@@ -16,7 +16,7 @@ class Main_Function():
         self.info = naviUtils.Information()
         self.monitor = Monitoring.Monitor(self.info)
         self.button = button.Button(self.info)
-        self.camera = Camera.Camera_Master(self.info, self.monitor)
+        self.camera = Camera.Camera_Master(self.info)
         self.speaker = Speaker.SpeakMaster(self.info)
         self.infra = InfraSearch.Beacon_Master(self.speaker, self.info)
         self.object_detect = Object_detect.Object_detector(self.info, self.camera)
