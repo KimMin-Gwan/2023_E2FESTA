@@ -67,7 +67,7 @@ class Main_Function():
     # txt recognition system start
     def _text_recognition(self):
         print("SYSTEM ALARM::Text_Recognition System Start")
-        self.txt_recog.RunRecognition()
+        self.txt_recog.runRecognition()
 
     # System Main Loop
     def main_loop(self):
