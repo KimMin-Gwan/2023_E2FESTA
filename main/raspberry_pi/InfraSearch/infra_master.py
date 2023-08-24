@@ -100,4 +100,8 @@ class Beacon_Master:
         if (state == True):  # beacon scan success
             self.process_beacon()  # beacon data processing
             self.start_gtts()  # speaker output
+        
+        self.info.remove_system("infra")
+        self.info.terminate_thread("infra")
+
         return
