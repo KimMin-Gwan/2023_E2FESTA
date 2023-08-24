@@ -36,7 +36,7 @@ class Main_Function():
         print("SYSTEM ALARM::Button System Start")
         self.info.add_system("button")
         self.info.add_thread("button")
-        button_thread = Thread(target=self.button.startButton , args=(button,))  # Button Thread
+        button_thread = Thread(target=self.button.startButton)  # Button Thread
         button_thread.start()  # Button start
 
         # Camera Start
