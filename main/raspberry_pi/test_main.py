@@ -75,6 +75,7 @@ def main():
 if __name__ == '__main__':
     main()
 """
+import naviUtils
 import TextRecognition
 import Camera
 import Object_detect
@@ -90,16 +91,17 @@ def main_loop(tr):
         print(count)
         if count == 5:
             print("start txt recog")
-            tr.RunRecognition()
+            tr.runRecognition()
             break
     return
 
 def main():
+    info = naviUtils.Information()
+    camera = Camera.Camera_Master(info=info)
     monitor = Monitoring.Monitor()
-    camera = Camera.Camera_Master()
     camera.RunCamera()
-    od = Object_detect.Object_detector(camera=camera)
-    tr = TextRecognition.TxtRecognizer(camera=camera)
+    od = Object_detect.Object_detector(camera=camera, info=info)
+    tr = TextRecognition.TxtRecognizer(camera=camera, info=info)
 
     od.run_system()
     thread1 = Thread(target=main_loop, args=(tr,))

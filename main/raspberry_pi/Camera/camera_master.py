@@ -30,12 +30,12 @@ from Camera.constant import *
 
 
 class Camera_Master():
-    def __init__(self, info = None, web_monitor = None):
+    def __init__(self, info = None):
         # hand camera init
         print("SYSTEM ALARM::Camera Configure initiating")
         self.info = info
-        self.web_monitor = web_monitor
-        self.handcam = cv2.VideoCapture(6)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
+        #self.web_monitor = web_monitor
+        self.handcam = cv2.VideoCapture(0)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
         self.status = 2  # 1: Web, 2: Hand
         self.swap_flag = 0  # 0: default, 1: for replacement
 
@@ -110,6 +110,8 @@ class Camera_Master():
             print("Could not open handcam")  # 오류 메시지 출력
             exit()  # 종료
 
+        check_flag = False
+
         #while self.handcam.isOpened():  # 카메라가 켜졌을 때
         while True:
             if self.swap_flag == 1:  # web에서 swap cam 버튼이 눌려 flag 0 > 1 변경, 카메라 전환을 하겠다는 의미
@@ -124,8 +126,13 @@ class Camera_Master():
                     break
             
             if not ret:
-                print("Error : Camera did not captured")
+                if check_flag == False:
+                    check_flag = True
+                    print("Error : Camera did not captured")
                 continue
+            else:
+                check_flag = False
+                
             
         print("System : Terminate Handcam")
         #self.handcam.release()
