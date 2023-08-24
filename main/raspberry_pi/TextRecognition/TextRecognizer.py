@@ -101,7 +101,8 @@ class TxtRecognizer():
          assert("SYSTEM CALL::Stop Text Recognition")
       #print(photo_texts)
       #print(len(photo_texts))
-      text_result = self.detector.run_module(np.array(photo_texts))       # 리스트 내의 글자 인식하여 string 결과로 반환
+      print("type:", type(photo_texts))
+      text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
       for i in range(len(text_result)):
          if self.info.get_terminate_flag():
             self._terminate()
