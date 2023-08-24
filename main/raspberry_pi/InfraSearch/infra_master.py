@@ -101,7 +101,7 @@ class Beacon_Master:
             self.process_beacon()  # beacon data processing
             self.start_gtts()  # speaker output
         
-        self.info.remove_system("infra")
-        self.info.terminate_thread("infra")
+        self.mainInfo.remove_system("infra")
+        self.mainInfo.terminate_thread("infra")
 
         return
