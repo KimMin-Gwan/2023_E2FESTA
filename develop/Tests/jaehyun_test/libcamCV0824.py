@@ -11,32 +11,31 @@
 * JH KIM            2023.08.24		v1.00		First Write
 """
 
-import sys
-import libcamera
+import time
+import picamera
 import cv2
 import numpy as np
 
+# 카메라 초기화
+camera = picamera.PiCamera()
+
 try:
-    libcamera.start()
+    # 카메라 미리보기 시작 (선택 사항)
+    camera.start_preview()
 
-    # 카메라 초기화
-    manager = libcamera.CameraManager()
-    camera = manager.get(0)
-
-    # 카메라 해상도 설정 (선택 사항)
-    camera_configuration = camera.generate_configuration()
-    camera_configuration.at(0).size.width = 1920  # 가로 해상도 설정
-    camera_configuration.at(0).size.height = 1080  # 세로 해상도 설정
-    camera.configure(camera_configuration)
+    # 일정 시간 대기 (미리보기를 위해)
+    time.sleep(2)
 
     # 사진 찍기
-    frame = camera.capture()
+    stream = np.empty((camera.resolution[1], camera.resolution[0], 3), dtype=np.uint8)
+    camera.capture(stream, 'bgr')
 
-    # 사진을 OpenCV 형식으로 변환
-    frame_np = np.asarray(frame.planes[0].to_ndarray())
-
-    # print out image
-    cv2.imshow(frame_np)
+    # OpenCV로 사진 표시
+    cv2.imshow('Captured Image', stream)
+    cv2.waitKey(0)  # 아무 키나 누를 때까지 대기
+    cv2.destroyAllWindows()
 
 finally:
-    libcamera.stop()
+    # 카메라 리소스 해제
+    camera.stop_preview()
+    camera.close()
