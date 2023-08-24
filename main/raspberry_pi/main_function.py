@@ -81,12 +81,12 @@ class Main_Function():
 
             # if alive already, do not start this system again
             # only start since default state
-            if buttonState == SCAN and (self.infra_search_thread is None or not self.infra_search_thread.is_alive()):
+            if buttonState == SCAN and ("infra" not in self.info.get_now_system() and "textRecognizer" not in self.info.get_now_system()):
                 self.info.setButtonState(DEFAULT)  # Button state reset
                 self._infra_Search()
 
             # need to check now system alive
-            if buttonState == HAND_CAM and (self.infra_search_thread is None or not self.infra_search_thread.is_alive()):
+            if buttonState == HAND_CAM and ("infra" not in self.info.get_now_system() and "textRecognizer" not in self.info.get_now_system()):
                 self.info.setButtonState(DEFAULT)  # Button state reset
                 self._text_recognition()
 
