@@ -63,6 +63,13 @@ class Monitor:
         while(True):
             self.info_list = self.info.show_info()
             data = self.camera.get_frame_bytes()
+            info= self.info_list
+            self.button=info[0]
+            self.syslist=info[1]
+            self.thrlist=info[2]
+            self.systate=info[3]
+            self.flag=info[4]
+
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
 
@@ -87,20 +94,12 @@ class Monitor:
 
         @self.app.route('/')
         def hello_name():
-            info= self.info_list
-            button=info[0]
-            syslist=info[1]
-            thrlist=info[2]
-            systate=info[3]
-            flag=info[4]
 
-            print(button)
-            print(flag)
 
             return render_template('index.html', name1=SUB, name2=BUS, name3=TRAFT,
-                                   button=button, syslist=syslist,
-                                    thrlist=thrlist, systate=systate,
-                                    flag=flag)
+                                   button=self.button, syslist=self.syslist,
+                                    thrlist=self.thrlist, systate=self.systate,
+                                    flag=self.flag)
         
 
         
