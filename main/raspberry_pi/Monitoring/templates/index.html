@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> 
 
     <body>
@@ -64,8 +65,8 @@
                 onclick="if(!confirm('{{name3}}을(를) 선택하시겠습니까?')){return false;}"/>
         </div>
 
-        <div class="inform">
-            <div class="container5">
+        <div class="container5">
+            <div id="inform">
                 <h4>정보</h4>
                 <p>버튼 : {{ button }}</p>
                 <p>실행중인 시스템 : {{ syslist }}</p>
@@ -74,7 +75,12 @@
                 <p>종료신호 : {{ flag }}</p>
             </div>
         </div>
-
+        <scrpit>
+            function reload(){
+                $('#inform').load(window.location.href+' #inform');
+            }
+            setInterval(reload, 1000);
+        </scrpit>
     </body>
 
 </html> 
