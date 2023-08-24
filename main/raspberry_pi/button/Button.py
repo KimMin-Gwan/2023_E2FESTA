@@ -28,6 +28,7 @@ class Button:
         GPIO.setup(BEACONSCANBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(YESNOBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(HANDCAMBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(HANDCAMCAPTUREBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         self.__flag = 0
         self.__sTime = 0
         self.__eTime = 0
@@ -39,7 +40,7 @@ class Button:
         print(f"Button GPIO | infra_search : {BEACONSCANBUTTON}")
         print(f"Button GPIO | yes_button : {YESNOBUTTON}")
         print(f"Button GPIO | text_recognition : {HANDCAMBUTTON}")
-        print(f"Button GPIO | camera pick : {HANDCAMBUTTON}")
+        print(f"Button GPIO | camera pick : {HANDCAMCAPTUREBUTTON}")
         print("SYSTEM ALARM::Button Configure initiating Complete")
 
     def setLastInputTime(self):
@@ -90,7 +91,7 @@ class Button:
             self.sTime = time.time()
             return None
 
-        elif GPIO.input(HCAMCAPTUREBUTTON) == GPIO.HIGH:  # Button 4, HandCam Capture Button Input
+        elif GPIO.input(HANDCAMCAPTUREBUTTON) == GPIO.HIGH:  # Button 4, HandCam Capture Button Input
             self.info.setButtonState(HCAMCAPTURE)
             self.setLastInputTime()
             return None
