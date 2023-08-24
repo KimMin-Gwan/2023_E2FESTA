@@ -94,12 +94,15 @@ class Monitor:
 
         @self.app.route('/')
         def hello_name():
-
-
+            button=self.button
+            syslist=self.syslist
+            thrlist=self.thrlist
+            systate=self.systate
+            flag=self.flag
             return render_template('index.html', name1=SUB, name2=BUS, name3=TRAFT,
-                                   button=self.button, syslist=self.syslist,
-                                    thrlist=self.thrlist, systate=self.systate,
-                                    flag=self.flag)
+                                   button=button, syslist=syslist,
+                                    thrlist=thrlist, systate=systate,
+                                    flag=flag)
         
 
         
