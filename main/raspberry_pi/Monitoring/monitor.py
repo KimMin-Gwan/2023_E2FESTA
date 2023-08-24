@@ -87,11 +87,6 @@ class Monitor:
 
         @self.app.route('/')
         def hello_name():
-            return render_template('index.html', 
-                                   name1=SUB, name2=BUS, name3=TRAFT)
-        
-        @self.app.route('/show_inform')
-        def show_inform():
             info= self.info_list
             button=info[0]
             syslist=info[1]
@@ -102,9 +97,12 @@ class Monitor:
             print(button)
             print(flag)
 
-            return render_template('index.html',button=button, syslist=syslist,
-                               thrlist=thrlist, systate=systate,
-                               flag=flag)
+            return render_template('index.html', name1=SUB, name2=BUS, name3=TRAFT,
+                                   button=button, syslist=syslist,
+                                    thrlist=thrlist, systate=systate,
+                                    flag=flag)
+        
+
         
         @self.app.route('/exit')
         def exit_system():
