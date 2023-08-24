@@ -22,6 +22,7 @@ picam2.start()
 while True:
     im= picam2.capture_array()
     print(im)
+    print(type(im))
     cv2.imshow("Camera", im)
     if cv2.waitKey(1)==ord('q'):
         break
