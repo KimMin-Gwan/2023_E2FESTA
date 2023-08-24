@@ -76,19 +76,8 @@ class Monitor:
         def swap_video():
             # 받아오는 프레임 변경
             self.camera.swap_camera()
-
-            info= self.info_list
-            button=info[0]
-            syslist=info[1]
-            thrlist=info[2]
-            systate=info[3]
-            flag=info[4]
-
             return render_template('index.html', 
-                                   name1=SUB, name2=BUS, name3=TRAFT,
-                                    button=button, syslist=syslist,
-                               thrlist=thrlist, systate=systate,
-                               flag=flag)
+                                   name1=SUB, name2=BUS, name3=TRAFT)
         
         @self.app.route('/video_show')
         def video_show():
@@ -98,9 +87,17 @@ class Monitor:
 
         @self.app.route('/')
         def hello_name():
-        
+            info= self.info_list
+            button=info[0]
+            syslist=info[1]
+            thrlist=info[2]
+            systate=info[3]
+            flag=info[4]
             return render_template('index.html', 
-                                   name1=SUB, name2=BUS, name3=TRAFT)
+                                   name1=SUB, name2=BUS, name3=TRAFT,
+                                   button=button, syslist=syslist,
+                               thrlist=thrlist, systate=systate,
+                               flag=flag)
         
         @self.app.route('/show_inform')
         def show_inform():
