@@ -20,18 +20,26 @@ from flask import send_file # 인프라 서치에서 한국어 반환 위해
 import cv2, io # 핸드카메라&스냅샷 위해
 from Monitoring import SUB,BUS,TRAFT
 import numpy as np
-import Camera
+import Camera.camera_master
 #import pyrealsense2.pyrealsense2 as rs
+import naviUtils.class_Information
 
 class Monitor:
-    def __init__(self, info = None):
+    def __init__(self,info=None):
         self.app=Flask(__name__)
-        self.info = info
         self.app.config['JSON_AS_ASCII'] = False
         self.streaming=True
         self.stop_frame=None
+
+        self.info=info
+        # self.info_list=self.info.show_info()
+        
         self.route()
     
+
+  
+
+
     def hand_cam(self):
         camera=cv2.VideoCapture(1,cv2.CAP_DSHOW)
          # 0번캠(현재 내 카메라)
@@ -54,6 +62,8 @@ class Monitor:
     # 위의 hand_cam과 동일한 역할
     def get_frame(self):
         while(True):
+            self.info_list = self.info.show_info()
+           
             data = self.camera.get_frame_bytes()
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
@@ -81,13 +91,22 @@ class Monitor:
         def hello_name():
             return render_template('index.html', 
                                    name1=SUB, name2=BUS, name3=TRAFT)
+        
+        @self.app.route('/show_inform')
+        def show_inform(self):
+            info=self.info_list
+            button=info[0]
+            syslist=info[1]
+            thrlist=info[2]
+            systate=info[3]
+            flag=info[4]
+            return render_template('index.html',button=button, syslist=syslist,
+                               thrlist=thrlist, systate=systate,
+                               flag=flag)
 
     def start_monitor(self, camera):
         # 카메라 객체 생성
         self.camera = camera
         self.app.run(host="0.0.0.0", port="7777")
 
-if __name__=="__main__":
-    camera = Camera.Camera_Master()
-    monitor=Monitor()
-    monitor.start_monitor(camera=camera)
+

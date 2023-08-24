@@ -63,6 +63,18 @@
             <input class='name3' type="submit" value="{{name3}}" 
                 onclick="if(!confirm('{{name3}}을(를) 선택하시겠습니까?')){return false;}"/>
         </div>
+
+        <div class="inform">
+            <div class="container5">
+                <h4>정보</h4>
+                <p>버튼 : {{ button }}</p>
+                <p>실행중인 시스템 : {{ syslist }}</p>
+                <p>스레드 : {{ thrlist }}</p>
+                <p>시스템 상태 : {{ systate }}</p>
+                <p>종료신호 : {{ flag }}</p>
+            </div>
+        </div>
+
     </body>
 
 </html> 

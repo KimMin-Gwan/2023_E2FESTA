@@ -29,6 +29,12 @@ class Information:
         self.now_thread = []  # 실행중인 스레드 목록
         self.terminate_flag = False
 
+    def show_info(self):
+        self.info_list=[self.getButtonState(),self.get_now_system(),
+                       self.get_now_thread(),self.getSystemState(),
+                       self.get_terminate_flag()]
+        return self.info_list
+
     def getButtonState(self):  # Button state accessor
         return self.__buttonState
     
