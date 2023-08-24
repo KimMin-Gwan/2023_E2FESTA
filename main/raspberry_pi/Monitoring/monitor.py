@@ -103,7 +103,7 @@ class Monitor:
                                flag=flag)
         
         @self.app.route('/exit')
-        def hello_name():
+        def exit_system():
             self.info.terminate_all()
             time.sleep(5)
             exit()
