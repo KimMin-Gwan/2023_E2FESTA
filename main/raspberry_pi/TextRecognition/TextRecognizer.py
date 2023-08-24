@@ -108,7 +108,7 @@ class TxtRecognizer():
             return
          photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
       print("=========================================")
-      print(type(photo_texts))
+      #print(type(photo_texts))
 
       if self.info.get_terminate_flag():
          self._terminate()
