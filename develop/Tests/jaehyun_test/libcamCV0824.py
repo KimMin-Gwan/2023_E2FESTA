@@ -11,31 +11,27 @@
 * JH KIM            2023.08.24		v1.00		First Write
 """
 
-import time
-import picamera
 import cv2
-import numpy as np
 
-# 카메라 초기화
-camera = picamera.PiCamera()
+from picamera2 import Picamera2
 
-try:
-    # 카메라 미리보기 시작 (선택 사항)
-    camera.start_preview()
+# Grab images as numpy arrays and leave everything else to OpenCV.
 
-    # 일정 시간 대기 (미리보기를 위해)
-    time.sleep(2)
+face_detector = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
+cv2.startWindowThread()
 
-    # 사진 찍기
-    stream = np.empty((camera.resolution[1], camera.resolution[0], 3), dtype=np.uint8)
-    camera.capture(stream, 'bgr')
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
 
-    # OpenCV로 사진 표시
-    cv2.imshow('Captured Image', stream)
-    cv2.waitKey(0)  # 아무 키나 누를 때까지 대기
-    cv2.destroyAllWindows()
+while True:
+    im = picam2.capture_array()
 
-finally:
-    # 카메라 리소스 해제
-    camera.stop_preview()
-    camera.close()
+    grey = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+    faces = face_detector.detectMultiScale(grey, 1.1, 5)
+
+    for (x, y, w, h) in faces:
+        cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0))
+
+    cv2.imshow("Camera", im)
+    cv2.waitKey(1)
