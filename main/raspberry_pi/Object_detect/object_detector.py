@@ -22,7 +22,12 @@ class Object_detector():
     
     def __object_detection(self):
         # 해석기 세팅
-        self.tool.set_interpreter()
+        if EDGETPU == True:
+            self.tool.set_interpreter_tpu()  # edge TPU
+        else:
+            self.tool.set_interpreter()  # normal
+
+
         # 라벨 세팅
 
         #반복되는 핵심 와일문

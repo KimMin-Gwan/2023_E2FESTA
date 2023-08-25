@@ -1,7 +1,9 @@
 from typing import Any
 import numpy as np
-from Object_detect.constant import PATH_TO_MODEL, PATH_TO_LABEL, INPUT_MEAN, INPUT_STD, MIN_CONF_THRESHOLD 
+from Object_detect.constant import *
 from tensorflow.lite.python.interpreter import Interpreter
+import tflite_runtime.interpreter as tflite
+import os
 
 class Tools:
     # 생성자
@@ -15,6 +17,18 @@ class Tools:
     # 해석기 생성
     def set_interpreter(self, model_path = PATH_TO_MODEL):
         self.interpreter = Interpreter(model_path=model_path)
+        self.interpreter.allocate_tensors()
+        self.__make_details()
+        return
+    
+    def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = MODEL):
+        model_path=os.path.join(model_path, model)
+        model_path, *device = model_path.split('@')
+        self.interpreter = tflite.Interpreter(model_path=model_path,
+                                experimental_delegates=[
+                                    tflite.load_delegate(EDGETPU_SHARED_LIB,
+                                    {'device': device[0]} if device else {}) #edeTPU 데이터 디바이스에서 받아옴
+        ])
         self.interpreter.allocate_tensors()
         self.__make_details()
         return

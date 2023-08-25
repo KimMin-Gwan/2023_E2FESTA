@@ -121,5 +121,6 @@ class TxtRecognizer():
       for arg in text_result:
          self.speaker.tts_read(arg)                             # string 형태로 받아온 글자 speaker로 읽어주기
       print("SYSTEM ALARM:: text recognition is operating completly ")
+      self.camera.swap_camera()
       self.info.remove_system("textRecognizer")
       self.info.terminate_thread("textRecognizer")
