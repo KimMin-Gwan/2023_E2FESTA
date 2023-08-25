@@ -25,14 +25,14 @@ import requests
 
 
 class Beacon_Master:
-    def __init__(self, Speaker, mainInfo) -> None:
+    def __init__(self, speaker, mainInfo) -> None:
         self.receive = ReceiveSignal(scanner, duration)
         self.process = 0
         self.information = {}
         self.key = ""
         self.flag = ""
         self.data = ""
-        self.speaker = Speaker
+        self.speaker = speaker
         self.mainInfo = mainInfo
 
     def scanDataConvertToText(self):

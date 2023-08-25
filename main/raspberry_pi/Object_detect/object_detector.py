@@ -8,13 +8,13 @@ from threading import Thread
 
 
 class Object_detector():
-    def __init__(self, camera, info = None):
+    def __init__(self, camera, info = None, speaker = None):
         self.info = info  # 현재 상탱 확인
         self.camera = camera # 카메라 정보 
         self.status = 0 # 0 : 정지, 1 : 동작, 2 : 일시정지
         self.pause_flag = False
 
-        self.cp = Collision_Preventer()
+        self.cp = Collision_Preventer(speaker)
         self.tool = Tools()
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())

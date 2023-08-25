@@ -81,7 +81,8 @@ class Tools:
 
 
 class Collision_Preventer:
-    def __init__(self):
+    def __init__(self, speaker):
+        self.speaker = speaker
         pass
 
     def check_object(self, bbox):
@@ -89,6 +90,9 @@ class Collision_Preventer:
         x = bbox['xmin'] + (bbox['xmax'] - bbox['xmin'])
         return x, y
 
+    def warning_sound(self, label):
+
+        
 
 
 
