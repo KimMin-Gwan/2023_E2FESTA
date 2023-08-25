@@ -3,7 +3,7 @@
 import platform
 
 PATH_TO_MODEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/Object_detect/model/"
-MODEL = "mobile_SSD_v2_320x320_kr_ob.tflite"
+MODEL = "mobile_SSD_v2_320x320_kr_ob_edgetpu.tflite"
 PATH_TO_LABEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/Object_detect/model/labelmap.txt"
 
 EDGETPU = True

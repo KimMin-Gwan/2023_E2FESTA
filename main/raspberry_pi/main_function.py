@@ -18,7 +18,7 @@ class Main_Function():
         self.button = button.Button(info=self.info)  # 버튼
         self.camera = Camera.Camera_Master(info=self.info) # 카메라
         self.speaker = Speaker.SpeakMaster(info=self.info) # 스피커
-        self.infra = InfraSearch.Beacon_Master(speaker=self.speaker, info=self.info)  # 인프라 서치
+        self.infra = InfraSearch.Beacon_Master(speaker=self.speaker, mainInfo=self.info)  # 인프라 서치
         self.object_detect = Object_detect.Object_detector(info=self.info, camera=self.camera, speaker=self.speaker) # 객체 탐지
         self.txt_recog = TextRecognition.TxtRecognizer(info=self.info, camera=self.camera, speaker=self.speaker) # OCR
         print("SYSTEM ALARM::Initializing Successfully Finishied")
