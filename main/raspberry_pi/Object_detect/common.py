@@ -90,7 +90,14 @@ class Collision_Preventer:
         x = bbox['xmin'] + (bbox['xmax'] - bbox['xmin'])
         return x, y
 
-    def warning_sound(self, label):
+    def check_depth(self, depth, classes):
+        if depth < 100:
+            self.warning_vib()
+        return
+
+
+    def warning_vib(self):
+        return
 
         
 
