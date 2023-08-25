@@ -16,7 +16,7 @@ class Tools:
     
     # 해석기 생성
     def set_interpreter(self, model_path = PATH_TO_MODEL, model = MODEL):
-        self.interpreter = Interpreter(model_path=model_path)
+        self.interpreter = Interpreter(model_path=model_path+model)
         self.interpreter.allocate_tensors()
         self.__make_details()
         return
