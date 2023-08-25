@@ -91,6 +91,9 @@ class TxtRecognizer():
          return_data = requests.post(URL, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
          photo_texts = return_data.json()['frame']
+         for i in range(len(photo_texts)):
+             photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
+             photo_texts[i]=photo_texts[i].convert("RGBA")   
          if self.info.get_terminate_flag():
             self._terminate()
             return
@@ -99,17 +102,17 @@ class TxtRecognizer():
          print("ERROR CODE : ", e)
          self.info.therminate_thread("TextRecognizer")
          assert("SYSTEM CALL::Stop Text Recognition")
-      #print(photo_texts)
-      #print(len(photo_texts))
-      print("type:", type(photo_texts))
+      for i in range(len(photo_texts)):
+          photo_texts[i]=photo_texts[i].convert('L')
+
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
       for i in range(len(text_result)):
          if self.info.get_terminate_flag():
             self._terminate()
             return
-         photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
+      #   photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
       print("=========================================")
-      #print(type(photo_texts))
+      #print(type(photo_texts[0]))
 
       if self.info.get_terminate_flag():
          self._terminate()
