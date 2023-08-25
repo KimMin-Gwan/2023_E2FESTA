@@ -62,6 +62,5 @@ OUTPUT_CHANNEL = 512            #'the number of output channel of Feature extrac
 HIDDEN_SIZE = 256               #'the size of the LSTM hidden state'
 
 SYS_STATE_HANDCAM = 4
-#URL = "http://127.0.0.1:8080/easy_ocr"
-#URL = "http://165.229.86.74:8080/easy_ocr"
-URL = "http://165.229.185.195:8080/easy_ocr"
+URL = "http://165.229.86.75:8080/easy_ocr"
+
