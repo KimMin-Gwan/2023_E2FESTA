@@ -80,6 +80,10 @@ class ResizeNormalize(object):
 
     def __call__(self, img):
         img = np.array(img)
+        print("============================")
+        print(type(self.size))
+        print("=============================")
+        print(type(self.interpolation))
         img = img.resize(self.size, self.interpolation)
         img = self.toTensor(img)
         img.sub_(0.5).div_(0.5)
