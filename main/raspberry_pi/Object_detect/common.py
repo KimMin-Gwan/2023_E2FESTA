@@ -15,13 +15,13 @@ class Tools:
         print('labels : ', self.labels)
     
     # 해석기 생성
-    def set_interpreter(self, model_path = PATH_TO_MODEL):
+    def set_interpreter(self, model_path = PATH_TO_MODEL, model = MODEL):
         self.interpreter = Interpreter(model_path=model_path)
         self.interpreter.allocate_tensors()
         self.__make_details()
         return
     
-    def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = MODEL):
+    def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = TPU_MODEL):
         model_path=os.path.join(model_path, model)
         model_path, *device = model_path.split('@')
         self.interpreter = tflite.Interpreter(model_path=model_path,
