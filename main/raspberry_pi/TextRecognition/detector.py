@@ -141,7 +141,7 @@ class Detector():
         #print("11111111")
         self.text = []
         self.text = self.demo(image_list)
-        
+        print("self.text====",self.text)
         return self.text
         
 #if __name__ == '__main__':

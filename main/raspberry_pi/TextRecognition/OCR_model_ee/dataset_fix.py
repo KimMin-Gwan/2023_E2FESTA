@@ -85,7 +85,9 @@ class ResizeNormalize(object):
         print("=============================")
         print(self.interpolation)
         print(type(self.interpolation))
-        
+        print(type(img))
+        print("=========================")
+        print(img) 
         img = img.resize(self.size, self.interpolation)
         img = self.toTensor(img)
         img.sub_(0.5).div_(0.5)
