@@ -28,9 +28,10 @@ class Tools:
         print(device[0])
         self.interpreter = tflite.Interpreter(model_path=model_path,
                                 experimental_delegates=[
-                                    tflite.load_delegate(EDGETPU_SHARED_LIB,
-                                    {'device': device[0]} if device else {}) #edeTPU 데이터 디바이스에서 받아옴
+                                    tflite.load_delegate(EDGETPU_SHARED_LIB
+                                    ) #edeTPU 데이터 디바이스에서 받아옴
         ])
+        #{'device': device[0]} if device else {}
         self.interpreter.allocate_tensors()
         self.__make_details()
         return
