@@ -5,6 +5,7 @@ from Object_detect.utils import *
 import cv2
 import numpy as np
 from threading import Thread
+import time
 
 
 class Object_detector():
@@ -29,9 +30,10 @@ class Object_detector():
 
 
         # 라벨 세팅
-
+        fps = 1
         #반복되는 핵심 와일문
         while True:
+            start_time = time.time()
             # 일시정지 상태
             if self.camera.get_status() == 'hand':
                 continue
@@ -53,12 +55,16 @@ class Object_detector():
                 depth = self.camera.get_depth(x, y)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
                 self.image_manager.depth_draw(x, y, depth)
-
+            fps = round(1.0/(time.time() - start_time), 1)
+            text = 'FPS : {}'.format(fps)
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
+            bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
+
         self.info.remove_system("object_detection")
         self.info.terminate_thread("object_detection")
+        return
 
         
     # 실행기
