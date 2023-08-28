@@ -24,8 +24,6 @@ class Tools:
     def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = TPU_MODEL):
         model_path=os.path.join(model_path, model)
         model_path, *device = model_path.split('@')
-        print(device)
-        print(device[0])
         self.interpreter = tflite.Interpreter(model_path=model_path,
                                 experimental_delegates=[
                                     tflite.load_delegate(EDGETPU_SHARED_LIB
