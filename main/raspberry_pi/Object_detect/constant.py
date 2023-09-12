@@ -19,6 +19,9 @@ EDGETPU_SHARED_LIB = {
   'Windows': "edgetpu.dll"
 }[platform.system()]
 
+DIST_THRESHOLD = 2000
+WARN_THRESHOLD = 1500
+DANG_THRESHOLD = 1000
+STOP_THRESHOLD = 500
 
-
-
+VIB_PIN = 17
