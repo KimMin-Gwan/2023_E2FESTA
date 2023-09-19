@@ -2,7 +2,7 @@
 import cv2
 import socket
 import numpy as np
-from TCP_connect.constants import *
+from Socket_Server.constants import *
 
 class TCP_connector():
     def __init__(self, info):

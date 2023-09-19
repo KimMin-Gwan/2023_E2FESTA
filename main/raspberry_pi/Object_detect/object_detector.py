@@ -3,7 +3,7 @@ from Object_detect.common import *
 from Object_detect.constant import *
 from Object_detect.utils import *
 from Object_detect.vib_model import *
-from TCP_connect import TCP_connector
+from Socket_Server import UDP_connector
 import cv2
 import numpy as np
 from threading import Thread
@@ -16,7 +16,8 @@ class Object_detector():
         self.camera = camera # 카메라 정보 
         self.status = 0 # 0 : 정지, 1 : 동작, 2 : 일시정지
         self.pause_flag = False
-        self.tcp_connector = TCP_connector(info=info)
+        #self.tcp_connector = TCP_connector(info=info)
+        self.udp_connector = UDP_connector(info=info)
         self.cp = Collision_Preventer(speaker)
         self.tool = Tools()
         self.vib = Vibrater()
@@ -34,7 +35,7 @@ class Object_detector():
             self.tool.set_interpreter()  # normal
 
         tcp_status = [False]
-        tcp_thread = Thread(target=self.tcp_connector.client_sock,
+        tcp_thread = Thread(target=self.udp_connector.client_sock,
                             arg=(tcp_status,))
         tcp_thread.start()
 
@@ -55,14 +56,15 @@ class Object_detector():
             frame = self.camera.get_webcam_frame()
             #  서버에 연결 되어있다면  서버에서 연산
             if tcp_status[0]:
-                self.tcp_connector.send(frame)
-                result = self.tcp_connector.get()
+                self.udp_connector.send(frame)
+                boxes, scores, classes, width, height = self.udp_connector.recive()
                 # result = (boxex, scores, classes, width, height)
-                boxes = result[0]
-                result = result[1]
-                classes = result[2]
-                width = result[3]
-                height = result[4]
+                #boxes = result[0]
+                #scores = result[1]
+                #classes = result[2]
+                #width = result[3]
+                #height = result[4]
+
 
             #   서버  연결에  실패했다면  그냥 연산
             else:

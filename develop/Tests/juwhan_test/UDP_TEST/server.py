@@ -28,6 +28,9 @@ while True:
         cv2.imshow("frame", frame)
         out.write(frame)
 
+        message = "hello_client"
+        sock.sendto(message.encode(), addr)
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
