@@ -12,6 +12,7 @@
 * MG KIM            2023.08.22		v1.10		Change Details
 """
 import threading
+from naviUtils.constant import *
 
 # button state has four different state
 # buttonState | -1   |  Default
@@ -28,6 +29,9 @@ class Information:
         self.now_system = []  # 실행중인 시스템 목록
         self.now_thread = []  # 실행중인 스레드 목록
         self.terminate_flag = False
+        self.ip = SERVER_IP
+        self.port = SERVER_PORT
+        self.tcp_port = TCP_PORT
 
     def show_info(self):
         self.info_list=[self.getButtonState(),self.get_now_system(),
@@ -104,8 +108,14 @@ class Information:
         self.terminate_flag = True
         return
 
+    def get_IP(self):
+        return self.ip
         
+    def get_PORT(self):
+        return self.port
 
+    def get_tcp_PORT(self):
+        return self.tcp_port
 
 
 

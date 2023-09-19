@@ -4,13 +4,13 @@ from Object_detect.constant import *
 import time
 import numpy as np
 
-class vib:
+class Vibrater:
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(VIB_PIN, GPIO.OUT)
 
         # 진동 사이클
-        self.cycle = 2 #초
+        self.cycle = VIB_CYCLE #초
 
     # 제공된 거리들중 가장 작은 값을 확인
     def __find_min_dist(self, distances):
@@ -19,7 +19,7 @@ class vib:
         return dist
     
     # 진동 사이클 제공
-    def give_vib_feedback(self, distances):
+    def give_vib_feedback(self, distances = [DIST_THRESHOLD+1]):
         while(True):
             # 최소거리에 바탕이된 진동 피드백 제공
             distance = self.__find_min_dist(distnaces=distances)
@@ -30,7 +30,7 @@ class vib:
                 GIPO.output(VIB_PIN, True)
                 time.sleep(self.cycle)
             else:
-                self.cycle = 2
+                self.cycle = VIB_CYCLE
             
     # 진동 사이클 지정
     def __check_distance(self, distance):
