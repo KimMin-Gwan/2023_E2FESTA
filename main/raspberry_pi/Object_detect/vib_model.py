@@ -13,7 +13,7 @@ class Vibrater:
         self.cycle = VIB_CYCLE #초
 
     # 제공된 거리들중 가장 작은 값을 확인
-    def __find_min_dist(self, distances):
+    def __find_min_dist(self, distances=[DIST_THRESHOLD+1]):
         distances = np.array(distances)
         dist = np.min(distances)
         return dist
