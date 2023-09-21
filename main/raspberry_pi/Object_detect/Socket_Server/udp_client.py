@@ -26,7 +26,7 @@ class UDP_connector():
                                 (self.IP, self.PORT))
             except Exception as e:
                 print(f"EROOR in line 26 : {e}")
-                self.info.terminate_all()
+                #self.info.terminate_all()
                 
         return
     
