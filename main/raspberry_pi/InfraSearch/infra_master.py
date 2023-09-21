@@ -26,7 +26,7 @@ import requests
 
 class Beacon_Master:
     def __init__(self, speaker, mainInfo) -> None:
-        self.receive = ReceiveSignal(scanner, duration)
+        self.receive = ReceiveSignal(scanner, 3)
         self.process = 0
         self.information = {}
         self.key = ""
