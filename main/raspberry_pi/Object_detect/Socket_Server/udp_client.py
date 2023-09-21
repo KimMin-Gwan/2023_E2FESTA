@@ -2,7 +2,7 @@
 import cv2
 import socket
 import numpy as np
-from Socket_Server.constants import *
+from Object_detect.Socket_Server.constants import *
 import pickle
 
 class UDP_connector():
