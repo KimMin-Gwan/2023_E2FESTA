@@ -44,10 +44,17 @@ class TxtRecognizer():
    
    # Run Recognition
    def runRecognition(self):
-      self.info.add_thread("TextRecognizer")
+      self.info.add_system("textRecognizer")
+      self.info.add_thread("textRecognizer")
       thread = Thread(target=self.__textRecognition)
       thread.start()
       return
+   
+   def _terminate(self):
+      self.info.remove_system("textRecognizer")
+      self.info.terminate_thread("textRecognizer")
+      return
+
       
    # text recognition syste
    def __textRecognition(self):
@@ -65,6 +72,9 @@ class TxtRecognizer():
             photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
             break
 
+         if self.info.get_terminate_flag():
+            self._terminate()
+            return
          """
          time.sleep(1)
          count += 1
@@ -81,20 +91,36 @@ class TxtRecognizer():
          return_data = requests.post(URL, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
          photo_texts = return_data.json()['frame']
+         for i in range(len(photo_texts)):
+             photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
+             photo_texts[i]=photo_texts[i].convert("RGBA")   
+         if self.info.get_terminate_flag():
+            self._terminate()
+            return
       except Exception as e:
          print("ERROR : Server Error")
          print("ERROR CODE : ", e)
          self.info.therminate_thread("TextRecognizer")
          assert("SYSTEM CALL::Stop Text Recognition")
-      #print(photo_texts)
-      #print(len(photo_texts))
       for i in range(len(photo_texts)):
-         photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
-      print("=========================================")
-      print(type(photo_texts))
+          photo_texts[i]=photo_texts[i].convert('L')
+
       text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
-      
+      for i in range(len(text_result)):
+         if self.info.get_terminate_flag():
+            self._terminate()
+            return
+      #   photo_texts[i] = Image.fromarray(np.uint8(photo_texts[i])).convert('L')
+      print("=========================================")
+      #print(type(photo_texts[0]))
+
+      if self.info.get_terminate_flag():
+         self._terminate()
+         return
+
       for arg in text_result:
          self.speaker.tts_read(arg)                             # string 형태로 받아온 글자 speaker로 읽어주기
-      print("SYSTEM ALARM:: text recognition is operating normally")
-      self.info.terminate_thread("TextRecognizer")
+      print("SYSTEM ALARM:: text recognition is operating completly ")
+      self.camera.swap_camera()
+      self.info.remove_system("textRecognizer")
+      self.info.terminate_thread("textRecognizer")

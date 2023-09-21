@@ -81,7 +81,7 @@ class Server:
                 #     photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
                 #print(photo_texts)
                 return_data = {'frame':photo_texts}
-                print("len : ", photo_texts)
+                #print("len : ", photo_texts)
             except Exception as e:
                 print("ERROR : Easy OCR did not work !!!")
                 print("ERROR CODE : ", e)
@@ -89,12 +89,12 @@ class Server:
             return return_data
 
         
-    def strat_server(self):
+    def start_server(self):
         self.app.run(host="0.0.0.0", port="8080")
 
 
 if __name__=="__main__":
     server=Server()
-    server.strat_server()
+    server.start_server()
 
     

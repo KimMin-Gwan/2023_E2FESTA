@@ -25,14 +25,14 @@ import requests
 
 
 class Beacon_Master:
-    def __init__(self, Speaker, mainInfo) -> None:
+    def __init__(self, speaker, mainInfo) -> None:
         self.receive = ReceiveSignal(scanner, duration)
         self.process = 0
         self.information = {}
         self.key = ""
         self.flag = ""
         self.data = ""
-        self.speaker = Speaker
+        self.speaker = speaker
         self.mainInfo = mainInfo
 
     def scanDataConvertToText(self):
@@ -85,7 +85,7 @@ class Beacon_Master:
         return exitCode
 
     def connect_data_base(self):
-        url = 'http://43.201.213.223:8080/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
+        url = 'http://'+self.mainInfo.get_IP()+':'+self.mainInfo.get_PORT()+'/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
         self.data = response.text + self.data
 
@@ -100,4 +100,8 @@ class Beacon_Master:
         if (state == True):  # beacon scan success
             self.process_beacon()  # beacon data processing
             self.start_gtts()  # speaker output
+        
+        self.mainInfo.remove_system("infra")
+        self.mainInfo.terminate_thread("infra")
+
         return

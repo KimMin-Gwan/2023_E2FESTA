@@ -1,7 +1,9 @@
 from typing import Any
 import numpy as np
-from Object_detect.constant import PATH_TO_MODEL, PATH_TO_LABEL, INPUT_MEAN, INPUT_STD, MIN_CONF_THRESHOLD 
+from Object_detect.constant import *
 from tensorflow.lite.python.interpreter import Interpreter
+import tflite_runtime.interpreter as tflite
+import os
 
 class Tools:
     # 생성자
@@ -13,8 +15,21 @@ class Tools:
         print('labels : ', self.labels)
     
     # 해석기 생성
-    def set_interpreter(self, model_path = PATH_TO_MODEL):
-        self.interpreter = Interpreter(model_path=model_path)
+    def set_interpreter(self, model_path = PATH_TO_MODEL, model = MODEL):
+        self.interpreter = Interpreter(model_path=model_path+model)
+        self.interpreter.allocate_tensors()
+        self.__make_details()
+        return
+    
+    def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = TPU_MODEL):
+        model_path=os.path.join(model_path, model)
+        model_path, *device = model_path.split('@')
+        self.interpreter = tflite.Interpreter(model_path=model_path,
+                                experimental_delegates=[
+                                    tflite.load_delegate(EDGETPU_SHARED_LIB
+                                    ) #edeTPU 데이터 디바이스에서 받아옴
+        ])
+        #{'device': device[0]} if device else {}
         self.interpreter.allocate_tensors()
         self.__make_details()
         return
@@ -81,7 +96,8 @@ class Tools:
 
 
 class Collision_Preventer:
-    def __init__(self):
+    def __init__(self, speaker):
+        self.speaker = speaker
         pass
 
     def check_object(self, bbox):
@@ -89,6 +105,16 @@ class Collision_Preventer:
         x = bbox['xmin'] + (bbox['xmax'] - bbox['xmin'])
         return x, y
 
+    def check_depth(self, depth, classes):
+        if depth < 100:
+            self.warning_vib()
+        return
+
+
+    def warning_vib(self):
+        return
+
+        
 
 
 

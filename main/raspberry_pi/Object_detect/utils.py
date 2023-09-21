@@ -4,7 +4,7 @@ import numpy as np
 
 class Bbox_maker:
     def __init__(self, labels):
-        print("bbox maker ready")
+        #print("bbox maker ready")
         self.labels = labels
     
     # bbox making

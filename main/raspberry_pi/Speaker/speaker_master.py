@@ -28,7 +28,6 @@ class SpeakMaster:
         self.info = info
         self.exitCode = 0
 
-
     def tts_read(self, str):  # Speaker Output
         self.cs.acquire()
         self.exitCode = 0
@@ -53,6 +52,8 @@ class SpeakMaster:
         pygame.mixer.music.stop()
         self.info.setButtonState(-1)
         self.cs.release()
+        self.info.remove_system("speaker")
+        self.info.terminate_thread("speaker")
         return self.exitCode
 
 
