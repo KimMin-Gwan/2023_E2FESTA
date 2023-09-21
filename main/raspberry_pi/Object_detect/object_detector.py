@@ -34,10 +34,13 @@ class Object_detector():
         else:
             self.tool.set_interpreter()  # normal
 
-        tcp_status = [False]
-        tcp_thread = Thread(target=self.udp_connector.client_sock,
-                            arg=(tcp_status,))
-        tcp_thread.start()
+        socket_status = [False]
+        #tcp_thread = Thread(target=self.udp_connector.client_sock,
+                            #arg=(tcp_status,))
+        #tcp_thread.start()
+        udp_thread = Thread(target=self.udp_connector.client_sock, 
+                            args=(socket_status,))
+        udp_thread.start()
 
         # 라벨 세팅
         distance = []
@@ -55,7 +58,7 @@ class Object_detector():
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
             #  서버에 연결 되어있다면  서버에서 연산
-            if tcp_status[0]:
+            if socket_status[0]:
                 self.udp_connector.send(frame)
                 boxes, scores, classes, width, height = self.udp_connector.recive()
                 # result = (boxex, scores, classes, width, height)
