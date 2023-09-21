@@ -28,6 +28,7 @@ class Button:
         GPIO.setup(beaconScanButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(yesNoButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(handCamButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(CaptureButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         self.__flag = 0
         self.__sTime = 0
         self.__eTime = 0
