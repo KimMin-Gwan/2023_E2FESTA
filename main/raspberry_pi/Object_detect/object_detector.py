@@ -59,7 +59,6 @@ class Object_detector():
 
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
-            print(frame)
             #  서버에 연결 되어있다면  서버에서 연산
             if socket_status[0]:
                 if self.udp_connector.send(frame):

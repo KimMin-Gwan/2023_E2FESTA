@@ -85,7 +85,8 @@ class TxtRecognizer():
             break
          """
 
-      print('type : ', type(photo_frame))
+      #print('type : ', type(photo_frame))
+      print("SYSTEM ALARM::SNAP SHOT BUTTON ACTIVATE")
       data = {'frame':photo_frame.tolist()}
       try:
          return_data = requests.post(URL, json = data)
