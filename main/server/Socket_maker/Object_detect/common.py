@@ -1,7 +1,7 @@
 from typing import Any
 import numpy as np
 from Socket_maker.Object_detect.constant import *
-from tensorflow.lite.python.interpreter import Interprete
+from tensorflow.lite.python.interpreter import Interpreter
 #import tflite_runtime.interpreter as tflite
 import os
 
