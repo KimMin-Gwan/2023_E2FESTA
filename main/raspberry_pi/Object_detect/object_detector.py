@@ -60,8 +60,10 @@ class Object_detector():
             print(frame)
             #  서버에 연결 되어있다면  서버에서 연산
             if socket_status[0]:
-                self.udp_connector.send(frame)
-                boxes, scores, classes, width, height = self.udp_connector.recive()
+                if self.udp_connector.send(frame):
+                    boxes, scores, classes, width, height = self.udp_connector.recive()
+                else:
+                    continue
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]

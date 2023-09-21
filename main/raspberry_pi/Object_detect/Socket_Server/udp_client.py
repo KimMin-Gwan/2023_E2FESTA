@@ -27,8 +27,9 @@ class UDP_connector():
             except Exception as e:
                 print(f"EROOR in line 26 : {e}")
                 #self.info.terminate_all()
+                return False
                 
-        return
+        return True
     
     def recive(self):
         data, _ = self.sock.recvfrom(46081)
