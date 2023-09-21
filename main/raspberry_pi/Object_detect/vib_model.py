@@ -6,7 +6,7 @@ import numpy as np
 
 class Vibrater:
     def __init__(self):
-        GPIO.setmode(GPIO.BCM)
+        #GPIO.setmode(GPIO.BCM)
         GPIO.setup(VIB_PIN, GPIO.OUT)
 
         # 진동 사이클
