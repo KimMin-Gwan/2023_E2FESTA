@@ -61,10 +61,9 @@ class Object_detector():
             frame = self.camera.get_webcam_frame()
             #  서버에 연결 되어있다면  서버에서 연산
             if socket_status[0]:
-                if self.udp_connector.send(frame):
+                sock_result =  self.udp_connector.send(frame)
+                if sock_result:
                     boxes, scores, classes, width, height = self.udp_connector.recive()
-                else:
-                    continue
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]
@@ -80,7 +79,6 @@ class Object_detector():
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 
                 # output을 바탕으로 사용가능한 bbox인지 체크 및 그리기
-
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
                 if bbox['ymin'] == 0 and bbox['ymax'] == 0:
@@ -96,7 +94,10 @@ class Object_detector():
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
-            self.camera.set_object_frame(bboxed_frame)
+            if sock_result:
+                self.camera.set_object_frame(bboxed_frame)
+            else:
+                self.camera.set_object_frame(frame)
             distance.clear()
 
         self.info.remove_system("object_detection")
