@@ -1,7 +1,7 @@
 import socket
 import cv2
 import numpy as np
-from Object_detect import Object_detector
+from Socket_maker.Object_detect import Object_detector
 from threading import Thread
 from Socket_maker.constants import * 
 import pickle

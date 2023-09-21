@@ -3,7 +3,7 @@ from Object_detect.common import *
 from Object_detect.constant import *
 from Object_detect.utils import *
 from Object_detect.vib_model import *
-from Socket_Server import UDP_connector
+from Object_detect.Socket_Server import UDP_connector
 import cv2
 import numpy as np
 from threading import Thread

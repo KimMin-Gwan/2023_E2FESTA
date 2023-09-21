@@ -1,11 +1,10 @@
 #PATH_TO_MODEL='D:/2023_E2FESTA/main/raspberry_pi/object_detect/model/mobile_SSD_v2_320x320_kr_ob.tflite'   # Path to .tflite model file
 #PATH_TO_LABEL='D:/2023_E2FESTA/main/raspberry_pi/object_detect/model/labelmap.txt'   # Path to labelmap.txt file
 import platform
-
-PATH_TO_MODEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/Object_detect/model/"
+PATH_TO_MODEL = "C:/Users/antl/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model/"
 MODEL = "mobile_SSD_v2_320x320_kr_ob.tflite"
 TPU_MODEL = "mobile_SSD_v2_320x320_kr_ob_edgetpu.tflite"
-PATH_TO_LABEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/Object_detect/model/labelmap.txt"
+PATH_TO_LABEL = "C:/Users/antl/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model/labelmap.txt"
 
 EDGETPU = False
 

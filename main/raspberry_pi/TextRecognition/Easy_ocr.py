@@ -13,7 +13,6 @@ import pickle
 import torch
 class Easy_ocr:
     def __init__(self):   #생성자
-        print("dasfsd")
         self.one_frame=""  #받아올 프레임
         self.frame_list=[]  #전달할 img_list frame
         self.reader=""  # easy_ocr model

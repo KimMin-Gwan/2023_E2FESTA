@@ -18,16 +18,21 @@
 from typing import Any
 from flask import Flask, request
 import numpy as np
-from Easy_ocr import Easy_ocr
+from Server.Easy_ocr import Easy_ocr
 from pymongo import MongoClient# pymongo 임포트
 from PIL import Image
+
 class Server:
     
     def __init__(self):
+        print("1")
         self.app = Flask(__name__)
+        print("2")
         self.client=MongoClient('mongodb+srv://sunjuwhan:ans693200@sunjuwhan.soaegl1.mongodb.net/')
+        print("3")
         self.db=self.client['test_sun']
         self.collection=self.db['test']
+        print("Df")
         self.e_ocr = Easy_ocr()
         # self.client=MongoClient('mongodb+srv://sbag00385:qlalfQjsgh486@cluster0.xpb7mqw.mongodb.net/') #데이터베이스 연결
         # self.db=self.client['flag'] #데이터베이스 이름 : flag

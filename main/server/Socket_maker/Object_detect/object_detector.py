@@ -1,7 +1,7 @@
 #from Object_detect import MIN_CONF_THRESHOLD
-from Object_detect.common import *
-from Object_detect.constant import *
-from Object_detect.utils import *
+from Socket_maker.Object_detect.common import *
+from Socket_maker.Object_detect.constant import *
+from Socket_maker.Object_detect.utils import *
 import cv2
 import numpy as np
 from threading import Thread
@@ -25,7 +25,7 @@ class Object_detector():
     def object_detection(self, frame):
         # 해석기 세팅
         if EDGETPU == True:
-            self.tool.set_interpreter_tpu()  # edge TPU
+            return
         else:
             self.tool.set_interpreter()  # normal
 
