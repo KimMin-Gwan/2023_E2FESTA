@@ -18,6 +18,7 @@ import time
 beaconScanButton = 8
 yesNoButton = 10
 handCamButton = 12
+CaptureButton = 16
 
 
 class Button:
@@ -47,6 +48,11 @@ class Button:
             self.state = "CAM"
             return None
 
+        elif GPIO.input(CaptureButton) == GPIO.HIGH:
+            print("4 Button Pushed")
+            self.state = "CAM"
+            return None
+
         elif self.__flag == 1 and GPIO.input(yesNoButton) == GPIO.LOW:
             self.eTime = time.time()
             elapsedTime = self.eTime - self.sTime
@@ -65,10 +71,10 @@ class Button:
             return None
 
 
-#def main():
-#    bu = Button()
-#    while True:
-#        bu.buttonInput()
-#
-#if __name__ == "__main__":
-#    main()
+def main():
+    bu = Button()
+    while True:
+        bu.buttonInput()
+
+if __name__ == "__main__":
+    main()
