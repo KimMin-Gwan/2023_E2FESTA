@@ -38,6 +38,8 @@ class Object_detector():
         #tcp_thread = Thread(target=self.udp_connector.client_sock,
                             #arg=(tcp_status,))
         #tcp_thread.start()
+        self.info.add_system("client_sock")
+        self.info.add_thread("client_sock")
         udp_thread = Thread(target=self.udp_connector.client_sock, 
                             args=(socket_status,))
         udp_thread.start()

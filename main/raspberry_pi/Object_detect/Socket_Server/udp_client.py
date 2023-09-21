@@ -13,7 +13,10 @@ class UDP_connector():
 
     def client_sock(self, status):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        print("SYSTEM ALARM::UDP PROTOCOL CONNECTED")
         status[0] = True
+        self.info.remove_system("client_sock")
+        self.info.terminate_thread("client_sock")
         return
 
     def send(self, frame):
