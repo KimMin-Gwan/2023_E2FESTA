@@ -46,7 +46,8 @@ class ReceiveSignal:  # receive class
         self.information_dict = {}
 
     def scanData(self):  # scan thread func
-        devices = self.scanner.scan(self.duration)  # scan beacon for duration
+        #devices = self.scanner.scan(self.duration)  # scan beacon for duration
+        devices = self.scanner.scan(2)  # scan beacon for duration
         receiveTime = time.time()       # time check
         print("SYSTEM ALARM::Scanned Data")
         for dev in devices:
