@@ -15,7 +15,7 @@ import threading
 
 from queue import PriorityQueue
 from bluepy.btle import Scanner
-from raspberry_pi.InfraSearch.scannrecive import ScanDelegate
+from InfraSearch.scannrecive import ScanDelegate
 
 lock=threading.Lock()
 que=PriorityQueue()
