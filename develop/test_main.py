@@ -20,7 +20,7 @@ from develop.modules.button import *
 from develop.modules.naviUtils import *
 from develop.modules.Speaker import *
 from develop.modules.InfraSearch import *
-
+from develop.modules.naviUtils.class_Information import * 
 
 
 def runButton(button):  # run Button
@@ -37,7 +37,7 @@ def runInfrasearch(speaker, info):  # run InfraSearch(beacon scan)
 
 def main():
     # class object
-    info = information()  # system information object
+    info = Information()  # system information object
     button = Button(info)  # button object
     speaker = SpeakMaster(info)  # speaker object
 
