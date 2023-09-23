@@ -9,8 +9,8 @@ class UDP_connector():
     def __init__(self, info):
         self.info = info
         self.IP = info.get_IP()
-        self.PORT = info.get_tcp_PORT()
-
+        #self.PORT = info.get_tcp_PORT()
+        self.PORT=9505
     def client_sock(self, status):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         print("SYSTEM ALARM::UDP PROTOCOL CONNECTED")
@@ -23,7 +23,6 @@ class UDP_connector():
         flatten_frame = frame.flatten()
         string_frame = flatten_frame.tostring()
         print("chk string frame_type",type(string_frame))
-        string_frame.encode(encoding="cp949")
         for i in range(20):
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],
