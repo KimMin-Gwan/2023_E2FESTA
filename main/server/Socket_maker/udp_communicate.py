@@ -34,7 +34,7 @@ class UDP_Server():
                 self.sock.sendto(result_bytes, addr)
 
         except Exception as e:
-            print("Socket Error : {e}, Line 31")
+            print(f"Socket Error : {e}, Line 31")
 
     # 20 등분되어  전송된  데이터를  결합
     def __recvall(self):
