@@ -60,16 +60,13 @@ class Object_detector():
             # if server connected, using server resorce
             time.sleep(3)
             frame = self.camera.get_webcam_frame()
-            print("기여기",frame)
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
             width, height = self.image_manager.recog_image(frame)
             if True:
                 sock_result =  self.udp_connector.send(frame)
-                print("111111111111111111111")
                 if sock_result:
-                    print("asdfasdf")
                     boxes, scores, classes,_, _= self.udp_connector.recive()
                 
                     print("sock_result is True",boxes)
@@ -82,13 +79,11 @@ class Object_detector():
                 
                 else:
                     self.camera.set_object_frame(frame)
-                    print("22222")
                     continue
 
 
             #   서버  연결에  실패했다면  그냥 연산
             else:
-                print("333333333333")
                 input_data = self.image_manager.make_input_data()
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 

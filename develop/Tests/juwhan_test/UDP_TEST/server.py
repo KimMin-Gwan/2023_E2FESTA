@@ -3,7 +3,7 @@ import numpy
 import cv2
 
 UDP_IP = "165.229.185.195"
-UDP_PORT = 9505
+UDP_PORT = 8081
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((UDP_IP, UDP_PORT))
@@ -17,6 +17,7 @@ while True:
     picture = b''
 
     data, addr = sock.recvfrom(46081)
+    print("Dfasfdas")
     s[data[0]] = data[1:46081]
     sock.sendto("hello".encode(),addr)
     if data[0] == 19:  #맨마지막 flag오면 

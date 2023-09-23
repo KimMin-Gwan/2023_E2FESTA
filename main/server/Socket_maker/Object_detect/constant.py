@@ -4,7 +4,8 @@ import platform
 PATH_TO_MODEL = "C:/Users/IT/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model"
 MODEL = "mobile_SSD_v2_320x320_kr_ob.tflite"
 TPU_MODEL = "mobile_SSD_v2_320x320_kr_ob_edgetpu.tflite"
-PATH_TO_LABEL = "C:/Users/IT/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model/labelmap.txt"
+PATH_TO_LABEL = "C:/Users/antl/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model/labelmap.txt"
+
 # "C:/Users/antl/Documents/GitHub/2023_E2FESTA/main/server/Socket_maker/Object_detect/model/labelmap.txt"
 
 EDGETPU = False
