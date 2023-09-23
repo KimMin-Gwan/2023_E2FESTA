@@ -173,13 +173,13 @@ class Camera_Master():
 
             # Wait for a frame : color
             frames = self.pipeline.wait_for_frames()
-            print("check realsense framse",frames)
             color_frame = frames.get_color_frame()
             depth_frame = frames.get_depth_frame()
 
             # Convert image to numpy array
             self.depth_image = np.asanyarray(depth_frame.get_data())
             self.raw_frame = np.asanyarray(color_frame.get_data())
+            print("chk self.raw_frame",self.raw_frame)
             #self.frame = np.asanyarray(color_frame.get_data())
             
             if flag:  # flag == 1로 설정 시(기본값 0) window에 카메라 화면 창 띄우기
