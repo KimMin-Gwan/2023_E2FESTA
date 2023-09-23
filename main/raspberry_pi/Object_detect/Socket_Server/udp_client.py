@@ -38,6 +38,7 @@ class UDP_connector():
         return True
     
     def recive(self):
+        picture=b''
         data, _ = self.sock.recvfrom(46081)
         result = pickle.loads(data)
 
