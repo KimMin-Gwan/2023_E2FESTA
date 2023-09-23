@@ -72,6 +72,10 @@ class Object_detector():
                 #classes = result[2]
                 #width = result[3]
                 #height = result[4]
+                
+                else:
+                    self.camera.set_object_frame(frame)
+                    continue
 
 
             #   서버  연결에  실패했다면  그냥 연산
@@ -81,9 +85,6 @@ class Object_detector():
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 
                 # output을 바탕으로 사용가능한 bbox인지 체크 및 그리기
-            if not sock_result:
-                self.camera.set_object_frame(frame)
-                continue
                 
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
