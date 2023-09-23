@@ -84,6 +84,7 @@ class Object_detector():
 
             #   서버  연결에  실패했다면  그냥 연산
             else:
+                print("falie to socket protocol")
                 input_data = self.image_manager.make_input_data()
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 
