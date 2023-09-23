@@ -22,7 +22,7 @@ class UDP_connector():
     def send(self, frame):
         flatten_frame = frame.flatten()
         string_frame = flatten_frame.tostring()
-
+        print("chk string frame_type",type(string_frame))
         for i in range(20):
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],

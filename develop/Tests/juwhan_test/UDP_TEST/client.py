@@ -12,6 +12,7 @@ while True:
     #ret, frame = cap.read()
     d = frame.flatten()
     s = d.tostring()
+    print("s_type",type(s))
     for i in range(20):
         sock.sendto(bytes([i]) + s[i*46080:(i+1)*46080], (UDP_IP, UDP_PORT))
         if cv2.waitKey(1) & 0xFF == ord('q'):
