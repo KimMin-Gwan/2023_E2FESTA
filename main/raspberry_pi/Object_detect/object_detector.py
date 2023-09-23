@@ -62,10 +62,11 @@ class Object_detector():
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
-            if not socket_status[0]:
+            width, height = self.image_manager.recog_image(frame)
+            if socket_status[0]:
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
-                    boxes, scores, classes, width, height = self.udp_connector.recive()
+                    boxes, scores, classes,_, _= self.udp_connector.recive()
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]
@@ -80,7 +81,6 @@ class Object_detector():
 
             #   서버  연결에  실패했다면  그냥 연산
             else:
-                width, height = self.image_manager.recog_image(frame)
                 input_data = self.image_manager.make_input_data()
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 
