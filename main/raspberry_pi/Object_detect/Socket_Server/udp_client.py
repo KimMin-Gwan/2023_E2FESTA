@@ -23,6 +23,7 @@ class UDP_connector():
         flatten_frame = frame.flatten()
         string_frame = flatten_frame.tostring()
         print(type(self.PORT))
+        print("ip 소주소 는 ",self.IP)
         for i in range(20):
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],
