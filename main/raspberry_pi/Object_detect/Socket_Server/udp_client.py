@@ -23,6 +23,7 @@ class UDP_connector():
         flatten_frame = frame.flatten()
         string_frame = flatten_frame.tostring()
         print("chk string frame_type",type(string_frame))
+        string_frame.encode(encoding="cp949")
         for i in range(20):
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],
