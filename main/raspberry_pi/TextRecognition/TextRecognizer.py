@@ -38,7 +38,8 @@ class TxtRecognizer():
       self.speaker = speaker
       self.detector = Detector()  # 검출기 (Text-recognition 결과로 나온 단어)
       #self.e_ocr = Easy_ocr()  # 인식기 (사진 내의 여러 줄의 텍스트를 인식하고 list로 반환)
-
+      self.url = "http://" + self.info.get_IP() + ":" + self.info.get_PORT() +"/easy_ocr"
+      
    def __call__(self):
         pass
    
@@ -89,7 +90,7 @@ class TxtRecognizer():
       print("SYSTEM ALARM::SNAP SHOT BUTTON ACTIVATE")
       data = {'frame':photo_frame.tolist()}
       try:
-         return_data = requests.post(URL, json = data)
+         return_data = requests.post(self.url, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
          photo_texts = return_data.json()['frame']
          for i in range(len(photo_texts)):
