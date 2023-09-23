@@ -10,8 +10,9 @@ class UDP_Server():
     def __init__(self):
         #UDP 사용, IPv4
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sock.bind((HOST, PORT))
+        #self.sock.bind((HOST, PORT))
 
+        self.sock.bind(('165.229.50.47', PORT))
         # 이미지  생성을  위한  빈  리스트를  생성,  이미지를 20 개의  조각으로 나누기
         self.client_data = {}
 
