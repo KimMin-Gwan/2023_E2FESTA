@@ -8,7 +8,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 print("2")
 cap = cv2.VideoCapture(0)
 frame = cv2.imread('./wait_img.png')
-for i in range(1):
+while True:
     #ret, frame = cap.read()
     d = frame.flatten()
     s = d.tostring()
