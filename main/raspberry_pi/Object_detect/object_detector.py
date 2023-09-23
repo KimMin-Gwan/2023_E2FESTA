@@ -61,6 +61,7 @@ class Object_detector():
             frame = self.camera.get_webcam_frame()
             cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
+            scores = 0
             if socket_status[0]:
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
@@ -80,6 +81,10 @@ class Object_detector():
                 boxes, classes, scores = self.tool.get_tensor(input_data)
 
                 # output을 바탕으로 사용가능한 bbox인지 체크 및 그리기
+            if not sock_result:
+                self.camera.set_object_frame(frame)
+                continue
+                
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
                 if bbox['ymin'] == 0 and bbox['ymax'] == 0:
