@@ -64,7 +64,7 @@ class Object_detector():
             scores = 0
             width, height = self.image_manager.recog_image(frame)
             print(socket_status[0])
-            if socket_status[0]:
+            if True:
                 print("hello")
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
