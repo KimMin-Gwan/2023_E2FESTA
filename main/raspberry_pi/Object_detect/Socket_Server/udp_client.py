@@ -29,7 +29,6 @@ class UDP_connector():
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],
                                 (self.IP, self.PORT))
-                print("send here")
             except Exception as e:
                 print(f"EROOR in line 26 : {e}")
                 #self.info.terminate_all()
