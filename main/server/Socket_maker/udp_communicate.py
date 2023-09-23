@@ -31,6 +31,7 @@ class UDP_Server():
                 # byte 단위로 직렬화진행
                 result_bytes = pickle.dumps(tf_result)
                 #  사용자에게 전송
+                print("server send")
                 self.sock.sendto(result_bytes, addr)
 
         except Exception as e:
@@ -42,6 +43,7 @@ class UDP_Server():
         while True:
             #  데이터 수신
             data, addr = self.sock.recvfrom(46081)
+            print("input data",data)
             # addr 에  따라   따로  모아서 저장
             if addr not in self.client_data.keys():
                 buf_slice= [b'\xff' * 46080 for x in range(20)]
