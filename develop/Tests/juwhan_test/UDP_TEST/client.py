@@ -3,9 +3,9 @@ import cv2
 
 UDP_IP = '165.229.185.195'
 UDP_PORT = 9505
-
+print("1")
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
+print("2")
 cap = cv2.VideoCapture(0)
 
 while True:
