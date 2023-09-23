@@ -58,6 +58,7 @@ class Object_detector():
                 break
 
             # if server connected, using server resorce
+            time.sleep(3)
             frame = self.camera.get_webcam_frame()
             print(frame)
             #cv2.imshow("test", frame)
