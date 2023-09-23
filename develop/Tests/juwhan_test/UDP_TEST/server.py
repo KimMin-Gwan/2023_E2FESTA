@@ -18,7 +18,7 @@ while True:
 
     data, addr = sock.recvfrom(46081)
     s[data[0]] = data[1:46081]
-
+    sock.sendto("hello".encode(),addr)
     if data[0] == 19:  #맨마지막 flag오면 
         for i in range(20):
             picture += s[i]  #다합쳐
@@ -34,3 +34,5 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
+    
+    
