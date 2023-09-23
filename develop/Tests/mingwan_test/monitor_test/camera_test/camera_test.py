@@ -4,7 +4,7 @@ camera = cv2.VideoCapture(0)
 
 while True:
     ret, frame = camera.read()
-    print(type(frame[0][0]))
+    print(type(frame[0][0][0]))
     if ret:
         cv2.imshow("Camera", frame)  # 창 제목
 
