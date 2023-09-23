@@ -59,7 +59,7 @@ class Object_detector():
 
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
-            cv2.imshow("test", frame)
+            #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
             if socket_status[0]:
