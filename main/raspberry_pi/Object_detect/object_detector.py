@@ -63,7 +63,6 @@ class Object_detector():
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
             width, height = self.image_manager.recog_image(frame)
-            print(socket_status[0])
             if True:
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
