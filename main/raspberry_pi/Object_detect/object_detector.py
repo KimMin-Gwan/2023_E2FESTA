@@ -65,6 +65,7 @@ class Object_detector():
             width, height = self.image_manager.recog_image(frame)
             if socket_status[0]:
                 sock_result =  self.udp_connector.send(frame)
+                print(sock_result)
                 if sock_result:
                     boxes, scores, classes,_, _= self.udp_connector.recive()
                 # result = (boxex, scores, classes, width, height)
@@ -101,10 +102,7 @@ class Object_detector():
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
-            if sock_result:
-                self.camera.set_object_frame(bboxed_frame)
-            else:
-                self.camera.set_object_frame(frame)
+            self.camera.set_object_frame(bboxed_frame)
             distance.clear()
 
         self.info.remove_system("object_detection")
