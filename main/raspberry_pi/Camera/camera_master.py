@@ -179,7 +179,6 @@ class Camera_Master():
             # Convert image to numpy array
             self.depth_image = np.asanyarray(depth_frame.get_data())
             self.raw_frame = np.asanyarray(color_frame.get_data())
-            print("chk self.raw_frame",self.raw_frame)
             #self.frame = np.asanyarray(color_frame.get_data())
             
             if flag:  # flag == 1로 설정 시(기본값 0) window에 카메라 화면 창 띄우기
