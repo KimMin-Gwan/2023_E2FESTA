@@ -9,7 +9,7 @@ class UDP_connector():
     def __init__(self, info):
         self.info = info
         self.IP = info.get_IP()
-        self.PORT = info.get_tcp_PORT()
+        self.PORT = int(info.get_tcp_PORT())
         #self.PORT=9505
     def client_sock(self, status):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
