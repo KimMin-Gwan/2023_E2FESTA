@@ -42,6 +42,7 @@ class UDP_Server():
         buf = b''
         while True:
             #  데이터 수신
+            print("waiting recvfrom")
             data, addr = self.sock.recvfrom(46081)
             print("input data",data)
             # addr 에  따라   따로  모아서 저장
