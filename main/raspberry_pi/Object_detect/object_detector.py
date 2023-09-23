@@ -62,7 +62,7 @@ class Object_detector():
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
-            print(sock_result)
+            print("hello")
             width, height = self.image_manager.recog_image(frame)
             if socket_status[0]:
                 sock_result =  self.udp_connector.send(frame)
