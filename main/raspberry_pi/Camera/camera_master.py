@@ -173,6 +173,7 @@ class Camera_Master():
 
             # Wait for a frame : color
             frames = self.pipeline.wait_for_frames()
+            print("check realsense framse",frames)
             color_frame = frames.get_color_frame()
             depth_frame = frames.get_depth_frame()
 
