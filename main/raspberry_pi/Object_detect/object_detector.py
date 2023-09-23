@@ -60,7 +60,7 @@ class Object_detector():
             # if server connected, using server resorce
             time.sleep(3)
             frame = self.camera.get_webcam_frame()
-            print(frame)
+            print("기여기",frame)
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
@@ -69,6 +69,7 @@ class Object_detector():
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
                     boxes, scores, classes,_, _= self.udp_connector.recive()
+                    print("sock_result is True",boxes)
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]
