@@ -31,7 +31,7 @@ class Information:
         self.terminate_flag = False
         self.ip = SERVER_IP
         self.port = SERVER_PORT
-        self.tcp_port = UDP_PORT
+        self.udp_port = UDP_PORT
 
     def show_info(self):
         self.info_list=[self.getButtonState(),self.get_now_system(),
