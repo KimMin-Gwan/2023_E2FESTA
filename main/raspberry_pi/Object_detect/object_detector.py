@@ -91,13 +91,18 @@ class Object_detector():
                 
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
+                print("1")
                 if bbox['ymin'] == 0 and bbox['ymax'] == 0:
                     continue
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
                 distance.append(depth)
+                print("2")
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
+                print("3")
                 self.image_manager.depth_draw(x, y, depth)
+                print("4")
+            print("5")
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
             self.vib.give_vib_feedback(distances=distance)
@@ -105,6 +110,7 @@ class Object_detector():
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
+            print("6")
             distance.clear()
 
         self.info.remove_system("object_detection")
