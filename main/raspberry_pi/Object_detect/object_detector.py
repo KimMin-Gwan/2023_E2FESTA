@@ -108,6 +108,7 @@ class Object_detector():
             print(distance)
             if (len(distance)==0):
                 distance.append(2001)
+            
             self.vib.give_vib_feedback(distances=distance)
             print("6")
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
