@@ -105,6 +105,7 @@ class Object_detector():
             print("5")
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
+            print("distance = ",distance)
             self.vib.give_vib_feedback(distances=distance)
             print("6")
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
