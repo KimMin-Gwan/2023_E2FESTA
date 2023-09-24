@@ -97,17 +97,10 @@ class Object_detector():
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
                 distance.append(depth)
-                print("2")
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
-                print("3")
                 self.image_manager.depth_draw(x, y, depth)
-                print("4")
-            print("5")
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
-            print(distance)
-            if (len(distance)==0):
-                distance.append(2001)
             
             self.vib.give_vib_feedback(distances=distance)
             print("6")
