@@ -26,7 +26,6 @@ class Object_detector():
         #vib_thread = Thread(target=self.vib.give_vib_feedback)
         #vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
-    
     def __object_detection(self):
         # 해석기 세팅
         if EDGETPU == True:
@@ -68,7 +67,6 @@ class Object_detector():
                 if sock_result:
                     boxes, scores, classes,_, _= self.udp_connector.recive()
                 
-                    print("sock_result is True",boxes)
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]
@@ -100,7 +98,7 @@ class Object_detector():
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
             
-            #self.vib.give_vib_feedback(distances=distance)
+            self.vib.give_vib_feedback(distances=distance)
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
@@ -111,7 +109,8 @@ class Object_detector():
         self.info.terminate_thread("object_detection")
         return
 
-        
+    
+    
     # 실행기
     def run_system(self):
         now_camera_set = self.camera.get_status()

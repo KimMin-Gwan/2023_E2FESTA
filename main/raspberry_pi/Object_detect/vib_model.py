@@ -33,7 +33,7 @@ class Vibrater:
                 time.sleep(self.cycle)
             else:
                 self.cycle = VIB_CYCLE
-            print("dff")
+     
             distances.clear()
             
     # 진동 사이클 지정
