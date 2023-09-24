@@ -58,7 +58,6 @@ class Object_detector():
                 break
 
             # if server connected, using server resorce
-            time.sleep(3)
             frame = self.camera.get_webcam_frame()
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
@@ -91,7 +90,6 @@ class Object_detector():
                 
             for i in range(len(scores)):
                 bbox = self.tool.recog_tensor(boxes[i], scores[i], width, height)
-                print("1")
                 if bbox['ymin'] == 0 and bbox['ymax'] == 0:
                     continue
                 x, y = self.cp.check_object(bbox)
@@ -102,15 +100,11 @@ class Object_detector():
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
             
-            #self.vib.give_vib_feedback(distances=distance)
-            print("6")
+            self.vib.give_vib_feedback(distances=distance)
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
-            print("7")
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
-            print("8")
             self.camera.set_object_frame(bboxed_frame)
-            print("9")
             distance.clear()
 
         self.info.remove_system("object_detection")
