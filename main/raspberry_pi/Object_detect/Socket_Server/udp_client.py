@@ -22,9 +22,6 @@ class UDP_connector():
     def send(self, frame):
         flatten_frame = frame.flatten()
         string_frame = flatten_frame.tostring()
-        print(type(self.PORT))
-        print("ip 소주소 는 ",self.IP)
-        print("Port number",self.PORT)
         for i in range(20):
             try:
                 self.sock.sendto(bytes([i]) + string_frame[i*46080:(i+1)*46080],
@@ -37,7 +34,6 @@ class UDP_connector():
         return True
     
     def recive(self):
-        picture=b''
         data, _ = self.sock.recvfrom(46081)
         result = pickle.loads(data)
 
