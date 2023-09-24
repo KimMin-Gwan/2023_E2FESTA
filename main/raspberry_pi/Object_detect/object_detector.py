@@ -106,7 +106,8 @@ class Object_detector():
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
             print("distance = ",distance)
-            if(len(distance)==0):
+            distance_size=len(distance)
+            if( distance_size==0):
                 distance=2001
             self.vib.give_vib_feedback(distances=distance)
             print("6")
