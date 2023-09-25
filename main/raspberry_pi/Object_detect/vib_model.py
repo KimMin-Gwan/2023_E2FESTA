@@ -17,6 +17,7 @@ class Vibrater:
         if len(distances) <= 0:
             distances.append(DIST_THRESHOLD+1)
         distances = np.array(distances)
+        print("distance is ",distances)
         dist = np.min(distances)
         return dist
     
