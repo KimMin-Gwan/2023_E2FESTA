@@ -92,7 +92,7 @@ def main():
     scanner = Scanner().withDelegate(scan_delegate)
     scan_thread=threading.Thread(target=scanData,args=(scanner,duration))
     print_thread=threading.Thread(target=print_scan_data,args=(duration))
-    remote_thread=threading.Thread(target=rm.run_moduel,args=())
+    remote_thread=threading.Thread(target=rm.run_moduel)
     
     scan_thread.start()
     print_thread.start()
