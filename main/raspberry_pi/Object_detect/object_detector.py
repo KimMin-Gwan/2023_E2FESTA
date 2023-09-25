@@ -23,8 +23,9 @@ class Object_detector():
         self.vib = Vibrater()
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
-        #vib_thread = Thread(target=self.vib.give_vib_feedback)
-        #vib_thread.start()
+        self.distance=[]
+        vib_thread = Thread(target=self.vib.give_vib_feedback,args=self.distance)
+        vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
     def __object_detection(self):
         # 해석기 세팅
@@ -44,7 +45,7 @@ class Object_detector():
         udp_thread.start()
 
         # 라벨 세팅
-        distance = []
+        #distance = []
         fps = 1
         #반복되는 핵심 와일문
         while True:
@@ -92,7 +93,7 @@ class Object_detector():
                     continue
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
-                distance.append(depth)
+                self.distance.append(depth)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
                 self.image_manager.depth_draw(x, y, depth)
             fps = round(1.0/(time.time() - start_time), 1)
@@ -103,7 +104,7 @@ class Object_detector():
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
-            distance.clear()
+            self.distance.clear()
 
         self.info.remove_system("object_detection")
         self.info.terminate_thread("object_detection")
