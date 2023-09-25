@@ -102,7 +102,7 @@ class TxtRecognizer():
       except Exception as e:
          print("ERROR : Server Error")
          print("ERROR CODE : ", e)
-         self.info.therminate_thread("TextRecognizer")
+         self.info.terminate_thread("TextRecognizer")
          assert("SYSTEM CALL::Stop Text Recognition")
       for i in range(len(photo_texts)):
           photo_texts[i]=photo_texts[i].convert('L')
