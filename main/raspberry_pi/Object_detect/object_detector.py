@@ -24,8 +24,8 @@ class Object_detector():
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
         self.distance=[]
-        #vib_thread = Thread(target=self.vib.give_vib_feedback,args=self.distance)
-        #vib_thread.start()
+        vib_thread = Thread(target=self.vib.give_vib_feedback,args=self.distance)
+        vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
     def __object_detection(self):
         # 해석기 세팅
@@ -59,7 +59,6 @@ class Object_detector():
 
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
-            print("frame = ",frame)
             #cv2.imshow("test", frame)
             #  서버에 연결 되어있다면  서버에서 연산
             scores = 0
@@ -68,7 +67,6 @@ class Object_detector():
                 sock_result =  self.udp_connector.send(frame)
                 if sock_result:
                     boxes, scores, classes,_, _= self.udp_connector.recive()
-                    print("boxes",boxes)
                 # result = (boxex, scores, classes, width, height)
                 #boxes = result[0]
                 #scores = result[1]
