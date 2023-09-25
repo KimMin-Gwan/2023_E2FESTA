@@ -27,9 +27,9 @@ class Vibrater:
             distance = self.__find_min_dist(distances=distances)
             # 현재 사물의 최소 거리를 바탕으로 진동사이클 지정
             if (self.__check_distance(distance)):
-                GIPO.output(VIB_PIN, False)
+                GPIO.output(VIB_PIN, False)
                 time.sleep(self.cycle)
-                GIPO.output(VIB_PIN, True)
+                GPIO.output(VIB_PIN, True)
                 time.sleep(self.cycle)
             else:
                 self.cycle = VIB_CYCLE
