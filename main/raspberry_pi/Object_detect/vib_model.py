@@ -17,7 +17,6 @@ class Vibrater:
         if len(distances) <= 0:
             distances.append(DIST_THRESHOLD+1)
         distances = np.array(distances)
-        print("distance is ",distances)
         dist = np.min(distances)
         return dist
     
@@ -38,7 +37,7 @@ class Vibrater:
             else:
                 self.cycle = VIB_CYCLE
         
-                #distances.clear()
+            #distances.clear()
             
     # 진동 사이클 지정
     def __check_distance(self, distance):
