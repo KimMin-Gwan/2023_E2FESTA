@@ -24,8 +24,8 @@ class Object_detector():
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
         self.distance=[]
-        vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
-        vib_thread.start()
+        #vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
+        #vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
     def __object_detection(self):
         # 해석기 세팅
@@ -92,11 +92,7 @@ class Object_detector():
                     continue
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
-                if(len(self.distance)==0):
-                    self.distance.append(depth)
-                else:
-                    if(depth<self.distance[0]):
-                        self.distance[0]=depth
+                self.distance.append(depth) 
                         
                 #self.distance.append(depth)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
@@ -104,12 +100,12 @@ class Object_detector():
             fps = round(1.0/(time.time() - start_time), 1)
             text = 'FPS : {}'.format(fps)
             
-            #self.vib.give_vib_feedback(distances=distance)
+            self.vib.give_vib_feedback(distances=self.distance)
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
-            #self.distance.clear()
+            self.distance.clear()
 
         self.info.remove_system("object_detection")
         self.info.terminate_thread("object_detection")
