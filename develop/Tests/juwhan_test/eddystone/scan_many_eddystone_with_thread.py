@@ -16,6 +16,7 @@
 """
 from bluepy.btle import Scanner, DefaultDelegate
 from queue import PriorityQueue
+from bluetooth import *
 import threading
 import time
 lock=threading.Lock()
@@ -38,8 +39,20 @@ class ScanDelegate(DefaultDelegate):
 
     def getScanData(self):
         return self.__scan_data__
-
-
+    
+    
+    
+class remote():
+    def __init__(self):
+        self.socket=BluetoothSocket(RFCOMM)
+        self.socket.connect(("00:19:09:03:43:2E",1))
+    def run_moduel(self):
+        while True:
+            data=self.socket.recv(1024)
+            print("Received: %s",data)
+            if(data=="q"):
+                break
+        socket.close()
 
 def scanData(scanner, duration):   #scan thread func
     while True:
@@ -75,15 +88,18 @@ def print_scan_data(duration):    #print thread func
 def main():
     duration = 3
     scan_delegate = ScanDelegate()
+    rm=remote()
     scanner = Scanner().withDelegate(scan_delegate)
     scan_thread=threading.Thread(target=scanData,args=(scanner,duration))
     print_thread=threading.Thread(target=print_scan_data,args=(duration))
+    remote_thread=threading.Thread(target=rm.run_moduel,args=())
+    
     scan_thread.start()
     print_thread.start()
-    
+    remote_thread.start()
     scan_thread.join()
     print_thread.join()
-
+    remote_thread.join()
 if __name__ == "__main__":
     main()
 
