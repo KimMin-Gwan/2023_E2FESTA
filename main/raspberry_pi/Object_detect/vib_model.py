@@ -38,7 +38,10 @@ class Vibrater:
             end_time=0
         
             while True:
-                distance=self.__find_min_dist(distances=distances)
+                #distance=self.__find_min_dist(distances=distances)
+                if len(distances)==0:
+                    distances.append(DIST_THRESHOLD+1)
+                distance=distances[0]
                 if(self.__check_distance(distance)):
                     now_time=time.time()
                     if(now_time-end_time>self.cycle):

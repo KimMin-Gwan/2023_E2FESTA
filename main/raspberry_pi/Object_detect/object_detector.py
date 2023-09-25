@@ -92,7 +92,12 @@ class Object_detector():
                     continue
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
-                self.distance.append(depth) 
+                if(len(self.distance)==0):
+                    self.distance.append(depth)
+                else:
+                    if(self.distance[0]>depth):
+                        self.distance[0]=depth
+                #self.distance.append(depth) 
                         
                 #self.distance.append(depth)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
