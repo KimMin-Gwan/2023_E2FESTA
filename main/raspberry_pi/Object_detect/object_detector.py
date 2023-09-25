@@ -92,8 +92,13 @@ class Object_detector():
                     continue
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
-                self.distance.append(depth)
-                print("objectdetctor distance",self.distance)
+                if(len(self.distance)==0):
+                    self.distance.append(depth)
+                else:
+                    if(depth<self.distance[0]):
+                        self.distance[0]=depth
+                        
+                #self.distance.append(depth)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
                 self.image_manager.depth_draw(x, y, depth)
             fps = round(1.0/(time.time() - start_time), 1)
@@ -104,7 +109,7 @@ class Object_detector():
             bboxed_frame = self.image_manager.get_bboxed_frame()
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
-            self.distance.clear()
+            #self.distance.clear()
 
         self.info.remove_system("object_detection")
         self.info.terminate_thread("object_detection")
