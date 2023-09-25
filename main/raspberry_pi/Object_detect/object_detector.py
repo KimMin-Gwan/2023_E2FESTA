@@ -24,7 +24,7 @@ class Object_detector():
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
         self.distance=[]
-        vib_thread = Thread(target=self.vib.give_vib_feedback,args=((self.distance))
+        vib_thread = Thread(target=self.vib.give_vib_feedback,args=((self.distance)))
         vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
     def __object_detection(self):
