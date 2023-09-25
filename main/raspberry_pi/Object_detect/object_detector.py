@@ -93,6 +93,7 @@ class Object_detector():
                 x, y = self.cp.check_object(bbox)
                 depth = self.camera.get_depth(x, y)
                 self.distance.append(depth)
+                print("objectdetctor distance",self.distance)
                 self.image_manager.make_bbox(scores[i], bbox, classes[i])
                 self.image_manager.depth_draw(x, y, depth)
             fps = round(1.0/(time.time() - start_time), 1)
