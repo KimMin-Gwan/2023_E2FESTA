@@ -23,18 +23,32 @@ class Vibrater:
     # 진동 사이클 제공
     def give_vib_feedback(self, distances = [DIST_THRESHOLD+1]):
             # 최소거리에 바탕이된 진동 피드백 제공
-        while True:
-            distance = self.__find_min_dist(distances=distances) 
-            # 현재 사물의 최소 거리를 바탕으로 진동사이클 지정
-            if (self.__check_distance(distance)):
-                GPIO.output(VIB_PIN, False)
-                #time.sleep(self.cycle)
-                GPIO.output(VIB_PIN, True)
-                time.sleep(self.cycle)
-            else:
-                self.cycle = VIB_CYCLE
-        
+        # while True:
+        #     distance = self.__find_min_dist(distances=distances) 
+        #     # 현재 사물의 최소 거리를 바탕으로 진동사이클 지정
+        #     if (self.__check_distance(distance)):
+        #         GPIO.output(VIB_PIN, False)
+        #         time.sleep(self.cycle)
+        #         GPIO.output(VIB_PIN, True)
+        #         time.sleep(self.cycle)
+        #     else:
+        #         self.cycle = VIB_CYCLE
+         
             #distances.clear()
+            end_time=0
+        
+            while True:
+                distance=self.__find_min_dist(distances=distances)
+                if(self.__check_distance(distance)):
+                    now_time=time.time()
+                    if(now_time-end_time>self.cycle):
+                        GPIO.output(VIB_PIN,True)
+                        time.sleep(0.5) 
+                        end_time=time.time()
+                        GPIO.output(VIB_PIN,False)
+                         
+                                     
+            
             
     # 진동 사이클 지정
     def __check_distance(self, distance):
