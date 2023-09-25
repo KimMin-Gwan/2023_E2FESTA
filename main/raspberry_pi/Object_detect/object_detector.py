@@ -23,7 +23,7 @@ class Object_detector():
         self.vib = Vibrater()
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
-        self.distance=[2001]
+        self.distance=[DIST_THRESHOLD+1]
         vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
         vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
@@ -111,7 +111,7 @@ class Object_detector():
             bboxed_frame = cv2.putText(bboxed_frame, text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (150, 150, 255), 2)
             self.camera.set_object_frame(bboxed_frame)
             #self.distance.clear()
-            self.distance[0]=2001
+            self.distance[0]=DIST_THRESHOLD+1
 
         self.info.remove_system("object_detection")
         self.info.terminate_thread("object_detection")

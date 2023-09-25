@@ -33,10 +33,8 @@ class Vibrater:
         #         time.sleep(self.cycle)
         #     else:
         #         self.cycle = VIB_CYCLE
-         
             #distances.clear()
             end_time=0
-        
             while True:
                 #distance=self.__find_min_dist(distances=distances)
                 if len(distances)==0:
@@ -49,7 +47,6 @@ class Vibrater:
                         time.sleep(0.5) 
                         end_time=time.time()
                         GPIO.output(VIB_PIN,False)
-                         
                                      
             
             
