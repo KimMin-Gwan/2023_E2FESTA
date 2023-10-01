@@ -3,7 +3,7 @@ import Camera
 import InfraSearch
 import Monitoring
 import naviUtils
-import Object_detect
+import Human_detect 
 import Speaker
 import TextRecognition
 from threading import Thread
@@ -19,7 +19,8 @@ class Main_Function():
         self.camera = Camera.Camera_Master(info=self.info) # 카메라
         self.speaker = Speaker.SpeakMaster(info=self.info) # 스피커
         self.infra = InfraSearch.Beacon_Master(speaker=self.speaker, mainInfo=self.info)  # 인프라 서치
-        self.object_detect = Object_detect.Object_detector(info=self.info, camera=self.camera, speaker=self.speaker) # 객체 탐지
+        #self.object_detect = Object_detect.Object_detector(info=self.info, camera=self.camera, speaker=self.speaker) # 객체 탐지
+        self.human_detect = Human_detect.Human_detector(info=self.info, camera=self.camera, speaker=self.speaker) # 객체 탐지
         self.txt_recog = TextRecognition.TxtRecognizer(info=self.info, camera=self.camera, speaker=self.speaker) # OCR
         print("SYSTEM ALARM::Initializing Successfully Finishied")
 
@@ -43,9 +44,9 @@ class Main_Function():
         print("SYSTEM ALARM::Button System Start")
         self.camera.RunCamera()
 
-        # Object Detection System Start
+        # Human Detection System Start
         print("SYSTEM ALARM::Object_Detection System Start")
-        self.object_detect.run_system()
+        self.human_detect.run_system()
 
         # main_loop Start
         self.info.add_system("main_loop")
