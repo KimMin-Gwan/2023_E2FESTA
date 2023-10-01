@@ -20,6 +20,8 @@ class Tools:
         self.interpreter.allocate_tensors()
         self.__make_details()
         return
+    
+    
 
     def set_interpreter_tpu(self, model_path = PATH_TO_MODEL, model = TPU_MODEL):
         model_path=os.path.join(model_path, model)
