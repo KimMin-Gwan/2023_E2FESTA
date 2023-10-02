@@ -10,7 +10,7 @@ PATH_TO_LABEL = "/home/pi/2023_E2FESTA/main/raspberry_pi/Human_detect/model/coco
 
 EDGETPU = True
 
-MIN_CONF_THRESHOLD = 0.2  # 최소값
+MIN_CONF_THRESHOLD = 0.5  # 최소값
 SELECT_OBJ = "person"  # 타겟
 TOP_K = 5  # 보여주는 오브젝트 갯수
 FONT =cv2.FONT_HERSHEY_SIMPLEX
