@@ -22,7 +22,7 @@ class Tools:
         pass
 
     def __load_model(self):
-        self.interpreter = self.__set_interpreter_tpu()
+        self.__set_interpreter_tpu()
         self.__input_image_size()
         self.interpreter.allocate_tensors()
         self.labels = self.__load_labels()
