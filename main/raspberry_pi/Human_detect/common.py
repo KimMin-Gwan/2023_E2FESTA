@@ -121,15 +121,16 @@ class Collision_Preventer:
         self.info.add_system("distance_check")
         self.info.add_thread("distance_check")
 
-    def check_object(self, objs, width, height, image_manager):
+    def check_object(self, objs, image_manager):
         min_depth = DIST_THRESHOLD + 1
         frame = image_manager.get_frame()
+        height, width, _ = frame
         for obj in objs:
             x0, y0, x1, y1 = list(obj.bbox)
             x0, y0, x1, y1 = int(x0*width), int(y0*height), int(x1*width), int(y1*height)
             
             # 거리에 대한 리스트 전체를 반환 nparray type
-            depth = self.depth[y0:y1, x0:x1]
+            depth = self.depth[x0:x1, y0:y1]
             # 최소값 검색
             non_zero_depth = depth[depth != 0]
             min_depth = np.min(non_zero_depth)
