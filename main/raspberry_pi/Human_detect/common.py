@@ -161,8 +161,10 @@ class Collision_Preventer:
             # 만약 바이브가 동작하는 상황이면 하지말고
             if not self.flag:
                 self.depth = self.camera.get_depth()
+                depth = self.depth
+                non_zero_depth = depth[depth != 0]
                 # 전체 거리 프레임에서 일정 이상 가까운 오브젝트 탐색
-                indices = np.where(self.depth < DIST_THRESHOLD)
+                indices = np.where(non_zero_depth < DIST_THRESHOLD)
                 count = len(indices[0])
                 # 가까운 오프젝트 프레임이 일정 수 이상이면 바이브레이터 동작
                 if count > MIN_COUNT:
