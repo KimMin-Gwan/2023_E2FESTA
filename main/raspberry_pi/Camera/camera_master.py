@@ -232,7 +232,7 @@ class Camera_Master():
         try:
             depth = self.depth_image
         except:
-            depth = 0
+            depth = np.array([0,0,0])
 
         return depth
     
