@@ -44,10 +44,6 @@ class Human_detector():
 
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
-            
-            self.camera.set_object_frame(frame)
-
-            continue
             #cv2.imshow("test", frame)
             start_time = time.time()
             width, height, pil_im = self.image_manager.recog_image(frame)
