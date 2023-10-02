@@ -228,9 +228,9 @@ class Camera_Master():
         return self.raw_frame
     
     # depth 측정 및 반환
-    def get_depth(self, x, y):
+    def get_depth(self):
         try:
-            depth = self.depth_image[x, y]
+            depth = self.depth_image
         except:
             depth = 0
 
