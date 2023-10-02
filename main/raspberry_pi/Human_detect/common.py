@@ -113,13 +113,13 @@ class Collision_Preventer:
     def __init__(self, info, camera, distance):
         self.camera = camera
         self.depth = np.array([0,0,0])
+        self.flag = False
         self.info = info
         collision_thread= Thread(target=self.get_distance_all,
                                 args=(distance,))
         collision_thread.start()
         self.info.add_system("distance_check")
         self.info.add_thread("distance_check")
-        self.flag = False
 
     def check_object(self, objs, width, height, image_manager):
         min_depth = DIST_THRESHOLD + 1
