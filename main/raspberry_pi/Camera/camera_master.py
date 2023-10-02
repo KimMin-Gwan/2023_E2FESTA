@@ -28,17 +28,15 @@ import pyrealsense2.pyrealsense2 as rs
 import time
 import threading
 from Camera.constant import *
-from picamera2 import Picamera2
+#from picamera2 import Picamera2
 
 class Camera_Master():
     def __init__(self, info = None):
         # hand camera init
         print("SYSTEM ALARM::Camera Configure initiating")
         self.info = info
-        #self.web_monitor = web_monitor
-        #self.handcam = cv2.VideoCapture(0)  # 0번 카메라, cv2.CAP_DSHOW : 다이렉트 쇼
-        self.handcam = Picamera2()  # picamera capture
-        self.__init_picamera()
+        #self.handcam = Picamera2()  # picamera capture
+        #self.__init_picamera()
 
         # Configure depth and color streams
         self.pipeline = rs.pipeline()  # intel realsense capture
@@ -53,11 +51,12 @@ class Camera_Master():
 
     # picamera 초기화
     def __init_picamera(self):
-        self.handcam.preview_configuration.main.size = (H_HEIGHT, H_WIDTH)
-        self.handcam.preview_configuration.main.format = PI_FORMAT
-        self.handcam.preview_configuration.align()
-        self.handcam.configure(PI_CONFIGURE)
-        self.handcam.start()
+        #self.handcam.preview_configuration.main.size = (H_HEIGHT, H_WIDTH)
+        #self.handcam.preview_configuration.main.format = PI_FORMAT
+        #self.handcam.preview_configuration.align()
+        #self.handcam.configure(PI_CONFIGURE)
+        #self.handcam.start()
+        pass
 
     # realsense 초기화
     def __init_realsense(self):
@@ -163,46 +162,46 @@ class Camera_Master():
         
         self.frame = None
         
-        # Start streaming self.pipeline.start(self.config)
-        while True:
-            if self.swap_flag == REPLACEMENT:  # web에서 swap cam 버튼이 눌려 flag 0 -> 1 변경, 카메라 전환을 하겠다는 의미
-                break
+        ## Start streaming self.pipeline.start(self.config)
+        #while True:
+            #if self.swap_flag == REPLACEMENT:  # web에서 swap cam 버튼이 눌려 flag 0 -> 1 변경, 카메라 전환을 하겠다는 의미
+                #break
 
-            if self.info.get_terminate_flag():
-                break
+            #if self.info.get_terminate_flag():
+                #break
 
-            # Wait for a frame : color
-            frames = self.pipeline.wait_for_frames()
-            color_frame = frames.get_color_frame()
-            depth_frame = frames.get_depth_frame()
+            ## Wait for a frame : color
+            #frames = self.pipeline.wait_for_frames()
+            #color_frame = frames.get_color_frame()
+            #depth_frame = frames.get_depth_frame()
 
-            # Convert image to numpy array
-            self.depth_image = np.asanyarray(depth_frame.get_data())
-            self.raw_frame = np.asanyarray(color_frame.get_data())
-            #self.frame = np.asanyarray(color_frame.get_data())
+            ## Convert image to numpy array
+            #self.depth_image = np.asanyarray(depth_frame.get_data())
+            #self.raw_frame = np.asanyarray(color_frame.get_data())
+            ##self.frame = np.asanyarray(color_frame.get_data())
             
-            if flag:  # flag == 1로 설정 시(기본값 0) window에 카메라 화면 창 띄우기
-                # Show RGB image
-                cv2.namedWindow('RGB Camera', cv2.WINDOW_AUTOSIZE)
-                cv2.imshow('RGB Camera', self.frame)
+            #if flag:  # flag == 1로 설정 시(기본값 0) window에 카메라 화면 창 띄우기
+                ## Show RGB image
+                #cv2.namedWindow('RGB Camera', cv2.WINDOW_AUTOSIZE)
                 #cv2.imshow('RGB Camera', self.frame)
-                cv2.waitKey(1)
+                ##cv2.imshow('RGB Camera', self.frame)
+                #cv2.waitKey(1)
                 
-                if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정 후 핸드캠으로 전환됨
-                    break
+                #if cv2.waitKey(1) & 0xFF == ord('q'):  # q 키 누르면 카메라 창을 종료하도록 설정 후 핸드캠으로 전환됨
+                    #break
             
-            #if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
-                #   self.swap_camera()
-                # break
+            ##if self.web_monitor.get_swap_button():  # web 화면에서 카메라 전환 버튼을 눌렀을 때 카메라 전환
+                ##   self.swap_camera()
+                ## break
             
-        if flag:  # flag == 1로 설정 시(기본값 0) window에 띄워진 카메라 화면 창 닫기
-            cv2.destroyAllWindows()
+        #if flag:  # flag == 1로 설정 시(기본값 0) window에 띄워진 카메라 화면 창 닫기
+            #cv2.destroyAllWindows()
             
-        print("SYSTEM ARARM::Terminate Webcam")
-        self.info.remove_system("webcam")
-        self.info.terminate_thread("webcam")
-        # Stop streaming
-        self.pipeline.stop()
+        #print("SYSTEM ARARM::Terminate Webcam")
+        #self.info.remove_system("webcam")
+        #self.info.terminate_thread("webcam")
+        ## Stop streaming
+        #self.pipeline.stop()
        
     def set_object_frame(self, bboxed_frame):
         self.frame = bboxed_frame
