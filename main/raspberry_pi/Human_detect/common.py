@@ -129,7 +129,7 @@ class Collision_Preventer:
             x0, y0, x1, y1 = int(x0*width), int(y0*height), int(x1*width), int(y1*height)
             
             # 거리에 대한 리스트 전체를 반환 nparray type
-            depth = self.depth[y1:y0, x1:x0]
+            depth = self.depth[y0:y1, x0:x1]
             # 최소값 검색
             min_depth = np.min(depth)
             frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
