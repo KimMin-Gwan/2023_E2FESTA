@@ -19,7 +19,7 @@ class Human_detector():
         #self.udp_connector = UDP_connector(info=info)
         self.tool = Tools() # 로드 모델, 로드 라벨, 텐서 세팅
         self.vib = Vibrater(info=info)
-        self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
+        self.image_manager = Image_Manager()
         self.distance=[DIST_THRESHOLD+1]
         self.cp = Collision_Preventer(info, camera, self.distance) # 검색 시작
         vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
