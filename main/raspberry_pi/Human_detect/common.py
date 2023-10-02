@@ -41,7 +41,9 @@ class Tools:
     # 이미지 인풋
     def set_input(self, image, resample=Image.NEAREST):
         image = image.resize((self.width, self.height), resample)
-        self.__input_tensor()[:,:] = image
+        tensor_index = self.input_detail['index']
+        self.interpreter(tensor_index)()[0][:,:] = image
+        #self.__input_tensor()[:,:] = image
         self.interpreter.invoke()
         #tensor_index = self.input_detail['index']
         #input = self.interpreter.tensor(tensor_index)()[0]
