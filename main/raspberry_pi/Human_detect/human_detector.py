@@ -52,7 +52,7 @@ class Human_detector():
             # output을 바탕으로 사용가능한 bbox인지 체크 및 그리기
             
             # 발견한 오브젝트의 거리를 분석
-            min_depth = self.cp.check_object(objs=objs, width=width, height=height)
+            min_depth = self.cp.check_object(objs=objs, width=width, height=height, image_manager=self.image_manager)
             self.distance[0] = min_depth
 
             fps = round(1.0/(time.time() - start_time), 1)
