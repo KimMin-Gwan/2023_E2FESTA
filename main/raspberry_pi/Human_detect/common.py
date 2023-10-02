@@ -41,9 +41,7 @@ class Tools:
     # 이미지 인풋
     def set_input(self, image, resample=Image.NEAREST):
         image = image.resize((self.width, self.height), resample)
-        tensor_index = self.input_detail['index']
-        self.interpreter(tensor_index)()[0][:,:] = image
-        #self.__input_tensor()[:,:] = image
+        self.__input_tensor()[:,:] = image
         self.interpreter.invoke()
         #tensor_index = self.input_detail['index']
         #input = self.interpreter.tensor(tensor_index)()[0]
@@ -52,7 +50,7 @@ class Tools:
     # 넘파이로 변환
     def __input_tensor(self):
         tensor_index = self.input_detail['index']
-        return self.interpreter(tensor_index)()[0]
+        return self.interpreter.tensor(tensor_index)()[0]
 
     # 텐서 인풋 세팅
     def __input_image_size(self):
