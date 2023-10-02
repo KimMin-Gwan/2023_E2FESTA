@@ -88,9 +88,9 @@ class Tools:
 
     def get_output(self, top_k=TOP_K, image_scale=1.0):
         """Returns list of detected objects."""
-        boxes = self.output_tensor(self.interpreter, 0)
-        class_ids = self.output_tensor(self.interpreter, 1)
-        scores = self.output_tensor(self.interpreter, 2)
+        boxes = self.output_tensor(0)
+        class_ids = self.output_tensor(1)
+        scores = self.output_tensor(2)
         #count = int(self.output_tensor(self.interpreter, 3))
         #박스의 크기, 오브젝트의 아이디(사물의 이름), 얼마나 비슷한지, 몇개 인지
 
