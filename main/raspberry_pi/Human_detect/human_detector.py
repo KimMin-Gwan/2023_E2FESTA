@@ -62,7 +62,7 @@ class Human_detector():
             # bbox된 이미지 데이터를 다시 카메라 프레임으로 설정
             bboxed_frame = self.image_manager.get_frame()
             self.camera.set_object_frame(bboxed_frame)
-            self.distance=DIST_THRESHOLD+1
+            self.distance[0]=DIST_THRESHOLD+1
 
         self.info.remove_system("human_detection")
         self.info.terminate_thread("human_detection")
