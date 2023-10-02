@@ -44,7 +44,7 @@ class Human_detector():
 
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
-
+            
             self.camera.set_object_frame(frame)
 
             continue
