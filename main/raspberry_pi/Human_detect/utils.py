@@ -14,8 +14,8 @@ class Image_Manager:
     # 이번 루프에서 프레임 특징
     def recog_image(self, frame):
         self.frame = frame
-        self.frame = cv2.flip(self.frame, 0)
-        self.frame= cv2.flip(self.frame, 1)
+        #self.frame = cv2.flip(self.frame, 0)
+        #self.frame= cv2.flip(self.frame, 1)
         cv2_im_rgb = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
         pil_im = Image.fromarray(cv2_im_rgb)
         # 최초에 한번만 연산
