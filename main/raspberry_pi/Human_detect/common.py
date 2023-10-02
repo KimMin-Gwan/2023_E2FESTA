@@ -115,7 +115,7 @@ class Collision_Preventer:
         self.depth = np.array([0,0,0])
         self.info = info
         collision_thread= Thread(target=self.get_distance_all,
-                                arg=(distance,))
+                                args=(distance,))
         collision_thread.start()
         self.info.add_system("distance_check")
         self.info.add_thread("distance_check")
