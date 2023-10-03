@@ -33,6 +33,11 @@ class Information:
         self.port = SERVER_PORT
         self.udp_port = UDP_PORT
 
+
+        self.capture_data=""
+        self.__chk_flag_receive_data=0
+
+
     def show_info(self):
         self.info_list=[self.getButtonState(),self.get_now_system(),
                        self.get_now_thread(),self.getSystemState(),
@@ -120,3 +125,15 @@ class Information:
 
 
 
+    def set_capture_data(self,data):
+        self.captrue_data=data
+
+    def return_capture_data(self):
+        return (self.captrue_data)
+    
+    def return_capture_end_flag(self):
+        return self.__chk_flag_receive_data
+    
+    
+    def set_return_capture_end_flag(self,data):
+        self.__chk_flag_receive_data=data

@@ -63,19 +63,25 @@ class TxtRecognizer():
        #    <- handcam&webcam 관련 함수 제작했다고 가정
        # 함수 안에서 웹캠을 돌리다가 핸드카메라 전환. while문하면 안걸린다? if-while문
       
-      self.camera.swap_camera()
+      # self.camera.swap_camera()
       time.sleep(0.5)
       #count = 0
       while True:
-         cam_button = self.info.getButtonState()
+         # cam_button = self.info.getButtonState()
       
-         if cam_button == SYS_STATE_HANDCAM:
-            photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
-            break
+         # if cam_button == SYS_STATE_HANDCAM:
+         #    photo_frame = self.camera.get_frame()               # hand cam 버튼이 눌렸을 때 사진 찍어 변수에 저장
+         #    break
 
-         if self.info.get_terminate_flag():
-            self._terminate()
-            return
+         # if self.info.get_terminate_flag():
+         #    self._terminate()
+         #    return
+         flag_return_data= 0
+         data=self.info.return_capture_data()
+         flag_return_data=self.info.return_capture_end_flag()
+         if(flag_return_data==1):
+            flag_return_data=0
+            break
          """
          time.sleep(1)
          count += 1
@@ -88,7 +94,10 @@ class TxtRecognizer():
 
       #print('type : ', type(photo_frame))
       print("SYSTEM ALARM::SNAP SHOT BUTTON ACTIVATE")
-      data = {'frame':photo_frame.tolist()}
+      #data = {'frame':photo_frame.tolist()}
+      data=self.info.return_capture_data()
+      data=np.array(data)
+      data = {'frame':data.tolist()}
       try:
          return_data = requests.post(self.url, json = data)
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
@@ -123,6 +132,13 @@ class TxtRecognizer():
       for arg in text_result:
          self.speaker.tts_read(arg)                             # string 형태로 받아온 글자 speaker로 읽어주기
       print("SYSTEM ALARM:: text recognition is operating completly ")
+
+
+      self.info.set_flag_receive_data(0)   #finish flag
+
+
+
+
       self.camera.swap_camera()
       self.info.remove_system("textRecognizer")
       self.info.terminate_thread("textRecognizer")
