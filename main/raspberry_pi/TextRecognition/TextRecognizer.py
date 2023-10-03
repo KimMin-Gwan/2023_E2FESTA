@@ -98,40 +98,43 @@ class TxtRecognizer():
       data=self.info.return_capture_data()
       data=np.array(data)
       data = {'frame':data.tolist()}
-      try:
-         return_data = requests.post(self.url, json = data)
-         print("==========")
-         print(return_data.json()['frame'])
-         #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
-         photo_texts = return_data.json()['frame']
-         for i in range(len(photo_texts)):
-             photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
-             photo_texts[i]=photo_texts[i].convert("RGBA")   
-         if self.info.get_terminate_flag():
-            self._terminate()
-            return
-      except Exception as e:
-         print("ERROR : Server Error")
-         print("ERROR CODE : ", e)
-         self.info.terminate_thread("TextRecognizer")
-         assert("SYSTEM CALL::Stop Text Recognition")
+      # try:
+      #    return_data = requests.post(self.url, json = data)
+      #    print("==========")
+      #    print(return_data.json()['frame'])
+      #    #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
+      #    photo_texts = return_data.json()['frame']
+      #    for i in range(len(photo_texts)):
+      #        photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
+      #        photo_texts[i]=photo_texts[i].convert("RGBA")   
+      #    if self.info.get_terminate_flag():
+      #       self._terminate()
+      #       return
+      # except Exception as e:
+      #    print("ERROR : Server Error")
+      #    print("ERROR CODE : ", e)
+      #    self.info.terminate_thread("TextRecognizer")
+      #    assert("SYSTEM CALL::Stop Text Recognition")
       
       
       
       
       
       
-      for i in range(len(photo_texts)):
-          photo_texts[i]=photo_texts[i].convert('L')
+      # for i in range(len(photo_texts)):
+      #     photo_texts[i]=photo_texts[i].convert('L')
 
-      text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
-      for i in range(len(text_result)):
-         if self.info.get_terminate_flag():
-            self._terminate()
-            return
+      # text_result = self.detector.run_module(photo_texts)       # 리스트 내의 글자 인식하여 string 결과로 반환
+      # for i in range(len(text_result)):
+      #    if self.info.get_terminate_flag():
+      #       self._terminate()
+      #       return
          
          
-         
+      return_data=requests.post(self.url,json=data)
+      text_result=return_data.json()['frame']
+      
+      
          
          
          
