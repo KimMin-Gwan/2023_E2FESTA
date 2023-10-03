@@ -169,6 +169,7 @@ class Button:
                break
             try:
                 self.data=self.socket.recv(1024)
+                print("input button num is",self.data)
                 self.buttonInput()
                 time.sleep(0.01)
             except bluetooth.btcommon.BluetoothError as e:
