@@ -134,7 +134,7 @@ class TxtRecognizer():
       print("SYSTEM ALARM:: text recognition is operating completly ")
 
 
-      self.info.set_flag_receive_data(0)   #finish flag
+      #self.info.set_flag_receive_data(0)   #finish flag
 
 
 
