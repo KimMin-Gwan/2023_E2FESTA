@@ -139,6 +139,6 @@ class TxtRecognizer():
 
 
 
-      self.camera.swap_camera()
+      #self.camera.swap_camera()
       self.info.remove_system("textRecognizer")
       self.info.terminate_thread("textRecognizer")
