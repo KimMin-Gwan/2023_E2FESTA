@@ -77,14 +77,11 @@ class Easy_ocr:
         return_data = self.frame_list.copy()
         self.frame_list.clear()
         #print("dfdfffdfdfd",return_data)
-        print(return_data)
-        print("==============")
-        print(type(return_data))
         return return_data
+    
     
     def plt_imshow(title='image', img=None, figsize=(8 ,5)):
         plt.figure(figsize=figsize)
-    
         if type(img) == list:
             if type(title) == list:
                 titles = title
