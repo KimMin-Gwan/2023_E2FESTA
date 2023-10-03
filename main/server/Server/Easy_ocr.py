@@ -25,7 +25,7 @@ class Easy_ocr:
     def detection_image(self):  #글자 디텍션 함수
 
         self.crop_range()
-        self.crop_image()
+        #self.crop_image()  temp
 
 
     def make_model(self):  #모델 생성 함수
@@ -37,6 +37,10 @@ class Easy_ocr:
         #print("2")
         self.results = self.reader.readtext(self.one_frame)
         print("results",self.results)
+        print("==================================",end="\n\n\n\n")
+        for i in range(len(self.results)):
+            print(self.results[i][1])
+            self.frame_list.append(self.results[i][1]) 
         #print("길이 출력",len(self.results[0][0]))
         # for i in range(len(self.results[0][0])):
         #     for k in range(4):
@@ -65,6 +69,9 @@ class Easy_ocr:
         return_data = self.frame_list.copy()
         self.frame_list.clear()
         #print("dfdfffdfdfd",return_data)
+        print(return_data)
+        print("==============")
+        print(type(return_data))
         return return_data
     
     def plt_imshow(title='image', img=None, figsize=(8 ,5)):
