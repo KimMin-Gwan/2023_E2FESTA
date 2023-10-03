@@ -126,10 +126,10 @@ class Information:
 
 
     def set_capture_data(self,data):
-        self.captrue_data=data
+        self.capture_data=data
 
     def return_capture_data(self):
-        return (self.captrue_data)
+        return (self.capture_data)
     
     def return_capture_end_flag(self):
         return self.__chk_flag_receive_data
