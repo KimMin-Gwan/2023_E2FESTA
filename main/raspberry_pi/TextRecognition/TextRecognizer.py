@@ -98,26 +98,24 @@ class TxtRecognizer():
       data=self.info.return_capture_data()
       data=np.array(data)
       data = {'frame':data.tolist()}
-      # try:
-      #    return_data = requests.post(self.url, json = data)
-      #    #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
-      #    photo_texts = return_data.json()['frame']
-      #    for i in range(len(photo_texts)):
-      #        photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
-      #        photo_texts[i]=photo_texts[i].convert("RGBA")   
-      #    if self.info.get_terminate_flag():
-      #       self._terminate()
-      #       return
-      # except Exception as e:
-      #    print("ERROR : Server Error")
-      #    print("ERROR CODE : ", e)
-      #    self.info.terminate_thread("TextRecognizer")
-      #    assert("SYSTEM CALL::Stop Text Recognition")
+      try:
+         return_data = requests.post(self.url, json = data)
+         #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
+         photo_texts = return_data.json()['frame']
+         for i in range(len(photo_texts)):
+             photo_texts[i]=Image.fromarray(np.uint8(photo_texts[i]))
+             photo_texts[i]=photo_texts[i].convert("RGBA")   
+         if self.info.get_terminate_flag():
+            self._terminate()
+            return
+      except Exception as e:
+         print("ERROR : Server Error")
+         print("ERROR CODE : ", e)
+         self.info.terminate_thread("TextRecognizer")
+         assert("SYSTEM CALL::Stop Text Recognition")
       
       
       
-      return_data=requests.post(self.url,json=data)
-      print(return_data['frame'].json)
       
       
       
