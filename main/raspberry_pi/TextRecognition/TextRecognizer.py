@@ -100,6 +100,8 @@ class TxtRecognizer():
       data = {'frame':data.tolist()}
       try:
          return_data = requests.post(self.url, json = data)
+         print("==========")
+         print(return_data.json()['frame'])
          #photo_texts = self.e_ocr.run_easyocr_module(photo_frame)  # 사진을 넘겨 사진 속 글자 list 내에 넣어 반환
          photo_texts = return_data.json()['frame']
          for i in range(len(photo_texts)):
