@@ -22,7 +22,7 @@ import threading
 
 class SpeakMaster:
     # 생성자
-    def __init__(self, info):
+    def __init__(self, info=None):
         pygame.init()
         self.cs = threading.Lock()
         self.info = info
