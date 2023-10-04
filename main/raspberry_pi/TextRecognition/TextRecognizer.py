@@ -132,7 +132,7 @@ class TxtRecognizer():
       
       
       
-      return_data=requests.pos(self.url,json=data)
+      return_data=requests.post(self.url,json=data)
       text_result=return_data.json()["frame"]
       
       for i in range(len(text_result)):
