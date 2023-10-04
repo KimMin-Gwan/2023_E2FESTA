@@ -55,7 +55,7 @@ class Button:
 
     def _receive_data(self):
         image_data=b''
-        self.socket.settimeout(9)
+        self.socket.settimeout(5)
         while True:
             try:
                 data=self.socket.recv(1024)
