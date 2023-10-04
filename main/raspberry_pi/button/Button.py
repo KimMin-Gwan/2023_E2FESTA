@@ -67,6 +67,7 @@ class Button:
                 if "timed out" in  str(e):
                     break
                 else:
+                    print("error somting")
                     break
         try:
             image=Image.open(io.BytesIO(image_data))

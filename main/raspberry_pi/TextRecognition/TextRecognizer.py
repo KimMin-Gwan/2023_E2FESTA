@@ -76,7 +76,7 @@ class TxtRecognizer():
          # if self.info.get_terminate_flag():
          #    self._terminate()
          #    return
-         flag_return_data= 0
+         flag_return_data=0
          data=self.info.return_capture_data()
          flag_return_data=self.info.return_capture_end_flag()
          if(flag_return_data==1):

@@ -22,7 +22,7 @@ class Easy_ocr:
     def detection_image(self):  #글자 디텍션 함수
 
         self.crop_range()
-        #self.crop_image()
+        self.crop_image()
 
 
     def make_model(self):  #모델 생성 함수
@@ -33,9 +33,9 @@ class Easy_ocr:
     def crop_range(self):  #크롭 범위 지정 현재 1씩 더 늘렸음
         self.results = self.reader.readtext(self.one_frame)
 
-        print(self.results)
-        for i in range(len(self.results)):
-            self.frame_list.append(self.results[i][0])
+        # print(self.results)
+        # for i in range(len(self.results)):
+        #     self.frame_list.append(self.results[i][0])
             
     def crop_image(self): #크롭 함수
         i=0
@@ -90,7 +90,6 @@ class Easy_ocr:
         self.one_frame=frame
         self.make_model()   #모델 만들기
         self.detection_image()
-        print(self.return_frame)
         return self.return_frame()
 
 

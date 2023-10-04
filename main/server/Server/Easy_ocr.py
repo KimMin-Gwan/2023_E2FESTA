@@ -40,10 +40,9 @@ class Easy_ocr:
         
         # print("results",self.results)
         # print("==================================",end="\n\n\n\n")
+        # for i in range(len(self.results)):
         #     print(self.results[i][1])
-        for i in range(len(self.results)):
-            # print(self.results[i][1])
-            self.frame_list.append(self.results[i][1]) 
+        #     self.frame_list.append(self.results[i][1]) 
             
             
             
@@ -78,6 +77,7 @@ class Easy_ocr:
         return_data = self.frame_list.copy()
         self.frame_list.clear()
         #print("dfdfffdfdfd",return_data)
+        print(return_data)
         return return_data
     
     
@@ -120,6 +120,7 @@ class Easy_ocr:
         self.one_frame=frame
         self.make_model()   #모델 만들기
         self.detection_image()
+        
         return self.return_frame()
 
 
