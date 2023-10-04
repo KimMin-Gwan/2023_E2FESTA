@@ -25,7 +25,7 @@ class Easy_ocr:
     def detection_image(self):  #글자 디텍션 함수
 
         self.crop_range()
-        self.crop_image()
+        #self.crop_image()
 
     def make_model(self):  #모델 생성 함수
         langs = ['ko', 'en']
@@ -40,9 +40,9 @@ class Easy_ocr:
         
         # print("results",self.results)
         # print("==================================",end="\n\n\n\n")
-        # for i in range(len(self.results)):
-        #     print(self.results[i][1])
-        #     self.frame_list.append(self.results[i][1]) 
+        for i in range(len(self.results)):
+            #print(self.results[i][1])
+            self.frame_list.append(self.results[i][1]) 
             
             
             
