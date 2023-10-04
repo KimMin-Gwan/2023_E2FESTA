@@ -90,6 +90,7 @@ class Easy_ocr:
         self.one_frame=frame
         self.make_model()   #모델 만들기
         self.detection_image()
+        print(self.return_frame)
         return self.return_frame()
 
 
