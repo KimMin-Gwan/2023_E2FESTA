@@ -40,9 +40,10 @@ class Easy_ocr:
         
         # print("results",self.results)
         # print("==================================",end="\n\n\n\n")
-        # for i in range(len(self.results)):
         #     print(self.results[i][1])
-        #     self.frame_list.append(self.results[i][1]) 
+        for i in range(len(self.results)):
+            # print(self.results[i][1])
+            self.frame_list.append(self.results[i][1]) 
             
             
             
