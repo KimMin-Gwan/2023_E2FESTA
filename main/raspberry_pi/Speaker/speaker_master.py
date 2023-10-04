@@ -31,7 +31,7 @@ class SpeakMaster:
     def tts_read(self, str):  # Speaker Output
         self.cs.acquire()
         self.exitCode = 0
-        print("SYSTEM ALARM::Speaker Output({})".format(str))
+        #print("SYSTEM ALARM::Speaker Output({})".format(str))
         self.tts = gTTS(text=str, lang='ko')
         self.tts.save('test3.mp3')
         pygame.mixer.music.load('test3.mp3')

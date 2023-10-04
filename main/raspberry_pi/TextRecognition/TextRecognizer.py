@@ -134,7 +134,7 @@ class TxtRecognizer():
       
       return_data=requests.post(self.url,json=data)
       text_result=return_data.json()["frame"]
-      
+      print(text_result)
       for i in range(len(text_result)):
          if self.info.get_terminate_flag():
             self._terminate()
