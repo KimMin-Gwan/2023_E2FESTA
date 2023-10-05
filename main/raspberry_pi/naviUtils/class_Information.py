@@ -82,7 +82,7 @@ class Information:
         if system_purpose in self.now_system:
             self.now_system.remove(system_purpose)
         else:
-            print("Information System Error")
+            #print("Information System Error")
             assert("ERROR TYPE : SYSTEM irregular terminate occur")
         return
 
@@ -99,7 +99,7 @@ class Information:
         if thread_purpose in self.now_thread:
             self.now_thread.remove(thread_purpose)
         else:
-            print("Information System Error")
+            #print("Information System Error")
             assert("ERROR TYPE : Thread Could not Found")
         return
 
