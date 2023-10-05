@@ -26,7 +26,7 @@ class Vibrater:
         while True:
             if self.info.get_terminate_flag():
                 break
-            print('distance : ', distances[0])
+            
             if len(distances)==0:
                 distances.append(DIST_THRESHOLD+1)
             distance=distances[0]
