@@ -133,11 +133,15 @@ class Collision_Preventer:
             if percent < 40:
                 continue
             # 거리에 대한 리스트 전체를 반환 nparray type
-            depth = self.depth[y0:y1, x0:x1]
-            # 최소값 검색
-            non_zero_depth = depth[depth != 0]
-            min_depth = np.min(non_zero_depth)
-            frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
+            try:
+            
+                depth = self.depth[y0:y1, x0:x1]
+                # 최소값 검색
+                non_zero_depth = depth[depth != 0]
+                min_depth = np.min(non_zero_depth)
+                frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
+            except:
+                print("Error::frame bug")
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
 
