@@ -125,6 +125,7 @@ class Collision_Preventer:
         min_depth = DIST_THRESHOLD + 1
         frame = image_manager.get_frame()
         height, width, _ = frame.shape
+        min_deapths = []
         for obj in objs:
             x0, y0, x1, y1 = list(obj.bbox)
             x0, y0, x1, y1 = int(x0*width), int(y0*height), int(x1*width), int(y1*height)
@@ -139,19 +140,22 @@ class Collision_Preventer:
                 # 최소값 검색
                 non_zero_depth = depth[depth != 0]
                 min_depth = np.min(non_zero_depth)
+                min_depths.append(min_deapths)
                 frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
             except:
                 min_depth = min_depth = DIST_THRESHOLD + 1
+                min_depths.append(min_deapths)
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
-
+        return_min_depth = min(np.array(min_depths))
         # 바이브에 동시에 두번의 입력을 주지 않기 위한 대비책
         if min_depth < DIST_THRESHOLD:
             self.flag = True
         # 최소값보다 작으면 여기서 플레그 값을 수정
         else:
             self.flage = False
-        return min_depth
+        print("return min depth : ", return_min_depth)
+        return return_min_depth
     
     # 오브젝트에 대한 거리 작성
     def __draw_distance_object(self, frame, min_depth, x0, y0, x1, y1):
