@@ -45,9 +45,9 @@ class Vibrater:
     # 진동 사이클 지정
     def __check_distance(self, distance):
         if distance <= DIST_THRESHOLD and distance >= WARN_THRESHOLD:
-            self.cycle = 2
+            self.cycle = 1.5
         elif distance <= WARN_THRESHOLD and distance >= DANG_THRESHOLD:
-            self.cycle = 1
+            self.cycle = 0.7
         elif distance <= DANG_THRESHOLD and distance >= STOP_THRESHOLD:
             self.cycle = 0.3
         elif distance <= STOP_THRESHOLD:
