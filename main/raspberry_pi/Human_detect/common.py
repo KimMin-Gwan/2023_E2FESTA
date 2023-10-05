@@ -115,11 +115,11 @@ class Collision_Preventer:
         self.depth = np.array([0,0,0])
         self.flag = False
         self.info = info
-        #collision_thread= Thread(target=self.get_distance_all,
-        #                        args=(distance,))
-        #collision_thread.start()
-        #self.info.add_system("distance_check")
-        #self.info.add_thread("distance_check")
+        collision_thread= Thread(target=self.get_distance_all,
+                                args=(distance,))
+        collision_thread.start()
+        self.info.add_system("distance_check")
+        self.info.add_thread("distance_check")
 
     def check_object(self, objs, image_manager):
         min_depth = DIST_THRESHOLD + 1
@@ -174,14 +174,14 @@ class Collision_Preventer:
             # 만약 바이브가 동작하는 상황이면 하지말고
             if not self.flag:
                 self.depth = self.camera.get_depth()
-                depth = self.depth
-                non_zero_depth = depth[depth != 0]
+                #depth = self.depth
+                #non_zero_depth = depth[depth != 0]
                 # 전체 거리 프레임에서 일정 이상 가까운 오브젝트 탐색
-                indices = np.where(non_zero_depth < DIST_THRESHOLD)
-                count = len(indices[0])
+                #indices = np.where(non_zero_depth < DIST_THRESHOLD)
+                #count = len(indices[0])
                 # 가까운 오프젝트 프레임이 일정 수 이상이면 바이브레이터 동작
-                if count > MIN_COUNT:
-                        distance[0] = np.min(self.depth)
+                #if count > MIN_COUNT:
+                #        distance[0] = np.min(self.depth)
 
         self.info.remove_system("distance_check")
         self.info.terminate_thread("distance_check")
