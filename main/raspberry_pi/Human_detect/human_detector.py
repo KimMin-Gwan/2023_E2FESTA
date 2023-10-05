@@ -41,11 +41,11 @@ class Human_detector():
                 break
 
 
-
+            start_time = time.time()            
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
             #cv2.imshow("test", frame)
-            start_time = time.time()
+            
             width, height, pil_im = self.image_manager.recog_image(frame)
 
             # 연산 부분
