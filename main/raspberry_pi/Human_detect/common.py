@@ -123,6 +123,7 @@ class Collision_Preventer:
 
     def check_object(self, objs, image_manager):
         min_depth = DIST_THRESHOLD + 1
+        return_min_depth = DIST_THRESHOLD + 1
         frame = image_manager.get_frame()
         height, width, _ = frame.shape
         min_depths = []
