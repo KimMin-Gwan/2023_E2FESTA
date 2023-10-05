@@ -45,7 +45,7 @@ class Human_detector():
             # if server connected, using server resorce
             frame = self.camera.get_webcam_frame()
             #cv2.imshow("test", frame)
-            
+            self.distance.clear()
             width, height, pil_im = self.image_manager.recog_image(frame)
 
             # 연산 부분
