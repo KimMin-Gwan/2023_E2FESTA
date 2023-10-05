@@ -56,7 +56,7 @@ class Human_detector():
             # 발견한 오브젝트의 거리를 분석
             min_depth = self.cp.check_object(objs=objs, image_manager=self.image_manager)
             self.distance[0] = min_depth
-            print('distance : ', self.distance[0])
+            #print('distance : ', self.distance[0])
             fps = round(1.0/(time.time() - start_time), 1)
             self.image_manager.append_text_img(objs=objs,
                                                labels=self.tool.get_labels(),
