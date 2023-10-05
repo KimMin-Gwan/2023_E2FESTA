@@ -147,7 +147,7 @@ class Collision_Preventer:
                 min_depths.append(min_depths)
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
-        return_min_depth = min(np.array(min_depths))
+        return_min_depth = np.min(np.array(min_depths))
         # 바이브에 동시에 두번의 입력을 주지 않기 위한 대비책
         if min_depth < DIST_THRESHOLD:
             self.flag = True
