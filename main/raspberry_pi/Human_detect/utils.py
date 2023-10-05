@@ -42,14 +42,14 @@ class Image_Manager:
     # bbox 만들기
     def append_text_img(self, objs, labels, dur):
         height, width, _= self.frame.shape
-        
-        fps=round(100/dur,1)
+
+        #fps=round(100/dur,1)
         #fps 조정 = 1000/전체 작동시간
 
         self.frame= cv2.rectangle(self.frame, (0,0), (width, 24), (0,0,0), -1)
         #cv2 외부 틀만들기
 
-        text1 = 'FPS: {}'.format(fps)
+        text1 = 'FPS: {}'.format(dur)
         self.frame = cv2.putText(self.frame, text1, (10, 20),FONT, 0.7, (0, 0, 255), 2)
         #cv2. 영상에 FPS 띄우기
 
