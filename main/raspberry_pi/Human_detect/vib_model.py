@@ -49,7 +49,7 @@ class Vibrater:
         elif distance <= WARN_THRESHOLD and distance >= DANG_THRESHOLD:
             self.cycle = 0.7
         elif distance <= DANG_THRESHOLD and distance >= STOP_THRESHOLD:
-            self.cycle = 0.3
+            self.cycle = 0.2
         elif distance <= STOP_THRESHOLD:
             self.cycle = 0
         else:
