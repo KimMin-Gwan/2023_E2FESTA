@@ -125,7 +125,7 @@ class Collision_Preventer:
         min_depth = DIST_THRESHOLD + 1
         frame = image_manager.get_frame()
         height, width, _ = frame.shape
-        min_deapths = []
+        min_depths = []
         for obj in objs:
             x0, y0, x1, y1 = list(obj.bbox)
             x0, y0, x1, y1 = int(x0*width), int(y0*height), int(x1*width), int(y1*height)
