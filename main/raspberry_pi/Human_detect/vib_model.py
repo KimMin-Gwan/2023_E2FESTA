@@ -26,11 +26,11 @@ class Vibrater:
         while True:
             if self.info.get_terminate_flag():
                 break
-            
+            print('distance : ', distances[0])
             if len(distances)==0:
                 distances.append(DIST_THRESHOLD+1)
             distance=distances[0]
-            print('distance : ', distance)
+            
             if(self.__check_distance(distance)):
                 now_time=time.time()
                 if(now_time-end_time>self.cycle):
