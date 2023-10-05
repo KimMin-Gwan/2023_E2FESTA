@@ -141,7 +141,7 @@ class Collision_Preventer:
                 min_depth = np.min(non_zero_depth)
                 frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
             except:
-                print("Error::frame bug")
+                min_depth = min_depth = DIST_THRESHOLD + 1
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
 
