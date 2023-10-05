@@ -160,8 +160,8 @@ class Collision_Preventer:
     
     # 오브젝트에 대한 거리 작성
     def __draw_distance_object(self, frame, min_depth, x0, y0, x1, y1):
-        frame = cv2.rectangle(frame, (x0+5, y0+5), (x1+5, y1+5), (0,0,255), 1)
-        frame = cv2.putText(frame, str(min_depth), (x0 + (x1-x0), y0 + (y1-y0)), FONT, 0.6, (255, 255, 0), 2)
+        #frame = cv2.rectangle(frame, (x0+5, y0+5), (x1+5, y1+5), (0,0,255), 1)
+        #frame = cv2.putText(frame, str(min_depth), (x0 + (x1-x0), y0 + (y1-y0)), FONT, 0.6, (255, 255, 0), 2)
         return frame
     
 
