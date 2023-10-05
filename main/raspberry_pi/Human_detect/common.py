@@ -140,11 +140,11 @@ class Collision_Preventer:
                 # 최소값 검색
                 non_zero_depth = depth[depth != 0]
                 min_depth = np.min(non_zero_depth)
-                min_depths.append(min_depths)
+                min_depths.append(min_depth)
                 frame = self.__draw_distance_object(frame, min_depth, x0, y0, x1, y1)
             except:
-                min_depth = min_depth = DIST_THRESHOLD + 1
-                min_depths.append(min_depths)
+                min_depth = DIST_THRESHOLD + 1
+                min_depths.append(min_depth)
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
         return_min_depth = np.min(np.array(min_depths))
