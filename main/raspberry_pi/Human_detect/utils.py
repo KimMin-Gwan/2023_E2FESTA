@@ -43,7 +43,7 @@ class Image_Manager:
     def append_text_img(self, objs, labels, dur):
         height, width, _= self.frame.shape
         
-        fps=round(1000/dur,1)
+        fps=round(100/dur,1)
         #fps 조정 = 1000/전체 작동시간
 
         self.frame= cv2.rectangle(self.frame, (0,0), (width, 24), (0,0,0), -1)
