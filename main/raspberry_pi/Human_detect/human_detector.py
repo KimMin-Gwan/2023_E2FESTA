@@ -22,10 +22,10 @@ class Human_detector():
         self.image_manager = Image_Manager()
         self.distance=[DIST_THRESHOLD+1]
         self.cp = Collision_Preventer(info, camera, self.distance) # 검색 시작
-        #vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
-        #vib_thread.start()
-        #self.info.add_system("vib_thread")
-        #self.info.add_thread("vib_thread")
+        vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
+        vib_thread.start()
+        self.info.add_system("vib_thread")
+        self.info.add_thread("vib_thread")
 
     def __human_detection(self):
         # 라벨 세팅
