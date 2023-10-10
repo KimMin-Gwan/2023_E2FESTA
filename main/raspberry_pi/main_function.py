@@ -1,3 +1,4 @@
+import time
 import button
 import Camera
 import InfraSearch
@@ -8,7 +9,7 @@ import Speaker
 import TextRecognition
 from threading import Thread
 from button.constant import *
-
+import subprocess # for wifi check
 
 class Main_Function():
     def __init__(self):
@@ -26,6 +27,11 @@ class Main_Function():
 
 
     def start_System(self):
+        # Check Wifi Connection
+        while self.check_wifi_connection() == False:
+            time.sleep(1)
+
+
         # Speaker Thread
         print("SYSTEM ALARM::System Start")
         self.info.add_system("speaker")
@@ -93,6 +99,15 @@ class Main_Function():
 
         self.info.remove_system("main_loop")
         self.info.terminate_thread("main_loop")
+
+    def check_wifi_connection(self):
+        try:
+            # 와이파이 연결 상태를 확인하기 위해 "ping" 명령을 실행합니다.
+            # "google.com" 대신에 연결 가능한 다른 호스트 또는 IP 주소를 사용할 수 있습니다.
+            subprocess.check_output(['ping', '-c', '1', 'google.com'])
+            return True
+        except subprocess.CalledProcessError:
+            return False
 
 
 
