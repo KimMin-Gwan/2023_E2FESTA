@@ -29,6 +29,7 @@ class Main_Function():
     def start_System(self):
         # Check Wifi Connection
         while self.check_wifi_connection() == False:
+            print("WiFi Conectting")
             time.sleep(1)
 
 
