@@ -32,7 +32,7 @@ class Information:
         self.ip = SERVER_IP
         self.port = SERVER_PORT
         self.udp_port = UDP_PORT
-
+        self.bluetooth_flag=False
 
         self.capture_data=""
         self.__chk_flag_receive_data=0
@@ -137,3 +137,9 @@ class Information:
     
     def set_return_capture_end_flag(self,data):
         self.__chk_flag_receive_data=data
+
+    
+    def set_bluetooth_flag(self,fl):
+       self.bluetooth_flag=fl
+    def get_bluetooth_flag(self):
+        return self.bluetooth_flag
