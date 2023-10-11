@@ -113,7 +113,7 @@ class Collision_Preventer:
     def __init__(self, info, camera, distance):
         self.camera = camera
         self.depth = np.array([0,0,0])
-        self.flag = False
+        #self.flag = False
         self.info = info
         collision_thread= Thread(target=self.get_distance_all,
                                 args=(distance,))
@@ -150,18 +150,12 @@ class Collision_Preventer:
                 return_min_depth = np.min(np.array(min_depths))
         # 작성된 프레임으로 재구성
         image_manager.set_frame(frame)
-        # 바이브에 동시에 두번의 입력을 주지 않기 위한 대비책
-        if return_min_depth < DIST_THRESHOLD:
-            self.flag = True
-        # 최소값보다 작으면 여기서 플레그 값을 수정
-        else:
-            self.flage = False
         return return_min_depth
     
     # 오브젝트에 대한 거리 작성
     def __draw_distance_object(self, frame, min_depth, x0, y0, x1, y1):
         #frame = cv2.rectangle(frame, (x0+5, y0+5), (x1+5, y1+5), (0,0,255), 1)
-        #frame = cv2.putText(frame, str(min_depth), (x0 + (x1-x0), y0 + (y1-y0)), FONT, 0.6, (255, 255, 0), 2)
+        frame = cv2.putText(frame, str(min_depth), (x0 + (x1-x0), y0 + (y1-y0)), FONT, 0.6, (255, 255, 0), 2)
         return frame
     
 
