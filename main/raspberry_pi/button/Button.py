@@ -173,7 +173,7 @@ class Button:
                 self.info.set_bluetooth_flag(False)
             if(self.info.get_bluetooth_flag()==True):
                 break
-            print("블투 연결중 입니다. ")
+            #print("블투 연결중 입니다. ")
         
         
         while True:
