@@ -27,6 +27,13 @@ class Main_Function():
 
 
     def start_System(self):
+        # Button Thread
+        print("SYSTEM ALARM::Button System Start")
+        self.info.add_system("button")
+        self.info.add_thread("button")
+        button_thread = Thread(target=self.button.startButton)  # Button Thread
+        button_thread.start()  # Button start
+        
         # Check Wifi Connection
         while self.check_wifi_connection() == False or self.info.get_bluetooth_flag()==False:
             print("WiFi and Bluetooth connecting...")
@@ -40,15 +47,9 @@ class Main_Function():
         speaker_thread = Thread(target=self.speaker.tts_read, args=("나비가 시작되었습니다.",))  # Welcome Sound Thread
         speaker_thread.start()  # Welcome Sound start
 
-        # Button Thread
-        print("SYSTEM ALARM::Button System Start")
-        self.info.add_system("button")
-        self.info.add_thread("button")
-        button_thread = Thread(target=self.button.startButton)  # Button Thread
-        button_thread.start()  # Button start
 
         # Camera Start
-        print("SYSTEM ALARM::Button System Start")
+        print("SYSTEM ALARM::Camera System Start")
         self.camera.RunCamera()
 
         # Human Detection System Start
