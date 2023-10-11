@@ -163,10 +163,18 @@ class Button:
             return None   
 
     def startButton(self):
-        self.socket=BluetoothSocket(RFCOMM)       
-        self.socket.connect(('24:DC:C3:C3:33:C6',1))
-        self.info.set_bluetooth_flag(True)
-
+        while True:
+            self.socket=BluetoothSocket(RFCOMM)       
+            self.socket.connect(('24:DC:C3:C3:33:C6',1))
+            try:
+                self.socket.getpeername()
+                self.info.set_bluetooth_flag(True)
+            except:
+                self.info.set_bluetooth_flag(False)
+            if(self.info.get_bluetooth_flag()==True):
+                break
+        
+        
         while True:
             if self.info.get_terminate_flag():
                break
