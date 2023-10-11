@@ -28,7 +28,7 @@ class Main_Function():
 
     def start_System(self):
         # Check Wifi Connection
-        while self.check_wifi_connection() == False and self.info.get_bluetooth_flag()==False:
+        while self.check_wifi_connection() == False or self.info.get_bluetooth_flag()==False:
             print("WiFi and Bluetooth connecting...")
             time.sleep(1)
 
