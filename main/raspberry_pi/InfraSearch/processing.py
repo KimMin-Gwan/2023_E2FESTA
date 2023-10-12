@@ -13,6 +13,7 @@
 * JH SUN            2023.07.21      v1.00       processing.py 작성완료
 * JH KIM            2023.07.25      v1.01       dictionary value modified (power, data)
 * JH KIM            2023.08.08      v1.01       beacon time Synchronization
+* KH KIM            2023.10.12      v1.02       receive data 예외처리
 """
 
 import time
