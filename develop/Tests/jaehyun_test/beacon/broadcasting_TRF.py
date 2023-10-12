@@ -20,10 +20,10 @@ import time
 
 class trafficSignal:
     def __init__(self):
-        os.system("sudo hciconfig hci0 up")
+        os.system("sudo hciconfig hci0 up")         # Beacon Broadcasting을 위한 설정
         os.system("sudo hciconfig hci0 leadv 3")
         self.signal = "R"
-        self.leftTime = 30
+        self.leftTime = 30                          # 기본 남은 시간 30초
 
     def setSignal(self, newSig):
         self.signal = newSig
@@ -44,7 +44,7 @@ class trafficSignal:
         sendStr = defaultStr + TRF + "30 30 31 "+ signalStr + Ten + " " + One
         os.system(sendStr)
 
-    def changeTurn(self):
+    def changeTurn(self):       # 빨간불 파란불 변경
         if self.getSignal() == "R":
             self.setSignal("G")
         elif self.getSignal() == "G":
@@ -55,7 +55,7 @@ class trafficSignal:
 
     def afterOneSec(self):
         time.sleep(1)
-        if self.leftTime > 0:
+        if self.leftTime >= 1:  # 1초 이상 남았을 때만 시간 감소
             self.leftTime -= 1
         else:
             self.changeTurn()
