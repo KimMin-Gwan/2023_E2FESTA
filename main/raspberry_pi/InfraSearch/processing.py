@@ -70,9 +70,18 @@ class ProcessingData:  # data처리 클래스
 
         if int(Ten) - 30 == 0:
             my_str = Traffic_info + color + " 입니다. " + Left_time + str(int(One) - 30) + Second
+
+
+
+
+        elif int(Ten)-30==1:
+            my_str=Traffic_info+color+"입니다. "+Left_time + "십. "+str(int(One)-30) +Second
+
+
+
         else:
-            my_str = Traffic_info + color + " 입니다. " + Left_time + str(int(Ten) - 30) + "십. " + str(
-                int(One) - 30) + Second
+            my_str = Traffic_info + color + " 입니다. " + Left_time + str(int(Ten) - 30) + "십. " + 
+            str(int(One) - 30) + Second
 
         # print("This is Traffic  traffic_number is : ", trafiic_number, "color : ", color, "left time is ",
         #           int(Ten) - 30, int(One) - 30, "sec")  # 콘솔 출력창 확인 위함 나중에 지워질 코드
