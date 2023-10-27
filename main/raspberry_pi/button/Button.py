@@ -61,8 +61,8 @@ class Button:
                 print("data기다리는중~")
                 data=self.socket.recv(1024)
                 print("전달받은 data",data)
-                data=int.from_bytes(data,byteorder='big')
-                print("이미지 크기는 : ",data)
+                size_data=int.from_bytes(data,byteorder='big')
+                print("이미지 크기는 : ",size_data)
                 if not data:
                     break
                 image_data+=data
