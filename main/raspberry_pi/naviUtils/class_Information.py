@@ -7,9 +7,10 @@
 * ==========================================================================
 * Program history
 * ==========================================================================
-* Author    		Date		Version		History
+* Author    		Date		    Version		History
 * JH KIM            2023.07.17		v1.00		First Write
 * MG KIM            2023.08.22		v1.10		Change Details
+* JH KIM            2023.10.27      v1.11       Add VibActionFlag/setButton func Modified 
 """
 import threading
 from naviUtils.constant import *
@@ -33,9 +34,9 @@ class Information:
         self.port = SERVER_PORT
         self.udp_port = UDP_PORT
         self.bluetooth_flag=False
-
         self.capture_data=""
         self.__chk_flag_receive_data=0
+        self.vibActionFlag = True   # 진동모듈(vib) 동작 플래그, True이면 동작, Flase이면 미동작
 
 
     def show_info(self):
@@ -56,6 +57,8 @@ class Information:
     def setButtonState(self, state):  # Button state mutator
         self.cs.acquire()
         print("SYSTEM ALARM::Button State Changed({} -> {})".format(self.getButtonState(), state))
+        if self.__buttonState == -2 and state == -2:
+            self.changeVibrationFlag()
         self.__buttonState = state
         self.cs.release()
         return
@@ -122,9 +125,6 @@ class Information:
     def get_udp_PORT(self):
         return self.udp_port
 
-
-
-
     def set_capture_data(self,data):
         self.capture_data=data
 
@@ -143,3 +143,14 @@ class Information:
        self.bluetooth_flag=fl
     def get_bluetooth_flag(self):
         return self.bluetooth_flag
+
+    def changeVibrationFlag(self):
+        if self.vibActionFlag == True:
+            self.vibActionFlag = False
+            print("SYSTEM ALARM::Turn Off the Vibration Module")
+        else:
+            self.vibActionFlag = True
+            print("SYSTEM ALARM::Turn On the Vibration Module")
+
+    def getVibrationFlag(self):
+        return self.vibActionFlag

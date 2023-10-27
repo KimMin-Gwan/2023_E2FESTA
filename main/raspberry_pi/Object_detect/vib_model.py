@@ -5,10 +5,10 @@ import time
 import numpy as np
 
 class Vibrater:
-    def __init__(self):
+    def __init__(self, info):
         #GPIO.setmode(GPIO.BCM)
         GPIO.setup(VIB_PIN, GPIO.OUT)
-
+        self.info = info
         # 진동 사이클
         self.cycle = VIB_CYCLE #초
 
@@ -34,9 +34,13 @@ class Vibrater:
         #     else:
         #         self.cycle = VIB_CYCLE
             #distances.clear()
-            end_time=0
-            while True:
-                #distance=self.__find_min_dist(distances=distances)
+
+        end_time=0
+        while True:
+            if self.info.getVibrationFlag() == False:
+                time.sleep(1)
+            else:
+            #distance=self.__find_min_dist(distances=distances)
                 if len(distances)==0:
                     distances.append(DIST_THRESHOLD+1)
                 distance=distances[0]
@@ -44,7 +48,7 @@ class Vibrater:
                     now_time=time.time()
                     if(now_time-end_time>self.cycle):
                         GPIO.output(VIB_PIN,True)
-                        time.sleep(0.5) 
+                        time.sleep(0.3)
                         end_time=time.time()
                         GPIO.output(VIB_PIN,False)
                                      

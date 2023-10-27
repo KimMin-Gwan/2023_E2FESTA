@@ -1,4 +1,18 @@
+"""
+* Project : 2023CDP class object detector
+* Program Purpose and Features :
+* - class object detector
+* Author : MG KIM
+* First Write Date : 2023.07.17
+* ==========================================================================
+* Program history
+* ==========================================================================
+* Author    		Date		Version		History
+* JH KIM            2023.07.17		v1.00		First Write
+* MG KIM            2023.08.22		v1.10		Change Details
+"""
 #from Object_detect import MIN_CONF_THRESHOLD
+
 from Object_detect.common import *
 from Object_detect.constant import *
 from Object_detect.utils import *
@@ -20,10 +34,12 @@ class Object_detector():
         self.udp_connector = UDP_connector(info=info)
         self.cp = Collision_Preventer(speaker)
         self.tool = Tools()
-        self.vib = Vibrater()
+        self.vib = Vibrater(self.info)
         self.tool.set_labels()
         self.image_manager = Image_Manager(self.tool, self.tool.get_labels())
         self.distance=[DIST_THRESHOLD+1]
+
+        # 진동모듈(vib) threaad
         vib_thread = Thread(target=self.vib.give_vib_feedback,args=(self.distance,))
         vib_thread.start()
         #self.camera = camera.main_cam() # 카메라 클래스에서 넘겨올 것
