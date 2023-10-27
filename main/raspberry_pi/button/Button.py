@@ -60,7 +60,7 @@ class Button:
             try:
                 data=self.socket.recv(1024)
                 # 길이체크
-                print(data)
+                print("here"+data)
                 if not data:
                     break
                 image_data+=data
