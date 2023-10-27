@@ -61,10 +61,10 @@ class Button:
                 print("data기다리는중~")
                 data=self.socket.recv(1024)
                 print("전달받은 data",data)
-                size_data=int.from_bytes(data,byteorder='big')
-                print("이미지 크기는 : ",size_data)
                 if not data:
                     break
+                elif data==b'end':
+                    print("end flag is coming    :  ",data)
                 image_data+=data
             except bluetooth.btcommon.BluetoothError as e:
                 print(e)
