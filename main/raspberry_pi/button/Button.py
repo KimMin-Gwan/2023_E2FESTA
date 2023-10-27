@@ -63,7 +63,7 @@ class Button:
                 print("전달받은 data",data)
                 if not data:
                     break
-                elif data==b'end':
+                if 'end' in data:
                     print("end flag is coming    :  ",data)
                 image_data+=data
             except bluetooth.btcommon.BluetoothError as e:
