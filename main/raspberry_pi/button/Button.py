@@ -58,6 +58,7 @@ class Button:
         self.socket.settimeout(9)
         while True:
             try:
+                print("data기다리는중~")
                 data=self.socket.recv(1024)
                 print("전달받은 data",data)
                 data=int.from_bytes(data,byteorder='big')
