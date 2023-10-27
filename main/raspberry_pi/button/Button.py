@@ -55,16 +55,15 @@ class Button:
 
     def _receive_data(self):
         image_data=b''
-        self.socket.settimeout(9)
+        #self.socket.settimeout(9)
         while True:
             try:
-                print("data기다리는중~")
                 data=self.socket.recv(1024)
-                print("전달받은 data",data)
                 if not data:
                     break
                 elif data==b'end':
                     print("end flag input",data)
+                    break
                 image_data+=data
             except bluetooth.btcommon.BluetoothError as e:
                 print(e)
