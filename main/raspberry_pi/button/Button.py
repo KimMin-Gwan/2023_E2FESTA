@@ -59,6 +59,8 @@ class Button:
         while True:
             try:
                 data=self.socket.recv(1024)
+                data=int.from_bytes(data,byteorder='big')
+                print("이미지 크기는 : ",data)
                 if not data:
                     break
                 image_data+=data
