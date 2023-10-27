@@ -22,22 +22,27 @@ class Vibrater:
     
     # 진동 사이클 제공
     def give_vib_feedback(self, distances = [DIST_THRESHOLD+1]):
+
         end_time=0
+
         while True:
             if self.info.get_terminate_flag():
                 break
-            
-            if len(distances)==0:
-                distances.append(DIST_THRESHOLD+1)
-            distance=distances[0]
-            
-            if(self.__check_distance(distance)):
-                now_time=time.time()
-                if(now_time-end_time>self.cycle):
-                    GPIO.output(VIB_PIN,True)
-                    time.sleep(0.5) 
-                    end_time=time.time()
-                    GPIO.output(VIB_PIN,False)
+
+            if self.info.getVibrationFlag() == False:
+                time.sleep(1)
+            else:
+                if len(distances)==0:
+                    distances.append(DIST_THRESHOLD+1)
+                distance=distances[0]
+
+                if(self.__check_distance(distance)):
+                    now_time=time.time()
+                    if(now_time-end_time>self.cycle):
+                        GPIO.output(VIB_PIN,True)
+                        time.sleep(0.5)
+                        end_time=time.time()
+                        GPIO.output(VIB_PIN,False)
                                     
         self.info.remove_system("vib_thread")
         self.info.terminate_thread("vib_thread")
