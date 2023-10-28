@@ -55,11 +55,14 @@ class Button:
 
     def _receive_data(self):
         image_data=b''
-        self.socket.settimeout(9)
+        #self.socket.settimeout(9)
         while True:
             try:
                 data=self.socket.recv(1024)
                 if not data:
+                    break
+                elif data==b'end':
+                    print("end flag input",data)
                     break
                 image_data+=data
             except bluetooth.btcommon.BluetoothError as e:
@@ -168,7 +171,8 @@ class Button:
         while True:
             try:
                 self.socket = BluetoothSocket(RFCOMM)
-                self.socket.connect(('24:DC:C3:C3:33:C6',1))
+                #self.socket.connect(('24:DC:C3:C3:33:C6',1))
+                self.socket.connect(('40:22:D8:76:A7:A6',1))
                 self.info.set_bluetooth_flag(True)
             except:
                 self.info.set_bluetooth_flag(False)

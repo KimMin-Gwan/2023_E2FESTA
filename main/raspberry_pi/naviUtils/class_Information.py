@@ -59,7 +59,9 @@ class Information:
         print("SYSTEM ALARM::Button State Changed({} -> {})".format(self.getButtonState(), state))
         if self.__buttonState == -2 and state == -2:
             self.changeVibrationFlag()
-        self.__buttonState = state
+            self.__buttonState = -1
+        else:
+            self.__buttonState = state
         self.cs.release()
         return
 
