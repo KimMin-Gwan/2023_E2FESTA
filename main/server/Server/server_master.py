@@ -91,7 +91,7 @@ class Server:
 
         
     def start_server(self):
-        self.app.run(host="192.168.234.157", port="8888") # 서버 자신의 주소
+        self.app.run(host="192.168.50.121", port="8888") # 서버 자신의 주소
 
 
 if __name__=="__main__":
