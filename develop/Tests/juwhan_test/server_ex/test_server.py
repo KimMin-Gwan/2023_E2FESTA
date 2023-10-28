@@ -46,7 +46,6 @@ class Server:
 
         @self.app.route('/rcv',methods=['GET'])#http 로 접속시에는 127.0.0.1:8000/rcv?id=123&id=abc&id=... 하면 id값이 123이 들어가게된다.
         def get():
-            print("df")
             #넣어줘야할 데이터는 http://127.0.0.1:8000/rcv?id=ID&id=SUB&id=여기에 이제 key값을 넣어서 몇번째 비콘인지 찾는거지
             #현재 data frame 이 {'_id': ObjectId('64b394a993c1322d8377cefa'), 'ID': 'SUB', 'KEY': '1', 'DATA_1': '영남대방향'}
             #이런 형태로 저장되어있음
@@ -66,7 +65,6 @@ class Server:
 
             print("그중 전달받은 key값은",ids[2],"이고 이에 해당하는 데이터는")
             print(list_reuslt[0]["DATA_1"])
-            
             return list_reuslt[0]["DATA_1"]
         
         @self.app.route('/easy_ocr', methods =['POST'])
@@ -86,14 +84,15 @@ class Server:
                 print("ERROR CODE : ", e)
                 return_data = data
             return return_data
-
         
     def start_server(self):
         self.app.run(host="127.0.0.1", port="8000") # 서버 자신의 주소
 
 
 if __name__=="__main__":
-    server=Server()
-    server.start_server()
+    st='001'
+    print(int(st))
+    #server=Server()
+    #server.start_server()
 
     

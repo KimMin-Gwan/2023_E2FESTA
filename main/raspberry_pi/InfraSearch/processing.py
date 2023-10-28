@@ -66,9 +66,13 @@ class ProcessingData:  # data처리 클래스
         trafiic_number_thrid, trafiic_number_second, trafiic_number_first = trafiic_number[0:2], trafiic_number[
                                                                                                  2:4], trafiic_number[
                                                                                                        4:6]
-        trafiic_number = str(int(str(int(trafiic_number_thrid) - 30) + str(int(trafiic_number_second) - 30) + str(
-            int(trafiic_number_first) - 30)))
+        # trafiic_number = str(int(str(int(trafiic_number_thrid) - 30) + str(int(trafiic_number_second) - 30) + str(
+        #     int(trafiic_number_first) - 30)))
 
+        trafiic_number = str(int(str(int(trafiic_number_thrid) - 30) + str(int(trafiic_number_second) - 30) + str(int(trafiic_number_first) - 30)))
+        
+        
+        trafiic_number=int(trafiic_number)
         if int(Ten) - 30 == 0:
             my_str = Traffic_info + color + " 입니다. " + Left_time + str(int(One) - 30) + Second
 

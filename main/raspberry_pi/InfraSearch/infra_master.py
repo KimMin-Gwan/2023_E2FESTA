@@ -85,9 +85,6 @@ class Beacon_Master:
         return exitCode
 
     def connect_data_base(self):
-        if self.data=="신호등":
-            self.flag="TRF"
-            self.key="1"
         url = 'http://'+self.mainInfo.get_IP()+':'+self.mainInfo.get_PORT()+'/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
         self.data = response.text + self.data
