@@ -1,7 +1,8 @@
 import socket
 import numpy
 import cv2
-
+import io
+from PIL import Image
 UDP_IP = "165.229.185.195"
 UDP_PORT = 8000
 
@@ -44,3 +45,7 @@ while True:
     if data==b'end':
         print("end")
         break
+
+image_stream=io.BytesIO(picture)
+image=Image.open(image_stream)
+image.show()

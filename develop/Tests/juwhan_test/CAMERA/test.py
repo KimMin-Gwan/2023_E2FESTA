@@ -52,7 +52,6 @@ while send_bytes<len(image_bytes):
     left_bytes-=now_send_bytes
     print("============================================")
     print(image_bytes[send_bytes:MAX_SEND_BYTES+send_bytes]) 
-    time.sleep(1)
 
 socket.sendto("end".encode(),(UDP_IP,UDP_PORT))
 
