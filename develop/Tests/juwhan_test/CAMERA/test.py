@@ -12,7 +12,7 @@ UDP_PORT = 8000
 # 카메라 설정 (해상도, 화면 회전 등)
 
 picam2 = Picamera2()
-picam2.preview_configuration.main.size = (1280,720)
+picam2.preview_configuration.main.size = (480,640)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.align()
 picam2.configure("preview")
