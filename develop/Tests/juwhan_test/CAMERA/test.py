@@ -38,6 +38,6 @@ d=image_bytes.flatten()
 s=d.tostring()
 
 for i in range(20):
-    socket.sendto(bytes[i] + s[i*46080:(i*1)*46080] ,(UDP_IP,UDP_PORT))
+    socket.sendto(bytes([i]) + s[i*46080:(i*1)*46080] ,(UDP_IP,UDP_PORT))
 
   
