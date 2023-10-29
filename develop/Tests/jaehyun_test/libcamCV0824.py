@@ -26,4 +26,7 @@ print(im)
 print(type(im))
 cv2.imshow("Camera", im)
 cv2.imwrite("output.jpg",im)
-cv2.destroyAllWindows()
+with open("output.jpg",'rb') as im:
+    image_bytes=im.read()
+    
+print(image_bytes)
