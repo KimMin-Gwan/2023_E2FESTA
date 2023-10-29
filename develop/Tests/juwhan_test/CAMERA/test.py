@@ -41,10 +41,10 @@ with open('output.jpg', 'rb') as output_file:
 #d=image_bytes.flatten()
 #s=d.tostring()
 print(len(image_bytes))
-print(image_bytes[0:15])
-socket.sendto(image_bytes[0:15],(UDP_IP,UDP_PORT))
+print(image_bytes[0:5500])
+socket.sendto(image_bytes[0:5500],(UDP_IP,UDP_PORT))
 
-
+MAX_SEND_BYTES=5500
 
 # for i in range(20):
 
