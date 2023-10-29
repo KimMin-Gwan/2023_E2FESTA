@@ -87,6 +87,7 @@ class Beacon_Master:
     def connect_data_base(self):
         url = 'http://'+self.mainInfo.get_IP()+':'+self.mainInfo.get_PORT()+'/rcv?id=ID&id=' + self.flag + '&id=' + self.key  # server로 전달할 id이다.
         response = requests.get(url)
+        print("전달받은 데이터는         :         ",response.text)
         self.data = response.text + self.data
 
     def process_beacon(self):  # processes하는 부분이다.
