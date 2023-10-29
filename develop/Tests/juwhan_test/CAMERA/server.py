@@ -36,16 +36,16 @@ out = cv2.VideoWriter('output.avi', fourcc, 25.0, (640, 480))
 #             cv2.destroyAllWindows()
 #             sock.close()
 #             break
-    
-picture=b''
-while True:
-    data,addr=sock.recvfrom(5500)
-    #print(data)
-    picture+=data
-    if data==b'end':
-        print("end")
-        break
+while True:    
+    picture=b''
+    while True:
+        data,addr=sock.recvfrom(5500)
+        #print(data)
+        picture+=data
+        if data==b'end':
+            print("end")
+            break
 
-image_stream=io.BytesIO(picture)
-image=Image.open(image_stream)
-image.show()
+    image_stream=io.BytesIO(picture)
+    image=Image.open(image_stream)
+    image.show()
