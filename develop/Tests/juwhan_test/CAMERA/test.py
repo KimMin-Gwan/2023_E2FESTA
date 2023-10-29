@@ -32,8 +32,8 @@ socket.settimeout(1)
 
 # 이미지 확인
 im=picam2.capture_array()
-cv2.imwrite("output.jpg",im)
-image_bytes=cv2.imread('output.jpg')
+cv2.imwrite("output.png",im)
+image_bytes=cv2.imread('output.png')
 d=image_bytes.flatten()
 s=d.tostring()
 
