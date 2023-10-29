@@ -32,17 +32,22 @@ socket.settimeout(1)
 
 # 이미지 확인
 im=picam2.capture_array()
-cv2.imwrite("output.png",im)
-image_bytes=cv2.imread('output.png')
-d=image_bytes.flatten()
-s=d.tostring()
+cv2.imwrite("output.jpg",im)
 
-for i in range(20):
+with open('output_image.jpg', 'wb') as output_file:
+    image_bytes=output_file.read()
 
 
-    print(bytes([i]) + s[i*46080:(i*1)*46080])
-    print("======================")
-    print(i)
-    socket.sendto(bytes([i]) + s[i*46080:(i*1)*46080] ,(UDP_IP,UDP_PORT))
+#d=image_bytes.flatten()
+#s=d.tostring()
+print(len(image_bytes))
+socket.sendto(image_bytes,(UDP_IP,UDP_PORT))
+# for i in range(20):
+
+
+#     print(bytes([i]) + s[i*46080:(i*1)*46080])
+#     print("======================")
+#     print(i)
+#     socket.sendto(bytes([i]) + s[i*46080:(i*1)*46080] ,(UDP_IP,UDP_PORT))
 
   
