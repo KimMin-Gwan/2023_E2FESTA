@@ -93,8 +93,8 @@ class Beacon_Master:
     def process_beacon(self):  # processes하는 부분이다.
         self.process = ProcessingData(self.information, self.flag)  # ProcessingData Object
         self.process.process_beacon_data()
-        self.connect_data_base()                                  # data_base에 연결하는 경우 주석 해제
         self.data, self.flag, self.key = self.process.return_gtts_mssage()  # prcessing된 message return
+        self.connect_data_base()                                  # data_base에 연결하는 경우 주석 해제
 
     def runScanBeacon(self):
         state = self.scan_beacon()  # beacon scan
