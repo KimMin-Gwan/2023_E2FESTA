@@ -21,11 +21,9 @@ picam2.preview_configuration.align()
 picam2.configure("preview")
 picam2.start()
 
-while True:
-    im= picam2.capture_array()
-    print(im)
-    print(type(im))
-    cv2.imshow("Camera", im)
-    if cv2.waitKey(1)==ord('q'):
-        break
+im= picam2.capture_array()
+print(im)
+print(type(im))
+cv2.imshow("Camera", im)
+cv2.imwrite("output.jpg",im)
 cv2.destroyAllWindows()
