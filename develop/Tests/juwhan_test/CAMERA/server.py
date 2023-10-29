@@ -37,7 +37,10 @@ out = cv2.VideoWriter('output.avi', fourcc, 25.0, (640, 480))
 #             break
     
 picture=b''
-data,addr=sock.recvfrom(5500)
-print(data)
-print("=============")
-print(data)
+while True:
+    data,addr=sock.recvfrom(5500)
+    print(data)
+    picture+=data
+    if data==b'end':
+        print("end")
+        break
