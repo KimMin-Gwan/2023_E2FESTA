@@ -33,7 +33,7 @@ Down_line="하행선"
 
 
 
-Traffic_info="영남대학교 사거리방향 신호등 입니다. 현재 색깔은 "
+Traffic_info="신호등 입니다. 현재 색깔은 "
 Subway_info=" 지하철 입니다. "
 Left_time="남은 시간은 "
 
