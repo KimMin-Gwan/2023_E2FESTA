@@ -40,7 +40,7 @@ out = cv2.VideoWriter('output.avi', fourcc, 25.0, (640, 480))
 picture=b''
 while True:
     data,addr=sock.recvfrom(5500)
-    print(data)
+    #print(data)
     picture+=data
     if data==b'end':
         print("end")
