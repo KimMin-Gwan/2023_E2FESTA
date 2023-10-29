@@ -1,6 +1,7 @@
 import io
 import socket
 from picamera2 import Picamera2
+import cv2
 import time
 from PIL import Image
 
@@ -20,24 +21,23 @@ picam2.start()
 
 
 # 이미지를 UDP 소켓을 통해 서버로 전송
-try:
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    client_socket.settimeout(1)
 
-    #while True:
-    #    im=picam2.capure_array()
-    #    time.sleep(2)  # 이미지 전송 간격 (2초로 설정)
-        
-    stream = io.BytesIO()
-    picam2.capture(stream, format='jpeg')
-    image_data = stream.getvalue()
+socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+socket.settimeout(1)
+
+#while True:
+#    im=picam2.capure_array()
+#    time.sleep(2)  # 이미지 전송 간격 (2초로 설정)
     
-    # 이미지 확인
-    image = Image.open(io.BytesIO(image_data))
-    image.show()  # 이미지를 보여줍니다.
-    
-    # 이미지를 서버로 전송
-    client_socket.sendto(image_data, (UDP_IP, UDP_PORT))
-    time.sleep(2)  # 이미지 전송 간격 (2초로 설정)
-finally:
-    picam2.close()
+
+# 이미지 확인
+im=picam2.capture_array()
+cv2.imwrite("output.jpg",im)
+image_bytes=cv2.imread('output.jpg')
+d=image_bytes.flatten()
+s=d.tostring()
+
+for i in range(20):
+    socket.sendto(bytes[i] + s[i*46080:(i*1)*46080] ,(UDP_IP,UDP_PORT))
+
+  
