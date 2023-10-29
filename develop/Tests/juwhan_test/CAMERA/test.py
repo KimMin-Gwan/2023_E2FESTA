@@ -34,7 +34,7 @@ socket.settimeout(1)
 im=picam2.capture_array()
 cv2.imwrite("output.jpg",im)
 
-with open('output.jpg', 'wb') as output_file:
+with open('output.jpg', 'rb') as output_file:
     image_bytes=output_file.read()
 
 
