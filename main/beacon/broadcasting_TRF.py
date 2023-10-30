@@ -21,6 +21,7 @@ import time
 
 class trafficSignal:
     def __init__(self):
+        self.initializeBeacon()
         os.system("sudo hciconfig hci0 up")         # Beacon Broadcasting을 위한 설정
         os.system("sudo hciconfig hci0 leadv 3")
         self.signal = "R"
@@ -61,6 +62,13 @@ class trafficSignal:
         else:
             self.changeTurn()
 
+    def initializeBeacon(self):
+        count = 10
+        while count >= 1:
+            print("System Message::Beacon initializing... {}sec left".format(count))
+            count -= 1
+            time.sleep(1)
+        print("Beacon initalizing completed")
 
 def main():
     trafficObj = trafficSignal()
