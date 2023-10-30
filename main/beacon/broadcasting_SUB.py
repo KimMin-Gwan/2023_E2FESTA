@@ -73,6 +73,7 @@ class trafficSignal:
             print("System Message::Beacon initializing... {}sec left".format(count))
             count -= 1
             time.sleep(1)
+        print("Beacon initalizing completed")
 
 
 def main():
