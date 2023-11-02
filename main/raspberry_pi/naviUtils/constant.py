@@ -20,7 +20,7 @@ SYS_STATE_HANDCAM = 3
 #SERVER_IP = '192.168.50.51'
 #SERVER_IP='192.168.50.47'
 #SERVER_IP='172.20.10.7'  #혜림
-SERVER_IP='192.168.234.157'  #easyocr 민관이꺼
+SERVER_IP='192.168.250.157'  #easyocr 민관이꺼
 #SERVER_IP='192.168.50.121'    #이 ip를 통해서 재현이 컴퓨터에서 서버를 열어야함 easy ocr과 비콘 데이터베이스 연결
 
 SERVER_PORT = '8888'
